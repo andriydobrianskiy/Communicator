@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="288.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainPage.InProcessing.NotesInProcessing.NotesInProcessingController">
+   <children>
+      <HBox prefHeight="48.0" prefWidth="600.0" style="-fx-background-color: #39b5ff;" />
+      <JFXTextArea fx:id="textArea" layoutX="20.0" layoutY="46.0" prefHeight="172.0" prefWidth="563.0" />
+      <HBox alignment="CENTER" layoutX="-1.0" layoutY="232.0" prefHeight="56.0" prefWidth="600.0" style="-fx-background-color: #39b5ff;">
+         <children>
+            <JFXButton fx:id="btn_OK" onAction="#actionOK" text="ОК">
+               <HBox.margin>
+                  <Insets right="100.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="btn_Cancel" onAction="#actionCancel" text="Вихід" />
+         </children>
+      </HBox>
+      <Label layoutX="259.0" layoutY="11.0" prefHeight="35.0" prefWidth="184.0" text="Нотатка">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

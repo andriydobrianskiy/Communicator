@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.mainPage.InProcessing.InProcessingController">
+   <children>
+      <SplitPane dividerPositions="0.7009345794392523" orientation="VERTICAL" prefHeight="430.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <items>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="tableProduct" prefHeight="632.0" prefWidth="1920.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Pagination fx:id="pagination" layoutX="672.0" layoutY="632.0" prefHeight="45.0" prefWidth="531.0" />
+                  <ToolBar layoutY="706.0" prefHeight="40.0" prefWidth="1920.0" style="-fx-background-color: #000000;">
+                     <items>
+                        <Label text="Пошук по скруту:" textFill="#f5f3f3">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField promptText="Введіть скорочення" unFocusColor="#5e5353" />
+                        <JFXButton fx:id="tbn_CreateRequest" style="-fx-background-color: #6b8e23;" text="Створити запит" textFill="#f8f7f7">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btn_changeRequest" style="-fx-background-color: #0000FF;" text="Змінити запит" textFill="#f8f4f4">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btn_ConfirmRequest" style="-fx-background-color: #30D5C8;" text="Підтвердити" textFill="#f5f2f2">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btn_СancelRequest" style="-fx-background-color: #FFA000;" text="Анулювати запит" textFill="#f5f3f3">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnDelete" style="-fx-background-color: #FF0000;" text="Видалити запит" textFill="#f5f3f3">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btn_IntoProcessing" style="-fx-background-color: #8B00FF;" text="Повернути в обробку" textFill="#f5f3f3">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btn_Server" onAction="#hadleServerButton" prefHeight="34.0" prefWidth="241.0" ripplerFill="#b23131" style="-fx-background-color: #b23131;" text="Server" textFill="WHITE" />
+                     </items>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </ToolBar>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="311.0" prefWidth="1920.0">
+               <children>
+                  <JFXTabPane prefHeight="226.0" prefWidth="1920.0" AnchorPane.bottomAnchor="93.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <tabs>
+                      <Tab text="Продукти">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <fx:include fx:id="inProcessingRequestView" source="InProcessingRequestView.fxml" />
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                     </tabs>
+                  </JFXTabPane>
+               </children>
+            </AnchorPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

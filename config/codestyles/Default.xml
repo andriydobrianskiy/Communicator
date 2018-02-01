@@ -1,0 +1,6 @@
+<code_scheme name="Default">
+  <codeStyleSettings language="JAVA">
+    <option name="SPACE_AROUND_ASSIGNMENT_OPERATORS" value="false" />
+    <option name="SPACE_WITHIN_METHOD_CALL_PARENTHESES" value="true" />
+  </codeStyleSettings>
+</code_scheme>

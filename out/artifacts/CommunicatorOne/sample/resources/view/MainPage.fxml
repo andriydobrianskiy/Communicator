@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.mainPage.MainPageController">
+   <top>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="528.0" prefWidth="1640.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXTabPane prefWidth="1920.0">
+               <tabs>
+                  <Tab fx:id="tabDictionary" text="Не виконані">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0">
+                           <children>
+                              <fx:include fx:id="notFulledView" source="NotFulledView.fxml" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab fx:id="tabInProcessing" text="В обробці">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <fx:include fx:id="InProcessingView" source="InProcessingView.fxml" />
+                           </children></AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab text="В тракті ">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <fx:include fx:id="inTractView" source="InTractView.fxml" />
+                           </children></AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab text="Архівні">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <fx:include fx:id="archiveFilesView" source="ArchiveFilesView.fxml" />
+                           </children></AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab text="Всі">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab text="Статистика">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab text="Структура відділу закупів">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+               </tabs>
+            </JFXTabPane>
+         </children>
+      </AnchorPane>
+   </top>
+</BorderPane>

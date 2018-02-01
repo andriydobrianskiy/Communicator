@@ -1,0 +1,37 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name=".IntelliJIdea2017.2">
+    <output-path>$PROJECT_DIR$/out/artifacts/_IntelliJIdea2017_2</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="com.mainLogin.Main" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="" />
+        <option name="vendor" value="" />
+        <option name="version" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="_IntelliJIdea2017_2.jar">
+        <element id="module-output" name=".IntelliJIdea2017.2" />
+        <element id="file-copy" path="$PROJECT_DIR$/../commons-dbutils-1.7.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/../Library/TrayNotification.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/../../Добрянський Андрій/Desctop/sqljdbc4-3.0.jar" />
+      </element>
+      <element id="file-copy" path="$PROJECT_DIR$/../Library/sqljdbc42.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../Добрянський Андрій/Desctop/commons-dbutils-1.5.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../Library/com.springsource.com.mchange.v2.c3p0-0.9.1.2.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../slf4j.api-1.6.1.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../com.springsource.com.mchange.v2.c3p0-0.9.1.2.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../Library/jfoenix-1.2.0.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../message-inbox-1.0.17.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../Добрянський Андрій/jar_files/jfoenix-1.2.0.jar" />
+      <element id="file-copy" path="D:/Maven/javafx-filterable-table-columns/classes/artifacts/FilterableTableColumns/FilterableTableColumns.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../controlsfx-8.0.1.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../Добрянський Андрій/jar_files/commons-dbutils-1.5.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../Library/commons-dbutils-1.4.jar" />
+      <element id="library" level="project" name="sqljdbc4-3.0.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../Library/sqljdbc4-3.0.jar" />
+    </root>
+  </artifact>
+</component>

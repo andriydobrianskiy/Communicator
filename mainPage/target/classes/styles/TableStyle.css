@@ -1,0 +1,13 @@
+
+
+
+
+.table-row-cell:hover {
+    -fx-background-color:darkgray;
+}
+
+
+/*.table-row-cell:selected {
+    -fx-font-weight: bold;
+
+}*/

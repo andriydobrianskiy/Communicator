@@ -1,0 +1,16 @@
+<application>
+  <component name="ToolbarClicksCollector">
+    <counts>
+      <entry action="CompileDirty@NavBarToolbar" count="1" />
+      <entry action="DatabaseView.AddActionGroupPopup@ProjectViewToolbar" count="2" />
+      <entry action="Debug@NavBarToolbar" count="4" />
+      <entry action="Run@NavBarToolbar" count="992" />
+      <entry action="com.intellij.database.run.actions.ChooseSchemaAction@unknown" count="1" />
+      <entry action="com.intellij.find.SearchTextArea$ClearAction@unknown" count="3" />
+      <entry action="com.intellij.find.SearchTextArea$NewLineAction@unknown" count="1" />
+      <entry action="com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryRootsComponent$1@ToolbarDecorator" count="1" />
+      <entry action="com.intellij.ui.AnActionButton$AnActionButtonWrapper@ToolbarDecorator" count="7" />
+      <entry action="com.intellij.ui.CommonActionsPanel$MyActionButton@ToolbarDecorator" count="37" />
+    </counts>
+  </component>
+</application>

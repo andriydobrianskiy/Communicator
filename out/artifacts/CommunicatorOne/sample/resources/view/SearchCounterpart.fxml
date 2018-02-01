@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.mainPage.createRequest.searchCounterpart.SearchCounterpart">
+    <children>
+        <JFXComboBox fx:id="choiceFilter" layoutX="24.0" layoutY="22.0" prefHeight="25.0" prefWidth="207.0" />
+        <JFXTextField fx:id="searchField" layoutX="263.0" layoutY="22.0" prefHeight="25.0" prefWidth="215.0" />
+        <TableView fx:id="tableView" layoutX="-1.0" layoutY="65.0" prefHeight="350.0" prefWidth="870.0" />
+        <JFXButton fx:id="btnSearch" layoutX="513.0" layoutY="22.0" onAction="#handleButtonSearch" style="-fx-background-color: #0000FF;" text="Пошук" textFill="#f8f1f1">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </JFXButton>
+      <Pagination fx:id="pagination" layoutX="117.0" layoutY="415.0" prefHeight="72.0" prefWidth="600.0" />
+      <JFXButton fx:id="btnOK" layoutX="572.0" layoutY="498.0" text="Ок" />
+      <JFXButton fx:id="btnCancel" layoutX="732.0" layoutY="498.0" text="Відміна" />
+      <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0" />
+    </children>
+</AnchorPane>

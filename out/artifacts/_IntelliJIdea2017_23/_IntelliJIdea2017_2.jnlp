@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="_IntelliJIdea2017_2.jnlp">
+  <information>
+    <title>Communicator</title>
+    <vendor>Unknown</vendor>
+    <description>.IntelliJIdea2017.23</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="FilterableTableColumns.jar" size="134406" download="eager" />
+    <jar href="TrayNotification.jar" size="41019" download="eager" />
+    <jar href="_IntelliJIdea2017_2.jar" size="30506822" download="eager" />
+    <jar href="com.springsource.com.mchange.v2.c3p0-0.9.1.2.jar" size="617643" download="eager" />
+    <jar href="commons-dbutils-1.5.jar" size="61898" download="eager" />
+    <jar href="commons-dbutils-1.7.jar" size="97075" download="eager" />
+    <jar href="controlsfx-8.0.1.jar" size="296347" download="eager" />
+    <jar href="jfoenix-1.2.0.jar" size="2347998" download="eager" />
+    <jar href="message-inbox-1.0.17.jar" size="21913" download="eager" />
+    <jar href="slf4j.api-1.6.1.jar" size="26056" download="eager" />
+    <jar href="sqljdbc4-3.0.jar" size="536204" download="eager" />
+    <jar href="sqljdbc42.jar" size="891490" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="600" height="400" main-class="sample.Main"  name=".IntelliJIdea2017.23" />
+  <update check="background"/>
+</jnlp>

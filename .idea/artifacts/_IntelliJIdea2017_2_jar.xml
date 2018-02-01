@@ -1,0 +1,25 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name=".IntelliJIdea2017.2:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/_IntelliJIdea2017_2_jar</output-path>
+    <root id="archive" name=".IntelliJIdea2017.2.jar">
+      <element id="module-output" name=".IntelliJIdea2017.2" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/Добрянський Андрій/Desctop/sqljdbc4-3.0.jar" path-in-jar="/" />
+      <element id="library" level="project" name="dbutils" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Library/jfoenix-1.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/message-inbox-1.0.17.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Library/sqljdbc4-3.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Library/com.springsource.com.mchange.v2.c3p0-0.9.1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/controlsfx-8.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Maven/javafx-filterable-table-columns/classes/artifacts/FilterableTableColumns/FilterableTableColumns.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/Добрянський Андрій/Desctop/commons-dbutils-1.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Library/sqljdbc42.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/Добрянський Андрій/jar_files/jfoenix-1.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/Добрянський Андрій/jar_files/commons-dbutils-1.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/sqljdbc4-3.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/slf4j.api-1.6.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Library/commons-dbutils-1.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/com.springsource.com.mchange.v2.c3p0-0.9.1.2.jar" path-in-jar="/" />
+      <element id="library" level="project" name="sqljdbc4-3.0.jar" />
+    </root>
+  </artifact>
+</component>

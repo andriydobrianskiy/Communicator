@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import java.util.ArrayList?>
+<AnchorPane prefHeight="204.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.mainPage.NotFulled.ProductAdd.ProductAddNewController">
+   <children>
+      <Label layoutX="136.0" layoutY="16.0" text="Код товару">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="286.0" layoutY="94.0" text="Назва/Опис">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="473.0" layoutY="16.0" text="Кількість">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtCodeProduct" layoutX="14.0" layoutY="62.0" prefHeight="25.0" prefWidth="328.0" />
+      <JFXTextField fx:id="txtQuantity" alignment="CENTER" layoutX="419.0" layoutY="62.0" />
+      <Separator layoutX="14.0" layoutY="41.0" prefHeight="1.0" prefWidth="328.0" style="-fx-background-color: #000000;" />
+      <Separator layoutX="416.0" layoutY="43.0" prefHeight="3.0" prefWidth="135.0" style="-fx-background-color: #000000;" />
+      <JFXTextArea fx:id="txtName" layoutX="15.0" layoutY="111.0" prefHeight="35.0" prefWidth="542.0" />
+      <Button fx:id="btnCancel" layoutX="500.0" layoutY="165.0" mnemonicParsing="false" onAction="#actionButtonOk" text="Додати" />
+   </children>
+   <fx:define>
+      <ArrayList fx:id="listFields">
+         <fx:reference source="txtQuantity" />
+         <fx:reference source="txtCodeProduct" />
+         <fx:reference source="txtName" />
+      </ArrayList>
+
+
+   </fx:define>
+</AnchorPane>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.mainPage.All.AllController">
+   <center>
+      <BorderPane>
+         <center>
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="720.0" prefWidth="1400.0" BorderPane.alignment="CENTER">
+               <items>
+                  <BorderPane fx:id="borderPane">
+                     <center>
+                        <TableView fx:id="tableView" BorderPane.alignment="CENTER">
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </center>
+                     <bottom>
+                        <BorderPane BorderPane.alignment="CENTER">
+                           <center>
+                              <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <items>
+                                    <ToolBar prefHeight="40.0" prefWidth="1063.0" style="-fx-background-color: #39b5ff; -fx-pref-width: 10; -fx-border-color: #000000;">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </ToolBar>
+                                    <Label text="Пошук по скруту:" textFill="#141414">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="searchingField" promptText="Введіть скорочення" unFocusColor="#5e5353" />
+                                    <Pagination fx:id="pagination" prefHeight="45.0" prefWidth="797.0" />
+                                 </items>
+                                 <BorderPane.margin>
+                                    <Insets />
+                                 </BorderPane.margin>
+                              </ToolBar>
+                           </center>
+                        </BorderPane>
+                     </bottom>
+                  </BorderPane>
+                  <BorderPane>
+                     <center>
+                        <JFXTabPane BorderPane.alignment="CENTER">
+                           <tabs>
+                              <Tab text="Продукти">
+                                 <content>
+                                    <AnchorPane>
+                                       <children>
+                                          <BorderPane layoutY="-1.0" prefHeight="327.0" prefWidth="1400.0">
+                                             <center>
+                                                <fx:include fx:id="allRequestView" source="AllRequestView.fxml" />
+                                             </center>
+                                          </BorderPane>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                           </tabs>
+                        </JFXTabPane>
+                     </center>
+                  </BorderPane>
+               </items>
+            </SplitPane>
+         </center>
+      </BorderPane>
+   </center>
+</BorderPane>

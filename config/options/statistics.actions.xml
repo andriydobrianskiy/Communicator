@@ -1,0 +1,43 @@
+<application>
+  <component name="ActionsCollector">
+    <counts>
+      <entry action="$Copy" count="4" />
+      <entry action="$Delete" count="6" />
+      <entry action="$Paste" count="3" />
+      <entry action="$Undo" count="256" />
+      <entry action="EditorBackSpace" count="1569" />
+      <entry action="EditorChooseLookupItem" count="610" />
+      <entry action="EditorCopy" count="43" />
+      <entry action="EditorCut" count="7" />
+      <entry action="EditorDown" count="1127" />
+      <entry action="EditorEnter" count="284" />
+      <entry action="EditorLeft" count="1134" />
+      <entry action="EditorLineEnd" count="2" />
+      <entry action="EditorLineStart" count="2" />
+      <entry action="EditorPageDown" count="2" />
+      <entry action="EditorPageUp" count="2" />
+      <entry action="EditorPaste" count="51" />
+      <entry action="EditorRight" count="1971" />
+      <entry action="EditorToggleInsertState" count="4" />
+      <entry action="EditorUp" count="594" />
+      <entry action="Find" count="3" />
+      <entry action="FindInPath" count="24" />
+      <entry action="Generate" count="2" />
+      <entry action="GotoBookmark2" count="1" />
+      <entry action="HideAllWindows" count="6" />
+      <entry action="IntroduceField" count="1" />
+      <entry action="NewClass" count="9" />
+      <entry action="NewDir" count="14" />
+      <entry action="NewFxmlFile" count="1" />
+      <entry action="NewProject" count="3" />
+      <entry action="OpenFile" count="18" />
+      <entry action="OpenInSceneBuilder" count="12" />
+      <entry action="RenameElement" count="2" />
+      <entry action="Run" count="289" />
+      <entry action="SaveAll" count="2" />
+      <entry action="SearchEverywhere" count="1" />
+      <entry action="ShowIntentionActions" count="25" />
+      <entry action="ToggleLineBreakpoint" count="5" />
+    </counts>
+  </component>
+</application>
