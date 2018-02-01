@@ -42,18 +42,17 @@ public class InProcessing implements InProcessingIntarface {
     private String AccountIsSolid;
     private String StoreCity;
     private String Status;
+    private String StatusID;
+    private Integer IsReadMeassage;
     private String OfferingGroupID;
     private String OfferingGroupName;
     private String OriginalGroupName;
     private String GroupChangedBy;
     private String StateName;
     private String SpecialMarginTypeName;
-    private Integer isReadMeassage;
 
-    public Integer getIsReadMessage () {return this.isReadMeassage;}
-    public void setIsReadMessage (Integer isReadMessage){
-        this.isReadMeassage = isReadMeassage;
-    }
+
+
 
     private Boolean selected;
 
@@ -80,7 +79,7 @@ public class InProcessing implements InProcessingIntarface {
         this.GroupChangedBy = groupChangedBy;
         this.StateName = stateName;
         this.SpecialMarginTypeName = specialMarginTypeName;
-        this.isReadMeassage = isReadMeassage;
+        this.IsReadMeassage = isReadMeassage;
     }
 
     public String getID() {
@@ -165,6 +164,20 @@ public class InProcessing implements InProcessingIntarface {
 
     public void setStatus(String status) {
         Status = status;
+    }
+
+    public String getStatusID () {
+        return this.StatusID;
+    }
+
+    public void setStatusID (String statusID) {
+        this.StatusID = statusID;
+    }
+
+    public Integer getIsReadMeassage () {return this.IsReadMeassage;}
+
+    public void setIsReadMeassage (Integer isReadMeassage){
+        this.IsReadMeassage = isReadMeassage;
     }
 
     public String getOfferingGroupID () {return OfferingGroupID;}

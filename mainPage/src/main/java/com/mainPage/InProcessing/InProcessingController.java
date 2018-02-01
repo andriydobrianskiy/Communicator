@@ -36,6 +36,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -583,13 +585,15 @@ btnDelete.setOnAction(event -> {
                     @Override
                     protected void updateItem(InProcessing item, boolean empty) {
                         super.updateItem(item, empty);
-                        for(int i= 0; i< data.size(); i++){
-                            InProcessing isRead = data.get(i);
-                            Integer isReadName = isRead.getIsReadMessage();
 
-                        if (isReadName == null || isReadName.equals(0)) {
+                    //    for(int i= 0; i< data.size(); i++){
+
+                         //   InProcessing isRead = data.get(i);
+                      //      Integer isReadName = isRead.getIsReadMeassage();
+
+                        if (item == null || item.getIsReadMeassage()== null || item.getIsReadMeassage().equals(0)) {
                             setStyle("");
-                        } else {
+                        } else  {
                             //  Boolean res=item.getIsReadMessage();
                             // if (res.startsWith(" ")) {
                             //    setStyle("");
@@ -597,7 +601,7 @@ btnDelete.setOnAction(event -> {
                             setStyle("-fx-font-weight: bold");
                         }
 
-                        }
+                    //    }
                     }
 
 
@@ -605,6 +609,31 @@ btnDelete.setOnAction(event -> {
             }
         });
 
+
+        tableviewAll.setRowFactory(new Callback<TableView<InProcessing>, TableRow<InProcessing>>() {
+            @Override
+            public TableRow<InProcessing> call(TableView<InProcessing> param) {
+                return new TableRow<InProcessing>() {
+                    @Override
+                    protected void updateItem(InProcessing item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (item == null || item.getIsReadMeassage()== null || item.getIsReadMeassage().equals(0)) {
+                            setStyle("");
+                        } else  {
+                            setStyle("-fx-font-weight: bold");
+                        }
+                    }
+                };
+            }
+        });
+
+UpdateNotificationTable();
+        try {
+            UpdateNotificationAllTable();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -678,7 +707,7 @@ btnDelete.setOnAction(event -> {
         return instance;
     }*/
     public void loginButtonAction(InProcessing chosenAccount) throws IOException {
-        String hostname = "192.168.0.102";
+        String hostname = "192.168.10.197";
         int port = 9001;
         String username = User.getContactName();
         String picture = "Default";
@@ -1346,6 +1375,90 @@ if(chosenAccount != null){
         stage.show();
         stage.requestFocus();
        // refreshData();
+
+    }
+
+    public void UpdateNotificationAllTable() throws IOException {
+        tableviewAll.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+
+            chosenAccount = (InProcessing) tableviewAll.getItems().get(tableviewAll.getSelectionModel().getSelectedIndex());
+            if (chosenAccount != null) {
+                if (event.getCode() == KeyCode.SPACE) {
+
+                    if (chosenAccount.getIsReadMeassage() == null || chosenAccount.getIsReadMeassage().equals(0)) {
+                        String queryUpdate = "UPDATE tbl_RequestOffering \n" +
+                                "\t\t\t\t\tSET \n" +
+                                "\t\t\t\t\tIsReadMeassage = '1'\n" +
+                                "\t\t\t\t\tWHERE ID = ?";
+                        try {
+                            pst = DBConnection.getDataSource().getConnection().prepareStatement(queryUpdate);
+
+                            pst.setString(1, chosenAccount.getID());
+                            pst.executeUpdate();
+                            main.changeExists();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        String query = "UPDATE tbl_RequestOffering \n" +
+                                "\t\t\t\t\tSET \n" +
+                                "\t\t\t\t\tIsReadMeassage = '0'\n" +
+                                "\t\t\t\t\tWHERE ID = ?";
+                        try {
+                            pst = DBConnection.getDataSource().getConnection().prepareStatement(query);
+
+                            pst.setString(1, chosenAccount.getID());
+                            pst.executeUpdate();
+                            main.changeExists();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    public void UpdateNotificationTable() {
+        tableProduct.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+
+
+            chosenAccount = (InProcessing) tableProduct.getItems().get(tableProduct.getSelectionModel().getSelectedIndex());
+            if (chosenAccount != null) {
+                if (event.getCode() == KeyCode.SPACE) {
+
+                    if (chosenAccount.getIsReadMeassage() == null || chosenAccount.getIsReadMeassage().equals(0)) {
+                        String queryUpdate = "UPDATE tbl_RequestOffering \n" +
+                                "\t\t\t\t\tSET \n" +
+                                "\t\t\t\t\tIsReadMeassage = '1'\n" +
+                                "\t\t\t\t\tWHERE ID = ?";
+                        try {
+                            pst = DBConnection.getDataSource().getConnection().prepareStatement(queryUpdate);
+
+                            pst.setString(1, chosenAccount.getID());
+                            pst.executeUpdate();
+                            main.changeExists();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        String query = "UPDATE tbl_RequestOffering \n" +
+                                "\t\t\t\t\tSET \n" +
+                                "\t\t\t\t\tIsReadMeassage = '0'\n" +
+                                "\t\t\t\t\tWHERE ID = ?";
+                        try {
+                            pst = DBConnection.getDataSource().getConnection().prepareStatement(query);
+
+                            pst.setString(1, chosenAccount.getID());
+                            pst.executeUpdate();
+                            main.changeExists();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
 
     }
 

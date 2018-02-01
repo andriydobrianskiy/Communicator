@@ -3,12 +3,11 @@ package com.mainPage.InTract;
 import com.Utils.CustomPaginationSkin;
 import com.Utils.UsefulUtils;
 import com.client.chatwindow.ChatController;
-import com.client.chatwindow.Listener;
+import com.client.chatwindow.ListinerTract;
 import com.client.util.ResizeHelper;
 import com.connectDatabase.DBConnection;
 import com.jfoenix.controls.JFXButton;
 import com.login.User;
-import com.mainPage.InProcessing.NotesInProcessing.NotesInProcessingController;
 import com.mainPage.InTract.InTractRequest.InTractRequestController;
 import com.mainPage.NotFulled.ProductAdd.ObserverNF;
 import com.mainPage.page.MainPageController;
@@ -25,11 +24,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -86,6 +88,8 @@ public class InTractController extends BorderPane implements Initializable, Dict
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        tableView.getStylesheets().add
+                (InTractController.class.getResource("/styles/TableStyle.css").toExternalForm());
         btn_Delete.setVisible(false);
         btn_СancelRequest.setVisible(false);
         btn_Create.setVisible(false);
@@ -150,7 +154,7 @@ public class InTractController extends BorderPane implements Initializable, Dict
                     try {
                        chosenAccount = (InTract) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
 
-                        NotesInProcessingController notesInProcessingController = new NotesInProcessingController(chosenAccount, false);
+                     //   NotesInProcessingController notesInProcessingController = new NotesInProcessingController(chosenAccount, false);
                         loginButtonAction(chosenAccount);
                      //  ClientController.recordInTract = chosenAccount;
                    //     System.out.println(chosenAccount.getID() + "5649848949849845316546854684896");
@@ -175,12 +179,36 @@ public class InTractController extends BorderPane implements Initializable, Dict
         pagination.setPageFactory(this::createPage);
         searchCode();
 
+        tableView.setRowFactory(new Callback<TableView<InTract>, TableRow<InTract>>() {
+            @Override
+            public TableRow<InTract> call(TableView<InTract> param) {
+                return new TableRow<InTract>() {
+                    @Override
+                    protected void updateItem(InTract item, boolean empty ) {
+                        super.updateItem(item, empty);
+
+                        if (item == null || item.getIsReadMeassage()== null || item.getIsReadMeassage().equals(0)) {
+                            setStyle("");
+                        } else  {
+                            setStyle("-fx-font-weight: bold");
+                        }
+                    }
+                };
+            }
+        });
+
+        try {
+            UpdateNotificationAllTable();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
 
     public void loginButtonAction(InTract chosenAccount) throws IOException {
-        String hostname = "192.168.10.192";
+        String hostname = "192.168.10.197";
         int port = 9001;
         String username = User.getContactName();
         String picture = "Default";
@@ -193,7 +221,7 @@ public class InTractController extends BorderPane implements Initializable, Dict
         //  instance = fmxlLoader.<InProcessingController>getController();
         conn.setOfferingTract(chosenAccount);
         conn.setInTract(this);
-        Listener listener = new Listener(hostname, port, username, picture, conn, this, chosenAccount);
+        ListinerTract listener = new ListinerTract(hostname, port, username, picture, conn, this, chosenAccount);
         Thread x = new Thread(listener);
         x.start();
 
@@ -394,6 +422,48 @@ public class InTractController extends BorderPane implements Initializable, Dict
             sortedData.comparatorProperty().bind(tableView.comparatorProperty());
             tableView.setItems(sortedData);
 
+        });
+    }
+
+
+    public void UpdateNotificationAllTable() throws IOException {
+        tableView.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+
+            chosenAccount = (InTract) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
+            if (chosenAccount != null) {
+                if (event.getCode() == KeyCode.SPACE) {
+
+                    if (chosenAccount.getIsReadMeassage() == null || chosenAccount.getIsReadMeassage().equals(0)) {
+                        String queryUpdate = "UPDATE tbl_RequestOffering \n" +
+                                "\t\t\t\t\tSET \n" +
+                                "\t\t\t\t\tIsReadMeassage = '1'\n" +
+                                "\t\t\t\t\tWHERE ID = ?";
+                        try {
+                            pst = DBConnection.getDataSource().getConnection().prepareStatement(queryUpdate);
+
+                            pst.setString(1, chosenAccount.getID());
+                            pst.executeUpdate();
+                            main.changeExists();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        String query = "UPDATE tbl_RequestOffering \n" +
+                                "\t\t\t\t\tSET \n" +
+                                "\t\t\t\t\tIsReadMeassage = '0'\n" +
+                                "\t\t\t\t\tWHERE ID = ?";
+                        try {
+                            pst = DBConnection.getDataSource().getConnection().prepareStatement(query);
+
+                            pst.setString(1, chosenAccount.getID());
+                            pst.executeUpdate();
+                            main.changeExists();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
         });
     }
 

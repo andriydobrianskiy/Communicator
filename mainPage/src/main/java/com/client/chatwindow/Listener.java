@@ -16,7 +16,7 @@ import static com.messages.MessageType.CONNECTED;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 
-public class Listener  implements Runnable{
+public class Listener implements Runnable {
 
     private static final String HASCONNECTED = "has connected";
 
@@ -30,11 +30,12 @@ public class Listener  implements Runnable{
     private InputStream is;
     private ObjectInputStream input;
     private OutputStream outputStream;
-   public InProcessingController inProcessingController;
-   public InTractController inTractController;
-   public static InTract inTract;
+    public InProcessingController inProcessingController;
+    public InTractController inTractController;
+    public static InTract inTract;
     //Logger logger = LoggerFactory.getLogger(Listener.class);
-   public  static   InProcessing inProcessing ;
+    public static InProcessing inProcessing;
+
     public Listener(String hostname, int port, String username, String picture, ChatController controller) {
         this.hostname = hostname;
         this.port = port;
@@ -42,6 +43,7 @@ public class Listener  implements Runnable{
         Listener.picture = picture;
         this.controller = controller;
     }
+
     public Listener(String hostname, int port, String username, String picture, ChatController controller, InProcessingController inProcessingController, InProcessing inProcessing) {
         this.hostname = hostname;
         this.port = port;
@@ -68,11 +70,7 @@ public class Listener  implements Runnable{
     public void run() {
         try {
             socket = new Socket(hostname, port);
-            if(inProcessingController != null  ) {
-                inProcessingController.showScene();
-            }else {
-              //  inTractController.showScene();
-            }
+            inProcessingController.showScene();
             outputStream = socket.getOutputStream();
             oos = new ObjectOutputStream(outputStream);
             is = socket.getInputStream();
@@ -80,30 +78,30 @@ public class Listener  implements Runnable{
         } catch (IOException e) {
             inProcessingController.showErrorDialog("Сервер не підключено");
         }
-    //    logger.info("Connection accepted " + socket.getInetAddress() + ":" + socket.getPort());
+        //    logger.info("Connection accepted " + socket.getInetAddress() + ":" + socket.getPort());
 
         try {
             connect();
-       //     logger.info("Sockets in and out ready!");
+            //     logger.info("Sockets in and out ready!");
 
             while (socket.isConnected()) {
                 Message message = null;
                 message = (Message) input.readObject();
 
                 if (message != null) {
-           //         logger.debug("Message recieved:" + message.getMsg() + " MessageType:" + message.getType() + "Name:" + message.getName());
+                    //         logger.debug("Message recieved:" + message.getMsg() + " MessageType:" + message.getType() + "Name:" + message.getName());
                     switch (message.getType()) {
                         case USER:
-                            controller.addToChat(message,message);
+                            controller.addToChat(message, message);
                             break;
                         case VOICE:
                             controller.addToChat(message, message);
                             break;
                         case NOTIFICATION:
-                            controller.newUserNotification(inProcessing.getCreatedByID(), inProcessing.getOfferingGroupName(),message.getName(), message);
+                            controller.newUserNotification(inProcessing.getCreatedByID(), inProcessing.getOfferingGroupName(), message.getName(), message);
                             break;
                         case SERVER:
-                           controller.addAsServer(message);
+                            controller.addAsServer(message);
                             break;
                         case CONNECTED:
                             controller.setUserList(message);
@@ -119,7 +117,7 @@ public class Listener  implements Runnable{
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-         //   controller.logoutScene();
+            //   controller.logoutScene();
         }
     }
 
@@ -129,15 +127,11 @@ public class Listener  implements Runnable{
     public static void send(String msg) throws IOException {
         Message createMessage = new Message();
         createMessage.setName(username);
-
-            createMessage.setOfferingID(inProcessing.getID());
-
+        createMessage.setOfferingID(inProcessing.getID());
         createMessage.setType(MessageType.USER);
         createMessage.setStatus(Status.AWAY);
-
         createMessage.setMsg(msg);
         createMessage.setPicture(picture);
-      //  createMessage.setNotification (MessageType.NOTIFICATION);
         oos.writeObject(createMessage);
         oos.flush();
     }
@@ -148,7 +142,6 @@ public class Listener  implements Runnable{
     public static void sendVoiceMessage(byte[] audio) throws IOException {
         Message createMessage = new Message();
         createMessage.setName(username);
-      //  createMessage.setOfferingID(inProcessing.getID());
         createMessage.setType(MessageType.VOICE);
         createMessage.setStatus(Status.AWAY);
         createMessage.setVoiceMsg(audio);
@@ -163,10 +156,7 @@ public class Listener  implements Runnable{
     public static void sendStatusUpdate(Status status) throws IOException {
         Message createMessage = new Message();
         createMessage.setName(username);
-
-            createMessage.setOfferingID(inProcessing.getID());
-
-
+        createMessage.setOfferingID(inProcessing.getID());
         createMessage.setType(MessageType.STATUS);
         createMessage.setStatus(status);
         createMessage.setPicture(picture);
@@ -178,13 +168,11 @@ public class Listener  implements Runnable{
     public static void connect() throws IOException {
         Message createMessage = new Message();
         createMessage.setName(username);
-
-            createMessage.setOfferingID(inProcessing.getID());
-
+        createMessage.setOfferingID(inProcessing.getID());
         createMessage.setType(CONNECTED);
         createMessage.setMsg(HASCONNECTED);
         createMessage.setPicture(picture);
-   //     createMessage.setNotification(MessageType.NOTIFICATION);
+        //     createMessage.setNotification(MessageType.NOTIFICATION);
         oos.writeObject(createMessage);
     }
 

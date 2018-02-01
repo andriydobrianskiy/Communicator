@@ -1,10 +1,11 @@
 package com.mainPage.InTract;
 
+import com.connectDatabase.DBConnection;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import com.connectDatabase.DBConnection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class InTract implements InTractInterface  {
     private SimpleStringProperty LastMessage;
     private SimpleStringProperty GroupChangedByID;
     private SimpleStringProperty GroupChangedBy;
-    private SimpleStringProperty IsReadMeassage;
+    private SimpleIntegerProperty IsReadMeassage;
     private SimpleStringProperty SpecialMarginTypeID;
     private SimpleStringProperty SpecialMarginTypeName;
     private SimpleStringProperty StateID;
@@ -138,7 +139,7 @@ public class InTract implements InTractInterface  {
     public String getGroupChangedBy () {
         return GroupChangedBy.getValue();
     }
-    public String getIsReadMeassage () {
+    public Integer getIsReadMeassage () {
         return IsReadMeassage.getValue();
     }
     public String SpecialMarginTypeID () {
@@ -235,8 +236,8 @@ public class InTract implements InTractInterface  {
     public void setGroupChangedBy (String groupChangedBy ) {
         this.GroupChangedBy = new SimpleStringProperty(groupChangedBy);
     }
-    public void setIsReadMeassage (String isReadMeassage) {
-        this.IsReadMeassage = new SimpleStringProperty(isReadMeassage);
+    public void setIsReadMeassage (Integer isReadMeassage) {
+        this.IsReadMeassage = new SimpleIntegerProperty(isReadMeassage);
     }
     public void setSpecialMarginTypeID (String specialMarginTypeID) {
         this.SpecialMarginTypeID = new SimpleStringProperty(specialMarginTypeID);

@@ -38,6 +38,33 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../Library/TrayNotification.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../Library/FilterableTableColumns.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../Library/sqljdbc42.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="Maven: org.fxmisc.richtext:richtextfx:0.6.10" level="project" />
     <orderEntry type="library" name="Maven: org.reactfx:reactfx:2.0-M4u1" level="project" />
     <orderEntry type="library" name="Maven: org.fxmisc.undo:undofx:1.2" level="project" />
@@ -49,5 +76,6 @@
     <orderEntry type="library" name="Maven: c3p0:c3p0:0.9.1.2" level="project" />
     <orderEntry type="library" name="Maven: com.jfoenix:jfoenix:8.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:1.5.6" level="project" />
+    <orderEntry type="library" name="Maven: com.microsoft.sqlserver:sqljdbc4:4.0" level="project" />
   </component>
 </module>

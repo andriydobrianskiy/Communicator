@@ -193,31 +193,58 @@ messageBox.setVisible(false);
     public void sendButtonAction() throws IOException {
         String msg = messageBox.getText();
         if (!messageBox.getText().isEmpty()) {
+if(!offeringRequest.getStatusID().equals("7CB7F6B9-EB87-48FE-86F6-49ED931A0C0B")) {
 
+    Listener.send(msg);
+    String query = "\tINSERT INTO [dbo].[tbl_MessageInRequestOffering] ([CreatedOn], [CreatedByID], [ModifiedOn], [RecipientID], [RequestID],  [Message])\n" +
+            "\tVALUES ( CURRENT_TIMESTAMP , ? , CURRENT_TIMESTAMP, ? , ? , ? )";
+    pst = null;
 
-            Listener.send(msg);
-            String query = "\tINSERT INTO [dbo].[tbl_MessageInRequestOffering] ([CreatedOn], [CreatedByID], [ModifiedOn], [RecipientID], [RequestID],  [Message])\n" +
-                    "\tVALUES ( CURRENT_TIMESTAMP , ? , CURRENT_TIMESTAMP, ? , ? , ? )";
-            pst = null;
+    try {
+        pst = DBConnection.getDataSource().getConnection().prepareStatement(query);
+        pst.setString(1, com.login.User.getContactID());
+        pst.setString(2, columnMessage.getRecipientID());
+        pst.setString(3, offeringRequest.getID());
+        pst.setString(4, msg);
+        pst.execute();
+        String queryUpdate = "UPDATE tbl_RequestOffering \n" +
+                "\t\t\t\t\tSET \n" +
+                "\t\t\t\t\tIsReadMeassage = '1'\n" +
+                "\t\t\t\t\tWHERE ID = ?";
+        pst = DBConnection.getDataSource().getConnection().prepareStatement(queryUpdate);
+        pst.setString(1, offeringRequest.getID());
+        pst.executeUpdate();
+        inProcessingController.refreshData();
 
-            try {
-                pst = DBConnection.getDataSource().getConnection().prepareStatement(query);
-                pst.setString(1, com.login.User.getContactID());
-                pst.setString(2, columnMessage.getRecipientID());
-                pst.setString(3, offeringRequest.getID());
-                pst.setString(4, msg);
-                pst.execute();
-                String queryUpdate = "UPDATE tbl_RequestOffering \n" +
-                        "\t\t\t\t\tSET \n" +
-                        "\t\t\t\t\tIsReadMeassage = '1'\n" +
-                        "\t\t\t\t\tWHERE ID = ?";
-                pst = DBConnection.getDataSource().getConnection().prepareStatement(queryUpdate);
-                pst.setString(1, offeringRequest.getID());
-                pst.executeUpdate();
-inProcessingController.refreshData();
-            } catch (SQLException e) {
-                UsefulUtils.showErrorDialogDown("Сервер не підключено!!!");
-            }
+    } catch (SQLException e) {
+        UsefulUtils.showErrorDialogDown("Сервер не підключено!!!");
+    }
+} else if (offeringTract.getStatusID().equals("3B552198-B239-4801-819C-7033AA118B65")){
+    ListinerTract.send(msg);
+    String query = "\tINSERT INTO [dbo].[tbl_MessageInRequestOffering] ([CreatedOn], [CreatedByID], [ModifiedOn], [RecipientID], [RequestID],  [Message])\n" +
+            "\tVALUES ( CURRENT_TIMESTAMP , ? , CURRENT_TIMESTAMP, ? , ? , ? )";
+    pst = null;
+
+    try {
+        pst = DBConnection.getDataSource().getConnection().prepareStatement(query);
+        pst.setString(1, com.login.User.getContactID());
+        pst.setString(2, columnMessage.getRecipientID());
+        pst.setString(3, offeringTract.getID());
+        pst.setString(4, msg);
+        pst.execute();
+        String queryUpdate = "UPDATE tbl_RequestOffering \n" +
+                "\t\t\t\t\tSET \n" +
+                "\t\t\t\t\tIsReadMeassage = '1'\n" +
+                "\t\t\t\t\tWHERE ID = ?";
+        pst = DBConnection.getDataSource().getConnection().prepareStatement(queryUpdate);
+        pst.setString(1, offeringTract.getID());
+        pst.executeUpdate();
+        inTractController.refreshData();
+
+    } catch (SQLException e) {
+        UsefulUtils.showErrorDialogDown("Сервер не підключено!!!");
+    }
+}
             messageBox.clear();
 
          /*   Platform.runLater(() -> {

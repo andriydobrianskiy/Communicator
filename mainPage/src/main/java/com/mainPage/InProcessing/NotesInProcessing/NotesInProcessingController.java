@@ -37,6 +37,7 @@ public class NotesInProcessingController implements Initializable {
     private PreparedStatement pst= null;
     private ResultSet rs = null;
     public static InProcessing offeringRequest;
+
     public static InTract offeringTract;
     public static ArchiveFiles offeringArchive;
     @FXML
@@ -95,6 +96,8 @@ public class NotesInProcessingController implements Initializable {
         data = FXCollections.observableArrayList();
 //        loadDataFromDataBase();
         loadDataFromDataBase();
+      //  loadDataFromDataBaseTract();
+    //    loadDataFromDataBaseArchive();
     }
 
     public void loadDataFromDataBase () {
