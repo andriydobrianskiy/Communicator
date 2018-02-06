@@ -169,8 +169,7 @@ public class LoginControl  implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        txtUser.setText("Добрянський Андрій");
-        txtPass.setText("357753");
+      
 
         progress.setVisible(false);
 

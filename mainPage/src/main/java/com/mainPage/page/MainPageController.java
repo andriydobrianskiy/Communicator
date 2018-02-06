@@ -12,6 +12,7 @@ import com.mainPage.NotFulled.NotFulledController;
 import com.mainPage.NotFulled.ProductAdd.ObservableNF;
 import com.mainPage.NotFulled.ProductAdd.ObserverNF;
 import com.mainPage.Sructure.StructureController;
+import com.mainPage.Statistic.StatisticController;
 import com.mainPage.createRequest.searchCounterpart.Counterpart;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -81,6 +82,8 @@ public  ChatController chatController;
     private ArchiveFilesController archiveFilesViewController;
     @FXML
     private AllController allViewController;
+    @FXML
+    private StatisticController statisticViewController;
 
 
     @FXML
@@ -114,6 +117,8 @@ public  ChatController chatController;
         archiveFilesViewController.init(this);
         allViewController.init(this);
         structureViewController.init(this);
+        statisticViewController.init(this);
+
 
 
         add(InProcessingViewController);
