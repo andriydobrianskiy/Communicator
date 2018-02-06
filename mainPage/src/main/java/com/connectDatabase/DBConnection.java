@@ -23,7 +23,8 @@ public class DBConnection implements InterfaceDataBase {
 
 
     public static final String DB_DRIVERCLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-
+    public static String serverName = "82.207.107.237:39751";
+    public static String databaseName ="TS_17_10_DB";
 
     private static ComboPooledDataSource dataSource;
 
@@ -115,42 +116,4 @@ public class DBConnection implements InterfaceDataBase {
 
 
 }
-   /* private static Logger log = Logger.getLogger(DBConnection.class.getName());
-
-   private final static String serverName = "192.168.10.100:39751";
-    private final static String databaseName ="TS_29_09";
-
-    private static Connection connection = null;
-
-
-
-
-    public static Boolean connect (String URL){
-        System.out.println("5555555555555555555555555555555");
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(URL);
-            return true;
-        } catch (Exception e) {
-            log.log(Level.SEVERE, "Connection exception: " + e);
-            return false;
-        }
-    }
-
-
-    public static Connection getConnection() {
-        return connection;
-    }
-
-
-
-    public static String getServerName() {
-        return serverName;
-    }
-
-    public static String getDatabaseName() {
-        return databaseName;
-    }
-
-*/
 

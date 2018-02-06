@@ -3,6 +3,7 @@ package com.mainPage.ArchiveFiles;
 import com.Utils.CustomPaginationSkin;
 import com.Utils.UsefulUtils;
 import com.client.chatwindow.ChatController;
+import com.jfoenix.controls.JFXButton;
 import com.login.User;
 import com.mainPage.ArchiveFiles.ArchiveFilesRequest.ArchiveFilesRequestController;
 import com.mainPage.InProcessing.NotesInProcessing.NotesInProcessingController;
@@ -16,10 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Pagination;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -32,6 +30,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -58,6 +57,8 @@ public class ArchiveFilesController extends BorderPane implements Initializable,
     private Pagination pagination;
     @FXML
     private TableView tableView;
+    @FXML
+    private JFXButton btn_ReturnInProcessing;
     public ArchiveFiles chosenAccount;
 
     public  ChatController conn;
@@ -85,6 +86,36 @@ loadDataFromDatabase();
 
         tableView.getSelectionModel().setCellSelectionEnabled(false);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+
+        btn_ReturnInProcessing.setOnAction(event -> {
+
+            try {
+
+                chosenAccount = (ArchiveFiles) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
+                System.out.println(chosenAccount.getID() + "8888888888888888888888888885555555555555555555555555555566666666666666666666666");
+            } catch (Exception ex) {
+                UsefulUtils.showErrorDialogDown("Не вибрано жодного елемента з таблиці!");
+                return;
+            }
+            if (UsefulUtils.showConfirmDialog("Ви бажаєте перевести в обробку?") == ButtonType.OK) {
+                String query = ("");
+                try {
+                    pst = con.prepareStatement(query);
+                    // pst.setString(1, User.getContactID());
+                    pst.setString(1, chosenAccount.getID());
+                    pst.setString(2, User.getContactID());
+                    pst.setString(3, chosenAccount.getID());
+                    pst.executeUpdate();
+                    main.changeExists();
+                    UsefulUtils.showSuccessful("Запит "+chosenAccount.getNumber() +" завершено");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+            } else return;
+        });
+
 
 
         UsefulUtils.installCopyPasteHandler(tableView);
