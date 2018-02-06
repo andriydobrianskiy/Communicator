@@ -23,8 +23,7 @@ public class DBConnection implements InterfaceDataBase {
 
 
     public static final String DB_DRIVERCLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    public static String serverName = "82.207.107.237:39751";
-    public static String databaseName ="TS_17_10_DB";
+ 
 
     private static ComboPooledDataSource dataSource;
 
