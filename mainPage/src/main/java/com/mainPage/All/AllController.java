@@ -1,15 +1,22 @@
 package com.mainPage.All;
 
+import com.Utils.CustomPaginationSkin;
+import com.Utils.FilterQuery;
+import com.Utils.UsefulUtils;
+import com.client.chatwindow.ChatController;
+import com.connectDatabase.DBConnection;
 import com.jfoenix.controls.JFXTextField;
+import com.login.User;
+import com.mainPage.All.AllRequest.AllRequestController;
+import com.mainPage.NotFulled.ProductAdd.ObserverNF;
+import com.mainPage.page.MainPageController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Pagination;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -19,15 +26,13 @@ import org.google.jhsheets.filtered.FilteredTableView;
 import org.google.jhsheets.filtered.operators.IFilterOperator;
 import org.google.jhsheets.filtered.tablecolumn.ColumnFilterEvent;
 import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn;
-import com.Utils.CustomPaginationSkin;
-import com.Utils.FilterQuery;
-import com.Utils.UsefulUtils;
-import com.login.User;
-import com.mainPage.All.AllRequest.AllRequestController;
-import com.mainPage.page.MainPageController;
-import com.mainPage.NotFulled.ProductAdd.ObserverNF;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -38,8 +43,11 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
 
     private static Logger log = Logger.getLogger(AllController.class.getName());
 
+    private PreparedStatement pst = null;
+    private Connection con = null;
+    private ResultSet rs = null;
     @FXML
-    private TableView tableView;
+    public TableView tableView;
     @FXML
     private Pagination pagination;
     @FXML
@@ -48,8 +56,14 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
     private BorderPane borderPane;
     @FXML
     private HBox hboxFilter;
+    @FXML
+    private ChatController chatViewController;
+    @FXML
+    private SplitPane splitPane;
 
     private MainPageController main;
+    public ChatController conn;
+    private Scene scene;
 
     @FXML
     private AllRequestController allRequestViewController;
@@ -77,12 +91,10 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
     private TableColumn<All, String> StateName;
 
 
-
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        splitPane.setDividerPositions(0.75);
+        chatViewController.init(this);
         tableView.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -94,12 +106,12 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
             }
         });
         createTableColumns();
-        tableViewHandles();
-        System.out.println("777777777777777777777777777777777777777777777777777777777777777777777");
-            CustomPaginationSkin pageSkin = new CustomPaginationSkin(pagination); // custom pagination
 
-            pagination.setSkin(pageSkin);
-            pagination.setPageFactory(this::createPage);
+        System.out.println("777777777777777777777777777777777777777777777777777777777777777777777");
+        CustomPaginationSkin pageSkin = new CustomPaginationSkin(pagination); // custom pagination
+
+        pagination.setSkin(pageSkin);
+        pagination.setPageFactory(this::createPage);
 
         allRequestViewController.init(this);
         tableView.getSelectionModel().setCellSelectionEnabled(false);
@@ -107,8 +119,121 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
 
 
         UsefulUtils.installCopyPasteHandler(tableView);
+        tableView.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
+                    try {
+                        chosenAccount = (All) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
+                        loginButtonAction(chosenAccount);
+
+                    } catch (Exception e) {
+                        log.log(Level.SEVERE, "Exception: " + e);
+                    }
+                }
+            }
+        });
+        try {
+            con = DBConnection.getDataSource().getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        searchingField.setOnAction(event1 -> {
+            String value = searchingField.getText();
+
+            if (value.equals("")) {
+                refreshData();
+            } else
+                try {
+                    findByProperty(value);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+        });
+    }
+
+    String Skrut = null;
+
+    public void findByProperty(String value) {
+        data.clear();
+
+        try {
+            pst = con.prepareStatement("SELECT RequestID " +
+                            "\t\t\t\t\tFROM dbo.tbl_OfferingInRequestOffering \n" +
+                            " WHERE [tbl_OfferingInRequestOffering].[OfferingID] IN (SELECT ID\n" +
+                            "        FROM [tbl_Offering] WHERE [tbl_Offering].Skrut LIKE '" + value.toString() + "%' OR [tbl_Offering].[Index] LIKE '" + value.toString() + "%')"//+
+                    //  "FOR XML PATH('')"
+            );
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                Skrut = rs.getString(1);
+                //  options.add(rs.getString(1));
+                List<All> listItems = account.findSearchSkrut(false, (int) toIndex, User.getContactID(), User.getContactID(), Skrut);
+                listItems.forEach(item -> data.add(item));
+
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        /// Skrut = (String) options.get(0);
+
+
+        tableView.setItems(data);
+
 
     }
+    public void loginButtonAction(All chosenAccount) throws IOException {
+        // String hostname = "192.168.0.100";
+        //   int port = 9001;
+        //     String username = User.getContactName();
+        //     String picture = "Default";
+
+
+        //   FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/views/ChatView.fxml"));
+
+        //   Parent window = (Pane) fmxlLoader.load();
+        //   conn = fmxlLoader.<ChatController>getController();
+        //  instance = fmxlLoader.<InProcessingController>getController();
+        chatViewController.setOfferingAll(chosenAccount);
+        chatViewController.setAllController(this);
+        //this.scene = new Scene(window);
+        //Stage stage = new Stage();
+        //stage.initModality(Modality.APPLICATION_MODAL);
+        // (Stage) hostnameTextfield.getScene().getWindow();
+        //   stage.getScene();
+//stage.showAndWait();
+        //stage.setResizable(true);
+        //stage.setWidth(1040);
+        //stage.setHeight(620);
+
+        //        stage.setOnCloseRequest((WindowEvent e) -> {
+        //           Platform.exit();
+        //       System.exit(0);
+        //    });
+        //stage.setScene(this.scene);
+
+        //  stage.setMinWidth(800);
+        //   stage.setMinHeight(300);
+
+        //  ResizeHelper.addResizeListener(stage);
+        //      stage.showAndWait();
+        //System.out.println("chatFive");
+
+        chatViewController.setUsernameLabel(User.getContactName());
+        //      conn.setImageLabel("Default");
+        // conn.setIdTextFild(chosenAccount.getID());
+        //    stage.showAndWait();
+        //  Listener listener = new Listener(hostname, port, username, picture, conn, this, chosenAccount);
+        //   Thread x = new Thread(listener);
+        //   x.start();
+
+
+    }
+
 
     public void tableViewHandles() {
         tableView.setOnMouseClicked(mouseEvent -> fixSelectedRecord());
@@ -120,8 +245,13 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
 
         System.out.println("lllllllll" + record);
         allRequestViewController.handleTableView(record);
+        chosenAccount = (All) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
+        try {
+            loginButtonAction(chosenAccount);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
 
 
     @Override
@@ -217,6 +347,8 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
                     System.out.println("Filtering changed on column: " + t.sourceColumn().getText());
                     System.out.println("Current filters on column " + t.sourceColumn().getText() + " are:");
                     final List<IFilterOperator> filters = t.sourceColumn().getFilters();
+                    //new MiniFilter(ServicesTable.this, servicesDAO, hashColumns, t).setFilter();
+
 
                     System.out.println("COLUMN - " + t.sourceColumn());
                     for (IFilterOperator filter : filters) {
@@ -234,7 +366,7 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
                     account.setStringFilter(t.sourceColumn(), new FilterQuery(hashColumns.get(t.sourceColumn()), filters.get(0).getType(), filters.get(0).getValue()).getWhereClause());
 
 
-                    refreshData();
+                    // refreshData();
                 }
             });
 
@@ -248,7 +380,7 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
                    }
                }
            });*/
-
+            tableViewHandles();
             tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             borderPane.setCenter(tableView);
 
@@ -268,7 +400,7 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
         account.removeStringFilter(column);
         refreshData();
 
-        //column.filteredProperty().setValue(true);
+        //  column.filteredProperty().setValue(true);
 
         hboxFilter.getChildren().remove(content);
         System.out.println("DISABLED");
@@ -279,7 +411,7 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
         try {
 
 
-            List<All> listItems = account.findAll(true, (int) toIndex, User.getContactID(), User.getContactID());
+            List<All> listItems = account.findAll(true, (int) toIndex);
 
             listItems.forEach(item -> data.add(item));
 
@@ -319,6 +451,7 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
         data.clear();
         loadDataFromDatabase();
     }
+
     public void init(MainPageController mainPageController) {
         main = mainPageController;
     }

@@ -31,10 +31,6 @@ public class Counterpart extends NotFulfilled implements CreateInterface//Dictio
 
 
         list.add(new Counterpart()); // Контрагенти
-        //  list.add(new ServicesTable()); // Послуги
-        //list.add(new OfferingsTable()); // Запчастини
-        // list.add(new AccountVehicleTable()); // Автомобілі
-
         return list;
     }
  private  String ID;
@@ -169,7 +165,7 @@ this.ID = ID;
 
         switch ((AccountSearchType) searchType) {
             case CODE:
-                whereClause = " WHERE [tbl_Account].[Code] LIKE '%" + value.toString() + "%'";
+                whereClause = " WHERE [tbl_Account].[Code] = '" + value.toString() + "'";
                 valueClause = value.toString();
                 break;
 

@@ -68,6 +68,8 @@ public class UpdateOfferingGroupNameController implements Initializable {
         } catch (Exception e) {
             log.log(Level.SEVERE, "Delete offering row exception: " + e);
         }
+       // FxUtilTest.autoCompleteComboBoxPlus(updateComboBox, (typedText, itemToCompare) -> itemToCompare.toString().toLowerCase().contains(typedText.toLowerCase()) || itemToCompare.toString().equals(typedText));
+      //  FxUtilTest.getComboBoxValue(updateComboBox);
 
     }
     public void setOfferingRequest(InProcessingController oper, InProcessing inProcessing) {
@@ -88,7 +90,7 @@ public class UpdateOfferingGroupNameController implements Initializable {
                     "from \n" +
                     "    tbl_Contact \n" +
                     "\twhere \n" +
-                    "\tJobID = '7B756193-B6CF-469A-92E0-C9C964CBB8F4' OR ID = '71820A9D-95B6-4D65-A480-4F2C57AE9A4B'\n" +
+                    "\tJobID = 'CCB28AD0-ECAC-43DF-9827-E2F9CEA56A3A' OR ID = '71820A9D-95B6-4D65-A480-4F2C57AE9A4B'\n" +
                     "\t \n" +
                     "         ORDER BY\n" +
                     "                    2 ASC";

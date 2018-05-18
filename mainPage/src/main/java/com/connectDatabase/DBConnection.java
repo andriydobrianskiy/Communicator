@@ -1,10 +1,10 @@
 package com.connectDatabase;
 
+import com.login.User;
+import com.mainPage.page.MainPageController;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
-import com.login.User;
-import com.mainPage.page.MainPageController;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
@@ -23,6 +23,10 @@ public class DBConnection implements InterfaceDataBase {
 
 
     public static final String DB_DRIVERCLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    public static String serverName = getServerName();
+
+    public static String serverChatName = getServerChatName();
+
 
 
     private static ComboPooledDataSource dataSource;
@@ -31,6 +35,19 @@ public class DBConnection implements InterfaceDataBase {
     private static MainPageController mainWindow;
 
     public static String URL;
+
+    public void setServerChatName(String serverName) {
+        DBConnection.serverChatName = serverName;
+    }
+public static String getServerChatName() {
+      return   serverChatName;
+    }
+    public void setServerName(String serverName) {
+        DBConnection.serverName = serverName;
+    }
+    public static String getServerName() {
+        return   serverName;
+    }
 
     private void createPoolConnections() {
         try {

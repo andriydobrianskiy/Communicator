@@ -4,181 +4,76 @@
 <?import java.lang.*?>
 <?import javafx.collections.*?>
 <?import javafx.scene.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 <?import java.lang.String?>
 
-<BorderPane fx:id="borderPane" maxHeight="620.0" maxWidth="1040.0" prefHeight="620.0" prefWidth="1040.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.chatwindow.ChatController">
-   <center>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-         <children>
-            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" pannable="true" prefHeight="496.0" vbarPolicy="ALWAYS" vmin="1.0" vvalue="1.0" VBox.vgrow="ALWAYS">
-               <content>
-                  <ListView fx:id="chatPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" />
-               </content>
-            </ScrollPane>
-            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="100.0" VBox.vgrow="NEVER">
-               <children>
-                  <TextArea fx:id="messageBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="100.0" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#sendMethod" prefHeight="16.0" prefWidth="698.0" promptText="Введіть повідомлення..." scaleShape="false" style="-fx-background-radius: 10;" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="SansSerif Regular" size="14.0" />
-                     </font>
-                  </TextArea>
-                  <Button fx:id="buttonSend" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#sendButtonAction" prefHeight="43.0" prefWidth="140.0" scaleShape="false" style="-fx-background-radius: 10;" text="Відправити" textAlignment="CENTER" HBox.hgrow="NEVER" />
-                  <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMousePressed="#recordVoiceMessage" style="-fx-background-radius: 10;">
-                     <graphic>
-                        <ImageView fx:id="microphoneImageView" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/microphone.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </center>
-   <left>
-      <VBox maxHeight="1.7976931348623157E308" BorderPane.alignment="CENTER">
-         <children>
-            <HBox fx:id="onlineUsersHbox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="217.0" style="-fx-background-color: #3A75C4;" stylesheets="@../styles/ListViewStyle.css">
-               <children>
-                  <Label prefHeight="63.0" prefWidth="124.0" text="Онлайн:" textAlignment="CENTER" textFill="#685b59">
-                     <font>
-                        <Font name="SansSerif Regular" size="14.0" />
-                     </font>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                     <opaqueInsets>
-                        <Insets bottom="10.0" />
-                     </opaqueInsets>
-                  </Label>
-                  <Label fx:id="onlineCountLabel" prefHeight="48.0" prefWidth="94.0" text="0" textFill="WHITE">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <font>
-                        <Font name="SansSerif Regular" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <ListView fx:id="userList" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="482.0" prefWidth="217.0" style="-fx-border-image-width: 0; -fx-background-radius: 10; -fx-background-color: #F0FFFF;" stylesheets="@../styles/ListViewStyle.css">
-            </ListView>
-            <TextField fx:id="idTextFild" editable="false" />
-         </children>
-      </VBox>
-   </left>
-   <top>
-      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="78.0" prefWidth="1040.0" style="-fx-background-color: #3A75C4;" BorderPane.alignment="CENTER">
-         <right>
-            <HBox prefHeight="24.0" prefWidth="30.0" stylesheets="@../styles/ButtonStyle.css" BorderPane.alignment="CENTER">
-               <children>
-                  <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
-                     <image>
-                        <Image url="@../images/settings.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets right="30.0" top="30.0" />
-                     </HBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-                  <ImageView fitHeight="22.0" fitWidth="21.0" onMousePressed="#closeApplication" pickOnBounds="true" preserveRatio="true" styleClass="button">
-                     <image>
-                        <Image url="@../images/close_normal.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets right="30.0" top="30.0" />
-                     </HBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-               </children>
-            </HBox>
-         </right>
-         <left>
-            <HBox prefHeight="78.0" prefWidth="303.0" BorderPane.alignment="CENTER">
-               <children>
-                  <ImageView fx:id="userImageView" fitHeight="69.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/default.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets left="10.0" top="10.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <VBox prefHeight="48.0" prefWidth="228.0">
-                     <HBox.margin>
-                        <Insets left="10.0" top="30.0" />
-                     </HBox.margin>
-                     <children>
-                        <Label fx:id="usernameLabel" prefHeight="27.0" prefWidth="229.0" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Label>
-                        <ComboBox fx:id="statusComboBox" prefHeight="31.0" prefWidth="184.0" promptText="Online" stylesheets="@../styles/ComboBox.css">
-                           <items>
-                              <FXCollections fx:factory="observableArrayList">
-                                 <String fx:value="Online" />
-                                 <String fx:value="Away" />
-                                 <String fx:value="Busy" />
-                              </FXCollections>
-                           </items>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </ComboBox>
-                     </children>
-                  </VBox>
-               </children></HBox>
-         </left>
-         <center>
-            <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="644.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label prefHeight="27.0" prefWidth="151.0" text="Назва контрагента:" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <TextArea fx:id="txtTitle" editable="false" prefHeight="39.0" prefWidth="192.0" style="-fx-background-color: #39b5ff;">
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font></TextArea>
-                  <Label prefHeight="27.0" prefWidth="111.0" text="Номер запиту:" textFill="WHITE">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="txtNumber" editable="false" prefHeight="31.0" prefWidth="116.0" />
-               </children>
-            </HBox>
-         </center>
-      </BorderPane>
-   </top>
+<BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/PublicChat.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.chatwindow.ChatController">
    <rotationAxis>
       <Point3D />
    </rotationAxis>
+   <center>
+      <BorderPane prefHeight="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <SplitPane fx:id="splitPane" dividerPositions="0.5" orientation="VERTICAL" BorderPane.alignment="CENTER">
+               <items>
+                  <BorderPane>
+                     <center>
+                        <ListView fx:id="chatPane" BorderPane.alignment="CENTER" />
+                     </center>
+                     <top>
+                        <Label fx:id="usernameLabel" BorderPane.alignment="CENTER" />
+                     </top>
+                  </BorderPane>
+                  <BorderPane>
+                     <center>
+                        <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+                           <children>
+                              <TextArea fx:id="messageBox" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#sendMethod" promptText="Введіть повідомлення..." scaleShape="false" style="-fx-background-radius: 10;">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="14.0" />
+                                 </font>
+                              </TextArea>
+            
+                                    <Button fx:id="buttonSend" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#sendButtonAction" prefHeight="50.0" prefWidth="120.0" scaleShape="false" style="-fx-background-radius: 10;" text="Відправити" textAlignment="CENTER" HBox.hgrow="NEVER">
+                                 <graphic>
+                                    <ImageView fitHeight="19.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/chat.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                               <Button fx:id="buttonSendTract" alignment="CENTER" mnemonicParsing="false" onAction="#sendButtonActionTract" prefHeight="50.0" prefWidth="120.0" scaleShape="false" style="-fx-background-radius: 10;" text="Відправити" textAlignment="CENTER" HBox.hgrow="NEVER">
+                                 <graphic>
+                                    <ImageView fitHeight="40.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/chat.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="recordBtn" mnemonicParsing="false" onMousePressed="#recordVoiceMessage" style="-fx-background-radius: 10;">
+                                 <graphic>
+                                    <ImageView fx:id="microphoneImageView" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/microphone.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </center>
+                  </BorderPane>
+               </items>
+            </SplitPane>
+         </center>
+      </BorderPane>
+   </center>
 </BorderPane>

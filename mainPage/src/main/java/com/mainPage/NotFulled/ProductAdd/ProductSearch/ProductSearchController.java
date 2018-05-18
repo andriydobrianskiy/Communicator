@@ -1,5 +1,6 @@
 package com.mainPage.NotFulled.ProductAdd.ProductSearch;
 
+import com.Utils.CustomPaginationSkin;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -17,7 +18,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import com.Utils.CustomPaginationSkin;
 
 import java.awt.event.ActionEvent;
 import java.net.URL;
@@ -99,13 +99,9 @@ public class ProductSearchController extends BorderPane implements Initializable
             }
         });
 
-            CustomPaginationSkin pageSkin = new CustomPaginationSkin(pagination); // custom pagination
 
-        pagination.setSkin(pageSkin);
-        pagination.setPageFactory(this::createPage);
 
-        choiceFilter.getSelectionModel().select(ProductSearchType.INDEX);
-        choiceFilter.setOnAction(e ->  setEmptyFilterData());
+
         btnOK.setOnAction( event -> {
 
             chosenElement = (ProductSearch) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
@@ -114,6 +110,27 @@ public class ProductSearchController extends BorderPane implements Initializable
 
         btnCancel.setOnAction(event -> {
             closeWindow();
+        });
+        CustomPaginationSkin pageSkin = new CustomPaginationSkin(pagination); // custom pagination
+
+        pagination.setSkin(pageSkin);
+        pagination.setPageFactory(this::createPage);
+        choiceFilter.getSelectionModel().select(ProductSearchType.INDEX);
+     //   choiceFilter.getSelectionModel().select(ProductSearchType.SKRUT);
+
+        choiceFilter.setOnAction(e ->  setEmptyFilterData());
+        searchField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                try {
+                    if (keyEvent.getCode() == KeyCode.ENTER) {
+                        if (!searchField.getText().isEmpty())
+                            filterData();
+                    }
+                } catch (Exception e) {
+                    log.log(Level.SEVERE, "handleButtonSearch exception: " + e);
+                }
+            }
         });
     }
 
@@ -216,7 +233,7 @@ public class ProductSearchController extends BorderPane implements Initializable
         } catch (Exception e) {
             log.log(Level.SEVERE, "Switch page exception: " + e);
         }
-        borderPane.setCenter(tableView);
+        //borderPane.setCenter(tableView);
 
         return borderPane;
     }
@@ -227,7 +244,7 @@ public class ProductSearchController extends BorderPane implements Initializable
 
             data.clear();
 
-            String value = searchField.getText().toLowerCase();
+            String value = searchField.getText();
 
             List<ProductSearch> items = new ArrayList<ProductSearch>();
 
@@ -248,7 +265,7 @@ public class ProductSearchController extends BorderPane implements Initializable
                /* case HASANALOGUE:
                     items = account.findByProperty(value, ProductSearchType.HASANALOGUE);
                     break;*/
-                case DEFAULTOFFERINGCODE:
+              /*  case DEFAULTOFFERINGCODE:
                     items = derbyOfferingRequest.findByProperty(value, ProductSearchType.DEFAULTOFFERINGCODE);
                     break;
                 /*case OFFERINGTYPEID:
@@ -260,7 +277,7 @@ public class ProductSearchController extends BorderPane implements Initializable
                 case OWNERID:
                     items = account.findByProperty(value, ProductSearchType.OWNERID);
                     break;*/
-                case NAMEPOLISH:
+             /*   case NAMEPOLISH:
                     items = derbyOfferingRequest.findByProperty(value, ProductSearchType.NAMEPOLISH);
                     break;
                 case REMARK:
@@ -269,13 +286,13 @@ public class ProductSearchController extends BorderPane implements Initializable
                /* case OFFERINGVENDORID:
                     items = account.findByProperty(value, ProductSearchType.OFFERINGVENDORID);
                     break;*/
-                case OFFERINGVENDORNAME:
+              /*  case OFFERINGVENDORNAME:
                     items = derbyOfferingRequest.findByProperty(value, ProductSearchType.OFFERINGVENDORNAME);
                     break;
                /* case PRICENOTFROMEUROID:
                     items = account.findByProperty(value, ProductSearchType.PRICENOTFROMEUROID);
                     break;*/
-                case CUSTOMSCODE:
+           /*     case CUSTOMSCODE:
                     items = derbyOfferingRequest.findByProperty(value, ProductSearchType.CUSTOMSCODE);
                     break;
                /* case OFFERINGANALOGUE:
@@ -284,18 +301,13 @@ public class ProductSearchController extends BorderPane implements Initializable
                /* case NAMEWMD:
                     items = account.findByProperty(value, ProductSearchType.NAMEWMD);
                     break;*/
-                case CLEANOFFERINGCODE:
+              /*  case CLEANOFFERINGCODE:
                     items = derbyOfferingRequest.findByProperty(value, ProductSearchType.CLEANOFFERINGCODE);
                     break;
-             /*   case OFFERINGPHOTO:
-                    items = account.findByProperty(value, ProductSearchType.OFFERINGPHOTO);
-                    break;*/
-                case HIDDENSKRUT:
-                    items = derbyOfferingRequest.findByProperty(value, ProductSearchType.HIDDENSKRUT);
-                    break;
+
                 case SEASONINDEX:
                     items = derbyOfferingRequest.findByProperty(value, ProductSearchType.SEASONINDEX);
-                    break;
+                    break;*/
                 default:
             }
 
@@ -342,8 +354,11 @@ public class ProductSearchController extends BorderPane implements Initializable
     private void handleButtonSearch() {
 
         try {
-            if(!searchField.getText().isEmpty())
+            if(!searchField.getText().isEmpty()) {
                 filterData();
+            }else {
+                setEmptyFilterData();
+            }
 
         } catch (Exception e) {
             log.log(Level.SEVERE, "handleButtonSearch exception: " + e);

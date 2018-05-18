@@ -6,8 +6,8 @@ public enum ProductSearchType  implements SearchType {
     INDEX("Індекс"),
     ISHIDDENSKRUT("Скорочення"),
     SKRUT("Скрут"),
-    OFFERINGNAME("Назва продукта (UA)"),
-    HASANALOGUE("Аналоги"),
+    OFFERINGNAME("Назва продукта (UA)");
+   /* HASANALOGUE("Аналоги"),
     DEFAULTOFFERINGCODE("Код постачальника"),
     OFFERINGTYPEID("Тип"),
     SUPLIERID ("Постачальник"),
@@ -23,7 +23,7 @@ public enum ProductSearchType  implements SearchType {
     CLEANOFFERINGCODE("Чистий код"),
     OFFERINGPHOTO("Фото товару"),
     HIDDENSKRUT("Прихований скрут"),
-    SEASONINDEX("Індекс сезону");
+    SEASONINDEX("Індекс сезону");*/
 
 
     private String label;

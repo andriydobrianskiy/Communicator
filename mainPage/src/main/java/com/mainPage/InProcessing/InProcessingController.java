@@ -13,6 +13,7 @@ import com.connectDatabase.DBConnection;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
 import com.login.User;
+import com.mainPage.InProcessing.Calculator.CalculatorController;
 import com.mainPage.InProcessing.InProcessingRequest.InProcessingRequestController;
 import com.mainPage.InProcessing.NotesInProcessing.NotesInProcessingController;
 import com.mainPage.InProcessing.UpdateOfferingGroupName.UpdateOfferingGroupNameController;
@@ -30,7 +31,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -46,6 +46,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
+import org.google.jhsheets.filtered.operators.IFilterOperator;
 import tray.animations.AnimationType;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
@@ -85,16 +86,25 @@ public class InProcessingController extends AnchorPane implements DictionaryProp
     @FXML
     private JFXToggleButton btn_ButtonAll;
     @FXML
-    private  TableView tableviewAll;
+    public TableView tableviewAll;
     @FXML
     private TextField searchingField;
     @FXML
     private DatePicker datePicker;
     @FXML
     private Label dateLabel;
+    @FXML
+    private Button btn_ReturnOwner;
+    @FXML
+    private Button btn_Calculator;
+    @FXML
+    private SplitPane Splitpane1;
+    @FXML
+    private SplitPane Splitpane2;
 
     private PreparedStatement pst = null;
     private Connection con = null;
+    private ResultSet rs = null;
     private static Logger log = Logger.getLogger(SearchCounterpart.class.getName());
 
     private ColumnMessage columnMessage = new ColumnMessage();
@@ -109,7 +119,7 @@ public class InProcessingController extends AnchorPane implements DictionaryProp
     private long fromIndex;
     private long toIndex;
 
-    public  ChatController conn;
+    public ChatController conn;
 
     private double xOffset;
     private double yOffset;
@@ -131,44 +141,44 @@ public class InProcessingController extends AnchorPane implements DictionaryProp
     //@FXML private JFXButton btnOK;
     //  @FXML private JFXButton btnCancel;
 
-    public  InProcessing chosenAccount = null;
-    public InProcessing  chosenElement = null;
+    public static InProcessing chosenAccount = null;
+    public InProcessing chosenElement = null;
     @FXML
     private InProcessingRequestController inProcessingRequestViewController;
+    @FXML
+    private ChatController chatViewController;
 
 
+    /* public AccountDictionary() {
+         this.accountDAO = accountDAO;
 
+         Stage primaryStage = new Stage();
+         primaryStage.initModality( Modality.APPLICATION_MODAL);
+         FXMLLoader loader = new FXMLLoader();
 
-   /* public AccountDictionary() {
-        this.accountDAO = accountDAO;
+         loader.setRoot(this);
+         loader.setController(this);
 
-        Stage primaryStage = new Stage();
-        primaryStage.initModality( Modality.APPLICATION_MODAL);
-        FXMLLoader loader = new FXMLLoader();
+         Pane root = null;
+         try {
+             root = loader.load(getClass().getResource("/sample/ua/ucountry/Utils/DictionaryWindow/AccountDictionaryWindow.fxml").openStream());
+         } catch (IOException e) {
+             UsefulUtils.showErrorDialog("Неможливо відкрити вікно!");
+             return;
+         }
 
-        loader.setRoot(this);
-        loader.setController(this);
+         Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
 
-        Pane root = null;
-        try {
-            root = loader.load(getClass().getResource("/sample/ua/ucountry/Utils/DictionaryWindow/AccountDictionaryWindow.fxml").openStream());
-        } catch (IOException e) {
-            UsefulUtils.showErrorDialog("Неможливо відкрити вікно!");
-            return;
-        }
+         Scene scene = new Scene(root, visualBounds.getHeight(), visualBounds.getWidth());
 
-        Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
+         scene.getStylesheets().add("sample/ua/ucountry/Utils/DictionaryWindow/CustomerDictionary/AccountDictionary.css");
 
-        Scene scene = new Scene(root, visualBounds.getHeight(), visualBounds.getWidth());
-
-        scene.getStylesheets().add("sample/ua/ucountry/Utils/DictionaryWindow/CustomerDictionary/AccountDictionary.css");
-
-        primaryStage.setScene(scene);
-        primaryStage.setMaximized(true);
-        primaryStage.showAndWait();
-    }*/
-   @FXML
-public NotFulledController notFulledController;
+         primaryStage.setScene(scene);
+         primaryStage.setMaximized(true);
+         primaryStage.showAndWait();
+     }*/
+    @FXML
+    public NotFulledController notFulledController;
 
     public InProcessingController() {
 
@@ -176,17 +186,16 @@ public NotFulledController notFulledController;
 
     public void handleTableView(NotFulledController value) {
         notFulledController = value;
-       refreshData();
+        refreshData();
     }
-    public void setNotFulledController (MainPageController mainPageController){
+
+    public void setNotFulledController(MainPageController mainPageController) {
         this.main = mainPageController;
     }
-    public MainPageController getNotFulledController () {
+
+    public MainPageController getNotFulledController() {
         return main;
     }
-
-
-
 
 
     public void tableViewHandles() {
@@ -199,6 +208,19 @@ public NotFulledController notFulledController;
 
         System.out.println("lllllllll" + record);
         inProcessingRequestViewController.handleTableView(record);
+
+
+        //  tableProduct.setOnKeyReleased(eventKey -> {
+        // if(eventKey.getCode().equals(KeyCode.DOWN) || eventKey.getCode().equals(KeyCode.UP)) { // arrow up down
+        try {
+            chosenAccount = (InProcessing) tableProduct.getItems().get(tableProduct.getSelectionModel().getSelectedIndex());
+
+            loginButtonAction(chosenAccount);
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "Exception: " + e);
+        }
+        //}
+        //});
     }
 
     public void tableViewHandlesAll() {
@@ -211,7 +233,15 @@ public NotFulledController notFulledController;
 
         System.out.println("lllllllll" + record);
         inProcessingRequestViewController.handleTableView(record);
+        try {
+            chosenAccount = (InProcessing) tableviewAll.getItems().get(tableviewAll.getSelectionModel().getSelectedIndex());
+
+            loginButtonAction(chosenAccount);
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "Exception: " + e);
+        }
     }
+
 
     // public void showChat()throws Exception{
 
@@ -296,31 +326,39 @@ public NotFulledController notFulledController;
         return primaryStageObj;
     }*/
 
-  //  private ChatApp chat = new ChatApp();
+    //  private ChatApp chat = new ChatApp();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-
-        tableviewAll.getStylesheets().add
+        chatViewController.init(this);
+        tableProduct.getStylesheets().add
                 (InProcessingController.class.getResource("/styles/TableStyle.css").toExternalForm());
-     //   System.out.println(accountQueries.getMainInProcessing(false, 1,));
-       // Visible window and buttons
         inProcessingRequestViewController.init(this);
-        tbn_CreateRequest.setVisible(false);
-        btn_changeRequest.setVisible(false);
-        btn_ConfirmRequest.setVisible(false);
-        btn_IntoProcessing.setVisible(false);
-      //  btn_Server.setVisible(false);
-       // btnDelete.setVisible(false);
-     //   btn_СancelRequest.setVisible(false);
+        btnConfirmation.setVisible(false);  // Замовити
+        btn_UpdateStatus.setVisible(false);  // Взяти в роботу
+        tbn_CreateRequest.setVisible(false); // Створити запит
+        btn_changeRequest.setVisible(false); // Змынити запит
+        btn_ConfirmRequest.setVisible(false); // Пыдтвердити
+        btn_IntoProcessing.setVisible(false); // Повернути в обробку
+        btn_Server.setVisible(false);   // Сервер
+        btnDelete.setVisible(false);    // видалити запит
+        btn_СancelRequest.setVisible(true); // анулювати запит
+        btn_ReturnOwner.setVisible(false); // Змынити выдповыдального
+        btn_Calculator.setVisible(false); // калькулятор
+        Splitpane1.setDividerPositions(0.75);
+        //   Splitpane1.setOrientation(Orientation.HORIZONTAL);
+        //Splitpane1.setPrefSize(200, 200);
+        // final Button l1 = new Button("Top Button");
+        //   final Button r1 = new Button("Bottom Button");
+        //  Splitpane1.getItems().addAll();
 
-        // Window include
-
-
-
-        // table product
-        ;
+        // SplitPane splitPane2 = new SplitPane();
+        //  Splitpane2.setOrientation(Orientation.VERTICAL);
+        //  splitPane2.setPrefSize(300, 200);
+        //  final Button c2 = new Button("Center Button");
+        // final Button r2 = new Button("Right Button");
+        //    Splitpane2.getItems().addAll(Splitpane1);
+        //  hbox.getChildren().add(splitPane2);
 
 
         // Connection Database
@@ -328,6 +366,7 @@ public NotFulledController notFulledController;
             con = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
+
         }
 
         //Button Update
@@ -354,12 +393,11 @@ public NotFulledController notFulledController;
 
                     pst.executeUpdate();
                     refreshData();
-                  UsefulUtils.showSuccessful("Запит в обробці " + User.getContactName());
-                  //  UsefulUtils.showInformationDialog("Запит в обробці " + User.getContactName());
+                    UsefulUtils.showSuccessful("Запит в обробці " + User.getContactName());
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-
             } else return;
         });
 
@@ -374,7 +412,7 @@ public NotFulledController notFulledController;
                 return;
             }
             // System.out.println(a +  b+c + "ed2wewgweeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-            if (UsefulUtils.showConfirmDialog("Ви підтверджуєте своє замовлення?") == ButtonType.OK) {
+            if (UsefulUtils.showConfirmDialog("Ви підтверджуєте своє замовлення і дату поставки?") == ButtonType.OK) {
 
                 String query = "UPDATE [dbo].[tbl_RequestOffering]\n" +
                         "\tSET [StatusID] = '{3B552198-B239-4801-819C-7033AA118B65}',\n" +
@@ -385,13 +423,12 @@ public NotFulledController notFulledController;
                     pst = con.prepareStatement(query);
                     pst.setString(1, User.getContactID());
                     pst.setString(2, String.valueOf(chosenAccount));
-                    System.out.println(User.getContactID() + chosenAccount.getID() + "99999999999999999999999999888888888888888888888777777777777777");
+                    //  System.out.println(User.getContactID() + chosenAccount.getID() + "99999999999999999999999999888888888888888888888777777777777777");
 
                     pst.executeUpdate();
                     AddDate();
                     main.changeExists();
-                    UsefulUtils.showSuccessful("Запит "+chosenAccount.getNumber()+" переведено в тракт");
-
+                    UsefulUtils.showSuccessful("Запит " + chosenAccount.getNumber() + " переведено в тракт");
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -411,18 +448,30 @@ public NotFulledController notFulledController;
             }
             if (UsefulUtils.showConfirmDialog("Ви дійсно бажаєте анулювати запит?") == ButtonType.OK) {
                 try {
-                    System.out.println("9+684949894898");
-                    con = DBConnection.getDataSource().getConnection();
+                    //  con = DBConnection.getDataSource().getConnection();
                     CallableStatement callProc = con.prepareCall("{call dbo.tsp_ROActionNullifyRequest (?,?)}");
-                    System.out.println(chosenAccount.getID());
                     callProc.setString(1, chosenAccount.getID());
                     callProc.setString(2, User.getContactID());
-                    System.out.println(chosenAccount.getID() + " 444444444444444444444444444444444555555555555555555555555555");
                     callProc.executeUpdate();
 
+                    tableProduct.setRowFactory(new Callback<TableView<InProcessing>, TableRow<InProcessing>>() {
+                        @Override
+                        public TableRow<InProcessing> call(TableView<InProcessing> param) {
+                            return new TableRow<InProcessing>() {
+                                @Override
+                                protected void updateItem(InProcessing item, boolean empty) {
+                                    super.updateItem(item, empty);
+
+                                    setStyle("-fx-background-color: #ff0700");
+
+                                }
+                            };
+                        }
+                    });
 
                     main.changeExists();
-                    UsefulUtils.showSuccessful("Запит "+chosenAccount.getNumber() +" анульовано");
+                    UsefulUtils.showSuccessful("Запит " + chosenAccount.getNumber() + " анульовано");
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -430,19 +479,19 @@ public NotFulledController notFulledController;
             } else return;
         });
 
-         // Active Chat TableView
+
+        // Active Chat TableView
+
+
         tableProduct.setOnMousePressed(new EventHandler<MouseEvent>() {
+
             @Override
             public void handle(MouseEvent event) {
-            //    fixSelectedRecord();
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                     try {
                         chosenAccount = (InProcessing) tableProduct.getItems().get(tableProduct.getSelectionModel().getSelectedIndex());
-                   //     ClientController.record = chosenAccount;
-                      //  showWindowChatTwoo();
                         NotesInProcessingController notesInProcessingController = new NotesInProcessingController(chosenAccount, false);
-                    //   ClientController clientController = new ClientController(chosenAccount, false);
-                        loginButtonAction(chosenAccount);
+
                     } catch (Exception e) {
                         log.log(Level.SEVERE, "Exception: " + e);
                     }
@@ -456,16 +505,22 @@ public NotFulledController notFulledController;
             @Override
             public void handle(MouseEvent event) {
 
+                //    if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
+                try {
+                    chosenAccount = (InProcessing) tableviewAll.getItems().get(tableviewAll.getSelectionModel().getSelectedIndex());
+
+                    loginButtonAction(chosenAccount);
+
+
+                } catch (Exception e) {
+                    log.log(Level.SEVERE, "Exception: " + e);
+                }
+                //   }
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                     try {
                         chosenAccount = (InProcessing) tableviewAll.getItems().get(tableviewAll.getSelectionModel().getSelectedIndex());
-                    //    ClientController.record = chosenAccount;
+
                         NotesInProcessingController notesInProcessingController = new NotesInProcessingController(chosenAccount, false);
-                    /*   ClientController clientController = new ClientController(chosenAccount, false);*/
-                        loginButtonAction(chosenAccount);
-                        conn.messageBox.setEditable(false);
-                     //   showScene();
-                       // showWindowChatTwoo();
 
 
                     } catch (Exception e) {
@@ -474,50 +529,96 @@ public NotFulledController notFulledController;
                 }
             }
         });
-datePicker.setValue(LocalDate.now());
+
+
+        datePicker.setValue(LocalDate.now());
         // ToggleButtons TableView
-        tableProduct.setVisible(false);
+        tableProduct.setVisible(true);
+        tableviewAll.setVisible(false);
+        btn_ButtonAll.setVisible(false);
         datePicker.setVisible(false);
         dateLabel.setVisible(false);
+        searchingField.setOnAction(event1 -> {
+            String value = searchingField.getText();
 
+            if (value.equals("")) {
+                refreshData();
+            } else
+                try {
+                    findByPropertyAll(value);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+        });
         ToggleGroup group = new ToggleGroup();
         btn_ButtonAll.setToggleGroup(group);
         group.selectedToggleProperty().addListener(event -> {
             if (group.getSelectedToggle() != null) {
+
+                //    data.clear();
+                //  loadDataFromDatabase();
+
                 tableProduct.setVisible(true);
                 tableviewAll.setVisible(false);
                 datePicker.setVisible(true);
                 dateLabel.setVisible(true);
                 btn_UpdateStatus.setVisible(false);
+                searchingField.setOnAction(event1 -> {
+                    String value = searchingField.getText();
+
+                    if (value.equals("")) {
+                        refreshData();
+                    } else
+                        try {
+                            findByProperty(value);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                });
 
             } else if (tableviewAll != null) {
                 tableviewAll.setVisible(true);
                 tableProduct.setVisible(false);
                 datePicker.setVisible(false);
                 dateLabel.setVisible(false);
-                btn_UpdateStatus.setVisible(true);
 
+                //  dataAll.clear();
+                //   loadDataFromDatabaseAll();
+
+                btn_UpdateStatus.setVisible(true);
+                searchingField.setOnAction(event1 -> {
+                    String value = searchingField.getText();
+
+                    if (value.equals("")) {
+                        refreshData();
+                    } else
+                        try {
+                            findByPropertyAll(value);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                });
             }
         });
-       // datePicker.getStyleClass().add(DEFAULT_STYLE_CLASS);
+        //  datePicker.getStyleClass().add(DEFAULT_STYLE_CLASS);
         //Create Columns
         createTableColumns();
         createTableColumnsAll();
 
-        tableProduct.getSelectionModel().setCellSelectionEnabled(false);
+        //   tableProduct.getSelectionModel().setCellSelectionEnabled(true);
         tableProduct.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
 
         UsefulUtils.installCopyPasteHandler(tableProduct);
-        tableviewAll.getSelectionModel().setCellSelectionEnabled(false);
-        tableviewAll.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        //   tableviewAll.getSelectionModel().setCellSelectionEnabled(false);
+        //   tableviewAll.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
 
         UsefulUtils.installCopyPasteHandler(tableviewAll);
 
         tableViewHandles();
         tableViewHandlesAll();
-       // fixSelectedRecord();
+        //   fixSelectedRecord();
 
         //Create Paginations
         CustomPaginationSkin pageSkin = new CustomPaginationSkin(pagination); // custom pagination
@@ -526,7 +627,7 @@ datePicker.setValue(LocalDate.now());
         pagination.setPageFactory(this::createPageAll);
 
         //Buttons Icons
-       Image imageDecline = new Image(getClass().getResourceAsStream("/images/CreateRequest.png"));
+        Image imageDecline = new Image(getClass().getResourceAsStream("/images/CreateRequest.png"));
         tbn_CreateRequest.setGraphic(new ImageView(imageDecline));
 
 
@@ -547,34 +648,41 @@ datePicker.setValue(LocalDate.now());
 
         Image imageServerInProcessing = new Image(getClass().getResourceAsStream("/images/ServerInProcessing.png"));
         btn_Server.setGraphic(new ImageView(imageServerInProcessing));
-searchCode();
-searchCodeAll();
-btnDelete.setOnAction(event -> {
-    try {
-        selectedOffering = (InProcessing) tableProduct.getItems().get(tableProduct.getSelectionModel().getSelectedIndex());
+        //   searchCode();
+        // searchCodeAll();
+        btnDelete.setOnAction(event -> {
+            try {
+                selectedOffering = (InProcessing) tableProduct.getItems().get(tableProduct.getSelectionModel().getSelectedIndex());
 
-    } catch (Exception ex) {
-        UsefulUtils.showErrorDialogDown("Не вибрано жодного елемента з таблиці!");
-        return;
-    }
-    if (UsefulUtils.showConfirmDialog("Ви дійсно хочете видалити запис?") == ButtonType.OK) {
-        new DerbyInProcessingDAO().deleteOffering(selectedOffering);
-        main.changeExists();
-        UsefulUtils.showSuccessful("Запит успішно видалено");
-
-
+            } catch (Exception ex) {
+                UsefulUtils.showErrorDialogDown("Не вибрано жодного елемента з таблиці!");
+                return;
+            }
+            if (UsefulUtils.showConfirmDialog("Ви дійсно хочете видалити запис?") == ButtonType.OK) {
+                new DerbyInProcessingDAO().deleteOffering(selectedOffering);
+                main.changeExists();
+                UsefulUtils.showSuccessful("Запит успішно видалено");
 
 
-    } else return;
+            } else return;
 
-});
+        });
 
         //hostnameTextfield.setText("localhost");
         int numberOfSquares = 30;
-        while (numberOfSquares > 0){
-          //  generateAnimation();
+        while (numberOfSquares > 0) {
+            //  generateAnimation();
             numberOfSquares--;
         }
+        //    if (data!=null) {
+        UpdateNotificationTable();
+        //   }else if (dataAll != null){
+        try {
+            UpdateNotificationAllTable();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //}
 
         //TableColumn select = new TableColumn("CheckBox");
 
@@ -585,26 +693,36 @@ btnDelete.setOnAction(event -> {
                     @Override
                     protected void updateItem(InProcessing item, boolean empty) {
                         super.updateItem(item, empty);
+                        try {
+                            if (item == null || item.getIsReadMeassage() == null || item.getIsReadMeassage().equals(0)) {
+                                setStyle("");
+                                if (item.getJointAnnulment().equals(1) || item.getJointAnnulment().equals(2)) {
+                                    setStyle("-fx-background-color: #FF0000;");
 
-                    //    for(int i= 0; i< data.size(); i++){
+                                }
+                            } else {
+                                setStyle("-fx-font-weight: bold");
+                                if (item.getJointAnnulment().equals(1) || item.getJointAnnulment().equals(2))
+                                    setStyle("-fx-background-color: #FF0000;" +
+                                            "-fx-font-weight: bold");
 
-                         //   InProcessing isRead = data.get(i);
-                      //      Integer isReadName = isRead.getIsReadMeassage();
+                            }
+                        } catch (NullPointerException ex) {
 
-                        if (item == null || item.getIsReadMeassage()== null || item.getIsReadMeassage().equals(0)) {
-                            setStyle("");
-                        } else  {
-                            //  Boolean res=item.getIsReadMessage();
-                            // if (res.startsWith(" ")) {
-                            //    setStyle("");
-                            //  } else
-                            setStyle("-fx-font-weight: bold");
                         }
+                        //    if (item.getJointAnnulment().equals(2) || item.getJointAnnulment().equals(1)) {
+                        //      setStyle("-fx-background-color: #FF0000");
+                        //    }
 
-                    //    }
+                        //      } else {
+                        //
+                        // if (!item.getJointAnnulment().equals(3) || !item.getJointAnnulment().equals(0)) {
+                        //   setStyle("-fx-background-color: #FF0000;" +
+                        //           "-fx-font-weight: bold");
+                        //       }
+
+
                     }
-
-
                 };
             }
         });
@@ -618,26 +736,112 @@ btnDelete.setOnAction(event -> {
                     protected void updateItem(InProcessing item, boolean empty) {
                         super.updateItem(item, empty);
 
-                        if (item == null || item.getIsReadMeassage()== null || item.getIsReadMeassage().equals(0)) {
-                            setStyle("");
-                        } else  {
-                            setStyle("-fx-font-weight: bold");
+                        try {
+                            if (item == null || item.getIsReadMeassage() == null || item.getIsReadMeassage().equals(0)) {
+                                setStyle("");
+                                if (item.getJointAnnulment().equals(1) || item.getJointAnnulment().equals(2)) {
+                                    setStyle("-fx-background-color: #FF0000;");
+
+                                }
+                            } else {
+                                setStyle("-fx-font-weight: bold");
+                                if (item.getJointAnnulment().equals(1) || item.getJointAnnulment().equals(2))
+                                    setStyle("-fx-background-color: #FF0000;" +
+                                            "-fx-font-weight: bold");
+
+                            }
+                        } catch (NullPointerException ex) {
+
                         }
+
                     }
                 };
             }
         });
 
-UpdateNotificationTable();
-        try {
-            UpdateNotificationAllTable();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+    }
+
+    @FXML
+    private void actionSearchingField(ActionEvent event) {
+
+        //    String value = searchingField.getText();
+
+        //   if(value.equals("")) {
+        //       refreshData();
+        //   }else
+        //       try {
+        //           findByProperty(value);
+        //        }catch (Exception e){
+        //        e.printStackTrace();
+        //         }
     }
 
 
-    public void AddDate () {
+    String Skrut = null;
+
+    public void findByProperty(String value) {
+        data.clear();
+        try {
+            pst = con.prepareStatement("SELECT RequestID " +
+                            "\t\t\t\t\tFROM dbo.tbl_OfferingInRequestOffering \n" +
+                            " WHERE [tbl_OfferingInRequestOffering].[OfferingID] IN (SELECT ID\n" +
+                            "        FROM [tbl_Offering] WHERE [tbl_Offering].Skrut LIKE '" + value.toString() + "%' OR [tbl_Offering].[Index] LIKE '" + value.toString() + "%')"//+
+                    //  "FOR XML PATH('')"
+            );
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                Skrut = rs.getString(1);
+                //  options.add(rs.getString(1));
+                List<InProcessing> listItems = account.findAllOneSearch(false, (int) toIndex, User.getContactID(), User.getContactID(), Skrut);
+                listItems.forEach(item -> data.add(item));
+
+
+            }
+            tableProduct.setItems(data);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        /// Skrut = (String) options.get(0);
+
+
+    }
+
+    public void findByPropertyAll(String value) {
+        dataAll.clear();
+        try {
+            pst = con.prepareStatement("SELECT RequestID " +
+                            "\t\t\t\t\tFROM dbo.tbl_OfferingInRequestOffering \n" +
+                            " WHERE [tbl_OfferingInRequestOffering].[OfferingID] IN (SELECT ID\n" +
+                            "        FROM [tbl_Offering] WHERE [tbl_Offering].Skrut LIKE '" + value.toString() + "%' OR [tbl_Offering].[Index] LIKE '" + value.toString() + "%')" //+
+                    //  "FOR XML PATH('')"
+            );
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                Skrut = rs.getString(1);
+                //  options.add(rs.getString(1));
+                List<InProcessing> listItems = account.findAllInProcessingSearchSkrut(false, (int) toIndex, Skrut);
+                listItems.forEach(item -> dataAll.add(item));
+
+
+            }
+            tableviewAll.setItems(dataAll);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NullPointerException y) {
+            y.printStackTrace();
+        }
+
+
+        /// Skrut = (String) options.get(0);
+
+
+    }
+
+    public void AddDate() {
 
         Date date = Date.valueOf(datePicker.getValue());
         System.out.println(date + "datePostavki");
@@ -646,42 +850,45 @@ UpdateNotificationTable();
         pst = null;
 
 
-            try {
-                pst = DBConnection.getDataSource().getConnection().prepareStatement(query);
+        try {
+            pst = con.prepareStatement(query);
 
-                pst.setString(1, com.login.User.getContactID());
-                pst.setString(2, columnMessage.getRecipientID());
-                pst.setString(3, chosenAccount.getID());
-                pst.setString(4, "Дата поставки: "+ date);
-                pst.execute();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            pst.setString(1, com.login.User.getContactID());
+            pst.setString(2, columnMessage.getRecipientID());
+            pst.setString(3, chosenAccount.getID());
+            pst.setString(4, "Дата поставки: " + date);
+            pst.execute();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
-      public void showWindowChatTwoo() {
+
+    public void showWindowChatTwoo() {
         Stage stage = new Stage();
 
-      //    String hostname = hostnameTextfield.getText();
-          int port = 9001;
-          String username = User.getContactName();
-          String picture = User.getContactName();
+        //    String hostname = hostnameTextfield.getText();
+        int port = 9001;
+        String username = User.getContactName();
+        String picture = User.getContactName();
 
         try {
             FXMLLoader loader = new FXMLLoader();
 
             loader.setLocation(ClientController.class.getResource("/views/ChatView.fxml"));
             //AnchorPane root = (AnchorPane)loader.load(getClass().getResource("/sample/ChatTwoo/controller/ClientGUI.fxml").openStream());
-           // Parent root = loader.load(getClass().getResource("/sample/ChatTwoo/controller/ClientGUI.fxml"));
+            // Parent root = loader.load(getClass().getResource("/sample/ChatTwoo/controller/ClientGUI.fxml"));
 
-          //  System.out.println("00000000000");
+            //  System.out.println("00000000000");
             Pane pane = loader.load();
-        //    ClientController con = loader.getController();
-         ///   con.setOfferingRequest(chosenAccount, true);
+            //    ClientController con = loader.getController();
+            ///   con.setOfferingRequest(chosenAccount, true);
             conn = loader.<ChatController>getController();
-         //   Listener listener = new Listener(hostname, port, username, picture, conn);
-          // Thread x = new Thread(listener);
-         //   x.start();
+            //   Listener listener = new Listener(hostname, port, username, picture, conn);
+            // Thread x = new Thread(listener);
+            //   x.start();
             Scene scene = new Scene(pane);
 
             stage.setScene(scene);
@@ -691,7 +898,7 @@ UpdateNotificationTable();
 //        stage.initModality(Modality.WINDOW_MODAL);
             stage.requestFocus();
         } catch (Exception e) {
-          UsefulUtils.showErrorDialog(e.getMessage());
+            UsefulUtils.showErrorDialog(e.getMessage());
 
         }
     }
@@ -703,66 +910,80 @@ UpdateNotificationTable();
         instance = this;
     }*/
 
-   /* public static InProcessingController getInstance() {
-        return instance;
-    }*/
+    /* public static InProcessingController getInstance() {
+         return instance;
+     }*/
+
     public void loginButtonAction(InProcessing chosenAccount) throws IOException {
-        String hostname = "192.168.10.197";
+        String hostname = "192.168.10.144";
+        System.out.println(hostname);
         int port = 9001;
         String username = User.getContactName();
         String picture = "Default";
 
+        //  System.out.println(chosenAccount + "ooppooppopopooppopo[[ppo[[p[p[pp[ewo[pp[");
+        //  FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/views/ChatView.fxml"));
 
-        FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/views/ChatView.fxml"));
+        // Parent window = (Pane) fmxlLoader.load();
+        //   conn = fmxlLoader.<ChatController>getController();
+        //  instance = fmxlLoader.<InProcessingController>getController();
+        chatViewController.setOfferingRequest(chosenAccount);
+        try {
+            chatViewController.loadDataFromDataBase();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        chatViewController.buttonSendTract.setVisible(false);
 
-        Parent window = (Pane) fmxlLoader.load();
-    conn = fmxlLoader.<ChatController>getController();
-    //  instance = fmxlLoader.<InProcessingController>getController();
-        conn.setOfferingRequest(chosenAccount);
-        conn.setInProcessingController(this);
-   Listener listener = new Listener(hostname, port, username, picture, conn, this, chosenAccount);
-    Thread x = new Thread(listener);
-            x.start();
+        Listener listener = new Listener(hostname, port, username, picture, chatViewController, this, chosenAccount);
+        Thread x = new Thread(listener);
+        x.start();
+        //chatViewController.setInProcessingController(this);
 
-           this.scene = new Scene(window);
+        chatViewController.setUsernameLabel(User.getContactName());
+
+        chatViewController.setImageLabel("Default");
 
 
-}
+        //   this.scene = new Scene(window);
+
+
+    }
 
     public void showScene() throws IOException {
         Platform.runLater(() -> {
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-                   // (Stage) hostnameTextfield.getScene().getWindow();
-         //   stage.getScene();
+            // (Stage) hostnameTextfield.getScene().getWindow();
+            //   stage.getScene();
 //stage.showAndWait();
             stage.setResizable(true);
-           stage.setWidth(1040);
+            stage.setWidth(1040);
             stage.setHeight(620);
 
-    //        stage.setOnCloseRequest((WindowEvent e) -> {
-     //           Platform.exit();
-        //       System.exit(0);
-       //    });
+            //        stage.setOnCloseRequest((WindowEvent e) -> {
+            //           Platform.exit();
+            //       System.exit(0);
+            //    });
             stage.setScene(this.scene);
 
-         //  stage.setMinWidth(800);
-         //   stage.setMinHeight(300);
+            //  stage.setMinWidth(800);
+            //   stage.setMinHeight(300);
 
-            ResizeHelper.addResizeListener(stage);
-      //      stage.showAndWait();
+            //   ResizeHelper.addResizeListener(stage);
+            //      stage.showAndWait();
             System.out.println("chatFive");
 
             conn.setUsernameLabel(User.getContactName());
             conn.setImageLabel("Default");
-            conn.setIdTextFild(chosenAccount.getID());
+            // conn.setIdTextFild(chosenAccount.getID());
             stage.showAndWait();
         });
     }
 
     public void showErrorDialog(String message) {
-        Platform.runLater(()-> {
+        Platform.runLater(() -> {
             TrayNotification tray = new TrayNotification();
             tray.setNotificationType(NotificationType.ERROR);
             tray.setTitle("Помилка");
@@ -878,42 +1099,42 @@ UpdateNotificationTable();
         }
     }*/
 
-   /*  public void showWindowChat() {
-         try {
-             try {
-                 chosenAccount = (InProcessing) tableProduct.getItems().get(tableProduct.getSelectionModel().getSelectedIndex());
-                 System.out.println(chosenAccount + "11111111111111111222222222222222333333333333");
-             } catch (Exception e) {
-                 UsefulUtils.showErrorDialog("Exception");
-                 return;
-             }
-             // System.out.println("22222222222222 " + offeringRequest);
-             Stage primaryStage = new Stage();
-             //primaryStage.initModality(Modality.APPLICATION_MODAL);
+    /*  public void showWindowChat() {
+          try {
+              try {
+                  chosenAccount = (InProcessing) tableProduct.getItems().get(tableProduct.getSelectionModel().getSelectedIndex());
+                  System.out.println(chosenAccount + "11111111111111111222222222222222333333333333");
+              } catch (Exception e) {
+                  UsefulUtils.showErrorDialog("Exception");
+                  return;
+              }
+              // System.out.println("22222222222222 " + offeringRequest);
+              Stage primaryStage = new Stage();
+              //primaryStage.initModality(Modality.APPLICATION_MODAL);
 
-            // FXMLLoader loader = new FXMLLoader();
-
-
-             //loader.setRoot(this);
-             //loader.setController(this);
-
-             FXMLLoader fxml = new FXMLLoader(getClass().getResource("/sample/ChatTwoo/view/ClientGUI.fxml"));
-
-             Parent root = fxml.load();
+             // FXMLLoader loader = new FXMLLoader();
 
 
-             Scene scene = new Scene(root);
-             ClientController con = fxml.getController();
-             con.setOfferingRequest(chosenAccount, true);
+              //loader.setRoot(this);
+              //loader.setController(this);
 
-             primaryStage.setScene(scene);
-             primaryStage.show();
-         } catch (Exception e) {
-             log.log(Level.SEVERE, "Exception: " + e);
-             UsefulUtils.showErrorDialog("Неможливо відкрити вікно чату!");
-             throw new RuntimeException(e);
-         }
-     }*/
+              FXMLLoader fxml = new FXMLLoader(getClass().getResource("/sample/ChatTwoo/view/ClientGUI.fxml"));
+
+              Parent root = fxml.load();
+
+
+              Scene scene = new Scene(root);
+              ClientController con = fxml.getController();
+              con.setOfferingRequest(chosenAccount, true);
+
+              primaryStage.setScene(scene);
+              primaryStage.show();
+          } catch (Exception e) {
+              log.log(Level.SEVERE, "Exception: " + e);
+              UsefulUtils.showErrorDialog("Неможливо відкрити вікно чату!");
+              throw new RuntimeException(e);
+          }
+      }*/
    /* private void handleTableView() {
         main.setHandler((InProcessing) tableProduct.getItems().get(tableProduct.getSelectionModel().getSelectedIndex()));
     }*/
@@ -939,7 +1160,7 @@ UpdateNotificationTable();
             TableColumn<InProcessing, String> groupChangedBy = new TableColumn<InProcessing, String>("Змінив групу");
             TableColumn<InProcessing, String> stateName = new TableColumn<InProcessing, String>("Статус товару");
             TableColumn<InProcessing, String> specialMarginTypeName = new TableColumn<InProcessing, String>("Тип спец націнки");
-            TableColumn<InProcessing, Integer> isReadMeassage = new TableColumn<InProcessing, Integer>("повіщення");
+            // TableColumn<InProcessing, Integer> isReadMeassage = new TableColumn<InProcessing, Integer>("повіщення");
 
 
             tableProduct.setTableMenuButtonVisible(true);
@@ -961,8 +1182,8 @@ UpdateNotificationTable();
                     originalGroupName,
                     groupChangedBy,
                     stateName,
-                    specialMarginTypeName,
-                    isReadMeassage
+                    specialMarginTypeName//,
+                    //           isReadMeassage
             );
             number.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("Number"));
             createdOn.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("CreatedOn"));
@@ -978,8 +1199,8 @@ UpdateNotificationTable();
             groupChangedBy.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("GroupChangedBy"));
             stateName.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("StateName"));
             specialMarginTypeName.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("SpecialMarginTypeName"));
-            isReadMeassage.setCellValueFactory(new PropertyValueFactory<InProcessing, Integer>("isReadMeassage"));
- // isReadMessage.setMinWidth(200);
+            //   isReadMeassage.setCellValueFactory(new PropertyValueFactory<InProcessing, Integer>("isReadMeassage"));
+            // isReadMessage.setMinWidth(200);
          /*   isReadMessage.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<InProcessing, CheckBox>, ObservableValue<CheckBox>>() {
 
                 @Override
@@ -1079,26 +1300,30 @@ UpdateNotificationTable();
 
 
     @Override
-    public List<InProcessing> loadDataFromDatabase() {
-
+    public void loadDataFromDatabase() {
         try {
-          //  chosenAccount = (InProcessing) tableProduct.getItems().get(tableProduct.getSelectionModel().getSelectedIndex());
-           // System.out.println(chosenAccount.getCreatedByID() + "778897979"+chosenAccount.getOfferingGroupID());
             List<InProcessing> listItems = account.findAllOne(true, (int) toIndex, User.getContactID(), User.getContactID());
-
             listItems.forEach(item -> data.add(item));
 
             tableProduct.setItems(data);
-
-
         } catch (Exception e) {
             log.log(Level.SEVERE, "Load data from database exception: " + e);
         }
-        return null;
+        //   return null;
     }
 
     @Override
-    public List<InProcessing> loadDataFromDatabaseAll() {
+    public void disableFilter(TableColumn column, Pane content) {
+
+    }
+
+    @Override
+    public void removeFilterFromHbox(TableColumn column) {
+
+    }
+
+    @Override
+    public void loadDataFromDatabaseAll() {
 
         try {
             List<InProcessing> listItems = account.findAllInProcessing(true, (int) toIndex);
@@ -1111,7 +1336,7 @@ UpdateNotificationTable();
         } catch (Exception e) {
             log.log(Level.SEVERE, "Load data from database exception: " + e);
         }
-        return null;
+        //return null;
     }
 
 
@@ -1233,17 +1458,20 @@ UpdateNotificationTable();
 
     }
 
-
-
-
     public void refreshData() {
         data.clear();
         dataAll.clear();
-        loadDataFromDatabase();
         loadDataFromDatabaseAll();
+        loadDataFromDatabase();
 
-        UsefulUtils.fadeTransition(tableviewAll);
+
+        //     UsefulUtils.fadeTransition(tableviewAll);
         UsefulUtils.fadeTransition(tableProduct);
+    }
+
+    @Override
+    public void fillHboxFilter(TableColumn column, IFilterOperator.Type type, Object value) {
+
     }
 
 
@@ -1320,8 +1548,6 @@ UpdateNotificationTable();
             UsefulUtils.showSuccessful("Запит успішно видалено");
 
 
-
-
         } else return;
 
 
@@ -1329,24 +1555,25 @@ UpdateNotificationTable();
 
 
     @FXML
-    private void btnUpdateOfferingGroupName (ActionEvent e){
+    private void btnUpdateOfferingGroupName(ActionEvent e) {
 
         chosenAccount = (InProcessing) tableviewAll.getItems().get(tableviewAll.getSelectionModel().getSelectedIndex());
 
-if(chosenAccount != null){
-        try {
-            chosenAccount = (InProcessing) tableviewAll.getItems().get(tableviewAll.getSelectionModel().getSelectedIndex());
-        } catch (Exception ex) {
-            UsefulUtils.showErrorDialogDown("Не вибрано жодного елемента з таблиці!");
-            return;
+        if (chosenAccount != null) {
+            try {
+                chosenAccount = (InProcessing) tableviewAll.getItems().get(tableviewAll.getSelectionModel().getSelectedIndex());
+            } catch (Exception ex) {
+                UsefulUtils.showErrorDialogDown("Не вибрано жодного елемента з таблиці!");
+                return;
+            }
+        } else {
+            try {
+                chosenAccount = (InProcessing) tableProduct.getItems().get(tableProduct.getSelectionModel().getSelectedIndex());
+            } catch (Exception ex) {
+                UsefulUtils.showErrorDialogDown("Не вибрано жодного елемента з таблиці!");
+                return;
+            }
         }
-} else {
-        try {
-            chosenAccount = (InProcessing) tableProduct.getItems().get(tableProduct.getSelectionModel().getSelectedIndex());
-        } catch (Exception ex) {
-            UsefulUtils.showErrorDialogDown("Не вибрано жодного елемента з таблиці!");
-            return;
-        }}
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         FXMLLoader loader = new FXMLLoader();
@@ -1363,7 +1590,7 @@ if(chosenAccount != null){
         // Show the scene containing the root layout.
 
         Scene scene = new Scene(serverrLayout);
-       UpdateOfferingGroupNameController con = loader.getController();
+        UpdateOfferingGroupNameController con = loader.getController();
         con.setOfferingRequest(this, chosenAccount);
 
 
@@ -1371,10 +1598,10 @@ if(chosenAccount != null){
         ResizeHelper.addResizeListener(stage);
         stage.setMaxHeight(480);
         stage.setMaxWidth(620);
-       // main.changeExists();
+        // main.changeExists();
         stage.show();
         stage.requestFocus();
-       // refreshData();
+        // refreshData();
 
     }
 
@@ -1391,7 +1618,7 @@ if(chosenAccount != null){
                                 "\t\t\t\t\tIsReadMeassage = '1'\n" +
                                 "\t\t\t\t\tWHERE ID = ?";
                         try {
-                            pst = DBConnection.getDataSource().getConnection().prepareStatement(queryUpdate);
+                            pst = con.prepareStatement(queryUpdate);
 
                             pst.setString(1, chosenAccount.getID());
                             pst.executeUpdate();
@@ -1405,7 +1632,7 @@ if(chosenAccount != null){
                                 "\t\t\t\t\tIsReadMeassage = '0'\n" +
                                 "\t\t\t\t\tWHERE ID = ?";
                         try {
-                            pst = DBConnection.getDataSource().getConnection().prepareStatement(query);
+                            pst = con.prepareStatement(query);
 
                             pst.setString(1, chosenAccount.getID());
                             pst.executeUpdate();
@@ -1433,7 +1660,7 @@ if(chosenAccount != null){
                                 "\t\t\t\t\tIsReadMeassage = '1'\n" +
                                 "\t\t\t\t\tWHERE ID = ?";
                         try {
-                            pst = DBConnection.getDataSource().getConnection().prepareStatement(queryUpdate);
+                            pst = con.prepareStatement(queryUpdate);
 
                             pst.setString(1, chosenAccount.getID());
                             pst.executeUpdate();
@@ -1447,7 +1674,7 @@ if(chosenAccount != null){
                                 "\t\t\t\t\tIsReadMeassage = '0'\n" +
                                 "\t\t\t\t\tWHERE ID = ?";
                         try {
-                            pst = DBConnection.getDataSource().getConnection().prepareStatement(query);
+                            pst = con.prepareStatement(query);
 
                             pst.setString(1, chosenAccount.getID());
                             pst.executeUpdate();
@@ -1462,10 +1689,39 @@ if(chosenAccount != null){
 
     }
 
+    @FXML
+    private void actionCalculator(ActionEvent e) {
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        FXMLLoader loader = new FXMLLoader();
 
+
+        loader.setLocation(InProcessingController.class.getResource("/views/CalculatorView.fxml"));
+        CalculatorController createRequest = loader.getController();
+        Pane serverrLayout = null;
+        try {
+            serverrLayout = loader.load();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        // Show the scene containing the root layout.
+
+        Scene scene = new Scene(serverrLayout);
+        CalculatorController con = loader.getController();
+        //  con.setOfferingRequest(this);
+        con.setOfferingRequest(chosenAccount);
+        stage.setScene(scene);
+        ResizeHelper.addResizeListener(stage);
+        // stage.setMaxHeight(480);
+        //stage.setMaxWidth(620);
+        //     main.changeExists();
+        stage.show();
+        stage.requestFocus();
+    }
 
     @Override
     public void update() {
         refreshData();
+
     }
 }

@@ -1,10 +1,10 @@
 package com.mainPage.All;
 
+import com.connectDatabase.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.scene.control.TableColumn;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import com.connectDatabase.DBConnection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,8 +54,8 @@ public class DerbyAllDAO implements AllDAO{
     }
 
     @Override
-    public List<All> findAll(boolean pagination, int rowIndex, String createdByID, String offeringGroupID) {
-        String query = (pagination ? accountQueries1.getMainAll(true, rowIndex, createdByID, offeringGroupID) : accountQueries1.getMainAll(false, 0, createdByID, offeringGroupID));
+    public List<All> findAll(boolean pagination, int rowIndex) {
+        String query = (pagination ? accountQueries1.getMainAll(true, rowIndex) : accountQueries1.getMainAll(false, 0));
         try {
             return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query, new BeanListHandler<All>(All.class)));
         } catch (Exception e) {
@@ -86,5 +86,15 @@ public class DerbyAllDAO implements AllDAO{
     public void removeStringFilter(TableColumn key) {
         mapFilters.remove(key);
 
+    }
+    public List<All> findSearchSkrut(boolean pagination, int rowIndex, String createdByID, String offeringGroupID, String requestID) {
+        String query = (pagination ? accountQueries1.getMainAllSearch(true, rowIndex, createdByID, offeringGroupID, requestID) : accountQueries1.getMainAllSearch(false, 0, createdByID, offeringGroupID, requestID));
+        try {
+            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query, new BeanListHandler<All>(All.class)));
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "getAccount exception: " + e);
+        }
+
+        return FXCollections.observableArrayList(EMPTYLIST);
     }
 }

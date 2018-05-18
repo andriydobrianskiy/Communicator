@@ -28,13 +28,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-
 public class NotesInProcessingController implements Initializable {
 
     private static Logger log = Logger.getLogger(NotesInProcessingController.class.getName());
 
-    private Connection con= null;
-    private PreparedStatement pst= null;
+    private Connection con = null;
+    private PreparedStatement pst = null;
     private ResultSet rs = null;
     public static InProcessing offeringRequest;
 
@@ -63,16 +62,16 @@ public class NotesInProcessingController implements Initializable {
 
     public NotesInProcessingController(InProcessing offeringRequest, boolean status) {
         this.offeringRequest = offeringRequest;
-    //    loadDataFromDataBase();
-        showWindow();
 
+        showWindow();
+        loadDataFromDataBase();
 
     }
+
     public NotesInProcessingController(InTract offeringTract, boolean status) {
         this.offeringTract = offeringTract;
 
         showWindow();
-
 
 
     }
@@ -86,6 +85,7 @@ public class NotesInProcessingController implements Initializable {
     }
 
     private ObservableList<NotesInProcessing> data;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -96,52 +96,21 @@ public class NotesInProcessingController implements Initializable {
         data = FXCollections.observableArrayList();
 //        loadDataFromDataBase();
         loadDataFromDataBase();
-      //  loadDataFromDataBaseTract();
-    //    loadDataFromDataBaseArchive();
+        //  loadDataFromDataBaseTract();
+        //    loadDataFromDataBaseArchive();
     }
 
-    public void loadDataFromDataBase () {
+    public void loadDataFromDataBase() {
         try {
-            pst = DBConnection.getDataSource().getConnection().prepareStatement("SELECT \n" +
-                    "\t[tbl_OfferingInRequestOffering].[ID] AS [ID],\n" +
-                    "\t[tbl_OfferingInRequestOffering].[CreatedOn] AS [CreatedOn],\n" +
-                    "\t[tbl_OfferingInRequestOffering].[CreatedByID] AS [CreatedByID],\n" +
-                    "\t[tbl_OfferingInRequestOffering].[ModifiedOn] AS [ModifiedOn],\n" +
-                    "\t[tbl_OfferingInRequestOffering].[ModifiedByID] AS [ModifiedByID],\n" +
-                    "\t[tbl_OfferingInRequestOffering].[OfferingID] AS [OfferingID],\n" +
-                    "\t[tbl_OfferingInRequestOffering].[RequestID] AS [RequestID],\n" +
-                    "\t[tbl_RequestOffering].Note AS [Note],\n" +
-                    "\t[tbl_Offering].[Index] AS [Index],\n" +
-                    "\t[tbl_Offering].[Skrut] AS [Skrut],\n" +
-                    "\t[tbl_Offering].[Name] AS [OfferingName],\n" +
-                    "\t[tbl_Offering].[DefaultOfferingCode] AS [DefaultOfferingCode],\n" +
-                    "\t[tbl_OfferingInRequestOffering].[Quantity] AS [Quantity],\n" +
-                    "\t[tbl_OfferingInRequestOffering].[NewOfferingCode] AS [NewOfferingCode],\n" +
-                    "\t[tbl_OfferingInRequestOffering].[NewDescription] AS [NewDescription],\n" +
-                    "\t(SELECT TOP 1\n" +
-                    "\t\t'-' AS [Exist]\n" +
-                    "\tFROM\n" +
-                    "\t\t[dbo].[tbl_OfferingAnalogue] AS [tbl_OfferingAnalogue]\n" +
-                    "\tWHERE([tbl_OfferingAnalogue].[OfferingID] = [tbl_OfferingInRequestOffering].[OfferingID])) AS [IsRoot]\n" +
-                    "FROM\n" +
-                    "\t[dbo].[tbl_OfferingInRequestOffering] AS [tbl_OfferingInRequestOffering]\n" +
-                    "LEFT OUTER JOIN\n" +
-                    "\t[dbo].[tbl_Offering] AS [tbl_Offering] ON [tbl_Offering].[ID] = [tbl_OfferingInRequestOffering].[OfferingID]\n" +
-                    "LEFT OUTER JOIN\n" +
-                    "\t[dbo].[tbl_RequestOffering] AS [tbl_RequestOffering] ON [tbl_RequestOffering].[ID] = [tbl_OfferingInRequestOffering].[RequestID]\n" +
-                    "WHERE([tbl_OfferingInRequestOffering].[RequestID] = ?)");
-            try {
-                System.out.println(offeringRequest.getID());
-            } catch (NullPointerException e) {
-                log.log(Level.SEVERE, "NULLLLL + " + e);
-            }
+            pst = DBConnection.getDataSource().getConnection().prepareStatement("SELECT Note from tbl_RequestOffering where ID = ?");
+
             pst.setString(1, offeringRequest.getID());
             //  System.out.println("odinff" + offeringRequest.getID());
 
             rs = pst.executeQuery();
             while (rs.next()) {
-                data.add(new NotesInProcessing(rs.getString(8)));
-                textArea.setText(rs.getString("note"));
+                data.add(new NotesInProcessing(rs.getString(1)));
+                textArea.setText(rs.getString(1));
 
 
                /* StringBuilder builder = new StringBuilder();
@@ -160,14 +129,15 @@ public class NotesInProcessingController implements Initializable {
 		/*	StringBuilder builder = new StringBuilder();
             builder.append("Дата\n"+ dataMessage.add(new ColumnMessage (rs.getString(5))) );
 			txtAreaServerMsgs.setText(builder.toString());*/
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-       data.clear();
+       // data.clear();
     }
 
 
-    public void loadDataFromDataBaseTract () {
+    public void loadDataFromDataBaseTract() {
         try {
             pst = DBConnection.getDataSource().getConnection().prepareStatement("SELECT \n" +
                     "\t[tbl_OfferingInRequestOffering].[ID] AS [ID],\n" +
@@ -232,7 +202,8 @@ public class NotesInProcessingController implements Initializable {
         }
         data.clear();
     }
-    public void loadDataFromDataBaseArchive () {
+
+    public void loadDataFromDataBaseArchive() {
         try {
             pst = DBConnection.getDataSource().getConnection().prepareStatement("SELECT \n" +
                     "\t[tbl_OfferingInRequestOffering].[ID] AS [ID],\n" +
@@ -292,6 +263,9 @@ public class NotesInProcessingController implements Initializable {
 		/*	StringBuilder builder = new StringBuilder();
             builder.append("Дата\n"+ dataMessage.add(new ColumnMessage (rs.getString(5))) );
 			txtAreaServerMsgs.setText(builder.toString());*/
+		con.close();
+		pst.close();
+		rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -299,7 +273,7 @@ public class NotesInProcessingController implements Initializable {
     }
 
     @FXML
-    private void actionOK (ActionEvent event) {
+    private void actionOK(ActionEvent event) {
 
 
         String query = "UPDATE [dbo].[tbl_RequestOffering]\n" +
@@ -314,19 +288,15 @@ public class NotesInProcessingController implements Initializable {
         try {
             try {
                 pst = con.prepareStatement(query);
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
             pst.setString(1, textArea.getText());
-            System.out.println(textArea.getText() + "888888888888888888888888888888888888888888");
             pst.setString(2, User.getContactID());
             pst.setString(3, offeringRequest.getID());
-            System.out.println(offeringRequest.getID() + "999999999999999999999999999999999");
-
             pst.execute();
-
             UsefulUtils.showInformationDialog("Нотатка успішно записана " + User.getContactName());
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -335,36 +305,27 @@ public class NotesInProcessingController implements Initializable {
 
     }
 
-  public void  showWindow(){
-      try{
-        Stage primaryStage = new Stage();
+    public void showWindow() {
+        try {
+            Stage primaryStage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            FXMLLoader fxml = new FXMLLoader(getClass().getResource("/views/NotesInProcessingView.fxml"));
+            Parent root = fxml.load();
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-      FXMLLoader loader = new FXMLLoader();
-
-
-      FXMLLoader fxml = new FXMLLoader(getClass().getResource("/views/NotesInProcessingView.fxml"));
-
-      Parent root = fxml.load();
-      System.out.println("22222222222222 " + offeringRequest);
-
-
-
-      Scene scene = new Scene(root);
-      primaryStage.setScene(scene);
-      primaryStage.show();
-  } catch (Exception e) {
-        e.printStackTrace();
     }
 
-  }
 
-
-@FXML
-    private void actionCancel (ActionEvent event) {
-    Stage stage = (Stage) btn_Cancel.getScene().getWindow();
-    stage.close();
-}
-
+    @FXML
+    private void actionCancel(ActionEvent event) {
+        Stage stage = (Stage) btn_Cancel.getScene().getWindow();
+        stage.close();
+    }
 
 
 }

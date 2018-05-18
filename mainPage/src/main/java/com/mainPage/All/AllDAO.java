@@ -11,5 +11,5 @@ public interface AllDAO {
     void setName(String name);
 
     // List<? extends InProcessingIntarface> findByProperty1(Object value, Enum<? extends SearchType> searchType);
-    List<All> findAll(boolean pagination, int rowIndex, String createdByID, String offeringGroupID);
+    List<All> findAll(boolean pagination, int rowIndex);
 }

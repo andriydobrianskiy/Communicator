@@ -5,5 +5,7 @@ import java.util.List;
 public interface DictionaryPropertiesInTract {
     void createTableColumns();
     List<InTract> loadDataFromDatabase();
+    void createTableColumnsAll();
+    List<InTract> loadDataFromDatabaseAll();
 
 }

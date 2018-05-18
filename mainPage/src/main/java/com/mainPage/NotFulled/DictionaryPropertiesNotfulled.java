@@ -13,7 +13,7 @@ public interface DictionaryPropertiesNotfulled {
     void setID(String ID);
     void setName(String name);
     void createTableColumns();
-    List<NotFulfilled> loadDataFromDatabase();
+    void loadDataFromDatabase();
     void disableFilter(TableColumn column, Pane content);
 
   //  List<ProductList> loadDataFromDatabaseBottom();

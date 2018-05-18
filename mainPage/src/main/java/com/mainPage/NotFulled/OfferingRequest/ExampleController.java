@@ -55,7 +55,7 @@ public class ExampleController implements Initializable {
         tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
 
-        UsefulUtils.installCopyPasteHandler(tableView);
+//        UsefulUtils.installCopyPasteHandler(tableView);
 
     }
 

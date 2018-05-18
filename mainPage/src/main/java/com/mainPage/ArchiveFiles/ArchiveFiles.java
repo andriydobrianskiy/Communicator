@@ -1,10 +1,10 @@
 package com.mainPage.ArchiveFiles;
 
+import com.connectDatabase.DBConnection;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import com.connectDatabase.DBConnection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -343,9 +343,9 @@ public class ArchiveFiles implements ArchiveFilesInterface {
     }*/
 
     @Override
-    public List<ArchiveFiles> findAllInTract(boolean pagination, int rowIndex) {
+    public List<ArchiveFiles> findAllInArchive(boolean pagination, int rowIndex, String createdByID, String offeringGroupID) {
         {
-            String query = (pagination ? accountQueries1.getMainArchiveFiles(true, rowIndex) : accountQueries1.getMainArchiveFiles(false, 0));
+            String query = (pagination ? accountQueries1.getMainArchiveFiles(true, rowIndex, createdByID , offeringGroupID) : accountQueries1.getMainArchiveFiles(false, 0, createdByID , offeringGroupID));
 
             try {
 
@@ -357,5 +357,15 @@ public class ArchiveFiles implements ArchiveFilesInterface {
             return FXCollections.observableArrayList(EMPTYLIST);
         }
 
+    }
+    public List<ArchiveFiles> findSearchSkrut(boolean pagination, int rowIndex, String createdByID, String offeringGroupID, String requestID) {
+        String query = (pagination ? accountQueries1.getMainArchiveFilesSearch(true, rowIndex, requestID) : accountQueries1.getMainArchiveFilesSearch(false, 0, requestID));
+        try {
+            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query, new BeanListHandler<ArchiveFiles>(ArchiveFiles.class)));
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "getAccount exception: " + e);
+        }
+
+        return FXCollections.observableArrayList(EMPTYLIST);
     }
 }

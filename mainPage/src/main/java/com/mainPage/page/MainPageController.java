@@ -11,7 +11,8 @@ import com.mainPage.NotFulled.NotFulfilled;
 import com.mainPage.NotFulled.NotFulledController;
 import com.mainPage.NotFulled.ProductAdd.ObservableNF;
 import com.mainPage.NotFulled.ProductAdd.ObserverNF;
-import com.mainPage.Sructure.StructureController;
+import com.mainPage.OrderRegistryPoland.OrderRegistryPolandController;
+import com.mainPage.OrderRegistryUkraine.OrderRegistryUkraineController;
 import com.mainPage.Statistic.StatisticController;
 import com.mainPage.createRequest.searchCounterpart.Counterpart;
 import javafx.fxml.FXML;
@@ -21,6 +22,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
@@ -29,7 +32,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
-public class MainPageController  implements Initializable, ObservableNF {
+public class MainPageController implements Initializable, ObservableNF {
 
 
     @FXML
@@ -47,14 +50,15 @@ public class MainPageController  implements Initializable, ObservableNF {
 
 
     }
-public  ChatController chatController;
 
-    public void setChatController(ChatController controller){
+    public ChatController chatController;
+
+    public void setChatController(ChatController controller) {
 
         chatController = controller;
     }
 
-    public  ChatController getChatController() {
+    public ChatController getChatController() {
         return chatController;
     }
 
@@ -62,12 +66,6 @@ public  ChatController chatController;
 
     }
 
-    /* public InProcessingController getInProcessingViewController() {
-         return inProcessingViewController;
-     }
-     public void setInProcessingViewController (InProcessingController inProcessingController){
-         this.inProcessingViewController = inProcessingController;
-     }*/
     private InProcessing inProcessing;
 
     @FXML
@@ -84,6 +82,10 @@ public  ChatController chatController;
     private AllController allViewController;
     @FXML
     private StatisticController statisticViewController;
+    @FXML
+    private OrderRegistryUkraineController orderRegistryUkraineViewController;
+    @FXML
+    private OrderRegistryPolandController orderRegistryPolandViewController;
 
 
     @FXML
@@ -100,10 +102,14 @@ public  ChatController chatController;
     private Tab tabAll;
     @FXML
     private Tab tabStatistic;
+  //  @FXML
+   // private Tab tabStructure;
+   // @FXML
+   // private StructureController structureViewController;
     @FXML
-    private Tab tabStructure;
+    private Tab tabOrderRegistryPoland;
     @FXML
-    private StructureController structureViewController;
+    private Tab tabOrderRegistryUkraine;
 
     private static List<ObserverNF> listElements = new LinkedList<>();
 
@@ -116,9 +122,10 @@ public  ChatController chatController;
         inTractViewController.init(this);
         archiveFilesViewController.init(this);
         allViewController.init(this);
-        structureViewController.init(this);
+        //structureViewController.init(this);
         statisticViewController.init(this);
-
+        orderRegistryUkraineViewController.init(this);
+        orderRegistryPolandViewController.init(this);
 
 
         add(InProcessingViewController);
@@ -128,9 +135,40 @@ public  ChatController chatController;
         add(allViewController);
 
 
+
+        notFulledViewController.tableRequestOffering.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.F5) {
+                changeExists();
+            }
+        });
+        InProcessingViewController.tableProduct.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.F5) {
+                changeExists();
+            }
+        });
+        InProcessingViewController.tableviewAll.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.F5) {
+                changeExists();
+            }
+        });
+        inTractViewController.tableView.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.F5) {
+                changeExists();
+            }
+        });
+        archiveFilesViewController.tableView.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.F5) {
+                changeExists();
+            }
+        });
+        allViewController.tableView.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.F5) {
+                changeExists();
+            }
+        });
+
         System.out.println("WWWWWWWWWWWWWWWWWWWW");
         listElements.forEach(System.out::println);
-
         Image imageTabNotefulled = new Image(getClass().getResourceAsStream("/images/NotFulle.png"));
         tabDictionary.setGraphic(new ImageView(imageTabNotefulled));
 
@@ -149,9 +187,8 @@ public  ChatController chatController;
         Image imageTabStatistic = new Image(getClass().getResourceAsStream("/images/Statisti.png"));
         tabStatistic.setGraphic(new ImageView(imageTabStatistic));
 
-        Image imageTabStructure = new Image(getClass().getResourceAsStream("/images/Structur.png"));
-        tabStructure.setGraphic(new ImageView(imageTabStructure));
-
+       // Image imageTabStructure = new Image(getClass().getResourceAsStream("/images/Structur.png"));
+       //tabStructure.setGraphic(new ImageView(imageTabStructure));
 
 
     }
@@ -183,8 +220,6 @@ public  ChatController chatController;
 
     @Override
     public void changeExists() {
-        System.out.println("23232323232323");
-        //notFulledViewController.refreshData();
         listElements.forEach(elem -> {
             System.out.println(elem);
             elem.update();

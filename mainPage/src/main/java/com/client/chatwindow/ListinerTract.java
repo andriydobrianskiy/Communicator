@@ -59,7 +59,7 @@ public class ListinerTract  implements Runnable{
     public void run() {
         try {
             socket = new Socket(hostname, port);
-            inTractController.showScene();
+         //   inTractController.showScene();
             outputStream = socket.getOutputStream();
             oos = new ObjectOutputStream(outputStream);
             is = socket.getInputStream();
@@ -81,13 +81,13 @@ public class ListinerTract  implements Runnable{
                     //         logger.debug("Message recieved:" + message.getMsg() + " MessageType:" + message.getType() + "Name:" + message.getName());
                     switch (message.getType()) {
                         case USER:
-                            controller.addToChat(message,message);
+                            controller.addToChat(message);
                             break;
                         case VOICE:
-                            controller.addToChat(message, message);
+                            controller.addToChat(message);
                             break;
                         case NOTIFICATION:
-                            controller.newUserNotification(inTract.getCreatedByID(), inTract.getOfferingGroupName(),message.getName(), message);
+                            controller.newUserNotification( message);
                             break;
                         case SERVER:
                             controller.addAsServer(message);

@@ -48,7 +48,7 @@ public class ProductQuery implements Queries {
                 "\tLEFT OUTER JOIN\n" +
                 "\t\t[dbo].[tbl_OfferingMovement] AS [tbl_OfferingMovement] ON [tbl_OfferingMovement].[ID] = [OIMSaleByPeriod].[OfferingMovementID]\n" +
                 "\tLEFT OUTER JOIN\n" +
-                "\t\t[dbo].[tbl_Store] AS [S] ON [S].[ID] = [tbl_OfferingMovement].[StoreID]\n" +
+                "\t\t[dbo].[vw_Store] AS [S] ON [S].[ID] = [tbl_OfferingMovement].[StoreID]\n" +
                 "\tWHERE([OIMSaleByPeriod].[OfferingID] = [tbl_Offering].[ID] AND\n" +
                 "\t\t([OIMSaleByPeriod].[CreatedOn] >= DATEADD(Year, -1, CURRENT_TIMESTAMP) AND\n" +
                 "\t\t[OIMSaleByPeriod].[CreatedOn] <= CURRENT_TIMESTAMP AND\n" +

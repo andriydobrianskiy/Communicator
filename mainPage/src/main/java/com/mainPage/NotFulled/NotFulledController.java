@@ -1,43 +1,19 @@
 package com.mainPage.NotFulled;
 
-import com.client.util.ResizeHelper;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import org.apache.commons.dbutils.QueryRunner;
-import org.google.jhsheets.filtered.FilteredTableView;
-import org.google.jhsheets.filtered.operators.IFilterOperator;
-import org.google.jhsheets.filtered.tablecolumn.ColumnFilterEvent;
-import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn;
 import com.Utils.CustomPaginationSkin;
-import com.Utils.FilterQuery;
+import com.Utils.DictionaryProperties;
+import com.Utils.MiniFilterWindow.InitComponents;
+import com.Utils.MiniFilterWindow.MiniFilter;
+import com.Utils.MiniFilterWindow.MiniFilterController;
+import com.Utils.MiniFilterWindow.MiniFilterFunction;
 import com.Utils.UsefulUtils;
+import com.client.util.ResizeHelper;
 import com.connectDatabase.DBConnection;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import com.login.User;
 import com.mainPage.InProcessing.InProcessingController;
-import com.mainPage.page.MainPageController;
 import com.mainPage.NotFulled.Edit.EditController;
 import com.mainPage.NotFulled.OfferingRequest.DerbyOfferingRequestDAO;
 import com.mainPage.NotFulled.OfferingRequest.ExampleController;
@@ -46,11 +22,44 @@ import com.mainPage.NotFulled.ProductAdd.ObserverNF;
 import com.mainPage.NotFulled.ProductAdd.ProductAddController;
 import com.mainPage.NotFulled.ProductAdd.ProductAddNewController;
 import com.mainPage.createRequest.CreateRequest;
+import com.mainPage.page.MainPageController;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.util.Callback;
+import org.apache.commons.dbutils.QueryRunner;
+import org.google.jhsheets.filtered.FilteredTableView;
+import org.google.jhsheets.filtered.operators.IFilterOperator;
+import org.google.jhsheets.filtered.tablecolumn.AbstractFilterableTableColumn;
+import org.google.jhsheets.filtered.tablecolumn.ColumnFilterEvent;
+import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -60,7 +69,7 @@ import java.util.logging.Logger;
 
 //import com.sun.java.util.jar.pack.ConstantPool;
 
-public class NotFulledController extends BorderPane implements Initializable, DictionaryPropertiesNotfulled, ObserverNF {
+public class NotFulledController extends BorderPane implements MiniFilterFunction, Initializable, DictionaryPropertiesNotfulled, ObserverNF, DictionaryProperties {
 
     public static User userID;
     private PreparedStatement pst = null;
@@ -72,6 +81,8 @@ public class NotFulledController extends BorderPane implements Initializable, Di
     private Connection con = null;
     @FXML
     private JFXButton tbn_CreateRequest;
+    @FXML
+    private ToolBar MaterialDesign;
     @FXML
     private JFXButton btn_changeRequest;
     @FXML
@@ -85,7 +96,7 @@ public class NotFulledController extends BorderPane implements Initializable, Di
     @FXML
     private JFXButton btn_UpdateStatus;
     @FXML
-    private TableView tableRequestOffering;
+    public TableView tableRequestOffering;
 
     private MainPageController main;
     @FXML
@@ -99,6 +110,24 @@ public class NotFulledController extends BorderPane implements Initializable, Di
     private JFXTextField searchingField;
     @FXML
     private HBox hboxFilter;
+    @FXML
+    private JFXButton btn_AddRequest;
+    @FXML
+    private JFXButton btn_RefreshRequest;
+    @FXML
+    private JFXButton btn_DeleteRequest;
+
+    private InitComponents components;
+    // @FXML
+    //  private JFXComboBox cmbCustomer;
+    //   private DerbyOfferingsDAO offeringsDAO = new DerbyOfferingsDAO();
+//    private OfferingsQueries offeringsQueries = new OfferingsQueries();
+
+    MenuBar menuBar = new MenuBar();
+    Menu mainMenu = new Menu("Файл");
+    MenuItem exitCmd = new MenuItem("Вихід");
+    MenuItem textCmd = new MenuItem("Пошук");
+
 
     //   private long fromIndex;
     // private long toIndex;
@@ -113,9 +142,9 @@ public class NotFulledController extends BorderPane implements Initializable, Di
 
     private long fromIndex;
     private long toIndex;
-
-
+    private HashMap<TableColumn, Pane> hashMiniFilter = new HashMap<>();
     private HashMap<TableColumn, String> hashColumns = new HashMap<>();
+
     private TableColumn<NotFulfilled, String> ID;
     private TableColumn<NotFulfilled, String> CreatedOn;
     private TableColumn<NotFulfilled, String> CreatedByID;
@@ -146,11 +175,16 @@ public class NotFulledController extends BorderPane implements Initializable, Di
     private TableColumn<NotFulfilled, String> StateID;
     private TableColumn<NotFulfilled, String> StateName;
 
-
+    @FXML
+    private JFXComboBox cmbPerformer;
     @FXML
     private Pagination pagination;
+    @FXML
+    private ScrollPane scrollPaneFilter;
     public static NotFulfilled chosenAccount = null;
     public NotFulfilled notFulfilled;
+    // Context menu
+    private ContextMenu contextMenu;
 
     private NotFulfilled account = new NotFulfilled();
     // private ProductList productList = new ProductList();
@@ -170,11 +204,16 @@ public class NotFulledController extends BorderPane implements Initializable, Di
             System.out.println("222");
             main.changeExists();
         });*/
-        //  btn_UpdateStatus.setVisible(false);
-        //  btn_IntoProcessing.setVisible(false);
-        // btnDelete.setVisible(false);
-        //   btn_changeRequest.setVisible(false);
-        //   btn_СancelRequest.setVisible(false);
+        btn_UpdateStatus.setVisible(false);
+        btn_IntoProcessing.setVisible(false);
+        btnDelete.setVisible(false);
+        btn_changeRequest.setVisible(false);
+        btn_СancelRequest.setVisible(true); // Менеджер
+        btn_RefreshRequest.setVisible(false);
+        btn_DeleteRequest.setVisible(true); // Менеджер
+        tbn_CreateRequest.setVisible(true); // Менеджер
+        btn_ConfirmRequest.setVisible(true);// Менеджер
+        btn_AddRequest.setVisible(true);// Менеджер
 
 
         System.out.println(User.getContactID() + "666666666666666666655555555555555555554444444444444");
@@ -188,6 +227,7 @@ public class NotFulledController extends BorderPane implements Initializable, Di
         exampleProductTableController.init(this);
         Image imageChange = new Image(getClass().getResourceAsStream("/images/ChangeRequest.png"));
         btn_changeRequest.setGraphic(new ImageView(imageChange));
+
 
         Image imageConfirm = new Image(getClass().getResourceAsStream("/images/ConfirmRequest.png"));
         btn_ConfirmRequest.setGraphic(new ImageView(imageConfirm));
@@ -220,6 +260,7 @@ public class NotFulledController extends BorderPane implements Initializable, Di
 
                 String query = "UPDATE [dbo].[tbl_RequestOffering]\n" +
                         "\tSET [StatusID] = '{7CB7F6B9-EB87-48FE-86F6-49ED931A0C0B}',\n" +
+                        "\t\t\t\t\tIsReadMeassage = '1',\n" +
                         "\t[ModifiedOn] = CURRENT_TIMESTAMP,\n" +
                         "\t[ModifiedByID] = ?\n" +
                         "WHERE([tbl_RequestOffering].[ID] = ?)";
@@ -232,6 +273,7 @@ public class NotFulledController extends BorderPane implements Initializable, Di
                     main.changeExists();
 
                     UsefulUtils.showSuccessful("Запит " + chosenAccount.getNumber() + " надіслано в обробку");
+
                     //    ExampleController exampleController = loader.getController();
                     //
                     // exampleProductTableController.refresh();
@@ -276,13 +318,14 @@ public class NotFulledController extends BorderPane implements Initializable, Di
                     callProc.setString(2, User.getContactID());
                     System.out.println(chosenAccount.getID() + " 444444444444444444444444444444444555555555555555555555555555");
                     callProc.executeUpdate();
+                    main.changeExists();
+                    UsefulUtils.showSuccessful("Запит " + chosenAccount.getNumber() + " анульовано");
 
 
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                main.changeExists();
-                UsefulUtils.showSuccessful("Запит " + chosenAccount.getNumber() + " анульовано");
+
             } else return;
         });
 
@@ -312,6 +355,9 @@ public class NotFulledController extends BorderPane implements Initializable, Di
                     pst.executeUpdate();
                     main.changeExists();
                     UsefulUtils.showSuccessful("Запит " + User.getContactName() + " взято в роботу");
+                    main.changeExists();
+                    UsefulUtils.showSuccessful("Запит " + chosenAccount.getNumber() + " анульовано");
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -338,9 +384,21 @@ public class NotFulledController extends BorderPane implements Initializable, Di
 
 
         // customizeScene();
-       //tableRequestOffering.getSelectionModel().setCellSelectionEnabled(true);
+        //tableRequestOffering.getSelectionModel().setCellSelectionEnabled(true);
         tableRequestOffering.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
+        searchingField.setOnAction(event1 -> {
+            String value = searchingField.getText();
+
+            if (value.equals("")) {
+                refreshData();
+            } else
+                try {
+                    findByProperty(value);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+        });
 
         UsefulUtils.installCopyPasteHandler(tableRequestOffering);
         //  UsefulUtils.copySelectedCell(tableRequestOffering);
@@ -357,44 +415,121 @@ public class NotFulledController extends BorderPane implements Initializable, Di
 
             pagination.setSkin(pageSkin);
             pagination.setPageFactory(this::createPage);
-            //searchCode();
+
         } catch (Exception e) {
             UsefulUtils.showErrorDialogDown("Не вдається відкрити сторінки");
 
         }
 
+        BorderPane root = new BorderPane();
+        Text text = new Text("BEFORE");
+        root.setCenter(text);
+        mainMenu.getItems().addAll(textCmd, exitCmd);
+        root.setTop(menuBar);
 
+
+        exitCmd.setOnAction(new EventHandler() {
+
+            @Override
+            public void handle(Event event) {
+
+            }
+        });
+
+        textCmd.setOnAction(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                createTableColumns();
+            }
+        });
+        exitCmd.setAccelerator(new KeyCodeCombination(KeyCode.U, KeyCombination.CONTROL_DOWN));
+        textCmd.setAccelerator(new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN));
+        // searchCode();
+        this.tableRequestOffering.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                    //TreeItem selectedPerformer = treeTableView.getSelectionModel().getSelectedItem();
+
+                    //chosenElement = (PerformersInGroup) selectedPerformer.getValue();
+                    try {
+                        //chosenElement.getPerformerNumber();
+
+                    } catch (Exception e) {
+
+                    }
+
+
+                }
+            }
+        });
+
+    /*    cmbPerformer.setOnMouseClicked(event -> {
+
+      //      if(account.getChosenElement() != null) {
+         //       cmbCustomer.getItems().add(accountDictionary.getChosenElement());
+         //       cmbCustomer.getSelectionModel().select(accountDictionary.getChosenElement());
+         //   }
+            hboxFilter.getChildren().remove(hashMiniFilter.get(Number));
+            account.setStringFilter(Number, new FilterQuery(hashColumns.get(Number), IFilterOperator.Type.CONTAINS, ((NotFulfilled) cmbPerformer.getValue()).getName()).getWhereClause());
+            fillHboxFilter(Number, IFilterOperator.Type.EQUALS, ((NotFulfilled) cmbPerformer.getValue()).getName());
+            refreshData();
+
+        });*/
     }
 
 
     @FXML
     private void actionSearchingField(ActionEvent event) {
-        try {
 
-            data.clear();
-            String value = searchingField.getText().toLowerCase();
-            List<NotFulfilled> items = new ArrayList<NotFulfilled>();
-            con = DBConnection.getDataSource().getConnection();
-            CallableStatement callProc = con.prepareCall("{call [dbo].[tsp_SearchRequestBySkrut] (?, ?)}");
-            System.out.println(searchingField.getText());
-            callProc.setString(1, value);
-            callProc.setString(2, value);
-            // callProc.setString(3, searchingField.getText());
-            //  searchingField.addEventFilter();
-            callProc.execute();
+        /*String value = searchingField.getText();
 
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-
-        }
-        //items.forEach(item -> data.add(item));
-
-
-        tableRequestOffering.setItems(data);
+        if(value.equals("")) {
+            refreshData();
+        }else
+            findByProperty(value);*/
 
     }
 
+    private ObservableList options = FXCollections.observableArrayList();
+
+    String Skrut = null;
+
+    public void findByProperty(String value) {
+        data.clear();
+
+        try {
+            pst = con.prepareStatement("SELECT RequestID " +
+                            "\t\t\t\t\tFROM dbo.tbl_OfferingInRequestOffering \n" +
+                            " WHERE [tbl_OfferingInRequestOffering].[OfferingID] IN (SELECT ID\n" +
+                            "        FROM [tbl_Offering] WHERE [tbl_Offering].Skrut LIKE '" + value.toString() + "%' OR [tbl_Offering].[Index] LIKE '" + value.toString() + "%')"//+
+                    //  "FOR XML PATH('')"
+            );
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                Skrut = rs.getString(1);
+                //  options.add(rs.getString(1));
+                List<NotFulfilled> listItems = account.findSearchSkrut(false, (int) toIndex, User.getContactID(), User.getContactID(), Skrut);
+                listItems.forEach(item -> data.add(item));
+
+
+            }
+            tableRequestOffering.setItems(data);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        /// Skrut = (String) options.get(0);
+
+
+    }
+    @FXML
+    private void toolbarButton (ActionEvent event) {
+      //  MaterialDesign.focusedProperty((KeyEvent keyEvent)->{
+
+     //   });
+    }
 
     @Override
     public String getID() {
@@ -416,6 +551,36 @@ public class NotFulledController extends BorderPane implements Initializable, Di
 
     }
 
+
+  /*  protected void initComponents() {
+
+        components = new InitComponents(this, this);
+
+        HashMap<Control, Method> items = new HashMap();
+
+        Method createMFrom = null;
+        Method createMTo = null;
+        Method storeM = null;
+        Method orderTypeM = null;
+        Method orderStateM = null;
+        Method orderStatusM = null;
+        try {
+            createMFrom = NotFulledController.class.getMethod("handleCreateDateFrom", null);
+            createMTo = NotFulledController.class.getMethod("handleCreateDateTo", null);
+            storeM = NotFulledController.class.getMethod("setStoreFilter", null);
+            orderTypeM = NotFulledController.class.getMethod("setOrderType", null);
+            orderStateM = NotFulledController.class.getMethod("setStateFilter", null);
+            orderStatusM = NotFulledController.class.getMethod("handleOrderStatus", null);
+        } catch (NoSuchMethodException e) {
+            log.log(Level.SEVERE, "Exception: " + e);
+        }
+
+
+        items.put(orderType, orderTypeM);
+
+        components.setAllComponents(items, true);
+    }*/
+
     @Override
     public void createTableColumns() {
 
@@ -423,7 +588,8 @@ public class NotFulledController extends BorderPane implements Initializable, Di
         try {
 
 
-            tableRequestOffering = new FilteredTableView();
+            tableRequestOffering = new FilteredTableView<>();
+
 
             ID = new FilterableStringTableColumn<>();
             hashColumns.put(ID, "[tbl_RequestOffering].[ID]");
@@ -543,7 +709,7 @@ public class NotFulledController extends BorderPane implements Initializable, Di
             // tableRequestOffering.setTableMenuButtonVisible(true);
 
             Number.setMinWidth(150);
-            //  Number = new FilterableStringTableColumn<>("Номер запиту");
+            Number = new FilterableStringTableColumn<>("Номер запиту");
             //FilterableStringTableColumnNumber);
             //    id.setVisible(false);
 
@@ -565,8 +731,8 @@ public class NotFulledController extends BorderPane implements Initializable, Di
 
             List<?> listColumns = tableRequestOffering.getColumns();
 
-            listColumns.forEach(item -> System.out.println("COLUMN " + item));
-            hashColumns.forEach((k, v) -> System.out.println(" COLUMN1 " + k + ' ' + v));
+      //      listColumns.forEach(item -> System.out.println("COLUMN " + item));
+         //   hashColumns.forEach((k, v) -> System.out.println(" COLUMN1 " + k + ' ' + v));
 
             Number.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("Number"));
             CreatedOn.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("CreatedOn"));
@@ -585,46 +751,37 @@ public class NotFulledController extends BorderPane implements Initializable, Di
             SpecialMarginTypeName.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("SpecialMarginTypeName"));
 
 
-//data.clear();
+            //FilterableIntegerTableColumn
+
+            tableRequestOffering.setRowFactory(new Callback<TableView<NotFulfilled>, TableRow<NotFulfilled>>() {
+                @Override
+                public TableRow<NotFulfilled> call(TableView<NotFulfilled> tableView) {
+                    final TableRow<NotFulfilled> row = new TableRow<>();
+                    contextMenu = new ContextMenu();
+
+
+                    return row;
+                }
+            });
             tableRequestOffering.addEventHandler(ColumnFilterEvent.FILTER_CHANGED_EVENT, new EventHandler<ColumnFilterEvent>() {
                 @Override
                 public void handle(ColumnFilterEvent t) {
-                    data.clear();
+                    //  data.clear();
                     //System.out.println("Filtered column count: " + tableView.getFilteredColumns().size());
                     System.out.println("Filtering changed on column: " + t.sourceColumn().getText());
                     System.out.println("Current filters on column " + t.sourceColumn().getText() + " are:");
-                    final List<IFilterOperator> filters = t.sourceColumn().getFilters();
-
-                    System.out.println("COLUMN - " + t.sourceColumn());
-                    for (IFilterOperator filter : filters) {
-                        System.out.println("  Type=" + filter.getType() + ", Value=" + filter.getValue());
-                    }
-
-                    if (filters.get(0).getType() == IFilterOperator.Type.NONE) {
-                        account.removeStringFilter(t.sourceColumn());
-                        disableFilter(t.sourceColumn(), null);
-                        refreshData();
-                        return;
-                    }
-
-                    // fillHboxFilter(t.sourceColumn(), filters.get(0).getType(), filters.get(0).getValue());
-                    account.setStringFilter(t.sourceColumn(), new FilterQuery(hashColumns.get(t.sourceColumn()), filters.get(0).getType(), filters.get(0).getValue()).getWhereClause());
 
 
-                    refreshData();
+                    new MiniFilter(NotFulledController.this, account, hashColumns, t).setFilter();
+                    //  refreshData();
                 }
             });
 
-            // UsefulUtils.copySelectedCell(tableView);
 
-          /* tableRequestOffering.setOnMousePressed(new EventHandler<MouseEvent>() {
-               @Override
-               public void handle(MouseEvent event) {
-                   if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                       handleButtonEdit(new ActionEvent());
-                   }
-               }
-           });*/
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "Exception in creating columns: " + e);
+        }
+        try {
             tableRequestOffering.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -632,11 +789,7 @@ public class NotFulledController extends BorderPane implements Initializable, Di
                     if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                         try {
                             chosenAccount = (NotFulfilled) tableRequestOffering.getItems().get(tableRequestOffering.getSelectionModel().getSelectedIndex());
-                            //    ClientController.record = chosenAccount;
-                            //showEdit(chosenAccount);
                             EditController editController = new EditController(chosenAccount, false);
-
-
                         } catch (Exception e) {
                             log.log(Level.SEVERE, "Exception: " + e);
                         }
@@ -667,21 +820,109 @@ public class NotFulledController extends BorderPane implements Initializable, Di
 
 
         UsefulUtils.installCopyPasteHandler(tableRequestOffering);
+
+    }
+
+    @Override
+    public void createTableColumnsAll() {
+
     }
 
     @Override
     public void disableFilter(TableColumn column, Pane content) {
-
-
         account.removeStringFilter(column);
+        ((AbstractFilterableTableColumn) column).getFilterEditor().getFilterMenu().getResetButton().fire();
         refreshData();
+
 
         //column.filteredProperty().setValue(true);
 
+        if (content == null) {
+            removeFilterFromHbox(column);
+            return;
+        }
+
         hboxFilter.getChildren().remove(content);
+
+
         System.out.println("DISABLED");
     }
+  /*  public NotFulledController() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+                    "/sample/ua/ucountry/MainWindow/TabReports/Workers/STOSalaryMain/STOSalaryWindow.fxml"));
+            fxmlLoader.setRoot(this);
+            fxmlLoader.setController(this);
 
+            try {
+                Parent content = fxmlLoader.load();
+                //content.getStylesheets().add("sample/ua/ucountry/MainTables/Account/MainDictionaryTable.css");
+            } catch (IOException exception) {
+                log.log(Level.SEVERE, "Exception:" + exception);
+                throw new RuntimeException(exception);
+            }
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "Exception: " + e);
+        }
+    }*/
+
+
+    @Override
+    public void fillHboxFilter(TableColumn column, IFilterOperator.Type type, Object value) {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+                "/views/MiniFilter.fxml"));
+
+        Pane content;
+        try {
+            content = fxmlLoader.load();
+
+
+            MiniFilterController miniC = fxmlLoader.getController();
+
+            miniC.setWindow(this, content);
+            miniC.setFilter(column, type, value);
+
+            hboxFilter.getChildren().add(content);
+
+
+            hashMiniFilter.put(column, content);
+
+            hboxFilter.setMargin(content, new Insets(0, 0, 0, 10));
+
+            scrollPaneFilter.setFitToHeight(true);
+
+            System.out.println("SETTTED");
+            //content.getStylesheets().add("sample/ua/ucountry/MainTables/Account/MainDictionaryTable.css");
+        } catch (IOException exception) {
+
+            throw new RuntimeException(exception);
+        }
+    }
+
+    @Override
+    public void removeFilterFromHbox(TableColumn column) {
+        hboxFilter.getChildren().remove(hashMiniFilter.get(column));
+    }
+
+    @Override
+    public void loadDataFromDatabaseAll() {
+
+    }
+
+    /* @Override
+     public void disableFilter(TableColumn column, Pane content) {
+
+
+         account.removeStringFilter(column);
+         refreshData();
+
+         //column.filteredProperty().setValue(true);
+
+         hboxFilter.getChildren().remove(content);
+         System.out.println("DISABLED");
+     }
+ */
     /* private void fillHboxFilter(TableColumn column, IFilterOperator.Type type, Object value) {
          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                  ""));
@@ -709,7 +950,7 @@ public class NotFulledController extends BorderPane implements Initializable, Di
          }
      }
  */
-    public List<NotFulfilled> loadDataFromDatabase() {
+    public void loadDataFromDatabase() {
         try {
 
 
@@ -723,7 +964,7 @@ public class NotFulledController extends BorderPane implements Initializable, Di
         } catch (Exception e) {
             log.log(Level.SEVERE, "Load data from database exception: " + e);
         }
-        return null;
+      //  return null;
     }
 
 
@@ -750,10 +991,10 @@ public class NotFulledController extends BorderPane implements Initializable, Di
     }
 
     private void searchCode() {
-        FilteredList<NotFulfilled> filteredData = new FilteredList<>(data, e -> true);
+        FilteredList<OfferingRequest> filteredData = new FilteredList<OfferingRequest>(exampleProductTableController.data, e -> true);
         searchingField.setOnKeyReleased(e -> {
             searchingField.textProperty().addListener((observable, oldValue, newValue) -> {
-                filteredData.setPredicate((Predicate<? super NotFulfilled>) user -> {
+                filteredData.setPredicate((Predicate<? super OfferingRequest>) user -> {
 
 
                     if (newValue == null || newValue.isEmpty()) {
@@ -761,9 +1002,9 @@ public class NotFulledController extends BorderPane implements Initializable, Di
                         return true;
                     }
                     String lowerCaseFilter = newValue.toLowerCase();
-                    if (user.getAccountCode().contains(newValue)) {
+                    if (user.getSkrut().contains(newValue)) {
                         return true;
-                    } else if (user.getOfferingGroupName().toLowerCase().contains(lowerCaseFilter)) {
+                    } else if (user.getSkrut().toLowerCase().contains(lowerCaseFilter)) {
                         return true;
                     }
 
@@ -771,7 +1012,7 @@ public class NotFulledController extends BorderPane implements Initializable, Di
 
                 });
             });
-            SortedList<NotFulfilled> sortedData = new SortedList<>(filteredData);
+            SortedList<OfferingRequest> sortedData = new SortedList<>(filteredData);
             sortedData.comparatorProperty().bind(tableRequestOffering.comparatorProperty());
             tableRequestOffering.setItems(sortedData);
 
@@ -817,7 +1058,7 @@ public class NotFulledController extends BorderPane implements Initializable, Di
         // Show the scene containing the root layout.
         Scene scene = new Scene(serverrLayout);
         EditController con = loader.getController();
-       // con.setOfferingRequest(value);
+        // con.setOfferingRequest(value);
         stage.setScene(scene);
 
         stage.setMaxHeight(520);
@@ -849,10 +1090,10 @@ public class NotFulledController extends BorderPane implements Initializable, Di
         ResizeHelper.addResizeListener(stage);
         stage.setMaxHeight(480);
         stage.setMaxWidth(620);
-        main.changeExists();
+        //     main.changeExists();
         stage.show();
         stage.requestFocus();
-        refreshData();
+        //refreshData();
 
 
     }
@@ -898,6 +1139,7 @@ public class NotFulledController extends BorderPane implements Initializable, Di
     public void init(MainPageController mainPageController) {
         main = mainPageController;
     }
+
     NotFulfilled selectedOffering = null;
 
     @FXML
@@ -945,7 +1187,8 @@ public class NotFulledController extends BorderPane implements Initializable, Di
         if (UsefulUtils.showConfirmDialog("Ви дійсно хочете видалити запис?") == ButtonType.OK) {
             new DerbyOfferingRequestDAO().deleteAccount(offeringRequest);
             exampleProductTableController.refresh();
-            UsefulUtils.showSuccessful("Продукт успішно видалено");;
+            UsefulUtils.showSuccessful("Продукт успішно видалено");
+            ;
         } else return;
 
     }

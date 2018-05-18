@@ -70,11 +70,13 @@ public class Listener implements Runnable {
     public void run() {
         try {
             socket = new Socket(hostname, port);
-            inProcessingController.showScene();
+          //  inProcessingController.showScene();
+
             outputStream = socket.getOutputStream();
             oos = new ObjectOutputStream(outputStream);
             is = socket.getInputStream();
             input = new ObjectInputStream(is);
+
         } catch (IOException e) {
             inProcessingController.showErrorDialog("Сервер не підключено");
         }
@@ -86,19 +88,20 @@ public class Listener implements Runnable {
 
             while (socket.isConnected()) {
                 Message message = null;
+
                 message = (Message) input.readObject();
 
                 if (message != null) {
                     //         logger.debug("Message recieved:" + message.getMsg() + " MessageType:" + message.getType() + "Name:" + message.getName());
                     switch (message.getType()) {
                         case USER:
-                            controller.addToChat(message, message);
+                            controller.addToChat(message);
                             break;
                         case VOICE:
-                            controller.addToChat(message, message);
+                            controller.addToChat(message);
                             break;
                         case NOTIFICATION:
-                            controller.newUserNotification(inProcessing.getCreatedByID(), inProcessing.getOfferingGroupName(), message.getName(), message);
+                            controller.newUserNotification(message);
                             break;
                         case SERVER:
                             controller.addAsServer(message);
@@ -128,12 +131,17 @@ public class Listener implements Runnable {
         Message createMessage = new Message();
         createMessage.setName(username);
         createMessage.setOfferingID(inProcessing.getID());
-        createMessage.setType(MessageType.USER);
-        createMessage.setStatus(Status.AWAY);
+        createMessage.setCreatedby(inProcessing.getCreatedBy());
+        createMessage.setOfferingGroupName(inProcessing.getOfferingGroupName());
+       createMessage.setType(MessageType.USER);
+         createMessage.setStatus(Status.AWAY);
         createMessage.setMsg(msg);
         createMessage.setPicture(picture);
         oos.writeObject(createMessage);
         oos.flush();
+    }
+    public void setOfferingRequest(InProcessing inProcessing) {
+        this.inProcessing = inProcessing;
     }
 
     /* This method is used for sending a voice Message

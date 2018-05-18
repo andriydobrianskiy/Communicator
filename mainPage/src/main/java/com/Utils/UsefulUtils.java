@@ -3,6 +3,8 @@ package com.Utils;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.mainLogin.Main;
+import com.mainPage.NotFulled.DictionaryPropertiesNotfulled;
 import javafx.animation.FadeTransition;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -11,21 +13,25 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 import javafx.util.Duration;
-import com.mainPage.NotFulled.DictionaryPropertiesNotfulled;
 import tray.animations.AnimationType;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class UsefulUtils {
-    static TrayNotification tray = new TrayNotification();
-
+   public static TrayNotification tray = new TrayNotification();
+    public static final String IMAGES = "/images/";
     public static void installCopyPasteHandler(TableView<?> table) {
 
         // install copy/paste keyboard handler
@@ -58,6 +64,8 @@ public class UsefulUtils {
 
 
     }
+
+
     public static void copySelectedCell(TableView tableView) {
         tableView.setOnKeyPressed(eventKey -> {
             KeyCodeCombination copyKeyCodeCompination = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_ANY);
@@ -149,6 +157,8 @@ public class UsefulUtils {
         alert.showAndWait();
     }
 
+
+
     public static void showCustomDialogDown (String message){
         tray.setNotificationType(NotificationType.CUSTOM);
         tray.setTitle("Сповіщення");
@@ -177,7 +187,7 @@ public class UsefulUtils {
         String s = message;
         tray.setMessage(s);
         tray.setAnimationType(AnimationType.SLIDE);
-        tray.showAndDismiss(Duration.millis(400));
+        tray.showAndDismiss(Duration.millis(4000));
         // tray.setRectangleFill(Color.valueOf("#4183D7"));
     }
 
@@ -244,6 +254,82 @@ public class UsefulUtils {
         builder.append('\'' + value + '\'');
 
         return builder.toString();
+    }
+
+
+    public static double getVisualScreenWidth() {
+        return Screen.getPrimary().getVisualBounds().getWidth();
+    }
+    public static double getVisualScreenHeight() {
+        return Screen.getPrimary().getVisualBounds().getHeight();
+    }
+
+     public static boolean isReachableByPing(String host) {
+        try {
+
+            // Start a new Process
+            Process process = Runtime.getRuntime().exec("ping -" + ( System.getProperty("os.name").toLowerCase().startsWith("windows") ? "n" : "c" ) + " 1 " + host);
+
+            //Wait for it to finish
+            process.waitFor();
+
+            //Check the return value
+            return process.exitValue() == 0;
+
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.INFO, null, ex);
+            return false;
+        }
+    }
+
+    public static final String getBasePathForClass(Class<?> classs) {
+
+        // Local variables
+        File file;
+        String basePath = "";
+        boolean failed = false;
+
+        // Let's give a first try
+        try {
+            file = new File(classs.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
+
+            basePath = ( file.isFile() || file.getPath().endsWith(".jar") || file.getPath().endsWith(".zip") ) ? file.getParent() : file.getPath();
+        } catch (URISyntaxException ex) {
+            failed = true;
+            Logger.getLogger(classs.getName()).log(Level.WARNING, "Cannot firgue out base path for class with way (1): ", ex);
+        }
+
+        // The above failed?
+        if (failed)
+            try {
+                file = new File(classs.getClassLoader().getResource("").toURI().getPath());
+                basePath = file.getAbsolutePath();
+
+                // the below is for testing purposes...
+                // starts with File.separator?
+                // String l = local.replaceFirst("[" + File.separator +
+                // "/\\\\]", "")
+            } catch (URISyntaxException ex) {
+                Logger.getLogger(classs.getName()).log(Level.WARNING, "Cannot firgue out base path for class with way (2): ", ex);
+            }
+
+        // fix to run inside Eclipse
+        if (basePath.endsWith(File.separator + "lib") || basePath.endsWith(File.separator + "bin") || basePath.endsWith("bin" + File.separator)
+                || basePath.endsWith("lib" + File.separator)) {
+            basePath = basePath.substring(0, basePath.length() - 4);
+        }
+        // fix to run inside NetBeans
+        if (basePath.endsWith(File.separator + "build" + File.separator + "classes")) {
+            basePath = basePath.substring(0, basePath.length() - 14);
+        }
+        // end fix
+        if (!basePath.endsWith(File.separator))
+            basePath += File.separator;
+
+        return basePath;
+    }
+    public static Image getImageFromResourcesFolder(String imageName) {
+        return new Image(UsefulUtils.class.getResourceAsStream(IMAGES + imageName));
     }
 
     public static boolean checkEmptyRequiredFields(List<? extends Control> listComboBox) { // перевірка на обов'язкові поля

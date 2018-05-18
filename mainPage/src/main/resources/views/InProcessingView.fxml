@@ -6,13 +6,18 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
@@ -21,125 +26,190 @@
    <center>
       <BorderPane BorderPane.alignment="CENTER">
          <center>
-            <SplitPane dividerPositions="0.5656565656565656" orientation="VERTICAL" BorderPane.alignment="CENTER">
+            <SplitPane fx:id="Splitpane1" dividerPositions="0.5" prefHeight="698.0" prefWidth="227.0" BorderPane.alignment="CENTER">
                <items>
-                  <AnchorPane>
-                     <children>
-                        <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <center>
-                              <TableView fx:id="tableProduct" BorderPane.alignment="CENTER" />
-                           </center>
-                        </BorderPane>
-                        <BorderPane layoutY="399.0">
-                           <left>
-                              <BorderPane BorderPane.alignment="CENTER">
-                                 <center>
-                                    <ToolBar prefHeight="55.0" prefWidth="1364.0" BorderPane.alignment="CENTER">
-                                       <items>
-                                          <ToolBar prefHeight="35.0" prefWidth="23.0" style="-fx-background-color: #39b5ff; -fx-pref-width: 10; -fx-border-color: #000000;">
-                                             <items>
-                                                <JFXButton fx:id="btnConfirmation" prefWidth="170.0" style="-fx-background-color: #858585; -fx-background-radius: 10;" text="Замовити" textFill="WHITE">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </JFXButton>
-                                                <JFXButton fx:id="btn_СancelRequest" prefWidth="170.0" style="-fx-background-color: #858585; -fx-background-radius: 10;" text="Анулювати запит" textFill="#f5f3f3">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </JFXButton>
-                                                <JFXButton fx:id="btnDelete" onAction="#handleDelete" prefWidth="170.0" style="-fx-background-color: #858585; -fx-background-radius: 10;" text="Видалити запит" textFill="#f5f3f3">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </JFXButton>
-                                                <JFXButton fx:id="btn_Server" onAction="#hadleServerButton" prefWidth="170.0" ripplerFill="#b23131" style="-fx-background-color: #b23131; -fx-background-radius: 10;" text="Server" textFill="WHITE" />
-                                                <JFXButton fx:id="tbn_CreateRequest" prefWidth="170.0" style="-fx-background-color: #858585;" text="Створити запит" textFill="#f8f7f7">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </JFXButton>
-                                                <JFXButton fx:id="btn_changeRequest" prefWidth="170.0" style="-fx-background-color: #858585;" text="Змінити запит" textFill="#f8f4f4">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </JFXButton>
-                                                <JFXButton fx:id="btn_ConfirmRequest" prefWidth="170.0" style="-fx-background-color: #858585;" text="Підтвердити" textFill="#f5f2f2">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </JFXButton>
-                                                <JFXButton fx:id="btn_IntoProcessing" prefWidth="170.0" style="-fx-background-color: #858585;" text="Повернути в обробку" textFill="#f5f3f3">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </JFXButton>
-                                             </items>
-                                             <opaqueInsets>
-                                                <Insets />
-                                             </opaqueInsets>
-                                          </ToolBar>
-                                          <Label text="Пошук по скруту:" textFill="#141414">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <JFXTextField fx:id="searchingField" prefHeight="25.0" prefWidth="110.0" promptText="Введіть скорочення" unFocusColor="#5e5353" />
-                                          <JFXButton fx:id="btn_UpdateStatus" prefHeight="37.0" prefWidth="99.0" style="-fx-background-color: #a49a9a;" text="Взяти в роботу" />
-                                          <Button mnemonicParsing="false" onAction="#btnUpdateOfferingGroupName" prefHeight="38.0" prefWidth="152.0" text="Змінити відповідального" />
-                                          <Pagination fx:id="pagination" prefHeight="45.0" prefWidth="449.0">
-                                             <padding>
-                                                <Insets left="55.0" />
-                                             </padding>
-                                          </Pagination>
-                                          <JFXToggleButton fx:id="btn_ButtonAll" nodeOrientation="RIGHT_TO_LEFT" prefHeight="22.0" prefWidth="141.0" text="Мої" />
-                                          <Label fx:id="dateLabel" prefHeight="20.0" prefWidth="116.0" text="Дата замовлення:">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <JFXDatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="124.0" />
-                                       </items>
-                                    </ToolBar>
-                                 </center>
-                              </BorderPane>
-                           </left>
-                        </BorderPane>
-                        <TableView fx:id="tableviewAll" prefHeight="398.0" prefWidth="1368.0">
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane>
-                     <children>
-                        <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <center>
-                              <JFXTabPane BorderPane.alignment="CENTER">
-                                 <tabs>
-                                  <Tab text="Продукти">
-                                    <content>
-                                      <AnchorPane>
-                                             <children>
-                                                <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                   <center>
-                                                      <fx:include fx:id="inProcessingRequestView" source="InProcessingRequestView.fxml" />
-                                                   </center>
-                                                </BorderPane>
-                                             </children>
-                                          </AnchorPane>
-                                    </content>
-                                  </Tab>
-                                 </tabs>
-                              </JFXTabPane>
-                           </center>
-                        </BorderPane>
-                     </children>
-                  </AnchorPane>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <center>
+                        <SplitPane fx:id="Splitpane2" dividerPositions="0.5656565656565656" orientation="VERTICAL" BorderPane.alignment="CENTER">
+                           <items>
+                              <AnchorPane>
+                                 <children>
+                                    <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="CENTER">
+                                       <center>
+                                          <TableView fx:id="tableviewAll" BorderPane.alignment="CENTER">
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                       </center>
+                                    </BorderPane>
+                                    <TableView fx:id="tableProduct" editable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane>
+                                 <children>
+                                    <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <center>
+                                          <JFXTabPane BorderPane.alignment="CENTER">
+                                             <tabs>
+                                              <Tab text="Продукти">
+                                                <content>
+                                                  <AnchorPane>
+                                                         <children>
+                                                            <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                               <center>
+                                                                  <fx:include fx:id="inProcessingRequestView" source="InProcessingRequestView.fxml" />
+                                                               </center>
+                                                            </BorderPane>
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </Tab>
+                                             </tabs>
+                                          </JFXTabPane>
+                                       </center>
+                                       <top>
+                                          <BorderPane BorderPane.alignment="CENTER">
+                                             <center>
+                                                <ToolBar prefHeight="55.0" BorderPane.alignment="CENTER">
+                                                   <items>
+                                                   <MenuButton mnemonicParsing="false" style="-fx-background-color: #39b5ff;">
+                                                   <items>
+                                                      <MenuItem mnemonicParsing="false">
+                                                               <graphic>
+                                                                  <JFXButton fx:id="btn_СancelRequest" prefWidth="170.0" style="-fx-background-color: #858585; -fx-background-radius: 10;" text="Анулювати запит" textFill="#f5f3f3">
+                                                                     <font>
+                                                                        <Font size="14.0" />
+                                                                     </font>
+                                                                  </JFXButton>
+                                                               </graphic></MenuItem>
+                                                      <MenuItem mnemonicParsing="false">
+                                                               <graphic>
+                                                                  <JFXButton fx:id="btnConfirmation" prefWidth="170.0" style="-fx-background-color: #858585; -fx-background-radius: 10;" text="Замовити" textFill="WHITE">
+                                                                     <font>
+                                                                        <Font size="14.0" />
+                                                                     </font>
+
+                                                                  </JFXButton>
+                                                               </graphic></MenuItem>
+                                                      <MenuItem mnemonicParsing="false">
+                                                               <graphic>
+                                                                  <JFXButton fx:id="btn_Calculator" mnemonicParsing="false" onAction="#actionCalculator" prefWidth="170.0" style="-fx-background-color: #858585; -fx-background-radius: 10;" text="Калькулятор" textFill="#f5f3f3">
+
+                                                                     <graphic>
+
+                                                                        <ImageView fitHeight="27.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../images/Calculator_Icon.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                     <font>
+                                                                        <Font size="14.0" />
+                                                                     </font>
+                                                                  </JFXButton>
+                                                               </graphic></MenuItem>
+                                                      <MenuItem mnemonicParsing="false">
+                                                               <graphic>
+                                                                  
+                                                                  <JFXButton fx:id="btnDelete" onAction="#handleDelete" prefWidth="170.0" style="-fx-background-color: #858585; -fx-background-radius: 10;" text="Видалити запит" textFill="#f5f3f3">
+                                                                     <font>
+                                                                        <Font size="14.0" />
+                                                                     </font>
+                                                                  </JFXButton>
+                                                               </graphic></MenuItem>
+                                                      <MenuItem mnemonicParsing="false">
+                                                               <graphic>
+                                                                  <JFXButton fx:id="btn_Server" onAction="#hadleServerButton" prefWidth="170.0" ripplerFill="#b23131" style="-fx-background-color: #b23131; -fx-background-radius: 10;" text="Server" textFill="WHITE" />
+                                                               </graphic></MenuItem>
+                                                      <MenuItem mnemonicParsing="false">
+                                                               <graphic>
+                                                                  <JFXButton fx:id="tbn_CreateRequest" prefWidth="170.0" style="-fx-background-color: #858585;" text="Створити запит" textFill="#f8f7f7">
+                                                                     <font>
+                                                                        <Font size="14.0" />
+                                                                     </font>
+                                                                  </JFXButton>
+                                                               </graphic></MenuItem>
+                                                      <MenuItem mnemonicParsing="false">
+                                                               <graphic>
+                                                                  <JFXButton fx:id="btn_changeRequest" prefWidth="170.0" style="-fx-background-color: #858585;" text="Змінити запит" textFill="#f8f4f4">
+                                                                     <font>
+                                                                        <Font size="14.0" />
+                                                                     </font>
+                                                                  </JFXButton>
+                                                               </graphic></MenuItem>
+                                                      <MenuItem mnemonicParsing="false">
+                                                               <graphic>
+                                                                  <JFXButton fx:id="btn_ConfirmRequest" prefWidth="170.0" style="-fx-background-color: #858585;" text="Підтвердити" textFill="#f5f2f2">
+                                                                     <font>
+                                                                        <Font size="14.0" />
+                                                                     </font>
+                                                                  </JFXButton>
+                                                               </graphic></MenuItem>
+                                                      <MenuItem mnemonicParsing="false">
+                                                               <graphic>
+                                                                  <JFXButton fx:id="btn_IntoProcessing" prefWidth="170.0" style="-fx-background-color: #858585;" text="Повернути в обробку" textFill="#f5f3f3">
+                                                                     <font>
+                                                                        <Font size="14.0" />
+                                                                     </font>
+                                                                  </JFXButton>
+                                                               </graphic></MenuItem>
+
+                                                   </items>
+                                                      <graphic>
+                                                         <ImageView fitHeight="45.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                            <cursor>
+                                                               <Cursor fx:constant="CLOSED_HAND" />
+                                                            </cursor>
+                                                            <image>
+                                                               <Image url="@../images/iconMenu.png" />
+                                                            </image>
+                                                         </ImageView>
+                                                      </graphic>
+                                                   </MenuButton>
+                                                      <Label text="Пошук по скруту:" textFill="#141414">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <JFXTextField fx:id="searchingField" onAction="#actionSearchingField" prefHeight="25.0" prefWidth="110.0" promptText="Введіть скорочення" unFocusColor="#5e5353" />
+                                                      <JFXButton fx:id="btn_UpdateStatus" prefHeight="37.0" prefWidth="99.0" style="-fx-background-color: #a49a9a;" text="Взяти в роботу" />
+                                                      <Button fx:id="btn_ReturnOwner" mnemonicParsing="false" onAction="#btnUpdateOfferingGroupName" prefHeight="38.0" prefWidth="152.0" text="Змінити відповідального" />
+                                                      <Pagination fx:id="pagination" prefHeight="45.0" prefWidth="449.0">
+                                                         <padding>
+                                                            <Insets left="55.0" />
+                                                         </padding>
+                                                      </Pagination>
+                                                      <JFXToggleButton fx:id="btn_ButtonAll" nodeOrientation="RIGHT_TO_LEFT" prefHeight="22.0" prefWidth="141.0" text="Мої" />
+                                                      <Label fx:id="dateLabel" prefHeight="20.0" prefWidth="116.0" text="Дата замовлення:">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <JFXDatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="124.0" />
+                                                   </items>
+                                                </ToolBar>
+                                             </center>
+                                          </BorderPane>
+                                       </top>
+                                    </BorderPane>
+                                 </children>
+                              </AnchorPane>
+                           </items>
+                        </SplitPane>
+                     </center>
+                  </BorderPane>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <center>
+                          <fx:include fx:id="chatView" source="ChatView.fxml" />
+                      </center>
+                  </BorderPane>
                </items>
             </SplitPane>
-         </center>
-      </BorderPane>
+         </center></BorderPane>
    </center>
 </BorderPane>

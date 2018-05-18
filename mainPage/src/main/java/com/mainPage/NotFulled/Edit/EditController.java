@@ -1,23 +1,10 @@
 package com.mainPage.NotFulled.Edit;
 
+import com.Utils.UsefulUtils;
+import com.connectDatabase.DBConnection;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import com.Utils.UsefulUtils;
-import com.connectDatabase.DBConnection;
 import com.login.User;
 import com.mainPage.NotFulled.NotFulfilled;
 import com.mainPage.NotFulled.NotFulledController;
@@ -28,6 +15,18 @@ import com.mainPage.createRequest.StateCreate.StateCreate;
 import com.mainPage.createRequest.StateCreate.Status;
 import com.mainPage.createRequest.WindowOperation;
 import com.mainPage.createRequest.searchCounterpart.Counterpart;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -63,8 +62,8 @@ public class EditController implements Initializable {
     @FXML
     private JFXButton btnOK;
 
-    @FXML
-    private JFXTextField edtSkrut;
+    /* @FXML
+     private JFXTextField edtSkrut;*/
     /* @FXML
      private JFXButton addbtn;*/
     @FXML
@@ -94,9 +93,9 @@ public class EditController implements Initializable {
     private static NotFulfilled inputAccount = null;
     /* @FXML
      JFXButton addButton;*/
-    @FXML
+  /*  @FXML
     private ChoiceBox comboBoxGroup;
-    private ObservableList optionsComboBoxGroup = FXCollections.observableArrayList();
+    private ObservableList optionsComboBoxGroup = FXCollections.observableArrayList();*/
 
     @FXML
     private JFXComboBox GroupPeople;
@@ -112,7 +111,7 @@ public class EditController implements Initializable {
     //   public OfferingsGroup offeringsGroup = new OfferingsGroup();
     private static WindowOperation operation = null;
 
-   static NotFulfilled notFulfilled;
+    static NotFulfilled notFulfilled;
 
     private ObservableList options = FXCollections.observableArrayList();
     ComboBox choiceBox = new ComboBox(options);
@@ -181,13 +180,14 @@ public class EditController implements Initializable {
 
 
             // callProc.close();
+            conGroup.close();
 
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        comboBoxGroup.setItems(options);
+        //  comboBoxGroup.setItems(options);
         // comboBoxGroup.getItems().clear();
 
 
@@ -281,11 +281,14 @@ public class EditController implements Initializable {
                 optionsStatus.add(new StateCreate(rsStatusRequest.getString(1), rsStatusRequest.getString(2)));
 
             }
-
+            StatusRequest.setItems(optionsStatus);
+            conStatusRequest.close();
+            rsStatusRequest.close();
+            pstStatusRequest.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        StatusRequest.setItems(optionsStatus);
+
     }
 
     //DeliveryCity
@@ -306,7 +309,9 @@ public class EditController implements Initializable {
                 optionsStatusRequest1.add(rsStatusRequest.getString(1));
 
             }
-
+            conStatusRequest.close();
+            pstStatusRequest.close();
+            rsStatusRequest.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -357,12 +362,14 @@ public class EditController implements Initializable {
             while (rsDeliveryCity.next()) {
                 optionsDeliveryCity.add(new DeliveryCity(rsDeliveryCity.getString(1), rsDeliveryCity.getString(2)));
             }
-
-
+            DeliveryCity.setItems(optionsDeliveryCity);
+            conDeliveryCity.close();
+            rsDeliveryCity.close();
+            pstDeliveryCity.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        DeliveryCity.setItems(optionsDeliveryCity);
+
 
     }
 
@@ -382,17 +389,21 @@ public class EditController implements Initializable {
             while (rsStatus.next()) {
                 optionsStatus.add(new Status(rsStatus.getString(1), rsStatus.getString(2)));
             }
+            Status.setItems(optionsStatus);
+            conStatus.close();
+            pstStatus.close();
+            rsStatus.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Status.setItems(optionsStatus);
-        System.out.println(Status.getPromptText().toString() + "6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666");
+
+    //    System.out.println(Status.getPromptText().toString() + "6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666");
     }
 
     public void GroupPeople() {
 
         try {
-            String queryGroupPeople = "SELECT [tbl_Contact].ID, [tbl_Contact].[Name] FROM [tbl_Contact] AS [tbl_Contact] WHERE [tbl_Contact].JobID = 'CCB28AD0-ECAC-43DF-9827-E2F9CEA56A3A'";
+            String queryGroupPeople = "SELECT [tbl_Contact].ID, [tbl_Contact].[Name] FROM [tbl_Contact] AS [tbl_Contact] WHERE [tbl_Contact].JobID = 'CCB28AD0-ECAC-43DF-9827-E2F9CEA56A3A' OR ID = '71820A9D-95B6-4D65-A480-4F2C57AE9A4B'\n";
 
             pstGroupPeople = conGroupPeople.prepareStatement(queryGroupPeople);
 
@@ -400,10 +411,14 @@ public class EditController implements Initializable {
             while (rsGroupPeople.next()) {
                 optionsGroupPeople.add(new GroupPeople(rsGroupPeople.getString(1), rsGroupPeople.getString(2)));
             }
+            GroupPeople.setItems(optionsGroupPeople);
+            conGroupPeople.close();
+            pstGroupPeople.close();
+            rsGroupPeople.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        GroupPeople.setItems(optionsGroupPeople);
+
     }
 
 
@@ -490,8 +505,8 @@ public class EditController implements Initializable {
             log.log(Level.SEVERE, "EXCEPTION - " + e);
         }
 */
-      //  txt_Number.setText(notFulfilled.getNumber());
-       // txt_Created.setText(notFulfilled.getCreatedBy());
+        //  txt_Number.setText(notFulfilled.getNumber());
+        // txt_Created.setText(notFulfilled.getCreatedBy());
 
 
         try {
@@ -505,38 +520,38 @@ public class EditController implements Initializable {
             log.log(Level.SEVERE, "Delete offering row exception: " + e);
         }
 
-        edtSkrut.setOnKeyReleased((KeyEvent keyEvent) -> {
+     /*   edtSkrut.setOnKeyReleased((KeyEvent keyEvent) -> {
                     GroupRequest(edtSkrut.getText());
                     comboBoxGroup.getSelectionModel().clearSelection();
 
 
                 }
-        );
-
-
+        );*/
 
 
     }
+
     @FXML
-    NotFulledController notFulledController ;
+    NotFulledController notFulledController;
 
     @FXML
     private ArrayList<? extends Control> listFields;
     private StringBuilder builderQuery;
+
     private void setFieldsByObject() { // Заповнення полів вхідним об'єктом , тільки для EDIT(оновлення)
         String value = null;
         StatusRequest.setPromptText(notFulfilled.getStateName());
         cmbMain3.setPromptText(notFulfilled.getAccountName());
         DeliveryCity.setPromptText(notFulfilled.getStoreCity());
         Status.setPromptText(notFulfilled.getStatus());
-        comboBoxGroup.setAccessibleText(notFulfilled.getOriginalGroupName());
+   /*     comboBoxGroup.setAccessibleText(notFulfilled.getOriginalGroupName());
         for (Map.Entry<String, String> entry : map.entrySet()) {
             if (notFulfilled.getOriginalGroupID().equals(entry.getValue())) {
                 value = entry.getKey();
                 break;
-            }
+            }*/
         GroupPeople.setPromptText(notFulfilled.getOfferingGroupName());
-    }
+        // }
     }
 
     @FXML
@@ -658,63 +673,65 @@ public class EditController implements Initializable {
         }
 
 
+        // MainNotFulledQuery insert = (MainNotFulledQuery) new CreateRequestDAO();
+        //    if (mainOperation()) closeWindow();
+        // else UsefulUtils.showErrorDialog("Неможливо виконати операцію!");
+        builderQuery = new StringBuilder();
 
-    // MainNotFulledQuery insert = (MainNotFulledQuery) new CreateRequestDAO();
-    //    if (mainOperation()) closeWindow();
-    // else UsefulUtils.showErrorDialog("Неможливо виконати операцію!");
-    builderQuery = new StringBuilder();
+        String query = ("UPDATE [dbo].[tbl_RequestOffering]\n" +
+                "\tSET [AccountID] = ?,\n" +
+                "\t[StatusID] = ?,\n" +
+                "\t[StoreCityID] = ?,\n" +
+                "\t[OfferingGroupID] = ?,\n" +
+                "\t[StateID] = ?,\n" +
+                "\t[ModifiedOn] = CURRENT_TIMESTAMP,\n" +
+                "\t[ModifiedByID] = ?\n" +
+                "WHERE([tbl_RequestOffering].[ID] =  ?)"
+        );
 
-    String query = ("UPDATE [dbo].[tbl_RequestOffering]\n" +
-            "\tSET [AccountID] = ?,\n" +
-            "\t[StatusID] = ?,\n" +
-            "\t[StoreCityID] = ?,\n" +
-            "\t[OfferingGroupID] = ?,\n" +
-            "\t[StateID] = ?,\n" +
-            "\t[ModifiedOn] = CURRENT_TIMESTAMP,\n" +
-            "\t[ModifiedByID] = ?\n" +
-            "WHERE([tbl_RequestOffering].[ID] =  ?)"
-    );
-
-    pst = null;
+        pst = null;
 
         try {
-        pst = DBConnection.getDataSource().getConnection().prepareStatement(query);
-        pst.setString(1, chosenElement.getAccountID());
-        pst.setString(2, chosenElement.getStatusID());
-        pst.setString(3, chosenElement.getStoreCityID());
-        pst.setString(4, chosenElement.getOfferingGroupID());
-        pst.setString(5, chosenElement.getStateID());
-        pst.setString(6, User.getContactID());
-        pst.setString(7, notFulfilled.getID());
-    //    pst.setString(8, chosenElement.getStateID());
-        pst.executeUpdate();
+            con = DBConnection.getDataSource().getConnection();
+            pst = con.prepareStatement(query);
+            pst.setString(1, chosenElement.getAccountID());
+            pst.setString(2, chosenElement.getStatusID());
+            pst.setString(3, chosenElement.getStoreCityID());
+            pst.setString(4, chosenElement.getOfferingGroupID());
+            pst.setString(5, chosenElement.getStateID());
+            pst.setString(6, User.getContactID());
+            pst.setString(7, notFulfilled.getID());
+            //    pst.setString(8, chosenElement.getStateID());
+            pst.executeUpdate();
 
-        closeWindow();
-        notFulledController.handleTableView();
-    }catch (SQLException e) {
-        e.printStackTrace();
+            closeWindow();
+            notFulledController.handleTableView();
+            notFulledController.refreshData();
+            con.close();
+            pst.close();
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-}
+
     private void closeWindow() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
 
 
-
-
-
-
-    public EditController (){
+    public EditController() {
 
     }
+
     public EditController(NotFulfilled offeringRequest, boolean status) {
         this.notFulfilled = offeringRequest;
         showWindow();
 
 
-
     }
+
     @FXML
     private ArrayList<? extends Control> listServicesFields;
 
@@ -736,7 +753,6 @@ public class EditController implements Initializable {
             Parent root = fxml.load();
 
 
-
             //  con.setOfferingRequest(offeringRequest);
 
 
@@ -747,7 +763,6 @@ public class EditController implements Initializable {
             e.printStackTrace();
         }
     }
-
 
 
     @FXML
@@ -775,6 +790,7 @@ public class EditController implements Initializable {
 
 
     }
+
     @FXML
     public void btnCreateOut(ActionEvent event) {
         Stage stage = (Stage) closeButton.getScene().getWindow();

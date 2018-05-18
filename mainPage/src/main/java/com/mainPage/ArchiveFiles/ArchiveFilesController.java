@@ -3,27 +3,23 @@ package com.mainPage.ArchiveFiles;
 import com.Utils.CustomPaginationSkin;
 import com.Utils.UsefulUtils;
 import com.client.chatwindow.ChatController;
+import com.connectDatabase.DBConnection;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import com.login.User;
 import com.mainPage.ArchiveFiles.ArchiveFilesRequest.ArchiveFilesRequestController;
-import com.mainPage.InProcessing.NotesInProcessing.NotesInProcessingController;
 import com.mainPage.NotFulled.ProductAdd.ObserverNF;
 import com.mainPage.page.MainPageController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -41,8 +37,8 @@ public class ArchiveFilesController extends BorderPane implements Initializable,
     private ArchiveFilesRequestController archiveFilesRequestViewController;
     private MainPageController main;
     private static Logger log = Logger.getLogger(ArchiveFilesController.class.getName());
-  /*  @FXML
-    private TableView tableView;*/
+    /*  @FXML
+      private TableView tableView;*/
     @FXML
     private BorderPane borderPane;
     private ArchiveFiles account = new ArchiveFiles();
@@ -52,16 +48,22 @@ public class ArchiveFilesController extends BorderPane implements Initializable,
     private ArchiveFilesQuery accountQueries = new ArchiveFilesQuery();
     private Connection con = null;
     private PreparedStatement pst = null;
-    private ResultSet rs= null;
+    private ResultSet rs = null;
     @FXML
     private Pagination pagination;
     @FXML
-    private TableView tableView;
+    public TableView tableView;
     @FXML
     private JFXButton btn_ReturnInProcessing;
+    @FXML
+    private ChatController chatViewController;
+    @FXML
+    private SplitPane splitPane1;
+    @FXML
+    private JFXTextField searchingField;
     public ArchiveFiles chosenAccount;
 
-    public  ChatController conn;
+    public ChatController conn;
 
     private double xOffset;
     private double yOffset;
@@ -75,12 +77,18 @@ public class ArchiveFilesController extends BorderPane implements Initializable,
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         archiveFilesRequestViewController.init(this);
-createTableColumns();
-loadDataFromDatabase();
+        chatViewController.init(this);
+        splitPane1.setDividerPositions(0.75);
+        createTableColumns();
+        loadDataFromDatabase();
         tableViewHandles();
 
         CustomPaginationSkin pageSkin = new CustomPaginationSkin(pagination); // custom pagination
-
+        try {
+            con = DBConnection.getDataSource().getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         pagination.setSkin(pageSkin);
         pagination.setPageFactory(this::createPage);
 
@@ -108,7 +116,7 @@ loadDataFromDatabase();
                     pst.setString(3, chosenAccount.getID());
                     pst.executeUpdate();
                     main.changeExists();
-                    UsefulUtils.showSuccessful("Запит "+chosenAccount.getNumber() +" завершено");
+                    UsefulUtils.showSuccessful("Запит " + chosenAccount.getNumber() + " завершено");
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -117,7 +125,18 @@ loadDataFromDatabase();
         });
 
 
+        searchingField.setOnAction(event1 -> {
+            String value = searchingField.getText();
 
+            if (value.equals("")) {
+                refreshData();
+            } else
+                try {
+                    findByProperty(value);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+        });
         UsefulUtils.installCopyPasteHandler(tableView);
         tableView.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -125,10 +144,10 @@ loadDataFromDatabase();
 
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                     try {
-                        chosenAccount = (ArchiveFiles) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
 
-                        NotesInProcessingController notesInProcessingController = new NotesInProcessingController(chosenAccount, false);
-                        loginButtonAction(chosenAccount);
+
+                        //  NotesInProcessingController notesInProcessingController = new NotesInProcessingController(chosenAccount, false);
+
                         //  ClientController.recordInTract = chosenAccount;
                         //     System.out.println(chosenAccount.getID() + "5649848949849845316546854684896");
                         //     ClientController clientController = new ClientController(chosenAccount, false);
@@ -140,57 +159,88 @@ loadDataFromDatabase();
         });
     }
 
+    String Skrut = null;
+
+    public void findByProperty(String value) {
+        data.clear();
+
+        try {
+            pst = con.prepareStatement("SELECT RequestID " +
+                            "\t\t\t\t\tFROM dbo.tbl_OfferingInRequestOffering \n" +
+                            " WHERE [tbl_OfferingInRequestOffering].[OfferingID] IN (SELECT ID\n" +
+                            "        FROM [tbl_Offering] WHERE [tbl_Offering].Skrut LIKE '" + value.toString() + "%' OR [tbl_Offering].[Index] LIKE '" + value.toString() + "%')"//+
+                    //  "FOR XML PATH('')"
+            );
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                Skrut = rs.getString(1);
+                //  options.add(rs.getString(1));
+                List<ArchiveFiles> listItems = account.findSearchSkrut(false, (int) toIndex, User.getContactID(), User.getContactID(), Skrut);
+                listItems.forEach(item -> data.add(item));
+
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        /// Skrut = (String) options.get(0);
+
+
+        tableView.setItems(data);
+
+
+    }
 
     public void loginButtonAction(ArchiveFiles chosenAccount) throws IOException {
-       // String hostname = "192.168.0.100";
-     //   int port = 9001;
-   //     String username = User.getContactName();
-   //     String picture = "Default";
+        // String hostname = "192.168.0.100";
+        //   int port = 9001;
+        //     String username = User.getContactName();
+        //     String picture = "Default";
 
 
-        FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/views/ChatView.fxml"));
+        //  FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/views/ChatView.fxml"));
 
-        Parent window = (Pane) fmxlLoader.load();
-        conn = fmxlLoader.<ChatController>getController();
+        //  Parent window = (Pane) fmxlLoader.load();
+        //       conn = fmxlLoader.<ChatController>getController();
         //  instance = fmxlLoader.<InProcessingController>getController();
-        conn.setOfferingArchive(chosenAccount);
-        conn.setArchiveController(this);
-        this.scene = new Scene(window);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
+        chatViewController.setOfferingArchive(chosenAccount);
+        chatViewController.setArchiveController(this);
+        chatViewController.splitPane.setDividerPositions(1);
+        //this.scene = new Scene(window);
+        //   Stage stage = new Stage();
+        //   stage.initModality(Modality.APPLICATION_MODAL);
         // (Stage) hostnameTextfield.getScene().getWindow();
         //   stage.getScene();
 //stage.showAndWait();
-        stage.setResizable(true);
-        stage.setWidth(1040);
-        stage.setHeight(620);
+        //    stage.setResizable(true);
+        //      stage.setWidth(1040);
+        //   stage.setHeight(620);
 
         //        stage.setOnCloseRequest((WindowEvent e) -> {
         //           Platform.exit();
         //       System.exit(0);
         //    });
-        stage.setScene(this.scene);
+        //  stage.setScene(this.scene);
 
         //  stage.setMinWidth(800);
         //   stage.setMinHeight(300);
 
-      //  ResizeHelper.addResizeListener(stage);
+        //  ResizeHelper.addResizeListener(stage);
         //      stage.showAndWait();
-        System.out.println("chatFive");
+        //  System.out.println("chatFive");
 
-        conn.setUsernameLabel(User.getContactName());
-        conn.setImageLabel("Default");
-        conn.setIdTextFild(chosenAccount.getID());
-        stage.showAndWait();
-      //  Listener listener = new Listener(hostname, port, username, picture, conn, this, chosenAccount);
-     //   Thread x = new Thread(listener);
-     //   x.start();
-
+        chatViewController.setUsernameLabel(User.getContactName());
+        //   conn.setImageLabel("Default");
+        //   conn.setIdTextFild(chosenAccount.getID());
+        //   stage.showAndWait();
+        //  Listener listener = new Listener(hostname, port, username, picture, conn, this, chosenAccount);
+        //   Thread x = new Thread(listener);
+        //   x.start();
 
 
     }
-
-
 
 
     public void init(MainPageController mainPageController) {
@@ -391,6 +441,13 @@ loadDataFromDatabase();
 
         System.out.println("lllllllll" + record);
         archiveFilesRequestViewController.handleTableView(record);
+
+        chosenAccount = (ArchiveFiles) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
+        try {
+            loginButtonAction(chosenAccount);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -420,7 +477,7 @@ loadDataFromDatabase();
             number.setMinWidth(150);
 
             //    id.setVisible(false);
-tableView.setTableMenuButtonVisible(true);
+            tableView.setTableMenuButtonVisible(true);
 //number.setVisible(false);
             tableView.getColumns().addAll(
                     number,
@@ -462,10 +519,11 @@ tableView.setTableMenuButtonVisible(true);
     }
 
     @Override
-    public List<ArchiveFiles> loadDataFromDatabase () {
-       //  System.out.println(chosenAccount.getOfferingGroupID()+ "7899999999999999999999999999989854645613256131651156" + User.getContactID());
+    public List<ArchiveFiles> loadDataFromDatabase() {
+        //  System.out.println(chosenAccount.getOfferingGroupID()+ "7899999999999999999999999999989854645613256131651156" + User.getContactID());
         try {
-            List<ArchiveFiles> listItems = account.findAllInTract(true, (int) toIndex/*, chosenAccount.getStatusID(), chosenAccount.getCreatedByID(), chosenAccount.getOfferingGroupID()*/);
+
+            List<ArchiveFiles> listItems = account.findAllInArchive(true, (int) toIndex,  User.getContactID(), User.getContactID());
 
             listItems.forEach(item -> data.add(item));
 
@@ -490,7 +548,7 @@ tableView.setTableMenuButtonVisible(true);
             loadDataFromDatabase();
 
 
-           // tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
+            // tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
         } catch (Exception e) {
             log.log(Level.SEVERE, "Switch page exception: " + e);
         }

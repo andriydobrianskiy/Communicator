@@ -102,9 +102,13 @@ public static NotFulfilled notFulfilled ;
             txtName.clear();
 
             exampleController.refresh();
+
         }else {
                 UsefulUtils.showErrorDialogDown("Не можливо записати більше одного продукту");
             }
+            pst.close();
+            rs.close();
+            con.close();
         } catch(SQLException e){
             e.printStackTrace();
         }

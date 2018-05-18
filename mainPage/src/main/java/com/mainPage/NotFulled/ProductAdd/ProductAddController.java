@@ -116,7 +116,9 @@ public class ProductAddController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        cmbMain3.setStyle("-fx-text-fill: black;"+
+                "-fx-opacity: 1;");
+        cmbMain3.setDisable(true);
 
         productAddNewViewController.init(this);
         anchorPane.setVisible(false);

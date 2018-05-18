@@ -1,5 +1,6 @@
 package com.Utils;
 
+import com.Utils.MiniFilterWindow.IFilter;
 import org.google.jhsheets.filtered.operators.IFilterOperator;
 import org.google.jhsheets.filtered.operators.NumberOperator;
 
@@ -15,6 +16,8 @@ public class FilterQuery {
     private String query;
 
     private StringBuilder resultQuery;
+
+    private IFilter andOr = null;
 
     public FilterQuery(String columnName, NumberOperator.Type type, Object value) {
         this.columnName = columnName;
@@ -32,6 +35,24 @@ public class FilterQuery {
         createSQLQuery();
     }
 
+    public FilterQuery(String columnName, IFilter andOr, NumberOperator.Type type, Object value) {
+        this.andOr = andOr;
+        this.columnName = columnName;
+        this.type = type;
+        this.value = value;
+
+        createSQLQuery();
+    }
+
+    public FilterQuery(String columnName, IFilter andOr, NumberOperator.Type type, List listValues) {
+        this.andOr = andOr;
+        this.columnName = columnName;
+        this.type = type;
+        this.listValues = new LinkedList(listValues);
+
+        createSQLQuery();
+    }
+
     public String getWhereClause() {
         return resultQuery.toString();
     }
@@ -39,8 +60,14 @@ public class FilterQuery {
     private void createSQLQuery() {
         resultQuery = new StringBuilder();
 
-        resultQuery.append(" AND ");
-        resultQuery.append(columnName);
+        if(andOr == null) {
+            resultQuery.append(" AND ");
+        } else {
+            resultQuery.append(andOr.getValue());
+        }
+        if(columnName != null) {
+            resultQuery.append(columnName);
+        }
         resultQuery.append(getValueByType() + "\n");
 
     }
@@ -48,10 +75,12 @@ public class FilterQuery {
     private String getValueByType() {
         String sqlValue = "";
         try {
+            if(type == null) return value.toString();
             sqlValue = UsefulUtils.createSQLString(value.toString());
         } catch (NullPointerException ex) {
 
         }
+
         switch (type) {
             case EQUALS:
                 return " = " + sqlValue;
@@ -71,6 +100,9 @@ public class FilterQuery {
             case BEFOREON:
             case LESSTHAN:
                 return " < " + sqlValue;
+
+            case NOTCONTAINS:
+                return " NOT LIKE " + UsefulUtils.createSQLString("%" + value + "%");
 
             case BEFORE:
             case LESSTHANEQUALS:
@@ -109,8 +141,8 @@ public class FilterQuery {
                 inQuery.append(")");
 
                 return inQuery.toString();
-        }
 
+        }
         return "";
     }
 }

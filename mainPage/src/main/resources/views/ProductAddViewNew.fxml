@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.*?>
@@ -28,7 +29,12 @@
       <Separator layoutX="14.0" layoutY="41.0" prefHeight="1.0" prefWidth="328.0" style="-fx-background-color: #000000;" />
       <Separator layoutX="416.0" layoutY="43.0" prefHeight="3.0" prefWidth="135.0" style="-fx-background-color: #000000;" />
       <JFXTextArea fx:id="txtName" layoutX="15.0" layoutY="111.0" prefHeight="35.0" prefWidth="542.0" />
-      <Button fx:id="btnCancel" layoutX="500.0" layoutY="165.0" mnemonicParsing="false" onAction="#actionButtonOk" text="Додати" />
+      <JFXButton fx:id="btnCancel" layoutX="476.0" layoutY="159.0" onAction="#actionButtonOk" prefHeight="39.0" prefWidth="115.0" style="-fx-background-color: #03C03C;" text="Добавити">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+     
    </children>
    <fx:define>
       <ArrayList fx:id="listFields">

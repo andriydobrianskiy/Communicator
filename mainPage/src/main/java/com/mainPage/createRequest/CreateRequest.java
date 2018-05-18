@@ -1,22 +1,11 @@
 package com.mainPage.createRequest;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import com.Utils.UsefulUtils;
 import com.connectDatabase.DBConnection;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.login.User;
+import com.mainPage.InProcessing.Calculator.ComboBoxAutoComplete;
 import com.mainPage.NotFulled.NotFulfilled;
 import com.mainPage.NotFulled.NotFulledController;
 import com.mainPage.createRequest.StateCreate.DeliveryCity;
@@ -25,6 +14,16 @@ import com.mainPage.createRequest.StateCreate.StateCreate;
 import com.mainPage.createRequest.StateCreate.Status;
 import com.mainPage.createRequest.searchCounterpart.Counterpart;
 import com.mainPage.createRequest.searchCounterpart.SearchCounterpart;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -61,8 +60,8 @@ public class CreateRequest implements Initializable {
     @FXML
     private JFXButton btnOK;
 
-    @FXML
-    private JFXTextField edtSkrut;
+    /* @FXML
+     private JFXTextField edtSkrut;*/
     @FXML
     AnchorPane anchorPane;
     @FXML
@@ -87,9 +86,9 @@ public class CreateRequest implements Initializable {
     // public static Counterpart chosenAccount = null;
     private static NotFulfilled input = null;
     private static NotFulfilled inputAccount = null;
-    @FXML
+   /* @FXML
     private ChoiceBox comboBoxGroup;
-    private ObservableList optionsComboBoxGroup = FXCollections.observableArrayList();
+    private ObservableList optionsComboBoxGroup = FXCollections.observableArrayList();*/
 
     @FXML
     private JFXComboBox GroupPeople;
@@ -108,6 +107,7 @@ public class CreateRequest implements Initializable {
     public void setOfferingRequest(NotFulledController oper) {
         this.notFulledController = oper;
     }
+
     public NotFulledController getOfferingRequest() {
         return this.notFulledController;
     }
@@ -144,17 +144,18 @@ public class CreateRequest implements Initializable {
                 String key = all;
                 options.add(map.get(key));
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        comboBoxGroup.setItems(options);
+        //comboBoxGroup.setItems(options);
     }
 
-//StatusRequest
+    //StatusRequest
     public void StatusRequest() {
 
         try {
-            String queryStatusRequest = "SELECT\n" +
+            String queryStatusRequest = "SELECT \n" +
                     "\t[tbl_RequestOfferingState].[ID] AS [ID],\n" +
                     "\t[tbl_RequestOfferingState].[Name] AS [Name]\n" +
                     "FROM\n" +
@@ -165,11 +166,13 @@ public class CreateRequest implements Initializable {
                 optionsStatus.add(new StateCreate(rsStatusRequest.getString(1), rsStatusRequest.getString(2)));
 
             }
+            StatusRequest.setItems(optionsStatus);
+
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        StatusRequest.setItems(optionsStatus);
+
     }
 
     //DeliveryCity
@@ -242,7 +245,9 @@ public class CreateRequest implements Initializable {
                 optionsDeliveryCity.add(new DeliveryCity(rsDeliveryCity.getString(1), rsDeliveryCity.getString(2)));
             }
 
-
+            conDeliveryCity.close();
+            pstDeliveryCity.close();
+            rsDeliveryCity.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -266,17 +271,21 @@ public class CreateRequest implements Initializable {
             while (rsStatus.next()) {
                 optionsStatus.add(new Status(rsStatus.getString(1), rsStatus.getString(2)));
             }
+            Status.setItems(optionsStatus);
+            conStatus.close();
+            pstStatus.close();
+            rsStatus.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Status.setItems(optionsStatus);
-        System.out.println(Status.getPromptText().toString() + "6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666");
+
+//        System.out.println(Status.getPromptText().toString() + "6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666");
     }
 
     public void GroupPeople() {
 
         try {
-            String queryGroupPeople = "SELECT [tbl_Contact].ID, [tbl_Contact].[Name] FROM [tbl_Contact] AS [tbl_Contact] WHERE [tbl_Contact].JobID = '7B756193-B6CF-469A-92E0-C9C964CBB8F4'";
+            String queryGroupPeople = "SELECT [tbl_Contact].ID, [tbl_Contact].[Name] FROM [tbl_Contact] AS [tbl_Contact] WHERE [tbl_Contact].JobID = 'CCB28AD0-ECAC-43DF-9827-E2F9CEA56A3A' OR ID = '71820A9D-95B6-4D65-A480-4F2C57AE9A4B'\n";
 
             pstGroupPeople = conGroupPeople.prepareStatement(queryGroupPeople);
 
@@ -284,16 +293,26 @@ public class CreateRequest implements Initializable {
             while (rsGroupPeople.next()) {
                 optionsGroupPeople.add(new GroupPeople(rsGroupPeople.getString(1), rsGroupPeople.getString(2)));
             }
+            GroupPeople.setItems(optionsGroupPeople);
+            conGroupPeople.close();
+            pstGroupPeople.close();
+            rsGroupPeople.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        GroupPeople.setItems(optionsGroupPeople);
+
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Status.setStyle("-fx-text-fill: black;" +
+                "-fx-opacity: 1;");
 
+        cmbMain3.setStyle("-fx-text-fill:black;" +
+                "-fx-opacity: 1;");
+        cmbMain3.setDisable(true);
+        Status.setDisable(true);
         try {
             conStatusRequest = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
@@ -329,6 +348,7 @@ public class CreateRequest implements Initializable {
         optionsGroupPeople = FXCollections.observableArrayList();
         GroupPeople();
         Status.getSelectionModel().select(optionsStatus.get(0));
+
         try {
 
             btnOK.setOnAction(action -> {
@@ -339,14 +359,25 @@ public class CreateRequest implements Initializable {
         } catch (Exception e) {
             log.log(Level.SEVERE, "Delete offering row exception: " + e);
         }
+        // FxUtilTest.autoCompleteComboBoxPlus(DeliveryCity, (typedText, itemToCompare) -> itemToCompare.toString().toLowerCase().contains(typedText.toLowerCase()) || itemToCompare.toString().equals(typedText));
+        //  FxUtilTest.getComboBoxValue(DeliveryCity);
+        new ComboBoxAutoComplete<Integer>(DeliveryCity);
 
-        edtSkrut.setOnKeyReleased((KeyEvent keyEvent) -> {
+        //  FxUtilTest.autoCompleteComboBoxPlus(StatusRequest, (typedText, itemToCompare) -> itemToCompare.toString().toLowerCase().contains(typedText.toLowerCase()) || itemToCompare.toString().equals(typedText));
+        // FxUtilTest.getComboBoxValue(StatusRequest);
+        //  FxUtilTest.autoCompleteComboBoxPlus(Status, (typedText, itemToCompare) -> itemToCompare.toString().toLowerCase().contains(typedText.toLowerCase()) || itemToCompare.toString().equals(typedText));
+        //  FxUtilTest.getComboBoxValue(Status);
+        //FxUtilTest.autoCompleteComboBoxPlus(GroupPeople, (typedText, itemToCompare) -> itemToCompare.toString().toLowerCase().contains(typedText.toLowerCase()) || itemToCompare.toString().equals(typedText));
+        // FxUtilTest.getComboBoxValue(GroupPeople);
+
+       /* edtSkrut.setOnKeyReleased((KeyEvent keyEvent) -> {
                     GroupRequest(edtSkrut.getText());
                     comboBoxGroup.getSelectionModel().clearSelection();
 
 
                 }
-        );
+        );*/
+
     }
 
 
@@ -359,7 +390,7 @@ public class CreateRequest implements Initializable {
                 //  chosenElement.setID(UUID.randomUUID().toString());
                 chosenElement = new NotFulfilled();
                 //
-            }else if (getOfferingRequest().equals(WindowOperation.EDIT)) {
+            } else if (getOfferingRequest().equals(WindowOperation.EDIT)) {
                 chosenElement = input;
             }
 
@@ -464,8 +495,11 @@ public class CreateRequest implements Initializable {
             closeWindow();
             notFulledController.handleTableView();
             UsefulUtils.showSuccessful("Запит успішно добавлено");
+
+
         } catch (SQLException e) {
             e.printStackTrace();
+            UsefulUtils.showErrorDialogDown("Немає доступу до створення запиту");
         }
     }
 
@@ -501,8 +535,7 @@ public class CreateRequest implements Initializable {
     public void btnCreateOut(ActionEvent event) {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
+
     }
-
-
 }
 

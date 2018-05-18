@@ -22,7 +22,7 @@
                         <Insets left="25.0" right="100.0" top="15.0" />
                      </HBox.margin>
                   </JFXComboBox>
-                    <JFXTextField fx:id="searchField" prefHeight="25.0" prefWidth="215.0">
+                    <JFXTextField fx:id="searchField" prefHeight="23.0" prefWidth="215.0">
                      <HBox.margin>
                         <Insets right="100.0" top="15.0" />
                      </HBox.margin>

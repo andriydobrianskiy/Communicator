@@ -15,12 +15,12 @@
       </AnchorPane>
       <AnchorPane fx:id="anchorPaneNew" layoutX="1.0" layoutY="2.0" prefHeight="204.0" prefWidth="600.0">
          <children>
-            <JFXButton fx:id="btn_OK" layoutX="476.0" layoutY="159.0" prefHeight="39.0" prefWidth="115.0" text="Добавити">
+            <JFXButton fx:id="btn_OK" layoutX="476.0" layoutY="159.0" prefHeight="39.0" prefWidth="115.0" style="-fx-background-color: #03C03C;" text="Добавити">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXComboBox fx:id="cmbMain3" layoutX="6.0" layoutY="83.0" prefHeight="44.0" prefWidth="339.0" />
+            <JFXComboBox fx:id="cmbMain3" layoutX="6.0" layoutY="83.0" prefHeight="44.0" prefWidth="339.0" stylesheets="@../styles/CreateComboStyle.css" />
             <Label layoutX="60.0" layoutY="30.0" prefHeight="17.0" prefWidth="200.0" text="Продукти" textFill="#0a0a0a">
                <font>
                   <Font name="System Bold" size="18.0" />
@@ -31,7 +31,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <JFXButton layoutX="345.0" layoutY="83.0" onAction="#btnSearchCounterpart" prefHeight="44.0" prefWidth="89.0" text="Пошук">
+            <JFXButton layoutX="345.0" layoutY="83.0" onAction="#btnSearchCounterpart" prefHeight="44.0" prefWidth="89.0" style="-fx-background-color: #39b5ff;" text="Пошук">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -53,7 +53,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </JFXToggleButton>
-            <JFXButton fx:id="closeButton" alignment="CENTER" contentDisplay="RIGHT" nodeOrientation="RIGHT_TO_LEFT" onAction="#btnCreateOut" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #615353;" text="Відміна" textAlignment="CENTER">
+            <JFXButton fx:id="closeButton" alignment="CENTER" contentDisplay="RIGHT" nodeOrientation="RIGHT_TO_LEFT" onAction="#btnCreateOut" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #615353;" text="Відміна" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

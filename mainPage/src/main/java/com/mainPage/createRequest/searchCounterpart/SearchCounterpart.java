@@ -1,8 +1,12 @@
 package com.mainPage.createRequest.searchCounterpart;
 
+import com.Utils.AccountSearchType;
+import com.Utils.CustomPaginationSkin;
+import com.Utils.DictionaryProperties;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import com.mainPage.createRequest.Querys.Query;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -19,12 +23,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import com.Utils.AccountSearchType;
-import com.Utils.CustomPaginationSkin;
-import com.Utils.DictionaryProperties;
-import com.mainPage.InProcessing.InProcessing;
-import com.mainPage.createRequest.Querys.Query;
+import org.google.jhsheets.filtered.operators.IFilterOperator;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -108,11 +109,11 @@ public class SearchCounterpart extends AnchorPane implements DictionaryPropertie
             @Override
             public void handle(MouseEvent event) {
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                   // chosenAccount = (Counterpart) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
+                    // chosenAccount = (Counterpart) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
                    /* btnOK.setOnAction(evt -> {*/
-                        chosenElement = (Counterpart) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
-                        closeWindow();
-                  //  });
+                    chosenElement = (Counterpart) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
+                    closeWindow();
+                    //  });
                     //closeWindow();
                 }
             }
@@ -126,7 +127,19 @@ public class SearchCounterpart extends AnchorPane implements DictionaryPropertie
         Image imageButtonCancel = new Image(getClass().getResourceAsStream("/images/ButtonCancel.png"));
         btnCancel.setGraphic(new ImageView(imageButtonCancel));
 
-
+        searchField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                try {
+                    if (keyEvent.getCode() == KeyCode.ENTER) {
+                        if (!searchField.getText().isEmpty())
+                            filterData();
+                    }
+                } catch (Exception e) {
+                    log.log(Level.SEVERE, "handleButtonSearch exception: " + e);
+                }
+            }
+        });
         createTableColumns();
 
         // creating columns
@@ -207,7 +220,7 @@ public class SearchCounterpart extends AnchorPane implements DictionaryPropertie
     }
 
     @Override
-    public List<InProcessing> loadDataFromDatabase() {
+    public void loadDataFromDatabase() {
 
         try {
             ObservableList<Counterpart> listItems = (ObservableList<Counterpart>) account.findAll(true, (int) toIndex);
@@ -219,12 +232,32 @@ public class SearchCounterpart extends AnchorPane implements DictionaryPropertie
         } catch (Exception e) {
             log.log(Level.SEVERE, "Load data from database exception: " + e);
         }
-        return null;
+        //    return null;
     }
 
     @Override
-    public List<InProcessing> loadDataFromDatabaseAll() {
-        return null;
+    public void disableFilter(TableColumn column, Pane content) {
+
+    }
+
+    @Override
+    public void removeFilterFromHbox(TableColumn column) {
+
+    }
+
+    @Override
+    public void refreshData() {
+
+    }
+
+    @Override
+    public void fillHboxFilter(TableColumn column, IFilterOperator.Type type, Object value) {
+
+    }
+
+    @Override
+    public void loadDataFromDatabaseAll() {
+
     }
 
 
@@ -372,19 +405,19 @@ public class SearchCounterpart extends AnchorPane implements DictionaryPropertie
     }
 
 
-   /* @FXML
-    private void handleButtonChoose() {
-        Counterpart selectedAccount;
-        try {
-            selectedAccount = (Counterpart) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
-        } catch (NullPointerException e) {
-            UsefulUtils.showErrorDialog("Елемент не вибрано!");
-            return;
-        }
-        chosenAccount = selectedAccount;
-        closeWindow();
-    }
-*/
+    /* @FXML
+     private void handleButtonChoose() {
+         Counterpart selectedAccount;
+         try {
+             selectedAccount = (Counterpart) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
+         } catch (NullPointerException e) {
+             UsefulUtils.showErrorDialog("Елемент не вибрано!");
+             return;
+         }
+         chosenAccount = selectedAccount;
+         closeWindow();
+     }
+ */
     public BorderPane createPage(int pageIndex) {
         try {
 
@@ -396,7 +429,6 @@ public class SearchCounterpart extends AnchorPane implements DictionaryPropertie
 
 
             loadDataFromDatabase();
-
 
 
             tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));

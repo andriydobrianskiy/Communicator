@@ -50,7 +50,7 @@ public class InTract implements InTractInterface  {
     private SimpleStringProperty OriginalGroupID;
     private SimpleStringProperty OriginalGroupName;
     private SimpleStringProperty IsNewMessage;
-    private SimpleStringProperty JointAnnulment;
+    private SimpleIntegerProperty JointAnnulment;
     private SimpleStringProperty Note;
     private SimpleStringProperty LastMessage;
     private SimpleStringProperty GroupChangedByID;
@@ -124,7 +124,7 @@ public class InTract implements InTractInterface  {
     public String getIsNewMessage () {
         return IsNewMessage.getValue();
     }
-    public String getJointAnnulment () {
+    public Integer getJointAnnulment () {
         return JointAnnulment.getValue();
     }
     public String getNote () {
@@ -221,8 +221,8 @@ public class InTract implements InTractInterface  {
     public void  setIsNewMessage (String isNewMessage) {
         this.IsNewMessage = new SimpleStringProperty(isNewMessage);
     }
-    public void setJointAnnulment (String jointAnnulment) {
-        this.JointAnnulment = new SimpleStringProperty(jointAnnulment);
+    public void setJointAnnulment (Integer jointAnnulment) {
+        this.JointAnnulment = new SimpleIntegerProperty(jointAnnulment);
     }
     public void setNote (String note) {
         this.Note = new SimpleStringProperty(note);
@@ -258,7 +258,7 @@ public class InTract implements InTractInterface  {
 
 
     @Override
-    public List<InTract> findAllInTract(boolean pagination, int rowIndex, String createdByID, String offeringGroupID) {
+    public List<InTract> findInTract(boolean pagination, int rowIndex, String createdByID, String offeringGroupID) {
         String query = (pagination ? accountQueries1.getMainInTract(true, rowIndex, createdByID,offeringGroupID ) : accountQueries1.getMainInTract(false, 0, createdByID,offeringGroupID ));
 
         try {
@@ -271,6 +271,31 @@ public class InTract implements InTractInterface  {
         return FXCollections.observableArrayList(EMPTYLIST);
     }
 
+    @Override
+    public List<InTract> findInTractAll(boolean pagination, int rowIndex) {
+        String query = (pagination ? accountQueries1.getAllInTract(true, rowIndex ) : accountQueries1.getAllInTract(false, 0));
 
+        try {
+
+            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query, new BeanListHandler<InTract>(InTract.class)));
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "getAccount exception: " + e);
+        }
+
+        return FXCollections.observableArrayList(EMPTYLIST);
+    }
+
+
+
+    public List<InTract> findSearchSkrut(boolean pagination, int rowIndex, String createdByID, String offeringGroupID, String requestID) {
+        String query = (pagination ? accountQueries1.getMainInTractSearch(true, rowIndex, createdByID, offeringGroupID, requestID) : accountQueries1.getMainInTractSearch(false, 0, createdByID, offeringGroupID, requestID));
+        try {
+            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query, new BeanListHandler<InTract>(InTract.class)));
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "getAccount exception: " + e);
+        }
+
+        return FXCollections.observableArrayList(EMPTYLIST);
+    }
 
 }

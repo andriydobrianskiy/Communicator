@@ -68,24 +68,23 @@ public class ProductSearchDAO implements ProductSearchInterface {
 
         switch ((ProductSearchType) searchType) {
             case INDEX:
-                whereClause = " WHERE [tbl_Offering].[Index] LIKE '%" + value.toString() + "%'";
+                whereClause = " WHERE [tbl_Offering].[Index] = '" + value.toString() + "'";
                 valueClause = value.toString();
                 break;
 
             case ISHIDDENSKRUT:
-
-                valueClause = "%" + value.toString() + "%";
-                whereClause = " WHERE [tbl_Offering].[HiddenSkrut] LIKE '%" + value.toString() + "%'";
+                whereClause = " WHERE [tbl_Offering].[Skrut] LIKE '" + value.toString() + "%'";
+                valueClause =  value.toString();
                 break;
             case SKRUT:
-                whereClause = " WHERE [tbl_Offering].[Skrut] LIKE '%" + value.toString() + "%'";
+                whereClause = " WHERE [tbl_Offering].[Skrut] LIKE '" + value.toString() + "%'";
                 valueClause = value.toString();
                 break;
             case OFFERINGNAME:
                 whereClause = " WHERE [tbl_Offering].[Name] LIKE '%" + value.toString() + "%'";
-                valueClause = "'%" + value.toString() + "%'";
+                valueClause = value.toString();
                 break;
-            case HASANALOGUE:
+          /*  case HASANALOGUE:
                 whereClause = " WHERE [tbl_Offering].[HasAnalogue] LIKE '%" + value.toString() + "%'";
                 valueClause = value.toString();
                 break;
@@ -154,7 +153,7 @@ public class ProductSearchDAO implements ProductSearchInterface {
             case SEASONINDEX:
                 whereClause = " WHERE [tbl_Offering].[SeasonIndex] LIKE '%" + value.toString() + "%'";
                 valueClause = "%" + value.toString() + "%";
-                break;
+                break;*/
 
         }
 
@@ -176,6 +175,7 @@ public class ProductSearchDAO implements ProductSearchInterface {
         try (Connection connection = DBConnection.getDataSource().getConnection() ){
             return FXCollections.observableArrayList(dbAccess.query(connection, query, new BeanListHandler<ProductSearch>(ProductSearch.class)));
         } catch (Exception e) {
+
             log.log(Level.SEVERE, "getAccount exception: " + e);
         }
 

@@ -46,6 +46,7 @@ public class InProcessing implements InProcessingIntarface {
     private Integer IsReadMeassage;
     private String OfferingGroupID;
     private String OfferingGroupName;
+    private Integer JointAnnulment;
     private String OriginalGroupName;
     private String GroupChangedBy;
     private String StateName;
@@ -200,6 +201,12 @@ public class InProcessing implements InProcessingIntarface {
         OriginalGroupName = originalGroupName;
     }
 
+    public Integer getJointAnnulment (){return JointAnnulment;}
+
+    public void setJointAnnulment (Integer jointAnnulment){
+        JointAnnulment = jointAnnulment;
+    }
+
     public String getGroupChangedBy() {
         return GroupChangedBy;
     }
@@ -257,9 +264,31 @@ public class InProcessing implements InProcessingIntarface {
     }
 
 
+    public List<InProcessing> findAllOneSearch(boolean pagination, int rowIndex, String createdByID, String offeringGroupID, String requestID) {
+        String query = (pagination ? accountQueries1.getMainInProcessingSearchSkrut(true, rowIndex , createdByID , offeringGroupID, requestID) : accountQueries1.getMainInProcessingSearchSkrut(false, 0, createdByID , offeringGroupID,requestID));
+        try {
+            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query, new BeanListHandler<InProcessing>(InProcessing.class)));
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "getAccount exception: " + e);
+        }
+
+        return FXCollections.observableArrayList(EMPTYLIST);
+    }
+
+
     @Override
     public List<InProcessing> findAllInProcessing (boolean pagination, int rowIndex){
         String queryAll = (pagination ? accountQueries1.getMainInProcessingAll(true, rowIndex) : accountQueries1.getMainInProcessingAll(false, 0));
+        try{
+            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(),queryAll, new BeanListHandler<InProcessing>(InProcessing.class)));
+        }catch (Exception e){
+            log.log(Level.SEVERE, "getAccount exception: " + e);
+        }
+        return FXCollections.observableArrayList(EMPTYLIST);
+    }
+
+    public List<InProcessing> findAllInProcessingSearchSkrut (boolean pagination, int rowIndex, String requestID){
+        String queryAll = (pagination ? accountQueries1.getMainInProcessingAllSearchSkrut(true, rowIndex,requestID) : accountQueries1.getMainInProcessingAllSearchSkrut(false, 0, requestID));
         try{
             return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(),queryAll, new BeanListHandler<InProcessing>(InProcessing.class)));
         }catch (Exception e){

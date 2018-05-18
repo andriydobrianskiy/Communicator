@@ -23,7 +23,7 @@
             <font>
                 <Font name="System Bold Italic" size="12.0" />
             </font></Label>
-        <Label layoutX="30.0" layoutY="323.0" text="Визначити групу" textFill="#273075">
+       <!-- <Label layoutX="30.0" layoutY="323.0" text="Визначити групу" textFill="#273075">
             <font>
                 <Font name="System Bold Italic" size="12.0" />
             </font></Label>
@@ -32,7 +32,7 @@
         <Label layoutX="362.0" layoutY="323.0" text="Група товарів" textFill="#273075">
             <font>
                 <Font name="System Bold Italic" size="12.0" />
-            </font></Label>
+            </font></Label>-->
         <Label layoutX="196.0" prefHeight="44.0" prefWidth="390.0" text="Змінити запит" textFill="#5e5252">
             <font>
                 <Font name="System Bold" size="24.0" />
@@ -83,7 +83,7 @@
             <fx:reference source="cmbMain3" />
             <fx:reference source="DeliveryCity" />
             <fx:reference source="Status" />
-            <fx:reference source="comboBoxGroup" />
+       <!--     <fx:reference source="comboBoxGroup" />-->
             <fx:reference source="GroupPeople" />
 
         </ArrayList>

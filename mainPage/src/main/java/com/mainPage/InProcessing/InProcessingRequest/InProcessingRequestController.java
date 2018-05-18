@@ -27,24 +27,24 @@ public class InProcessingRequestController implements Initializable {
 
     private static Logger log = Logger.getLogger(InProcessingRequestController.class.getName());
     @FXML
-    private TableView <InProcessingRequest> tableInProcessingProduct;
+    private TableView<InProcessingRequest> tableInProcessingProduct;
     @FXML
-    private TableColumn<?,?> columnIndex;
+    private TableColumn<?, ?> columnIndex;
     @FXML
-    private TableColumn<?,?> columnSkrut;
+    private TableColumn<?, ?> columnSkrut;
     @FXML
-    private TableColumn<?,?> columnOfferingName;
+    private TableColumn<?, ?> columnOfferingName;
     @FXML
-    private TableColumn<?,?> columnQuantity;
+    private TableColumn<?, ?> columnQuantity;
     @FXML
-    private TableColumn<?,?> columnDefaultOfferingCode;
+    private TableColumn<?, ?> columnDefaultOfferingCode;
     @FXML
-    private TableColumn<?,?> columnNewOfferingCode;
+    private TableColumn<?, ?> columnNewOfferingCode;
     @FXML
-    private TableColumn<?,?> columnNewDescription;
+    private TableColumn<?, ?> columnNewDescription;
     private Connection con = null;
     private PreparedStatement pst = null;
-    private ResultSet rs= null;
+    private ResultSet rs = null;
     private ObservableList<InProcessingRequest> data;
     @FXML
     private AnchorPane anchorPane;
@@ -58,7 +58,7 @@ public class InProcessingRequestController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //createTableColumnsProduct();
-       // loadDataFromDatabaseBottom();
+        // loadDataFromDatabaseBottom();
         try {
             con = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
@@ -66,7 +66,7 @@ public class InProcessingRequestController implements Initializable {
         }
         setCellTable();
         data = FXCollections.observableArrayList();
-tableInProcessingProduct.setTableMenuButtonVisible(true);
+        tableInProcessingProduct.setTableMenuButtonVisible(true);
         tableInProcessingProduct.getSelectionModel().setCellSelectionEnabled(false);
         tableInProcessingProduct.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
@@ -84,7 +84,8 @@ tableInProcessingProduct.setTableMenuButtonVisible(true);
         data.clear();
         loadDataFromDatabaseBottom();
     }
-    private void setCellTable(){
+
+    private void setCellTable() {
         columnIndex.setCellValueFactory(new PropertyValueFactory<>("Index"));
         columnSkrut.setCellValueFactory(new PropertyValueFactory<>("Skrut"));
         columnNewDescription.setCellValueFactory(new PropertyValueFactory<>("newDescription"));
@@ -94,11 +95,11 @@ tableInProcessingProduct.setTableMenuButtonVisible(true);
         columnNewOfferingCode.setCellValueFactory(new PropertyValueFactory<>("newOfferingCode"));
 
     }
+
     private StringBuilder query;
-    public List<InProcessingRequest> loadDataFromDatabaseBottom(){
+
+    public List<InProcessingRequest> loadDataFromDatabaseBottom() {
         try {
-
-
 
 
             try {
@@ -133,17 +134,19 @@ tableInProcessingProduct.setTableMenuButtonVisible(true);
             }
             pst.setString(1, selectedRecord.getID());
             rs = pst.executeQuery();
-            while (rs.next()){
-                data.add(new InProcessingRequest(rs.getString(8),rs.getString(9), rs.getString(14),
+            while (rs.next()) {
+                data.add(new InProcessingRequest(rs.getString(8), rs.getString(9), rs.getString(14),
                         rs.getString(10), rs.getString(12), rs.getString(11), rs.getString(13)));
 
 
             }
+            tableInProcessingProduct.setItems(data);
+
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        tableInProcessingProduct.setItems(data);
+
         // tableViewRequest.setItems(FXCollections.observableArrayList(data.subList((int)fromIndex, (int)toIndex)));
         return null;
     }
@@ -202,7 +205,6 @@ tableInProcessingProduct.setTableMenuButtonVisible(true);
         this.selectedRecord = value;
         loadDataFromDatabaseBottom();
     }*/
-
 
 
 }

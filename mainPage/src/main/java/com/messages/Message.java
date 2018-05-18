@@ -1,7 +1,5 @@
 package com.messages;
 
-import javafx.beans.property.BooleanProperty;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,10 +8,13 @@ public class Message implements Serializable {
 
     private String name;
     private String offeringID;
+
     private MessageType type;
     private String msg;
     private int count;
     private ArrayList<User> list;
+    private String createdby;
+    private String offeringGroupName;
     private ArrayList<User> listId;
     private ArrayList<User> users;
     private ArrayList<User> usersID;
@@ -32,6 +33,10 @@ public class Message implements Serializable {
     }
 
     private String picture;
+    public String getCreatedby () {return createdby;}
+    public void setCreatedby (String createdby) {this.createdby = createdby;}
+    public String getOfferingGroupName () {return offeringGroupName;}
+    public void setOfferingGroupName (String offeringGroupName){this.offeringGroupName = offeringGroupName;}
 
     public Message() {
     }
