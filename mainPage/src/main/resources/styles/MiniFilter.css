@@ -1,0 +1,44 @@
+#btnRemoveFilter {
+    -fx-fill: url("/sample/ua/ucountry/WindowUtils/resources/cancelNotActive.png");
+}
+
+#btnRemoveFilter:hover {
+    -fx-fill: url("/sample/ua/ucountry/WindowUtils/resources/cancelActive.png");
+}
+
+#stackPaneMini {
+    -fx-background-color: rgba(87, 246, 255, 0.46);
+-fx-background-radius: 6, 5;
+-fx-background-insets: 0, 1;
+-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+-fx-text-fill: #395306;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('..//resources/fonts/RobotoCondensed-Bold.ttf');
+}
+
+
+
+
+
+.root {
+    -fx-font-family: Roboto;
+
+}
+
+#lblColumn {
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+
+#lblType {
+    -fx-font-size: 13px;
+}
+
+#lblValue {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+

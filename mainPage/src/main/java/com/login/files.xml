@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update>
+	<file>ftp://192.168.10.101/CSM/update.xml</file>
+	<file>ftp://192.168.10.101/CSM/CSM.exe</file>
+	<file>ftp://192.168.10.101/CSM/CSM.jar</file>
+	<file>ftp://192.168.10.101/CSM/printInvoice.jar</file>
+</update>

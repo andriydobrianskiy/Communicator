@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update>
+    <instruction>
+	<action>MOVE</action>
+	<file>CSM.exe</file>
+	<destination>CSM.exe</destination>
+    </instruction>
+<instruction>
+	<action>MOVE</action>
+	<file>printInvoice.jar</file>
+	<destination>printInvoice.jar</destination>
+    </instruction>
+<instruction>
+	<action>MOVE</action>
+	<file>CSM.jar</file>
+	<destination>CSM.jar</destination>
+    </instruction>
+</update>
+
