@@ -23,6 +23,8 @@ import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
@@ -32,7 +34,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
-public class MainPageController implements Initializable, ObservableNF {
+public class MainPageController  implements Initializable, ObservableNF {
 
 
     @FXML
@@ -51,7 +53,7 @@ public class MainPageController implements Initializable, ObservableNF {
 
     }
 
-    public ChatController chatController;
+
 
     public void setChatController(ChatController controller) {
 
@@ -110,8 +112,12 @@ public class MainPageController implements Initializable, ObservableNF {
     private Tab tabOrderRegistryPoland;
     @FXML
     private Tab tabOrderRegistryUkraine;
-
+    public ChatController chatController;
+    final KeyCombination keyComb1 = new KeyCodeCombination(KeyCode.ENTER,
+            KeyCombination.CONTROL_DOWN);
     private static List<ObserverNF> listElements = new LinkedList<>();
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -133,20 +139,27 @@ public class MainPageController implements Initializable, ObservableNF {
         add(inTractViewController);
         add(archiveFilesViewController);
         add(allViewController);
+     /*   TabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
+            if(newTab == TabPane.getTabs().get(1)){
+                System.out.println(TabPane.getTabs().get(1).toString() + "Tab pane");
+                //                    chatController.sendButtonAction();
+            }else if(newTab == TabPane.getTabs().get(2)){
+                //      chatController.sendButtonActionTract();
+            };
 
 
 
-        notFulledViewController.tableRequestOffering.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+        });*/
+
+
+
+
+        notFulledViewController.tableView.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.F5) {
                 changeExists();
             }
         });
-        InProcessingViewController.tableProduct.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.F5) {
-                changeExists();
-            }
-        });
-        InProcessingViewController.tableviewAll.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+        InProcessingViewController.tableView.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.F5) {
                 changeExists();
             }
@@ -192,6 +205,9 @@ public class MainPageController implements Initializable, ObservableNF {
 
 
     }
+    public void messageSend(){
+
+    }
 
     public void mainGridHandle(NotFulfilled value) {
         //  NotFulledController.setSelectedRecord(value);
@@ -225,4 +241,6 @@ public class MainPageController implements Initializable, ObservableNF {
             elem.update();
         });
     }
+
+
 }

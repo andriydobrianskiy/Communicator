@@ -1,4 +1,4 @@
-package sample.ua.ucountry.WindowUtils;
+package com.Utils;
 
 import javafx.application.Platform;
 

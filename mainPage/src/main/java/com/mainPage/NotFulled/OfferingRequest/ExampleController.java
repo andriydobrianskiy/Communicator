@@ -1,17 +1,17 @@
 package com.mainPage.NotFulled.OfferingRequest;
 
+import com.Utils.UsefulUtils;
+import com.mainPage.NotFulled.NotFulfilled;
+import com.mainPage.NotFulled.NotFulledController;
+import com.mainPage.WorkArea;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
-import com.Utils.UsefulUtils;
-import com.mainPage.NotFulled.NotFulfilled;
-import com.mainPage.NotFulled.NotFulledController;
+import org.google.jhsheets.filtered.tablecolumn.FilterableIntegerTableColumn;
+import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn;
 
 import java.net.URL;
 import java.util.List;
@@ -19,9 +19,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ExampleController implements Initializable {
+public class ExampleController extends WorkArea implements Initializable {
 
-    @FXML public TableView tableView;
 
     private OfferingRequestQuery queries = new OfferingRequestQuery();
     private DerbyOfferingRequestDAO derbyOfferingRequest = new DerbyOfferingRequestDAO();
@@ -30,26 +29,35 @@ public class ExampleController implements Initializable {
     private static Logger log = Logger.getLogger(ExampleController.class.getName());
 
     public ObservableList<OfferingRequest> data;
-    @FXML
-    private BorderPane anchorPane;
-
     private NotFulledController main;
 
     private NotFulfilled selectedRecord;
     public OfferingRequest offeringRequest;
 
-//private NotFulledController notFulledController = new NotFulledController();
-//private ProductList productList = new ProductList();
+    @FXML private FilterableStringTableColumn <OfferingRequest, String> colIndex;
+
+    @FXML private FilterableStringTableColumn <OfferingRequest, String>colSkrut;
+
+    @FXML private FilterableStringTableColumn <OfferingRequest, String>colNewDescription;
+
+    @FXML private FilterableStringTableColumn <OfferingRequest, String>colOfferingName;
+
+    @FXML private FilterableIntegerTableColumn<OfferingRequest, Integer> colQuantity;
+
+    @FXML private FilterableStringTableColumn <OfferingRequest, String>colDefaultOfferingCode;
+
+    @FXML private FilterableStringTableColumn <OfferingRequest, String>colNewOfferingCode;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         tableView.getStylesheets().add
                 (ExampleController.class.getResource("/styles/TableStyle.css").toExternalForm());
         try {
-            createTableColumnsProduct();
+            createTableColumns();
         } catch (Exception e) {
             log.log(Level.SEVERE, "Exception: " + e);
         }
+        tableView.setTableMenuButtonVisible(true);
         //loadDataFromDatabaseBottom();
         tableView.getSelectionModel().setCellSelectionEnabled(false);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -89,45 +97,39 @@ public class ExampleController implements Initializable {
 
 
 
-    public void createTableColumnsProduct() {
+    public void createTableColumns() {
 
         try {
-            TableColumn<OfferingRequest, String> index = new TableColumn<OfferingRequest, String>("Індекс");
-            TableColumn<OfferingRequest, String> skrut = new TableColumn<OfferingRequest,String>("Скорочення");
-            TableColumn<OfferingRequest, String> newDescription = new TableColumn<>("Назва/Опис");
-            TableColumn<OfferingRequest, String> offeringName = new TableColumn<OfferingRequest, String>("Продукт");
-            TableColumn<OfferingRequest, String> quantity = new TableColumn<OfferingRequest, String>("Кількість");
-            TableColumn<OfferingRequest, String> defaultOfferingCode = new TableColumn<OfferingRequest, String>("Код товару");
-            TableColumn<OfferingRequest, String> newOfferingCode = new TableColumn<>("Код товару (новий)");
+            hashColumns.put(colIndex, "[tbl_RequestOffering].[Number]");
+            hashColumns.put(colSkrut, "[tbl_RequestOffering].[CreatedOn]");
+            hashColumns.put(colNewDescription, "[tbl_Contact].[Name]");
+            hashColumns.put(colOfferingName, "[tbl_Account].[Name]");
+            hashColumns.put( colQuantity, "[tbl_Account].[Code]");
+            hashColumns.put(colDefaultOfferingCode, "[tbl_Account].[SaldoSel]");
+            hashColumns.put(colNewOfferingCode, "(CASE\n" +
+                    "    WHEN CONVERT(DATETIME,ISNULL([tbl_Account].[UnblockDate], '2000-01-01')) > CONVERT(DATETIME, CURRENT_TIMESTAMP) \n" +
+                    "    THEN ''\n" +
+                    "    WHEN [tbl_Account].[IsSolid] = 1\n" +
+                    "    THEN 'Не солідний'\n" +
+                    "    ELSE ''\n" +
+                    "END)");
 
 
 
-            index.setMinWidth(150);
-
-             //   tableProduct.setVisible(false);
-            tableView.setTableMenuButtonVisible(true);
-            tableView.getColumns().addAll(
-                    index,
-                    skrut,
-                    newDescription,
-                    offeringName,
-                    quantity,
-                    defaultOfferingCode,
-                    newOfferingCode
-            );
-            index.setCellValueFactory(new PropertyValueFactory<OfferingRequest,String>("index"));
-            skrut.setCellValueFactory(new PropertyValueFactory<OfferingRequest,String>("skrut"));
-            newDescription.setCellValueFactory(new PropertyValueFactory<OfferingRequest, String>("newDescription"));
-            offeringName.setCellValueFactory(new PropertyValueFactory<OfferingRequest,String>("offeringName"));
-            quantity.setCellValueFactory(new PropertyValueFactory<OfferingRequest,String>("quantity"));
-            defaultOfferingCode.setCellValueFactory(new PropertyValueFactory<OfferingRequest, String>("defaultOfferingCode"));
-            newOfferingCode.setCellValueFactory(new PropertyValueFactory<OfferingRequest,String>("newOfferingCode"));
+            colIndex.setCellValueFactory(new PropertyValueFactory<OfferingRequest,String>("index"));
+            colSkrut.setCellValueFactory(new PropertyValueFactory<OfferingRequest,String>("skrut"));
+            colNewDescription.setCellValueFactory(new PropertyValueFactory<OfferingRequest, String>("newDescription"));
+            colOfferingName.setCellValueFactory(new PropertyValueFactory<OfferingRequest,String>("offeringName"));
+            colQuantity.setCellValueFactory(new PropertyValueFactory<OfferingRequest,Integer>("quantity"));
+            colDefaultOfferingCode.setCellValueFactory(new PropertyValueFactory<OfferingRequest, String>("defaultOfferingCode"));
+            colNewOfferingCode.setCellValueFactory(new PropertyValueFactory<OfferingRequest,String>("newOfferingCode"));
 
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        super.createTableColumns();
 
     }
 
@@ -138,8 +140,6 @@ public class ExampleController implements Initializable {
         loadDataFromDatabaseBottom();
         UsefulUtils.fadeTransition(tableView);
     }
-
-
 
 
 }

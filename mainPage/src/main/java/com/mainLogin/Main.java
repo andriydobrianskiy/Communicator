@@ -18,7 +18,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
-import main.java.com.goxr3plus.fxborderlessscene.borderless.BorderlessScene;
+//import main.java.com.goxr3plus.fxborderlessscene.borderless.BorderlessScene;
 import org.apache.commons.net.ftp.FTPClient;
 import tray.notification.NotificationType;
 
@@ -38,7 +38,7 @@ public class Main extends Application {
   public Main () {
       int answer = 0;
       Release release = new Release();
-      release.setpkgver("1.9");
+      release.setpkgver("2.1");
 
       release.setPkgrel("4");
       FTPClient ftpClient = new FTPClient();
@@ -245,7 +245,7 @@ public class Main extends Application {
     /** The can save data. */
     public static boolean canSaveData = true;
     public static Stage window;
-    public static BorderlessScene scene;
+  //  public static BorderlessScene scene;
     //---------------END:Vary basic for the application---------------------------------//
 
     // --------------START: The below have depencities on others------------------------
@@ -285,7 +285,7 @@ public class Main extends Application {
      * This JavaFX TabPane represents a TabPane for Navigation between application Modes
      */
     public static JFXTabPane specialJFXTabPane = new JFXTabPane();
-    private String Virsion = ("1.8");
+    private String Virsion = ("2.1");
 
     private static void handle(WindowEvent exit) {
         exit.consume();

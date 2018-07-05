@@ -53,7 +53,8 @@ public class UpdateOfferingGroupNameController implements Initializable {
         try {
             con = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace();  DBConnection database = new DBConnection();
+            database.reconnect();
         }
         data = FXCollections.observableArrayList();
         StatusRequest();
@@ -90,7 +91,7 @@ public class UpdateOfferingGroupNameController implements Initializable {
                     "from \n" +
                     "    tbl_Contact \n" +
                     "\twhere \n" +
-                    "\tJobID = 'CCB28AD0-ECAC-43DF-9827-E2F9CEA56A3A' OR ID = '71820A9D-95B6-4D65-A480-4F2C57AE9A4B'\n" +
+                    "\tJobID = 'CCB28AD0-ECAC-43DF-9827-E2F9CEA56A3A' OR ID IN ('1B5F2F6A-133B-4026-BED3-914C8AC491D9','0B1A17F5-AD03-440C-A513-1398FF2B5C67')\n" +
                     "\t \n" +
                     "         ORDER BY\n" +
                     "                    2 ASC";

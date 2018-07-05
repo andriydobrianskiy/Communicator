@@ -1,4 +1,4 @@
-package sample.ua.ucountry.WindowUtils;
+package com.Utils;
 
 public enum TableType {
     REGULAR_TABLE,

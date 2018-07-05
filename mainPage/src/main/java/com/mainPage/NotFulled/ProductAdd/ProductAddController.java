@@ -250,7 +250,8 @@ if(exampleController.data.size() == 0) {
 }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace();  DBConnection database = new DBConnection();
+            database.reconnect();
         }
     }
 

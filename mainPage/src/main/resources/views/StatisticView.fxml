@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.mainPage.tableutils.CustomTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.*?>
+<?import org.google.jhsheets.filtered.tablecolumn.*?>
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainPage.Statistic.StatisticController">
    <center>
-      <BorderPane BorderPane.alignment="CENTER">
+      <BorderPane fx:id="borderPane" BorderPane.alignment="CENTER">
          <center>
-            <TableView fx:id="tableView" BorderPane.alignment="CENTER">
+            <CustomTableView fx:id="tableView" BorderPane.alignment="CENTER">
                <columns>
-                  <TableColumn fx:id="column_Manager" prefWidth="75.0" text="Менеджер" />
-                  <TableColumn fx:id="column_InProcessing" prefWidth="75.0" text="В обробці" />
-                  <TableColumn fx:id="column_Tract" prefWidth="75.0" text="В тракті" />
-                  <TableColumn fx:id="column_Completed" prefWidth="75.0" text="Завершено" />
-                  <TableColumn fx:id="column_ReturnDelete" prefWidth="75.0" text="Анульовано" />
-                  <TableColumn fx:id="column_All" prefWidth="75.0" text="Всього" />
+                  <FilterableStringTableColumn fx:id="column_Manager" prefWidth="75.0" text="Менеджер" />
+                  <FilterableIntegerTableColumn fx:id="column_InProcessing" prefWidth="75.0" text="В обробці" />
+                  <FilterableIntegerTableColumn fx:id="column_Tract" prefWidth="75.0" text="В тракті" />
+                  <FilterableIntegerTableColumn fx:id="column_Completed" prefWidth="75.0" text="Завершено" />
+                  <FilterableIntegerTableColumn fx:id="column_ReturnDelete" prefWidth="75.0" text="Анульовано" />
+                  <FilterableIntegerTableColumn fx:id="column_All" prefWidth="75.0" text="Всього" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy></TableView>
+               </columnResizePolicy></CustomTableView>
          </center>
          <top>
             <HBox alignment="CENTER" BorderPane.alignment="CENTER">
@@ -48,6 +44,11 @@
                      </HBox.margin>
                   </Label>
                   <JFXDatePicker fx:id="toDate" onAction="#actiontoDate" />
+                   <ScrollPane fx:id="scrollPaneFilter" prefHeight="49.0" BorderPane.alignment="CENTER_LEFT">
+                       <content>
+                           <HBox fx:id="hboxFilter" alignment="CENTER_LEFT" prefHeight="45.0"/>
+                       </content>
+                   </ScrollPane>
                </children>
             </HBox>
          </top>

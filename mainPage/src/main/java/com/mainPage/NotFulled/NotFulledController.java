@@ -10,10 +10,8 @@ import com.Utils.UsefulUtils;
 import com.client.util.ResizeHelper;
 import com.connectDatabase.DBConnection;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.login.User;
-import com.mainPage.InProcessing.InProcessingController;
 import com.mainPage.NotFulled.Edit.EditController;
 import com.mainPage.NotFulled.OfferingRequest.DerbyOfferingRequestDAO;
 import com.mainPage.NotFulled.OfferingRequest.ExampleController;
@@ -21,10 +19,13 @@ import com.mainPage.NotFulled.OfferingRequest.OfferingRequest;
 import com.mainPage.NotFulled.ProductAdd.ObserverNF;
 import com.mainPage.NotFulled.ProductAdd.ProductAddController;
 import com.mainPage.NotFulled.ProductAdd.ProductAddNewController;
+import com.mainPage.WorkArea;
 import com.mainPage.createRequest.CreateRequest;
 import com.mainPage.page.MainPageController;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -41,48 +42,40 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.apache.commons.dbutils.QueryRunner;
-import org.google.jhsheets.filtered.FilteredTableView;
 import org.google.jhsheets.filtered.operators.IFilterOperator;
-import org.google.jhsheets.filtered.tablecolumn.AbstractFilterableTableColumn;
 import org.google.jhsheets.filtered.tablecolumn.ColumnFilterEvent;
+import org.google.jhsheets.filtered.tablecolumn.FilterableDateTableColumn;
+import org.google.jhsheets.filtered.tablecolumn.FilterableDoubleTableColumn;
 import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.sql.Date;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//import com.sun.java.util.jar.pack.ConstantPool;
-
-public class NotFulledController extends BorderPane implements MiniFilterFunction, Initializable, DictionaryPropertiesNotfulled, ObserverNF, DictionaryProperties {
+public class NotFulledController extends WorkArea implements MiniFilterFunction, Initializable, DictionaryPropertiesNotfulled, ObserverNF, DictionaryProperties {
 
     public static User userID;
     private PreparedStatement pst = null;
     private ResultSet rs = null;
-    //  private ObservableList<NotFulfilled> data;
     private QueryRunner dbAccess = new QueryRunner();
     User user = new User();
     // Top table
     private Connection con = null;
     @FXML
     private JFXButton tbn_CreateRequest;
-    @FXML
-    private ToolBar MaterialDesign;
     @FXML
     private JFXButton btn_changeRequest;
     @FXML
@@ -96,16 +89,11 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
     @FXML
     private JFXButton btn_UpdateStatus;
     @FXML
-    public TableView tableRequestOffering;
-
     private MainPageController main;
-    @FXML
-    InProcessingController inProcessingController;
     @FXML
     private BorderPane anchorPane;
     @FXML
     private BorderPane borderPane;
-
     @FXML
     private JFXTextField searchingField;
     @FXML
@@ -118,26 +106,16 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
     private JFXButton btn_DeleteRequest;
 
     private InitComponents components;
-    // @FXML
-    //  private JFXComboBox cmbCustomer;
-    //   private DerbyOfferingsDAO offeringsDAO = new DerbyOfferingsDAO();
-//    private OfferingsQueries offeringsQueries = new OfferingsQueries();
 
     MenuBar menuBar = new MenuBar();
     Menu mainMenu = new Menu("Файл");
     MenuItem exitCmd = new MenuItem("Вихід");
     MenuItem textCmd = new MenuItem("Пошук");
 
-
-    //   private long fromIndex;
-    // private long toIndex;
     private static Logger log = Logger.getLogger(NotFulledController.class.getName());
 
 
     private ObservableList<NotFulfilled> data;
-    //  private ObservableList<ProductList> dataBottom;
-
-
     private NotFulledQuery accountQueries = new NotFulledQuery();
 
     private long fromIndex;
@@ -145,65 +123,61 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
     private HashMap<TableColumn, Pane> hashMiniFilter = new HashMap<>();
     private HashMap<TableColumn, String> hashColumns = new HashMap<>();
 
-    private TableColumn<NotFulfilled, String> ID;
-    private TableColumn<NotFulfilled, String> CreatedOn;
-    private TableColumn<NotFulfilled, String> CreatedByID;
-    private TableColumn<NotFulfilled, String> CreatedBy;
-    private TableColumn<NotFulfilled, String> AccountID;
-    private TableColumn<NotFulfilled, String> AccountName;
-    private TableColumn<NotFulfilled, String> AccountCode;
-    private TableColumn<NotFulfilled, String> AccountSaldo;
-    private TableColumn<NotFulfilled, String> AccountIsSolid;
-    private TableColumn<NotFulfilled, String> Number;
-    private TableColumn<NotFulfilled, String> StatusID;
-    private TableColumn<NotFulfilled, String> Status;
-    private TableColumn<NotFulfilled, String> StoreCityID;
-    private TableColumn<NotFulfilled, String> StoreCity;
-    private TableColumn<NotFulfilled, String> OfferingGroupID;
-    private TableColumn<NotFulfilled, String> OfferingGroupName;
-    private TableColumn<NotFulfilled, String> OriginalGroupID;
-    private TableColumn<NotFulfilled, String> OriginalGroupName;
-    private TableColumn<NotFulfilled, String> IsNewMessage;
-    private TableColumn<NotFulfilled, String> JointAnnulment;
-    private TableColumn<NotFulfilled, String> Note;
-    private TableColumn<NotFulfilled, String> LastMessage;
-    private TableColumn<NotFulfilled, String> GroupChangedByID;
-    private TableColumn<NotFulfilled, String> GroupChangedBy;
-    private TableColumn<NotFulfilled, String> IsReadMessage;
-    private TableColumn<NotFulfilled, String> SpecialMarginTypeID;
-    private TableColumn<NotFulfilled, String> SpecialMarginTypeName;
-    private TableColumn<NotFulfilled, String> StateID;
-    private TableColumn<NotFulfilled, String> StateName;
 
     @FXML
-    private JFXComboBox cmbPerformer;
+    private FilterableStringTableColumn<NotFulfilled, String> colNumber;
+    @FXML
+    private FilterableDateTableColumn<NotFulfilled, Date> colCreatedOn;
+    @FXML
+    private FilterableStringTableColumn<NotFulfilled, String> colCreatedBy;
+    @FXML
+    private FilterableStringTableColumn<NotFulfilled, String> colAccountCode;
+    @FXML
+    private FilterableStringTableColumn<NotFulfilled, String> colAccountName;
+    @FXML
+    private FilterableDoubleTableColumn<NotFulfilled, Double> colAccountSaldo;
+    @FXML
+    private FilterableStringTableColumn<NotFulfilled, String> colAccountIsSolid;
+    @FXML
+    private FilterableStringTableColumn<NotFulfilled, String> colStoreCity;
+    @FXML
+    private FilterableStringTableColumn<NotFulfilled, String> colStatus;
+    @FXML
+    private FilterableStringTableColumn<NotFulfilled, String> colOfferingGroupName;
+    @FXML
+    private FilterableStringTableColumn<NotFulfilled, String> colOriginalGroupName;
+    @FXML
+    private FilterableStringTableColumn<NotFulfilled, String> colGroupChangedBy;
+    @FXML
+    private FilterableStringTableColumn<NotFulfilled, String> colSpecialMarginTypeName;
     @FXML
     private Pagination pagination;
     @FXML
     private ScrollPane scrollPaneFilter;
-    public static NotFulfilled chosenAccount = null;
-    public NotFulfilled notFulfilled;
+    public NotFulfilled chosenAccount = null;
     // Context menu
     private ContextMenu contextMenu;
-
-    private NotFulfilled account = new NotFulfilled();
-    // private ProductList productList = new ProductList();
+    public static NotFulfilled account = new NotFulfilled();
 
     @FXML
     public ExampleController exampleProductTableController;
 
     private IntegerProperty index = new SimpleIntegerProperty();
+    private Button id = new Button();
+    private Button Number = new Button();
+    private Button Solid = new Button();
+    private Button Store = new Button();
+    boolean order = true;
+    private ImageView upImg = new ImageView(new Image("/images/Sort_Top.png"));
+    private ImageView downImg = new ImageView(new Image("/images/Sort_Bottom.png"));
+    int pageCount = 5;
+    int itemsPerPage = 40;
+    int currentPageIndex = 0;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-
-        //   System.out.println(inProcessingController.refreshData());
-       /* searchingField.setOnAction(event1 -> {
-            System.out.println("222");
-            main.changeExists();
-        });*/
         btn_UpdateStatus.setVisible(false);
         btn_IntoProcessing.setVisible(false);
         btnDelete.setVisible(false);
@@ -215,12 +189,6 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
         btn_ConfirmRequest.setVisible(true);// Менеджер
         btn_AddRequest.setVisible(true);// Менеджер
 
-
-        System.out.println(User.getContactID() + "666666666666666666655555555555555555554444444444444");
-
-
-        // tableViewHandles();
-        //  btnDelete.setVisible(true);
         Image imageDecline = new Image(getClass().getResourceAsStream("/images/CreateRequest.png"));
         tbn_CreateRequest.setGraphic(new ImageView(imageDecline));
 
@@ -245,17 +213,17 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
             con = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
         btn_ConfirmRequest.setOnAction(event -> {
             try {
-                chosenAccount = (NotFulfilled) tableRequestOffering.getItems().get(tableRequestOffering.getSelectionModel().getSelectedIndex());
+                chosenAccount = (NotFulfilled) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
             } catch (Exception ex) {
                 UsefulUtils.showErrorDialogDown("Не вибрано жодного елемента з таблиці!");
                 return;
             }
 
-
-            // System.out.println(a +  b+c + "ed2wewgweeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
             if (UsefulUtils.showConfirmDialog("Ви дійсно бажаєте надіслати запит?") == ButtonType.OK) {
 
                 String query = "UPDATE [dbo].[tbl_RequestOffering]\n" +
@@ -271,40 +239,21 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
 
                     pst.executeUpdate();
                     main.changeExists();
-
                     UsefulUtils.showSuccessful("Запит " + chosenAccount.getNumber() + " надіслано в обробку");
-
-                    //    ExampleController exampleController = loader.getController();
-                    //
-                    // exampleProductTableController.refresh();
-                    //   productAddController.setExampleController(exampleProductTableController);
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    DBConnection database = new DBConnection();
+                    database.reconnect();
                 }
             } else return;
 
 
         });
 
-      /*  searchingField.setOnAction( event -> {
-            try{
-                data.clear();
-                con = DBConnection.getDataSource().getConnection();
-                CallableStatement callProc = con.prepareCall("{call [dbo].[tsp_SearchRequestBySkrut] (?,?)}");
-                callProc.setString(1, searchingField.getText());
-                callProc.setString(2, searchingField.getText());
-                callProc.execute();
-                refreshData();
-            }catch (SQLException ex){
-                ex.printStackTrace();
-
-            }
-        });*/
-
 
         btn_СancelRequest.setOnAction(event -> {
             try {
-                chosenAccount = (NotFulfilled) tableRequestOffering.getItems().get(tableRequestOffering.getSelectionModel().getSelectedIndex());
+                chosenAccount = (NotFulfilled) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
             } catch (Exception ex) {
                 UsefulUtils.showErrorDialogDown("Не вибрано жодного елемента з таблиці!");
                 return;
@@ -324,6 +273,8 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
 
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    DBConnection database = new DBConnection();
+                    database.reconnect();
                 }
 
             } else return;
@@ -332,12 +283,11 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
 
         btn_UpdateStatus.setOnAction(event -> {
             try {
-                chosenAccount = (NotFulfilled) tableRequestOffering.getItems().get(tableRequestOffering.getSelectionModel().getSelectedIndex());
+                chosenAccount = (NotFulfilled) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
             } catch (Exception ex) {
                 UsefulUtils.showErrorDialogDown("Не вибрано жодного елемента з таблиці!");
                 return;
             }
-            // System.out.println(a +  b+c + "ed2wewgweeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
             if (UsefulUtils.showConfirmDialog("Ви дійсно бажаєте взяти в роботу?") == ButtonType.OK) {
 
                 String query = "UPDATE [dbo].[tbl_RequestOffering]\n" +
@@ -360,32 +310,34 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
 
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    DBConnection database = new DBConnection();
+                    database.reconnect();
+
                 }
             } else return;
         });
 
-
-/*tableRequestOffering.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Object>() {
-    @Override
-    public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
-        index.set(data.indexOf(newValue));
-        System.out.println("OK index is:" + data.indexOf(newValue));
-
-    }
-
-
-});*/
-
-
         createTableColumns();
         tableViewHandles();
-        tableRequestOffering.setTableMenuButtonVisible(true);
-        UsefulUtils.installCopyPasteHandler(tableRequestOffering);
 
 
-        // customizeScene();
-        //tableRequestOffering.getSelectionModel().setCellSelectionEnabled(true);
-        tableRequestOffering.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tableView.setTableMenuButtonVisible(true);
+        UsefulUtils.installCopyPasteHandler(tableView);
+        tableView.addEventHandler(ColumnFilterEvent.FILTER_CHANGED_EVENT, event -> {
+            new MiniFilter(NotFulledController.this, account, hashColumns, event).setFilter();
+        });
+
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        UsefulUtils.copySelectedCell(tableView);
+
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        anchorPane.setCenter(tableView);
+        tableView.setTableMenuButtonVisible(true);
+        UsefulUtils.installCopyPasteHandler(tableView);
+        colCreatedOn.setSortType(TableColumn.SortType.ASCENDING);
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
 
         searchingField.setOnAction(event1 -> {
             String value = searchingField.getText();
@@ -400,26 +352,47 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
                 }
         });
 
-        UsefulUtils.installCopyPasteHandler(tableRequestOffering);
+        UsefulUtils.installCopyPasteHandler(tableView);
         //  UsefulUtils.copySelectedCell(tableRequestOffering);
 
 
         MenuItem item = new MenuItem("Copy");
         ContextMenu menu = new ContextMenu();
         menu.getItems().add(item);
-        tableRequestOffering.setContextMenu(menu);
+        tableView.setContextMenu(menu);
 
 
         try {
             CustomPaginationSkin pageSkin = new CustomPaginationSkin(pagination); // custom pagination
-
             pagination.setSkin(pageSkin);
-            pagination.setPageFactory(this::createPage);
 
+            pagination.setPageFactory(this::createPage);
+            pageCount = getPageCount(data.size(), itemsPerPage);
+
+            System.out.println("pageCount=" + pageCount);
+            pagination.setPageCount(pageCount);
+            //   sort();
+            initializeTable();
+
+            pagination.currentPageIndexProperty().addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                    System.out.println("Pagination Changed from " + oldValue + " , to " + newValue);
+                    currentPageIndex = newValue.intValue();
+                    updatePersonView();
+                }
+            });
+
+
+            SortButton(Number);
+            SortButton(id);
+            SortButton(Solid);
+            SortButton(Store);
         } catch (Exception e) {
             UsefulUtils.showErrorDialogDown("Не вдається відкрити сторінки");
 
         }
+
 
         BorderPane root = new BorderPane();
         Text text = new Text("BEFORE");
@@ -427,7 +400,7 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
         mainMenu.getItems().addAll(textCmd, exitCmd);
         root.setTop(menuBar);
 
-
+        tableView.getSelectionModel().select(0);
         exitCmd.setOnAction(new EventHandler() {
 
             @Override
@@ -436,58 +409,75 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
             }
         });
 
-        textCmd.setOnAction(new EventHandler() {
-            @Override
-            public void handle(Event event) {
-                createTableColumns();
-            }
-        });
-        exitCmd.setAccelerator(new KeyCodeCombination(KeyCode.U, KeyCombination.CONTROL_DOWN));
-        textCmd.setAccelerator(new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN));
-        // searchCode();
-        this.tableRequestOffering.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                    //TreeItem selectedPerformer = treeTableView.getSelectionModel().getSelectedItem();
-
-                    //chosenElement = (PerformersInGroup) selectedPerformer.getValue();
-                    try {
-                        //chosenElement.getPerformerNumber();
-
-                    } catch (Exception e) {
-
-                    }
-
-
-                }
-            }
-        });
-
-    /*    cmbPerformer.setOnMouseClicked(event -> {
-
-      //      if(account.getChosenElement() != null) {
-         //       cmbCustomer.getItems().add(accountDictionary.getChosenElement());
-         //       cmbCustomer.getSelectionModel().select(accountDictionary.getChosenElement());
-         //   }
-            hboxFilter.getChildren().remove(hashMiniFilter.get(Number));
-            account.setStringFilter(Number, new FilterQuery(hashColumns.get(Number), IFilterOperator.Type.CONTAINS, ((NotFulfilled) cmbPerformer.getValue()).getName()).getWhereClause());
-            fillHboxFilter(Number, IFilterOperator.Type.EQUALS, ((NotFulfilled) cmbPerformer.getValue()).getName());
-            refreshData();
-
-        });*/
     }
 
+    private void SortButton(Button button) {
+        button.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
+            @Override
+            public void handle(javafx.event.ActionEvent t) {
+                pagination.setCurrentPageIndex(0);
+                sort(button);
+                if (order) {
+                    Collections.reverse(data);
+                }
+                order = !order;
+                button.setGraphic((order) ? upImg : downImg);
+                updatePersonView();
+                pagination.currentPageIndexProperty().addListener(new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                        System.out.println("Pagination Changed from " + oldValue + " , to " + newValue);
+                        currentPageIndex = newValue.intValue();
+                        updatePersonView();
+                    }
+                });
+            }
+        });
+    }
+
+    private void sort(Button notFulfilled) {
+        if (notFulfilled == id) {
+            data.sort((NotFulfilled p1, NotFulfilled p2) -> p1.getCreatedOn().compareTo(p2.getCreatedOn()));
+        } else if (notFulfilled == Number) {
+            data.sort((NotFulfilled p1, NotFulfilled p2) -> p1.getNumber().compareTo(p2.getNumber()));
+        }else if (notFulfilled == Solid) {
+            data.sort((NotFulfilled p1, NotFulfilled p2) -> p1.getAccountIsSolid().compareTo(p2.getAccountIsSolid()));
+        } else if (notFulfilled == Store) {
+            data.sort((NotFulfilled p1, NotFulfilled p2) -> p1.getNumber().compareTo(p2.getStoreCity()));
+        } else {
+            UsefulUtils.showErrorDialogDown("Помилка сортування");
+        }
+    }
+
+    private void initializeTable() {
+
+
+        colCreatedOn.setGraphic(id);
+        colCreatedOn.setSortable(false);
+        colNumber.setGraphic(Number);
+        colNumber.setSortable(false);
+        colAccountIsSolid.setGraphic(Solid);
+        colAccountIsSolid.setSortable(false);
+        colStoreCity.setGraphic(Store);
+        colStoreCity.setSortable(false);
+
+    }
+
+    public void updatePersonView() {
+        fromIndex = currentPageIndex * itemsPerPage;
+        toIndex = Math.min(fromIndex + itemsPerPage, data.size());
+        tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
+    }
 
     @FXML
     private void actionSearchingField(ActionEvent event) {
 
-        /*String value = searchingField.getText();
+        String value = searchingField.getText();
 
-        if(value.equals("")) {
+        if (value.equals("")) {
             refreshData();
-        }else
-            findByProperty(value);*/
+        } else
+            findByProperty(value);
 
     }
 
@@ -514,21 +504,11 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
 
 
             }
-            tableRequestOffering.setItems(data);
+            tableView.setItems(data);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        /// Skrut = (String) options.get(0);
-
-
-    }
-    @FXML
-    private void toolbarButton (ActionEvent event) {
-      //  MaterialDesign.focusedProperty((KeyEvent keyEvent)->{
-
-     //   });
     }
 
     @Override
@@ -552,288 +532,67 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
     }
 
 
-  /*  protected void initComponents() {
-
-        components = new InitComponents(this, this);
-
-        HashMap<Control, Method> items = new HashMap();
-
-        Method createMFrom = null;
-        Method createMTo = null;
-        Method storeM = null;
-        Method orderTypeM = null;
-        Method orderStateM = null;
-        Method orderStatusM = null;
-        try {
-            createMFrom = NotFulledController.class.getMethod("handleCreateDateFrom", null);
-            createMTo = NotFulledController.class.getMethod("handleCreateDateTo", null);
-            storeM = NotFulledController.class.getMethod("setStoreFilter", null);
-            orderTypeM = NotFulledController.class.getMethod("setOrderType", null);
-            orderStateM = NotFulledController.class.getMethod("setStateFilter", null);
-            orderStatusM = NotFulledController.class.getMethod("handleOrderStatus", null);
-        } catch (NoSuchMethodException e) {
-            log.log(Level.SEVERE, "Exception: " + e);
-        }
-
-
-        items.put(orderType, orderTypeM);
-
-        components.setAllComponents(items, true);
-    }*/
-
     @Override
     public void createTableColumns() {
 
 
         try {
 
-
-            tableRequestOffering = new FilteredTableView<>();
-
-
-            ID = new FilterableStringTableColumn<>();
-            hashColumns.put(ID, "[tbl_RequestOffering].[ID]");
-
-            CreatedOn = new FilterableStringTableColumn<>("Дата");
-            hashColumns.put(CreatedOn, "[tbl_RequestOffering].[CreatedOn]");
-
-            CreatedByID = new FilterableStringTableColumn<>();
-            hashColumns.put(CreatedByID, "[tbl_RequestOffering].[CreatedByID]");
-
-            CreatedBy = new FilterableStringTableColumn<>("Створив");
-            hashColumns.put(CreatedBy, "[tbl_Contact].[Name]");
-
-            AccountID = new FilterableStringTableColumn<>();
-            hashColumns.put(AccountID, "[tbl_RequestOffering].[AccountID]");
-
-            AccountName = new FilterableStringTableColumn<>("Контрагент");
-            hashColumns.put(AccountName, "[tbl_Account].[Name]");
-
-            AccountCode = new FilterableStringTableColumn<>("Код");
-            hashColumns.put(AccountCode, "[tbl_Account].[Code]");
-
-            AccountSaldo = new FilterableStringTableColumn<>("Сальдо");
-            hashColumns.put(AccountSaldo, "[tbl_Account].[SaldoSel]");
-
-            AccountIsSolid = new FilterableStringTableColumn<>("Солідність");
-            hashColumns.put(AccountIsSolid, "(CASE\n" +
+            hashColumns.put(colNumber, "[tbl_RequestOffering].[Number]");
+            hashColumns.put(colCreatedOn, "[tbl_RequestOffering].[CreatedOn]");
+            hashColumns.put(colCreatedBy, "[tbl_Contact].[Name]");
+            hashColumns.put(colAccountName, "[tbl_Account].[Name]");
+            hashColumns.put(colAccountCode, "[tbl_Account].[Code]");
+            hashColumns.put(colAccountSaldo, "[tbl_Account].[SaldoSel]");
+            hashColumns.put(colAccountIsSolid, "(CASE\n" +
                     "    WHEN CONVERT(DATETIME,ISNULL([tbl_Account].[UnblockDate], '2000-01-01')) > CONVERT(DATETIME, CURRENT_TIMESTAMP) \n" +
                     "    THEN ''\n" +
                     "    WHEN [tbl_Account].[IsSolid] = 1\n" +
                     "    THEN 'Не солідний'\n" +
                     "    ELSE ''\n" +
                     "END)");
-
-            Number = new FilterableStringTableColumn<>("Номер запиту");
-            hashColumns.put(Number, "[tbl_RequestOffering].[Number]");
-
-            StatusID = new FilterableStringTableColumn<>();
-            hashColumns.put(StatusID, "[tbl_RequestOffering].[StatusID]");
-
-            Status = new FilterableStringTableColumn<>("Статус");
-            hashColumns.put(Status, "[tbl_RequestOfferingStatus].[Name]");
-
-            StoreCityID = new FilterableStringTableColumn<>();
-            hashColumns.put(StoreCityID, "[tbl_RequestOffering].[StoreCityID]");
-
-            StoreCity = new FilterableStringTableColumn<>("Місто поставки");
-            hashColumns.put(StoreCity, "[tbl_StoreCity].[Name]");
-
-            OfferingGroupID = new FilterableStringTableColumn<>();
-            hashColumns.put(OfferingGroupID, "[tbl_RequestOffering].[OfferingGroupID]");
-
-            OfferingGroupName = new FilterableStringTableColumn<>("Група товарів");
-            hashColumns.put(OfferingGroupName, "[OfferingGroup].[Name]");
-
-            OriginalGroupID = new FilterableStringTableColumn<>();
-            hashColumns.put(OriginalGroupID, "[tbl_RequestOffering].[OriginalGroupID]");
-
-            OriginalGroupName = new FilterableStringTableColumn<>("Початкова група");
-            hashColumns.put(OriginalGroupName, "SELECT\n" +
+            hashColumns.put(colStatus, "[tbl_RequestOfferingStatus].[Name]");
+            hashColumns.put(colStoreCity, "[tbl_StoreCity].[Name]");
+            hashColumns.put(colOfferingGroupName, "[OfferingGroup].[Name]");
+            hashColumns.put(colOriginalGroupName, "SELECT\n" +
                     "\t\t[OriginalGroupName].[Name] AS [Name]\n" +
                     "\tFROM\n" +
                     "\t\t[dbo].[tbl_Contact] AS [OriginalGroupName]\n");
-
-            IsNewMessage = new FilterableStringTableColumn<>();
-            hashColumns.put(IsNewMessage, "[tbl_RequestOffering].[IsNewMessage]");
-
-            JointAnnulment = new FilterableStringTableColumn<>();
-            hashColumns.put(JointAnnulment, "[tbl_RequestOffering].[JointAnnulment]");
-
-            Note = new FilterableStringTableColumn<>();
-            hashColumns.put(Note, "[tbl_RequestOffering].[Note]");
-
-            LastMessage = new FilterableStringTableColumn<>();
-            hashColumns.put(LastMessage, "[tbl_RequestOffering].[LastMessage]");
-
-            GroupChangedByID = new FilterableStringTableColumn<>();
-            hashColumns.put(GroupChangedByID, "[tbl_RequestOffering].[GroupChangedByID]");
-
-            GroupChangedBy = new FilterableStringTableColumn<>("Змінив групу");
-            hashColumns.put(GroupChangedBy, "SELECT\n" +
+            hashColumns.put(colGroupChangedBy, "SELECT\n" +
                     "\t\t[GroupChangedBy].[Name] AS [Name]\n" +
                     "\tFROM\n" +
                     "\t\t[dbo].[tbl_Contact] AS [GroupChangedBy]\n");
+            hashColumns.put(colSpecialMarginTypeName, "[SMT].[Name]");
+            List<?> listColumns = tableView.getColumns();
 
-            IsReadMessage = new FilterableStringTableColumn<>();
-            hashColumns.put(IsReadMessage, "[tbl_RequestOffering].[IsReadMeassage]");
+            colNumber.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("Number"));
+            colCreatedOn.setCellValueFactory(new PropertyValueFactory<NotFulfilled, Date>("CreatedOn"));
+            colCreatedBy.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("CreatedBy"));
+            colAccountCode.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("AccountCode"));
+            colAccountName.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("AccountName"));
+            colAccountSaldo.setCellValueFactory(new PropertyValueFactory<NotFulfilled, Double>("AccountSaldo"));
+            colAccountIsSolid.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("AccountIsSolid"));
+            colStoreCity.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("StoreCity"));
+            colStatus.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("Status"));
 
-            SpecialMarginTypeID = new FilterableStringTableColumn<>();
-            hashColumns.put(SpecialMarginTypeID, "[tbl_Account].[SpecialMarginTypeID]");
-
-            SpecialMarginTypeName = new FilterableStringTableColumn<>("Тип спец націнки");
-            hashColumns.put(SpecialMarginTypeName, "[SMT].[Name]");
-
-            StateID = new FilterableStringTableColumn<>();
-            hashColumns.put(StateID, "[tbl_RequestOffering].[StateID]");
-
-            StateName = new FilterableStringTableColumn<>();
-            hashColumns.put(StateName, "[tbl_RequestOfferingState].[Name]");
-
-
-            /*TableColumn<NotFulfilled, String> Number = new TableColumn<NotFulfilled, String>("Номер запиту");
-            TableColumn<NotFulfilled, String> CreatedOn = new TableColumn<NotFulfilled, String>("Дата");
-            TableColumn<NotFulfilled, String> CreatedBy = new TableColumn<NotFulfilled, String>("Створив");
-            TableColumn<NotFulfilled, String> AccountCode = new TableColumn<NotFulfilled, String>("Код");
-            TableColumn<NotFulfilled, String> AccountName = new TableColumn<NotFulfilled, String>("Контрагент");
-            TableColumn<NotFulfilled, String> AccountSaldo = new TableColumn<NotFulfilled, String>("Сальдо");
-            TableColumn<NotFulfilled, String> AccountIsSolid = new TableColumn<NotFulfilled, String>("Солідність");
-            TableColumn<NotFulfilled, String> StoreCity = new TableColumn<NotFulfilled, String>("Місто поставки");
-            TableColumn<NotFulfilled, String> Status = new TableColumn<NotFulfilled, String>("Статус");
-            TableColumn<NotFulfilled, String> OfferingGroupName = new TableColumn<NotFulfilled, String>("Група товарів");
-            TableColumn<NotFulfilled, String> OriginalGroupName = new TableColumn<NotFulfilled, String>("Початкова група");
-            TableColumn<NotFulfilled, String> GroupChangedBy = new TableColumn<NotFulfilled, String>("Змінив групу");
-            TableColumn<NotFulfilled, String> SpecialMarginTypeName = new TableColumn<NotFulfilled, String>("Тип спец націнки");*/
-
-            // number.setVisible(false);
-            // tableRequestOffering.setTableMenuButtonVisible(true);
-
-            Number.setMinWidth(150);
-            Number = new FilterableStringTableColumn<>("Номер запиту");
-            //FilterableStringTableColumnNumber);
-            //    id.setVisible(false);
-
-            tableRequestOffering.getColumns().addAll(
-                    Number,
-                    CreatedOn,
-                    CreatedBy,
-                    AccountCode,
-                    AccountName,
-                    AccountSaldo,
-                    AccountIsSolid,
-                    StoreCity,
-                    Status,
-                    OfferingGroupName,
-                    OriginalGroupName,
-                    GroupChangedBy,
-                    SpecialMarginTypeName);
-
-
-            List<?> listColumns = tableRequestOffering.getColumns();
-
-      //      listColumns.forEach(item -> System.out.println("COLUMN " + item));
-         //   hashColumns.forEach((k, v) -> System.out.println(" COLUMN1 " + k + ' ' + v));
-
-            Number.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("Number"));
-            CreatedOn.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("CreatedOn"));
-            CreatedBy.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("CreatedBy"));
-            AccountCode.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("AccountCode"));
-            AccountName.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("AccountName"));
-            AccountSaldo.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("AccountSaldo"));
-            AccountIsSolid.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("AccountIsSolid"));
-            StoreCity.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("StoreCity"));
-            Status.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("Status"));
-
-
-            OfferingGroupName.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("OfferingGroupName"));
-            OriginalGroupName.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("OriginalGroupName"));
-            GroupChangedBy.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("GroupChangedBy"));
-            SpecialMarginTypeName.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("SpecialMarginTypeName"));
-
-
-            //FilterableIntegerTableColumn
-
-            tableRequestOffering.setRowFactory(new Callback<TableView<NotFulfilled>, TableRow<NotFulfilled>>() {
-                @Override
-                public TableRow<NotFulfilled> call(TableView<NotFulfilled> tableView) {
-                    final TableRow<NotFulfilled> row = new TableRow<>();
-                    contextMenu = new ContextMenu();
-
-
-                    return row;
-                }
-            });
-            tableRequestOffering.addEventHandler(ColumnFilterEvent.FILTER_CHANGED_EVENT, new EventHandler<ColumnFilterEvent>() {
-                @Override
-                public void handle(ColumnFilterEvent t) {
-                    //  data.clear();
-                    //System.out.println("Filtered column count: " + tableView.getFilteredColumns().size());
-                    System.out.println("Filtering changed on column: " + t.sourceColumn().getText());
-                    System.out.println("Current filters on column " + t.sourceColumn().getText() + " are:");
-
-
-                    new MiniFilter(NotFulledController.this, account, hashColumns, t).setFilter();
-                    //  refreshData();
-                }
-            });
+            colOfferingGroupName.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("OfferingGroupName"));
+            colOriginalGroupName.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("OriginalGroupName"));
+            colGroupChangedBy.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("GroupChangedBy"));
+            colSpecialMarginTypeName.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("SpecialMarginTypeName"));
 
 
         } catch (Exception e) {
             log.log(Level.SEVERE, "Exception in creating columns: " + e);
         }
-        try {
-            tableRequestOffering.setOnMousePressed(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-
-                    if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                        try {
-                            chosenAccount = (NotFulfilled) tableRequestOffering.getItems().get(tableRequestOffering.getSelectionModel().getSelectedIndex());
-                            EditController editController = new EditController(chosenAccount, false);
-                        } catch (Exception e) {
-                            log.log(Level.SEVERE, "Exception: " + e);
-                        }
-                    }
-                }
-            });
-
-
-            tableRequestOffering.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-            borderPane.setCenter(tableRequestOffering);
-
-            //    tableRequestOffering.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-            //  borderPane.setCenter(tableRequestOffering);
-
-
-        } catch (Exception e) {
-            log.log(Level.SEVERE, "Exception in creating columns: " + e);
-        }
-        tableRequestOffering.setTableMenuButtonVisible(true);
-        UsefulUtils.installCopyPasteHandler(tableRequestOffering);
-
-
-        // customizeScene();
-        //tableRequestOffering.getSelectionModel().setCellSelectionEnabled(true);
-        tableRequestOffering.getStylesheets().add
-                (NotFulledController.class.getResource("/styles/TableStyle.css").toExternalForm());
-        tableRequestOffering.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
-
-        UsefulUtils.installCopyPasteHandler(tableRequestOffering);
+        super.createTableColumns();
 
     }
 
-    @Override
-    public void createTableColumnsAll() {
-
-    }
 
     @Override
     public void disableFilter(TableColumn column, Pane content) {
         account.removeStringFilter(column);
-        ((AbstractFilterableTableColumn) column).getFilterEditor().getFilterMenu().getResetButton().fire();
         refreshData();
-
 
         //column.filteredProperty().setValue(true);
 
@@ -847,24 +606,17 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
 
         System.out.println("DISABLED");
     }
-  /*  public NotFulledController() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                    "/sample/ua/ucountry/MainWindow/TabReports/Workers/STOSalaryMain/STOSalaryWindow.fxml"));
-            fxmlLoader.setRoot(this);
-            fxmlLoader.setController(this);
 
-            try {
-                Parent content = fxmlLoader.load();
-                //content.getStylesheets().add("sample/ua/ucountry/MainTables/Account/MainDictionaryTable.css");
-            } catch (IOException exception) {
-                log.log(Level.SEVERE, "Exception:" + exception);
-                throw new RuntimeException(exception);
-            }
+    public void clearTable() {
+        try {
+            data.clear();
+
         } catch (Exception e) {
-            log.log(Level.SEVERE, "Exception: " + e);
+            data = FXCollections.observableArrayList();
+        } finally {
+            tableView.setItems(data);
         }
-    }*/
+    }
 
 
     @Override
@@ -905,51 +657,6 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
         hboxFilter.getChildren().remove(hashMiniFilter.get(column));
     }
 
-    @Override
-    public void loadDataFromDatabaseAll() {
-
-    }
-
-    /* @Override
-     public void disableFilter(TableColumn column, Pane content) {
-
-
-         account.removeStringFilter(column);
-         refreshData();
-
-         //column.filteredProperty().setValue(true);
-
-         hboxFilter.getChildren().remove(content);
-         System.out.println("DISABLED");
-     }
- */
-    /* private void fillHboxFilter(TableColumn column, IFilterOperator.Type type, Object value) {
-         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                 ""));
-
-         Pane content;
-         try {
-             content = fxmlLoader.load();
-
-
-
-             MiniFilterController miniC = fxmlLoader.getController();
-
-             miniC.setWindow(this, content);
-             miniC.setFilter(column, type, value);
-
-             hboxFilter.getChildren().add(content);
-
-             hboxFilter.setMargin(content, new Insets(0,0,0,10));
-
-             System.out.println("SETTTED");
-             //content.getStylesheets().add("sample/ua/ucountry/MainTables/Account/MainDictionaryTable.css");
-         } catch (IOException exception) {
-
-             throw new RuntimeException(exception);
-         }
-     }
- */
     public void loadDataFromDatabase() {
         try {
 
@@ -958,36 +665,34 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
 
             listItems.forEach(item -> data.add(item));
 
-            tableRequestOffering.setItems(data);
+            tableView.setItems(data);
 
 
         } catch (Exception e) {
             log.log(Level.SEVERE, "Load data from database exception: " + e);
         }
-      //  return null;
+        //  return null;
     }
 
 
     public BorderPane createPage(int pageIndex) {
         try {
-
-
             data = FXCollections.observableArrayList();
-
-            fromIndex = pageIndex * 40;
-            toIndex = Math.min(fromIndex + 40, accountQueries.getMainNotFulledCount());
-
-
             loadDataFromDatabase();
+            fromIndex = pageIndex * itemsPerPage;
+            toIndex = Math.min(fromIndex + itemsPerPage, data.size());
 
 
-            tableRequestOffering.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
+            tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
+            // Collections.sort(data);
+
+
         } catch (Exception e) {
             log.log(Level.SEVERE, "Switch page exception: " + e);
         }
 
 
-        return anchorPane;
+        return borderPane;
     }
 
     private void searchCode() {
@@ -1013,20 +718,23 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
                 });
             });
             SortedList<OfferingRequest> sortedData = new SortedList<>(filteredData);
-            sortedData.comparatorProperty().bind(tableRequestOffering.comparatorProperty());
-            tableRequestOffering.setItems(sortedData);
+            sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+            tableView.setItems(sortedData);
 
         });
     }
 
 
     public void tableViewHandles() {
-        tableRequestOffering.setOnMouseClicked(mouseEvent -> fixSelectedRecord());
-        tableRequestOffering.setOnKeyReleased(eventKey -> fixSelectedRecord());
+        tableView.setOnMouseClicked(mouseEvent -> fixSelectedRecord());
+        tableView.setOnKeyReleased(eventKey -> {
+            UsefulUtils.searchCombination(eventKey, tableView);
+            fixSelectedRecord();
+        });
     }
 
     public void fixSelectedRecord() {
-        NotFulfilled record = (NotFulfilled) tableRequestOffering.getItems().get(tableRequestOffering.getSelectionModel().getSelectedIndex());
+        NotFulfilled record = (NotFulfilled) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
 
         System.out.println(record);
         exampleProductTableController.handleTableView(record);
@@ -1034,8 +742,8 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
     }
 
 
-    @FXML
-    CreateRequest createRequest;
+   /* @FXML
+    CreateRequest createRequest;*/
 
     public void handleTableView() {
         refreshData();
@@ -1107,7 +815,7 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
             stage.initModality(Modality.APPLICATION_MODAL);
             NotFulfilled record = null;
             try {
-                record = (NotFulfilled) tableRequestOffering.getItems().get(tableRequestOffering.getSelectionModel().getSelectedIndex());
+                record = (NotFulfilled) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
             } catch (Exception e) {
                 UsefulUtils.showErrorDialogDown("Не вибрано жодного запиту");
                 return;
@@ -1145,7 +853,7 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
     @FXML
     private void actionChangeRequest(ActionEvent event) {
         try {
-            chosenAccount = (NotFulfilled) tableRequestOffering.getItems().get(tableRequestOffering.getSelectionModel().getSelectedIndex());
+            chosenAccount = (NotFulfilled) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
         } catch (Exception e) {
             UsefulUtils.showErrorDialogDown("Не вибрано жодного запиту");
             return;
@@ -1158,7 +866,7 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
     public void handleDelete(ActionEvent e) {
 
         try {
-            selectedOffering = (NotFulfilled) tableRequestOffering.getItems().get(tableRequestOffering.getSelectionModel().getSelectedIndex());
+            selectedOffering = (NotFulfilled) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
 
         } catch (Exception ex) {
             UsefulUtils.showErrorDialogDown("Не вибрано жодного елемента з таблиці!");
@@ -1194,9 +902,16 @@ public class NotFulledController extends BorderPane implements MiniFilterFunctio
     }
 
     public void refreshData() {
-        data.clear();
-        loadDataFromDatabase();
-        UsefulUtils.fadeTransition(tableRequestOffering);
+       try {
+           data.clear();
+           loadDataFromDatabase();
+           pagination.setPageFactory(this::createPage);
+           pageCount = getPageCount(data.size(), itemsPerPage);
+           pagination.setPageCount(pageCount);
+           UsefulUtils.fadeTransition(tableView);
+       }catch (Exception e){
+           e.printStackTrace();
+       }
     }
 
     @Override

@@ -5,4 +5,14 @@
 	<file>mainPage.exe</file>
 	<destination>mainPage.exe</destination>
     </instruction>
+	<instruction>
+		<action>MOVE</action>
+		<file>FilterableTableColumns.jar</file>
+		<destination>FilterableTableColumns.jar</destination>
+	</instruction>
+	<instruction>
+		<action>MOVE</action>
+		<file>mainPage.jar</file>
+		<destination>mainPage.jar</destination>
+	</instruction>
 </update>

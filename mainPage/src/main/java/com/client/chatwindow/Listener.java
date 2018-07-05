@@ -92,13 +92,13 @@ public class Listener implements Runnable {
                 message = (Message) input.readObject();
 
                 if (message != null) {
-                    //         logger.debug("Message recieved:" + message.getMsg() + " MessageType:" + message.getType() + "Name:" + message.getName());
+                         //    logger.debug("Message recieved:" + message.getMsg() + " MessageType:" + message.getType() + "Name:" + message.getName());
                     switch (message.getType()) {
                         case USER:
                             controller.addToChat(message);
                             break;
                         case VOICE:
-                            controller.addToChat(message);
+                           controller.addToChat(message);
                             break;
                         case NOTIFICATION:
                             controller.newUserNotification(message);
@@ -147,6 +147,20 @@ public class Listener implements Runnable {
     /* This method is used for sending a voice Message
  * @param msg - The message which the user generates
  */
+    public static void sendNotification (String msg) throws IOException{
+
+        Message createMessage = new Message();
+        createMessage.setName(username);
+        createMessage.setOfferingID(inProcessing.getID());
+        createMessage.setCreatedby(inProcessing.getCreatedBy());
+        createMessage.setOfferingGroupName(inProcessing.getOfferingGroupName());
+        createMessage.setType(MessageType.NOTIFICATION);
+        createMessage.setStatus(Status.AWAY);
+        createMessage.setMsg(msg);
+        createMessage.setPicture(picture);
+        oos.writeObject(createMessage);
+        oos.flush();
+    }
     public static void sendVoiceMessage(byte[] audio) throws IOException {
         Message createMessage = new Message();
         createMessage.setName(username);

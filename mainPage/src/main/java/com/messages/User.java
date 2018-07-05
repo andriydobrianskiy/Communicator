@@ -11,8 +11,9 @@ public class User implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    public User setName(String name) {
         this.name = name;
+        return null;
     }
 public void setOfferingID (String offeringID) {
       this.offeringID = offeringID;

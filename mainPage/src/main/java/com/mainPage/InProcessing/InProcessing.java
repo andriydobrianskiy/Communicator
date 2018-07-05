@@ -1,32 +1,36 @@
 package com.mainPage.InProcessing;
 
 import com.Utils.InProcessingIntarface;
+import com.Utils.MiniFilterWindow.FilterFunctions;
 import com.connectDatabase.DBConnection;
 import com.mainPage.createRequest.searchCounterpart.Counterpart;
 import javafx.collections.FXCollections;
+import javafx.scene.control.TableColumn;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class InProcessing implements InProcessingIntarface {
+public class InProcessing implements InProcessingIntarface, FilterFunctions {
     private static Logger log = Logger.getLogger(Counterpart.class.getName());
     private QueryRunner dbAccess = new QueryRunner();
     private InProcessingQuery accountQueries1 = new InProcessingQuery();
     private static final List EMPTYLIST = new ArrayList<>();
     private static final String EMPTYSTRING = "";
+    private HashMap<String, String> resultFilterMap = new HashMap<>();
+    private UUID uniqueID;
 
+    private HashMap<TableColumn, String> mapFilters = new HashMap();
     public static List<Object> getDictionaryMap() { // Initialization listview labels
         List<Object> list = new ArrayList<Object>();
 
 
         list.add(new InProcessing()); // Контрагенти
-        //  list.add(new ServicesTable()); // Послуги
-        //list.add(new OfferingsTable()); // Запчастини
-        // list.add(new AccountVehicleTable()); // Автомобілі
 
         return list;
     }
@@ -231,31 +235,13 @@ public class InProcessing implements InProcessingIntarface {
         SpecialMarginTypeName = specialMarginTypeName;
     }
 
-   /* @Override
-    public String getID() {
-        return null;
-    }
-
-    @Override
-    public String getName() {
-        return null;
-    }
-
-    @Override
-    public void setID(String ID) {
-
-    }
-
-    @Override
-    public void setName(String name) {
-
-    }*/
 
     @Override
     public List<InProcessing> findAllOne(boolean pagination, int rowIndex, String createdByID, String offeringGroupID) {
+
         String query = (pagination ? accountQueries1.getMainInProcessing(true, rowIndex , createdByID , offeringGroupID) : accountQueries1.getMainInProcessing(false, 0, createdByID , offeringGroupID));
         try {
-            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query, new BeanListHandler<InProcessing>(InProcessing.class)));
+            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter(), new BeanListHandler<InProcessing>(InProcessing.class)));
         } catch (Exception e) {
             log.log(Level.SEVERE, "getAccount exception: " + e);
         }
@@ -280,7 +266,7 @@ public class InProcessing implements InProcessingIntarface {
     public List<InProcessing> findAllInProcessing (boolean pagination, int rowIndex){
         String queryAll = (pagination ? accountQueries1.getMainInProcessingAll(true, rowIndex) : accountQueries1.getMainInProcessingAll(false, 0));
         try{
-            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(),queryAll, new BeanListHandler<InProcessing>(InProcessing.class)));
+            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(),queryAll + getStringFilter(), new BeanListHandler<InProcessing>(InProcessing.class)));
         }catch (Exception e){
             log.log(Level.SEVERE, "getAccount exception: " + e);
         }
@@ -297,27 +283,34 @@ public class InProcessing implements InProcessingIntarface {
         return FXCollections.observableArrayList(EMPTYLIST);
     }
 
-   /* @Override
-    public List<? extends DictionaryInterface> findByProperty(Object value, Enum<? extends SearchType> searchType) {
-        return null;
+    @Override
+    public void setStringFilter(TableColumn column, String value) {
+        mapFilters.put(column, value);
     }
 
     @Override
-    public List<Counterpart> findAll(boolean pagination, int rowIndex) {
-        return null;
+    public void setStringFilterMerge(TableColumn column, String value) {
+        mapFilters.merge(column, value, (a, b) -> a + "\n" + b);
     }
 
-  /* @Override
-    public List<InProcessing> findAll1(boolean pagination, int rowIndex) {
-        String query = (pagination ? accountQueries1.getMainInProcessing(true, rowIndex) : accountQueries1.getMainInProcessing(false, 0));
+    @Override
+    public String getStringFilter() {
+        StringBuilder builder = new StringBuilder("");
         try {
-            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getConnection(), query, new BeanListHandler<InProcessing>(InProcessing.class)));
-        } catch (Exception e) {
-            log.log(Level.SEVERE, "getAccount exception: " + e);
+            mapFilters.forEach((k, v) ->
+                    builder.append(v));
+        } catch (NullPointerException e) {
+
         }
 
-        return FXCollections.observableArrayList(EMPTYLIST);
-    }*/
+
+        return builder.toString();
+    }
+
+    @Override
+    public void removeStringFilter(TableColumn key) {
+        mapFilters.remove(key);
+    }
 
 
     @Override

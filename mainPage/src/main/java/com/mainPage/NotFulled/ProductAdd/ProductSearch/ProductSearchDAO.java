@@ -160,7 +160,8 @@ public class ProductSearchDAO implements ProductSearchInterface {
         try (Connection connection = DBConnection.getDataSource().getConnection()) {
             return FXCollections.observableArrayList(dbAccess.query(connection, queries.getMainProductSearch(false, 0) + whereClause, new BeanListHandler<ProductSearch>(ProductSearch.class)));
         } catch (Exception e) {
-            log.log(Level.SEVERE, "Column filter exception (findAccountByProperty): " + e);
+            log.log(Level.SEVERE, "Column filter exception (findAccountByProperty): " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
         return EMPTYLIST;
@@ -176,7 +177,8 @@ public class ProductSearchDAO implements ProductSearchInterface {
             return FXCollections.observableArrayList(dbAccess.query(connection, query, new BeanListHandler<ProductSearch>(ProductSearch.class)));
         } catch (Exception e) {
 
-            log.log(Level.SEVERE, "getAccount exception: " + e);
+            log.log(Level.SEVERE, "getAccount exception: " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
         return FXCollections.observableArrayList(EMPTYLIST);

@@ -136,7 +136,8 @@ public class CalculatorController implements Initializable {
         try {
             con = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace();  DBConnection database = new DBConnection();
+            database.reconnect();
         }
         data = FXCollections.observableArrayList();
         data1 = FXCollections.observableArrayList();

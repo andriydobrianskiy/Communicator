@@ -7,7 +7,6 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXToggleButton;
 import com.mainPage.page.MainPageController;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -54,6 +53,10 @@ public class LoginControl implements Initializable {
     private PreparedStatement pst;
     private ResultSet rs;
     private Credentials credentials = new Credentials();
+    String serverName1 ;
+    String ServerName2 ;
+    String serverChatName1;
+    String serverChatName2;
 
 
     /*@FXML
@@ -176,12 +179,12 @@ public class LoginControl implements Initializable {
         Listener listener = new Listener(hostname, port, username, picture, conn);
         Thread x = new Thread(listener);
         x.start();
-        stage.setTitle("Комунікатор 1.9 " + "(" + User.getContactName() + ")");
+        stage.setTitle("Комунікатор 2.1 " + "(" + User.getContactName() + ")");
 
-        tableView.setFixedCellSize(25);
-        tableView.prefHeightProperty().bind(tableView.fixedCellSizeProperty().multiply(Bindings.size(tableView.getItems()).add(1.01)));
-        tableView.minHeightProperty().bind(tableView.prefHeightProperty());
-        tableView.maxHeightProperty().bind(tableView.prefHeightProperty());
+       // tableView.setFixedCellSize(25);
+       // tableView.prefHeightProperty().bind(tableView.fixedCellSizeProperty().multiply(Bindings.size(tableView.getItems()).add(1.01)));
+      //  tableView.minHeightProperty().bind(tableView.prefHeightProperty());
+      //  tableView.maxHeightProperty().bind(tableView.prefHeightProperty());
         stage.setScene(scene);
         stage.show();
 

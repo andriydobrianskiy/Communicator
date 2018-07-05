@@ -1,47 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTabPane?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.*?>
+<?import com.mainPage.tableutils.CustomTableView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Pagination?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainPage.NotFulled.NotFulledController">
+<?import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn?>
+<?import org.google.jhsheets.filtered.tablecolumn.FilterableDateTableColumn?>
+<?import org.google.jhsheets.filtered.tablecolumn.FilterableDoubleTableColumn?>
+<?import org.google.jhsheets.filtered.FilteredTableView?>
+<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainPage.NotFulled.NotFulledController">
    <center>
       <SplitPane dividerPositions="0.7174959871589085" layoutX="2.0" layoutY="-1.0" orientation="VERTICAL" AnchorPane.bottomAnchor="77.0">
         <items>
           <AnchorPane>
                <children>
-                  <BorderPane fx:id="borderPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <BorderPane fx:id="anchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
                      <center>
-                        <TableView fx:id="tableRequestOffering" blendMode="MULTIPLY" cache="true" cacheHint="SPEED" editable="true" BorderPane.alignment="CENTER">
+                        <CustomTableView fx:id="tableView" blendMode="MULTIPLY" cache="true" cacheHint="SPEED" editable="true" BorderPane.alignment="CENTER">
                            <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                              <CustomTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
+                            <columns>
+                                <FilterableStringTableColumn fx:id="colNumber" editable="false" text="№"/>
+                                <FilterableDateTableColumn fx:id="colCreatedOn" editable="false" text="Дата"/>
+                                <FilterableStringTableColumn fx:id="colCreatedBy" editable="false" text="Створив"/>
+                                <FilterableStringTableColumn fx:id="colAccountCode" editable="false" text="Код"/>
+                                <FilterableStringTableColumn fx:id="colAccountName" editable="false" text="Контрагент"/>
+                                <FilterableDoubleTableColumn fx:id="colAccountSaldo" editable="false" text="Сальдо" />
+                                <FilterableStringTableColumn fx:id="colAccountIsSolid" editable="false" text="Солідність" />
+                                <FilterableStringTableColumn fx:id="colStoreCity" editable="false" text="Місто поставки" />
+                                <FilterableStringTableColumn fx:id="colStatus" editable="false" text="Статус"/>
+                                <FilterableStringTableColumn fx:id="colOfferingGroupName" editable="false" text="Група товарів"/>
+                                <FilterableStringTableColumn fx:id="colOriginalGroupName" editable="false" text="Початкова група"/>
+                                <FilterableStringTableColumn fx:id="colGroupChangedBy" editable="false" text="Змінив групу"/>
+                                <FilterableStringTableColumn fx:id="colSpecialMarginTypeName" editable="false" text="Тип спец націнки"/>
+
+                            </columns>
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                            <cursor>
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
-                        </TableView>
+                        </CustomTableView>
                      </center>
                      <bottom>
                         <ToolBar BorderPane.alignment="CENTER">
+
                            <items>
                               <MenuButton mnemonicParsing="false" prefHeight="40.0" prefWidth="89.0" style="-fx-background-color: #39b5ff;">
                                 <items>
@@ -114,7 +126,12 @@
                               </Label>
                               <JFXTextField fx:id="searchingField" onAction="#actionSearchingField" promptText="Введіть скорочення" unFocusColor="#5e5353" />
                               <JFXButton fx:id="btn_UpdateStatus" prefHeight="21.0" prefWidth="100.0" style="-fx-background-color: #a49a9a;" text="Взяти в роботу" />
-                              <Pagination fx:id="pagination" prefHeight="45.0" prefWidth="652.0" />
+                              <Pagination fx:id="pagination" prefHeight="45.0" prefWidth="500.0" />
+                               <ScrollPane fx:id="scrollPaneFilter" prefHeight="49.0" BorderPane.alignment="CENTER_LEFT">
+                                   <content>
+                                       <HBox fx:id="hboxFilter" alignment="CENTER_LEFT" prefHeight="45.0"/>
+                                   </content>
+                               </ScrollPane>
                            </items>
                            <BorderPane.margin>
                               <Insets />

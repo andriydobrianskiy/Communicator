@@ -1,5 +1,6 @@
 package com.Utils.MiniFilterWindow;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -8,7 +9,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
 import org.google.jhsheets.filtered.operators.IFilterOperator;
 import org.google.jhsheets.filtered.tablecolumn.AbstractFilterableTableColumn;
 
@@ -23,7 +23,7 @@ public class MiniFilterController extends StackPane implements Initializable {
     private Pane content;
 
     @FXML private HBox pane;
-    @FXML private Rectangle btnRemoveFilter;
+    @FXML private JFXButton btnRemoveFilter;
     @FXML private Label lblValue, lblType, lblColumn;
 
 

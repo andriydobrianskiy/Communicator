@@ -1,17 +1,18 @@
 package com.mainPage.All.AllRequest;
 
+import com.Utils.UsefulUtils;
+import com.connectDatabase.DBConnection;
+import com.mainPage.All.All;
+import com.mainPage.All.AllController;
+import com.mainPage.WorkArea;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import com.Utils.UsefulUtils;
-import com.connectDatabase.DBConnection;
-import com.mainPage.All.All;
-import com.mainPage.All.AllController;
+import org.google.jhsheets.filtered.tablecolumn.FilterableIntegerTableColumn;
+import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -21,29 +22,26 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class AllRequestController implements Initializable {
+public class AllRequestController extends WorkArea implements Initializable {
 
 
 
     @FXML
     private AllController allController;
 
-    @FXML
-    private TableView<AllRequest> tableInProcessingProduct;
-    @FXML
-    private TableColumn<?,?> columnIndex;
-    @FXML
-    private TableColumn<?,?> columnSkrut;
-    @FXML
-    private TableColumn<?,?> columnOfferingName;
-    @FXML
-    private TableColumn<?,?> columnQuantity;
-    @FXML
-    private TableColumn<?,?> columnDefaultOfferingCode;
-    @FXML
-    private TableColumn<?, ?> columnNewOfferingCode;
-    @FXML
-    private TableColumn<?, ?> columnNewDescription;
+    @FXML private FilterableStringTableColumn<AllRequest, String> colIndex;
+
+    @FXML private FilterableStringTableColumn <AllRequest, String>colSkrut;
+
+    @FXML private FilterableStringTableColumn <AllRequest, String>colNewDescription;
+
+    @FXML private FilterableStringTableColumn <AllRequest, String>colOfferingName;
+
+    @FXML private FilterableIntegerTableColumn<AllRequest, Integer> colQuantity;
+
+    @FXML private FilterableStringTableColumn <AllRequest, String>colDefaultOfferingCode;
+
+    @FXML private FilterableStringTableColumn <AllRequest, String>colNewOfferingCode;
 
     private Connection con = null;
     private PreparedStatement pst = null;
@@ -62,14 +60,14 @@ public void init (AllController allController){
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        tableInProcessingProduct.setTableMenuButtonVisible(true);
+        tableView.setTableMenuButtonVisible(true);
         setCellTable();
         data = FXCollections.observableArrayList();
-        tableInProcessingProduct.getSelectionModel().setCellSelectionEnabled(false);
-        tableInProcessingProduct.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tableView.getSelectionModel().setCellSelectionEnabled(false);
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
 
-        UsefulUtils.installCopyPasteHandler(tableInProcessingProduct);
+        UsefulUtils.installCopyPasteHandler(tableView);
     }
 
     public void handleTableView(All value) {
@@ -78,13 +76,37 @@ public void init (AllController allController){
         loadDataFromDatabaseBottom();
     }
     private void setCellTable(){
-        columnIndex.setCellValueFactory(new PropertyValueFactory<>("Index"));
-        columnSkrut.setCellValueFactory(new PropertyValueFactory<>("Skrut"));
-        columnNewDescription.setCellValueFactory(new PropertyValueFactory<>("newDescription"));
-        columnOfferingName.setCellValueFactory(new PropertyValueFactory<>("OfferingName"));
-        columnQuantity.setCellValueFactory(new PropertyValueFactory<>("Quantity"));
-        columnDefaultOfferingCode.setCellValueFactory(new PropertyValueFactory<>("DefaultOfferingCode"));
-        columnNewOfferingCode.setCellValueFactory(new PropertyValueFactory<>("newOfferingCode"));
+        try {
+            hashColumns.put(colIndex, "[tbl_RequestOffering].[Number]");
+            hashColumns.put(colSkrut, "[tbl_RequestOffering].[CreatedOn]");
+            hashColumns.put(colNewDescription, "[tbl_Contact].[Name]");
+            hashColumns.put(colOfferingName, "[tbl_Account].[Name]");
+            hashColumns.put( colQuantity, "[tbl_Account].[Code]");
+            hashColumns.put(colDefaultOfferingCode, "[tbl_Account].[SaldoSel]");
+            hashColumns.put(colNewOfferingCode, "(CASE\n" +
+                    "    WHEN CONVERT(DATETIME,ISNULL([tbl_Account].[UnblockDate], '2000-01-01')) > CONVERT(DATETIME, CURRENT_TIMESTAMP) \n" +
+                    "    THEN ''\n" +
+                    "    WHEN [tbl_Account].[IsSolid] = 1\n" +
+                    "    THEN 'Не солідний'\n" +
+                    "    ELSE ''\n" +
+                    "END)");
+
+
+
+            colIndex.setCellValueFactory(new PropertyValueFactory<AllRequest,String>("index"));
+            colSkrut.setCellValueFactory(new PropertyValueFactory<AllRequest,String>("skrut"));
+            colNewDescription.setCellValueFactory(new PropertyValueFactory<AllRequest, String>("newDescription"));
+            colOfferingName.setCellValueFactory(new PropertyValueFactory<AllRequest,String>("offeringName"));
+            colQuantity.setCellValueFactory(new PropertyValueFactory<AllRequest,Integer>("quantity"));
+            colDefaultOfferingCode.setCellValueFactory(new PropertyValueFactory<AllRequest, String>("defaultOfferingCode"));
+            colNewOfferingCode.setCellValueFactory(new PropertyValueFactory<AllRequest,String>("newOfferingCode"));
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        super.createTableColumns();
     }
     private StringBuilder query;
     public List<AllRequest> loadDataFromDatabaseBottom(){
@@ -135,11 +157,10 @@ public void init (AllController allController){
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        tableInProcessingProduct.setItems(data);
+        tableView.setItems(data);
         // tableViewRequest.setItems(FXCollections.observableArrayList(data.subList((int)fromIndex, (int)toIndex)));
         return null;
     }
-
 
 
 

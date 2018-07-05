@@ -40,7 +40,8 @@ public class DerbyNotFulledDAO implements MainNotFulledQuery {
             return true;
         } catch (SQLException e) {
 
-            log.log(Level.SEVERE, "Delete offering row exception: " + e);
+            log.log(Level.SEVERE, "Delete offering row exception: " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
         }
         return false;
     }

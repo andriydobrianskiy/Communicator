@@ -1,5 +1,6 @@
 package com.mainPage.NotFulled;
 
+import com.Utils.GridComp;
 import com.Utils.MiniFilterWindow.FilterFunctions;
 import com.Utils.SearchType;
 import com.connectDatabase.DBConnection;
@@ -15,13 +16,13 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NotFulfilled implements  NotFulledInterface, FilterFunctions {
+public class NotFulfilled extends GridComp implements  NotFulledInterface, FilterFunctions
+{
         private static Logger log = Logger.getLogger(NotFulfilled.class.getName());
-        private QueryRunner dbAccess = new QueryRunner();
+
         private NotFulledQuery accountQueries1 = new NotFulledQuery();
-        private static final List EMPTYLIST = new ArrayList<>();
-        private  static final String EMPTYSTRING = "";
-    private HashMap<TableColumn, String> mapFilters = new HashMap();
+
+
 
         public static List<Object> getDictionaryMap() { // Initialization listview labels
             List<Object> list = new ArrayList<Object>();
@@ -136,38 +137,7 @@ public class NotFulfilled implements  NotFulledInterface, FilterFunctions {
         SpecialMarginTypeID = specialMarginTypeID;
     }
 
-    /* public NotFulfilled(String number, String createdOn, String createdBy, String accountCode, String accountName, String accountSaldo, String accountIsSolid, String storeCity, String status, String offeringGroupName, String originalGroupName, String groupChangedBy, String specialMarginTypeName) {
-            Number = number;
-            CreatedOn = createdOn;
-            CreatedBy = createdBy;
-            AccountCode = accountCode;
-            AccountName = accountName;
-            AccountSaldo = accountSaldo;
-            AccountIsSolid = accountIsSolid;
-            StoreCity = storeCity;
-            Status = status;
-            OfferingGroupName = offeringGroupName;
-            OriginalGroupName = originalGroupName;
-            GroupChangedBy = groupChangedBy;
-            SpecialMarginTypeName = specialMarginTypeName;
-        }
 
-        public NotFulfilled(String ID, String number, String createdOn, String createdBy, String accountCode, String accountName, String accountSaldo, String accountIsSolid, String storeCity, String status, String offeringGroupName, String originalGroupName, String groupChangedBy, String specialMarginTypeName) {
-            this.ID = ID;
-            this.Number=number;
-            this.CreatedOn=createdOn;
-            this.CreatedBy=createdBy;
-            this.AccountCode=accountCode;
-            this.AccountName=accountName;
-            this.AccountSaldo=accountSaldo;
-            this.AccountIsSolid=accountIsSolid;
-            this.StoreCity=storeCity;
-            this.Status=status;
-            this.OfferingGroupName=offeringGroupName;
-            this.OriginalGroupName=originalGroupName;
-            this.GroupChangedBy=groupChangedBy;
-            this.SpecialMarginTypeName=specialMarginTypeName;
-        }*/
    public String getGroupID() {
        return GroupID;
    }
@@ -219,9 +189,10 @@ public class NotFulfilled implements  NotFulledInterface, FilterFunctions {
     public List<NotFulfilled> findAllNotFulled(boolean pagination, int rowIndex, String createdByID, String offeringGroupID) {
         String query = (pagination ? accountQueries1.getMainNotFulled(true, rowIndex, createdByID, offeringGroupID) : accountQueries1.getMainNotFulled(false, 0, createdByID, offeringGroupID));
         try {
-            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query, new BeanListHandler<NotFulfilled>(NotFulfilled.class)));
+            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter(), new BeanListHandler<NotFulfilled>(NotFulfilled.class)));
         } catch (Exception e) {
-            log.log(Level.SEVERE, "getAccount exception: " + e);
+            log.log(Level.SEVERE, "getAccount exception: " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
         return FXCollections.observableArrayList(EMPTYLIST);
@@ -233,7 +204,8 @@ public class NotFulfilled implements  NotFulledInterface, FilterFunctions {
         try {
             return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query, new BeanListHandler<NotFulfilled>(NotFulfilled.class)));
         } catch (Exception e) {
-            log.log(Level.SEVERE, "getAccount exception: " + e);
+            log.log(Level.SEVERE, "getAccount exception: " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
         return FXCollections.observableArrayList(EMPTYLIST);
@@ -382,40 +354,20 @@ public class NotFulfilled implements  NotFulledInterface, FilterFunctions {
 
 
 
-    public void setStringFilter(TableColumn column, String value) {
-        mapFilters.put(column, value);
-    }
-
-    @Override
-    public void setStringFilterMerge(TableColumn column, String value) {
-        mapFilters.merge(column, value, (a, b) -> a + "\n" + b);
-    }
-
-    public String getStringFilter() {
-        StringBuilder builder = new StringBuilder("");
-        try {
-            mapFilters.forEach((k, v) ->
-                    builder.append(v));
-        } catch (NullPointerException e) {
-
-        }
-
-        System.out.println(builder.toString());
-        return builder.toString();
-    }
-
-    public void removeStringFilter(TableColumn key) {
-        mapFilters.remove(key);
-
-    }
 
 
 
 
 
 
-    private HashMap<String, String> resultFilterMap = new HashMap<>();
-    private UUID uniqueID;
+
+
+
+
+    private static HashMap<Enum<? extends SearchType>, String> filterMap = fillFilterHashMap();
+
+ //   private HashMap<TableColumn, String> mapFilters = new HashMap();
+
 
 
 
@@ -424,6 +376,14 @@ public class NotFulfilled implements  NotFulledInterface, FilterFunctions {
     }
 
 
+    public static HashMap<Enum <? extends SearchType>, String> fillFilterHashMap() {
+        filterMap = new HashMap<>();
+        //filterMap.put(OfferingsSearchType.ID, "AND [tbl_Order].[ID] IN (");
+
+
+        return filterMap;
+
+    }
 
 
     public String getInsertedOrderID() {
@@ -443,6 +403,63 @@ public class NotFulfilled implements  NotFulledInterface, FilterFunctions {
     }
 
 
+    private QueryRunner dbAccess = new QueryRunner();
+
+    private static final List EMPTYLIST = new ArrayList<>();
+    private  static final String EMPTYSTRING = "";
+
+    private HashMap<String, String> resultFilterMap = new HashMap<>();
+    private UUID uniqueID;
+
+    private HashMap<TableColumn, String> mapFilters = new HashMap();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void setStringFilter(TableColumn column, String value) {
+
+        mapFilters.put(column, value);
+
+    }
+
+    @Override
+    public void setStringFilterMerge(TableColumn column, String value) {
+        mapFilters.merge(column, value, (a, b) -> a + "\n" + b);
+    }
+
+    public String getStringFilter() {
+        StringBuilder builder = new StringBuilder("");
+        try {
+            mapFilters.forEach((k, v) ->
+                    builder.append(v));
+        } catch (NullPointerException e) {
+
+        }
+
+
+        return builder.toString();
+    }
+
+    public void removeStringFilter(TableColumn key) {
+        mapFilters.remove(key);
+
+    }
+
+
+
+
+
 
 
     public void clearHashMapFilter() {
@@ -450,11 +467,12 @@ public class NotFulfilled implements  NotFulledInterface, FilterFunctions {
     }
 
 
+
+
     @Override
     public String toString() {
         return getID();
     }
-
 
 
 

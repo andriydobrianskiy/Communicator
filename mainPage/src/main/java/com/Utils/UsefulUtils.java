@@ -10,15 +10,19 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.util.Duration;
+import org.google.jhsheets.filtered.tablecolumn.AbstractFilterableTableColumn;
 import tray.animations.AnimationType;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
+import java.awt.*;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
@@ -134,6 +138,39 @@ public class UsefulUtils {
         Clipboard.getSystemClipboard().setContent(clipboardContent);
 
     }
+
+
+    public static Node getProgressIndicator() {
+        ProgressIndicator progressIndicator = new ProgressIndicator();
+        progressIndicator.setMaxHeight(50);
+        progressIndicator.setMaxWidth(50);
+
+        return progressIndicator;
+    }
+
+    public static void searchCombination(KeyEvent eventKey, TableView tableView) {
+        KeyCodeCombination copyKeyCodeCompination = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_ANY);
+        if (copyKeyCodeCompination.match(eventKey)) {
+
+            if (eventKey.getSource() instanceof TableView) {
+
+                TablePosition position = tableView.getFocusModel().getFocusedCell();
+
+                ((AbstractFilterableTableColumn)position.getTableColumn()).getFilterEditor().getFilterMenu().show(
+                        (Node) tableView,
+                        MouseInfo.getPointerInfo().getLocation().getX(),
+                        MouseInfo.getPointerInfo().getLocation().getY()
+                );
+
+
+                // event is handled, consume it
+                eventKey.consume();
+
+            }
+        }
+    }
+
+
 
     public static Object filter(String criteria, ObservableList<? extends DictionaryPropertiesNotfulled> list) { // фільтр list'y java 8
         /*List<? extends DictionaryInterface> result = list.stream()

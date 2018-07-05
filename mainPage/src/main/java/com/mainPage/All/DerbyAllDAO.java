@@ -1,5 +1,6 @@
 package com.mainPage.All;
 
+import com.Utils.MiniFilterWindow.FilterFunctions;
 import com.connectDatabase.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.scene.control.TableColumn;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DerbyAllDAO implements AllDAO{
+public class DerbyAllDAO implements AllDAO, FilterFunctions{
     private static Logger log = Logger.getLogger(DerbyAllDAO.class.getName());
     private QueryRunner dbAccess = new QueryRunner();
     private AllQuery accountQueries1 = new AllQuery();
@@ -54,27 +55,50 @@ public class DerbyAllDAO implements AllDAO{
     }
 
     @Override
-    public List<All> findAll(boolean pagination, int rowIndex) {
-        String query = (pagination ? accountQueries1.getMainAll(true, rowIndex) : accountQueries1.getMainAll(false, 0));
+    public List<All> findAll(boolean pagination, int rowIndex, String createdByID, String offeringGroupID) {
+        String query = (pagination ? accountQueries1.getMainAll(true, rowIndex, createdByID, offeringGroupID) : accountQueries1.getMainAll(false, 0, createdByID, offeringGroupID));
         try {
-            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query, new BeanListHandler<All>(All.class)));
+
+                return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter(), new BeanListHandler<All>(All.class)));
+
         } catch (Exception e) {
-            log.log(Level.SEVERE, "getAccount exception: " + e);
+            log.log(Level.SEVERE, "getAccount exception: " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
         return FXCollections.observableArrayList(EMPTYLIST);
     }
 
+    @Override
+    public List<All> findAllAll(boolean pagination, int rowIndex) {
+        String query = (pagination ? accountQueries1.getMainAllAll(true, rowIndex) : accountQueries1.getMainAllAll(false, 0));
+        try {
 
+            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter(), new BeanListHandler<All>(All.class)));
+
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "getAccount exception: " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
+        }
+
+        return FXCollections.observableArrayList(EMPTYLIST);
+    }
     public void setStringFilter(TableColumn column, String value) {
         mapFilters.put(column, value);
+    }
+
+    @Override
+    public void setStringFilterMerge(TableColumn column, String value) {
+        mapFilters.merge(column, value, (a, b) -> a + "\n" + b);
     }
 
     public String getStringFilter() {
         StringBuilder builder = new StringBuilder("");
         try {
-            mapFilters.forEach((k, v) ->
-                    builder.append(v));
+            mapFilters.forEach((k, v) ->{
+                    builder.append(v);
+                    System.out.println(   builder.append(v));});
+
         } catch (NullPointerException e) {
 
         }
@@ -92,7 +116,8 @@ public class DerbyAllDAO implements AllDAO{
         try {
             return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query, new BeanListHandler<All>(All.class)));
         } catch (Exception e) {
-            log.log(Level.SEVERE, "getAccount exception: " + e);
+            log.log(Level.SEVERE, "getAccount exception: " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
         return FXCollections.observableArrayList(EMPTYLIST);

@@ -1,6 +1,7 @@
 package com.Utils.MiniFilterWindow;
 
 public enum IFilter {
+
     AND(" AND "),
     OR(" OR ");
 

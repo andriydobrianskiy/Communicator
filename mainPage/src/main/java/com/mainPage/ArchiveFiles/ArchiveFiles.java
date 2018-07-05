@@ -1,23 +1,30 @@
 package com.mainPage.ArchiveFiles;
 
+import com.Utils.MiniFilterWindow.FilterFunctions;
 import com.connectDatabase.DBConnection;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.scene.control.TableColumn;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ArchiveFiles implements ArchiveFilesInterface {
+public class ArchiveFiles implements ArchiveFilesInterface, FilterFunctions {
     private static Logger log = Logger.getLogger(ArchiveFiles.class.getName());
     private QueryRunner dbAccess = new QueryRunner();
     private ArchiveFilesQuery accountQueries1 = new ArchiveFilesQuery();
     private static final List EMPTYLIST = new ArrayList<>();
     private static final String EMPTYSTRING = "";
+    private HashMap<String, String> resultFilterMap = new HashMap<>();
+    private UUID uniqueID;
 
+    private HashMap<TableColumn, String> mapFilters = new HashMap();
 
 
     public static List<Object> getDictionaryMap() { // Initialization listview labels
@@ -343,15 +350,34 @@ public class ArchiveFiles implements ArchiveFilesInterface {
     }*/
 
     @Override
-    public List<ArchiveFiles> findAllInArchive(boolean pagination, int rowIndex, String createdByID, String offeringGroupID) {
+    public List<ArchiveFiles> findInArchive(boolean pagination, int rowIndex, String createdByID, String offeringGroupID) {
         {
             String query = (pagination ? accountQueries1.getMainArchiveFiles(true, rowIndex, createdByID , offeringGroupID) : accountQueries1.getMainArchiveFiles(false, 0, createdByID , offeringGroupID));
 
             try {
 
-                return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query, new BeanListHandler<ArchiveFiles>(ArchiveFiles.class)/*, statusID, createdByID, offeringGroupID*/));
+                return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter(), new BeanListHandler<ArchiveFiles>(ArchiveFiles.class)/*, statusID, createdByID, offeringGroupID*/));
             } catch (Exception e) {
-                log.log(Level.SEVERE, "getAccount exception: " + e);
+                log.log(Level.SEVERE, "getAccount exception: " + e);  DBConnection database = new DBConnection();
+                database.reconnect();
+            }
+
+            return FXCollections.observableArrayList(EMPTYLIST);
+        }
+
+    }
+
+
+    public List<ArchiveFiles> findAllInArchive(boolean pagination, int rowIndex) {
+        {
+            String query = (pagination ? accountQueries1.getAllInTract(true, rowIndex) : accountQueries1.getAllInTract(false, 0));
+
+            try {
+
+                return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter(), new BeanListHandler<ArchiveFiles>(ArchiveFiles.class)/*, statusID, createdByID, offeringGroupID*/));
+            } catch (Exception e) {
+                log.log(Level.SEVERE, "getAccount exception: " + e);  DBConnection database = new DBConnection();
+                database.reconnect();
             }
 
             return FXCollections.observableArrayList(EMPTYLIST);
@@ -363,9 +389,39 @@ public class ArchiveFiles implements ArchiveFilesInterface {
         try {
             return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query, new BeanListHandler<ArchiveFiles>(ArchiveFiles.class)));
         } catch (Exception e) {
-            log.log(Level.SEVERE, "getAccount exception: " + e);
+            log.log(Level.SEVERE, "getAccount exception: " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
         return FXCollections.observableArrayList(EMPTYLIST);
+    }
+
+    @Override
+    public void setStringFilter(TableColumn column, String value) {
+        mapFilters.put(column, value);
+    }
+
+    @Override
+    public void setStringFilterMerge(TableColumn column, String value) {
+        mapFilters.merge(column, value, (a, b) -> a + "\n" + b);
+    }
+
+    @Override
+    public String getStringFilter() {
+        StringBuilder builder = new StringBuilder("");
+        try {
+            mapFilters.forEach((k, v) ->
+                    builder.append(v));
+        } catch (NullPointerException e) {
+
+        }
+
+
+        return builder.toString();
+    }
+
+    @Override
+    public void removeStringFilter(TableColumn key) {
+        mapFilters.remove(key);
     }
 }

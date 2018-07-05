@@ -1,6 +1,6 @@
 package com.mainPage.Statistic;
 
-public class Statistic {
+public class Statistic  {
     private String ID;
     private String Name;
     private String Processing;
@@ -65,4 +65,6 @@ public class Statistic {
     public void setCreatedByID (String createdByID){
         this.CreatedByID = createdByID;
     }
+
+
 }

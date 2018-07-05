@@ -70,34 +70,6 @@ public class SearchCounterpart extends AnchorPane implements DictionaryPropertie
     public static Counterpart chosenAccount = null;
 
     public static Counterpart chosenElement = null;
-   /* public AccountDictionary() {
-        this.accountDAO = accountDAO;
-
-        Stage primaryStage = new Stage();
-        primaryStage.initModality( Modality.APPLICATION_MODAL);
-        FXMLLoader loader = new FXMLLoader();
-
-        loader.setRoot(this);
-        loader.setController(this);
-
-        Pane root = null;
-        try {
-            root = loader.load(getClass().getResource("/sample/ua/ucountry/Utils/DictionaryWindow/AccountDictionaryWindow.fxml").openStream());
-        } catch (IOException e) {
-            UsefulUtils.showErrorDialog("Неможливо відкрити вікно!");
-            return;
-        }
-
-        Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
-
-        Scene scene = new Scene(root, visualBounds.getHeight(), visualBounds.getWidth());
-
-        scene.getStylesheets().add("sample/ua/ucountry/Utils/DictionaryWindow/CustomerDictionary/AccountDictionary.css");
-
-        primaryStage.setScene(scene);
-        primaryStage.setMaximized(true);
-        primaryStage.showAndWait();
-    }*/
 
 
     @Override
@@ -214,10 +186,7 @@ public class SearchCounterpart extends AnchorPane implements DictionaryPropertie
 
     }
 
-    @Override
-    public void createTableColumnsAll() {
 
-    }
 
     @Override
     public void loadDataFromDatabase() {
@@ -255,10 +224,7 @@ public class SearchCounterpart extends AnchorPane implements DictionaryPropertie
 
     }
 
-    @Override
-    public void loadDataFromDatabaseAll() {
 
-    }
 
 
     private void filterData() {

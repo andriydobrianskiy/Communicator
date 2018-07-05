@@ -49,7 +49,8 @@ public class DerbyInTractRequestDAO implements InTractRequestDAO{
         } catch (Exception e) {
 
 
-            log.log(Level.SEVERE, "Column filter exception (findAll): " + e);
+            log.log(Level.SEVERE, "Column filter exception (findAll): " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
         return EMPTYLIST;

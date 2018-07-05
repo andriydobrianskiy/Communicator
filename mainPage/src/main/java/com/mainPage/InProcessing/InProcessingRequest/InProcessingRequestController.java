@@ -1,18 +1,18 @@
 package com.mainPage.InProcessing.InProcessingRequest;
 
+import com.Utils.UsefulUtils;
+import com.connectDatabase.DBConnection;
+import com.mainPage.InProcessing.InProcessing;
+import com.mainPage.InProcessing.InProcessingController;
+import com.mainPage.WorkArea;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import com.Utils.UsefulUtils;
-import com.connectDatabase.DBConnection;
-import com.mainPage.InProcessing.InProcessing;
-import com.mainPage.InProcessing.InProcessingController;
+import org.google.jhsheets.filtered.tablecolumn.FilterableIntegerTableColumn;
+import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -23,31 +23,28 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
-public class InProcessingRequestController implements Initializable {
+public class InProcessingRequestController extends WorkArea implements Initializable {
 
     private static Logger log = Logger.getLogger(InProcessingRequestController.class.getName());
-    @FXML
-    private TableView<InProcessingRequest> tableInProcessingProduct;
-    @FXML
-    private TableColumn<?, ?> columnIndex;
-    @FXML
-    private TableColumn<?, ?> columnSkrut;
-    @FXML
-    private TableColumn<?, ?> columnOfferingName;
-    @FXML
-    private TableColumn<?, ?> columnQuantity;
-    @FXML
-    private TableColumn<?, ?> columnDefaultOfferingCode;
-    @FXML
-    private TableColumn<?, ?> columnNewOfferingCode;
-    @FXML
-    private TableColumn<?, ?> columnNewDescription;
+    @FXML private FilterableStringTableColumn <InProcessingRequest, String> colIndex;
+
+    @FXML private FilterableStringTableColumn <InProcessingRequest, String>colSkrut;
+
+    @FXML private FilterableStringTableColumn <InProcessingRequest, String>colNewDescription;
+
+    @FXML private FilterableStringTableColumn <InProcessingRequest, String>colOfferingName;
+
+    @FXML private FilterableIntegerTableColumn<InProcessingRequest, Integer> colQuantity;
+
+    @FXML private FilterableStringTableColumn <InProcessingRequest, String>colDefaultOfferingCode;
+
+    @FXML private FilterableStringTableColumn <InProcessingRequest, String>colNewOfferingCode;
     private Connection con = null;
     private PreparedStatement pst = null;
     private ResultSet rs = null;
     private ObservableList<InProcessingRequest> data;
-    @FXML
-    private AnchorPane anchorPane;
+  /*  @FXML
+    private AnchorPane anchorPane;*/
     private InProcessing selectedRecord;
 
 
@@ -62,16 +59,17 @@ public class InProcessingRequestController implements Initializable {
         try {
             con = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace();  DBConnection database = new DBConnection();
+            database.reconnect();
         }
         setCellTable();
         data = FXCollections.observableArrayList();
-        tableInProcessingProduct.setTableMenuButtonVisible(true);
-        tableInProcessingProduct.getSelectionModel().setCellSelectionEnabled(false);
-        tableInProcessingProduct.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tableView.setTableMenuButtonVisible(true);
+        tableView.getSelectionModel().setCellSelectionEnabled(false);
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
 
-        UsefulUtils.installCopyPasteHandler(tableInProcessingProduct);
+        UsefulUtils.installCopyPasteHandler(tableView);
 
     }
 
@@ -86,13 +84,37 @@ public class InProcessingRequestController implements Initializable {
     }
 
     private void setCellTable() {
-        columnIndex.setCellValueFactory(new PropertyValueFactory<>("Index"));
-        columnSkrut.setCellValueFactory(new PropertyValueFactory<>("Skrut"));
-        columnNewDescription.setCellValueFactory(new PropertyValueFactory<>("newDescription"));
-        columnOfferingName.setCellValueFactory(new PropertyValueFactory<>("OfferingName"));
-        columnQuantity.setCellValueFactory(new PropertyValueFactory<>("Quantity"));
-        columnDefaultOfferingCode.setCellValueFactory(new PropertyValueFactory<>("DefaultOfferingCode"));
-        columnNewOfferingCode.setCellValueFactory(new PropertyValueFactory<>("newOfferingCode"));
+        try {
+            hashColumns.put(colIndex, "[tbl_RequestOffering].[Number]");
+            hashColumns.put(colSkrut, "[tbl_RequestOffering].[CreatedOn]");
+            hashColumns.put(colNewDescription, "[tbl_Contact].[Name]");
+            hashColumns.put(colOfferingName, "[tbl_Account].[Name]");
+            hashColumns.put( colQuantity, "[tbl_Account].[Code]");
+            hashColumns.put(colDefaultOfferingCode, "[tbl_Account].[SaldoSel]");
+            hashColumns.put(colNewOfferingCode, "(CASE\n" +
+                    "    WHEN CONVERT(DATETIME,ISNULL([tbl_Account].[UnblockDate], '2000-01-01')) > CONVERT(DATETIME, CURRENT_TIMESTAMP) \n" +
+                    "    THEN ''\n" +
+                    "    WHEN [tbl_Account].[IsSolid] = 1\n" +
+                    "    THEN 'Не солідний'\n" +
+                    "    ELSE ''\n" +
+                    "END)");
+
+
+
+            colIndex.setCellValueFactory(new PropertyValueFactory<InProcessingRequest,String>("index"));
+            colSkrut.setCellValueFactory(new PropertyValueFactory<InProcessingRequest,String>("skrut"));
+            colNewDescription.setCellValueFactory(new PropertyValueFactory<InProcessingRequest, String>("newDescription"));
+            colOfferingName.setCellValueFactory(new PropertyValueFactory<InProcessingRequest,String>("offeringName"));
+            colQuantity.setCellValueFactory(new PropertyValueFactory<InProcessingRequest,Integer>("quantity"));
+            colDefaultOfferingCode.setCellValueFactory(new PropertyValueFactory<InProcessingRequest, String>("defaultOfferingCode"));
+            colNewOfferingCode.setCellValueFactory(new PropertyValueFactory<InProcessingRequest,String>("newOfferingCode"));
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        super.createTableColumns();
 
     }
 
@@ -140,7 +162,7 @@ public class InProcessingRequestController implements Initializable {
 
 
             }
-            tableInProcessingProduct.setItems(data);
+            tableView.setItems(data);
 
 
         } catch (SQLException e) {
@@ -150,6 +172,8 @@ public class InProcessingRequestController implements Initializable {
         // tableViewRequest.setItems(FXCollections.observableArrayList(data.subList((int)fromIndex, (int)toIndex)));
         return null;
     }
+
+
   /*  public void loadDataFromDatabaseBottom() {
         try {
 

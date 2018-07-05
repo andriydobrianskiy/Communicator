@@ -1,12 +1,10 @@
 package com.Utils.MiniFilterWindow;
 
+import com.Utils.*;
+import javafx.application.Platform;
 import javafx.scene.control.TableColumn;
 import org.google.jhsheets.filtered.operators.IFilterOperator;
 import org.google.jhsheets.filtered.tablecolumn.ColumnFilterEvent;
-import com.Utils.DictionaryProperties;
-import com.Utils.Consts;
-import com.Utils.FilterQuery;
-import com.Utils.UsefulUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,31 +35,31 @@ public class MiniFilter {
     }
 
     public void setFilter() {
+        getFilterValue();
+
+        //new FilterTask().execute();
+    }
+
+    private void getFilterValue() {
+        Object value = null;
+        final List<IFilterOperator> filters = event.getFilters();
+
         try {
-            Object value = null;
-            final List<IFilterOperator> filters = event.getFilters();
-
-            if(filters.size() < 2) {
-
-            }
 
             for (IFilterOperator filter : filters) {
+                System.out.println(filter.getValue());
                 if (filter.getValue() instanceof Date) {
                     try {
                         Date date = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy").parse(filter.getValue().toString());
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         value = dateFormat.format(date);
 
-                    } catch (ParseException e) {
-
-                    }
+                    } catch (ParseException e) { }
                 } else {
-
                     value = filter.getValue();
                 }
 
                 if (value == null || filter.getType() == IFilterOperator.Type.NONE) continue;
-                System.out.println("  Type=" + filter.getType() + ", Value=" + value);
 
                 try {
 
@@ -69,9 +67,9 @@ public class MiniFilter {
                         derby.removeStringFilter(event.sourceColumn());
                         window.disableFilter(event.sourceColumn(), null);
                         window.refreshData();
+                        //disableFilter(event.sourceColumn());
                         return;
                     }
-
 
                     if(filters.stream()
                             .filter(line -> !line.getType().equals(IFilterOperator.Type.NONE))
@@ -79,15 +77,14 @@ public class MiniFilter {
                     {
                         derby.setStringFilterMerge(event.sourceColumn(), new FilterQuery(hashColumns.get(event.sourceColumn()), filter.getType(), value).getWhereClause());
                     } else {
-                        //window.disableFilter(event.sourceColumn(),null);
                         window.removeFilterFromHbox(event.sourceColumn());
                         derby.setStringFilter(event.sourceColumn(), new FilterQuery(hashColumns.get(event.sourceColumn()), filter.getType(), value).getWhereClause());
                     }
 
                     window.fillHboxFilter(event.sourceColumn(), filter.getType(), value);
-
-
                     window.refreshData();
+                    //setupFilter(event.sourceColumn(), filter.getType(), value);
+
                 } catch (Exception e) {
                     log.log(Level.SEVERE, " Exception: " + e);
                 }
@@ -96,5 +93,55 @@ public class MiniFilter {
             log.log(Level.WARNING, "Exception mini-filter: " + e);
             UsefulUtils.showErrorDialog("Сталась помилка, повідомте на скайп " + Consts.skypeLogin);
         }
+    }
+
+    private void disableFilter(TableColumn column) {
+        Platform.runLater(() -> {
+            derby.removeStringFilter(column);
+            window.disableFilter(column, null);
+        });
+
+    }
+
+    private void setupFilter(TableColumn column, IFilterOperator.Type type, Object  value) {
+        log.log(Level.SEVERE, "EXE 1");
+        Platform.runLater(() -> {
+            window.fillHboxFilter(column, type, value);
+        });
+    }
+
+    public class FilterTask extends AsyncTask<Void, Void, Void> {
+
+
+
+        public FilterTask() {
+
+        }
+
+
+
+        @Override
+        public void onPreExecute() {
+
+        }
+
+        @Override
+        public Void doInBackground(Void... params) {
+
+            getFilterValue();
+            return null;
+        }
+
+        @Override
+        public void onPostExecute(Void params) {
+            window.refreshData();
+        }
+
+        @Override
+        public void progressCallback(Void... params) {
+
+        }
+
+
     }
 }

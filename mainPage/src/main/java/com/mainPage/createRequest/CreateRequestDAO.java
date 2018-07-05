@@ -82,7 +82,8 @@ public class CreateRequestDAO implements MainNotFulledQuery {
         //    DBConnection database = new DBConnection();
         //    database.reconnect();
 
-            log.log(Level.SEVERE, "Insert account row exception: " + e);
+            log.log(Level.SEVERE, "Insert account row exception: " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
             return false;
         }
 
@@ -104,7 +105,8 @@ public class CreateRequestDAO implements MainNotFulledQuery {
             return true;
         } catch (Exception e) {
             UsefulUtils.showErrorDialog(e.getMessage());
-            log.log(Level.SEVERE, "Exception: " + e);
+            log.log(Level.SEVERE, "Exception: " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
             return false;
         }
     }
@@ -135,7 +137,8 @@ public class CreateRequestDAO implements MainNotFulledQuery {
             return true;
         } catch (Exception e) {
             UsefulUtils.showErrorDialog(e.getMessage());
-            log.log(Level.SEVERE, "Exception: " + e);
+            log.log(Level.SEVERE, "Exception: " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
             return false;
         }
 

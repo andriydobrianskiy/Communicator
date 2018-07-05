@@ -19,7 +19,7 @@ public class InProcessingQuery implements Queries {
         query = new StringBuilder();
         query.append("SELECT \n");
 
-        if(top) query.append(" TOP " + rowIndex + "\n");
+   //     if(top) query.append(" TOP " + rowIndex + "\n");
 
         query.append( "[tbl_RequestOffering].[ID] AS [ID],\n" +
                 "\t[tbl_RequestOffering].[CreatedOn] AS [CreatedOn],\n" +
@@ -147,9 +147,7 @@ public class InProcessingQuery implements Queries {
                 "\t[dbo].[tbl_RequestOfferingState] AS [tbl_RequestOfferingState] ON [tbl_RequestOfferingState].[ID] = [tbl_RequestOffering].[StateID]\n" +
                 "WHERE(([tbl_RequestOffering].[CreatedByID] = '"+createdByID+"' OR\n" +
                 "\t[tbl_RequestOffering].[OfferingGroupID] = '"+offeringGroupID+"' ) AND\n" +
-                "\t[tbl_RequestOffering].[StatusID] = '{7CB7F6B9-EB87-48FE-86F6-49ED931A0C0B}')\n" +
-                "ORDER BY\n" +
-                "\t10 DESC");
+                "\t[tbl_RequestOffering].[StatusID] = '{7CB7F6B9-EB87-48FE-86F6-49ED931A0C0B}')\n");
 
 
 
@@ -302,12 +300,12 @@ public class InProcessingQuery implements Queries {
     }
 
 
-    public static String getMainInProcessingAll(Boolean top, int rowIndex) {
+    public  String getMainInProcessingAll(Boolean top, int rowIndex) {
 
         query = new StringBuilder();
         query.append("SELECT \n");
 
-        if(top) query.append(" TOP " + rowIndex + "\n");
+     //   if(top) query.append(" TOP " + rowIndex + "\n");
 
         query.append( "[tbl_RequestOffering].[ID] AS [ID],\n" +
                 "\t[tbl_RequestOffering].[CreatedOn] AS [CreatedOn],\n" +
@@ -433,9 +431,10 @@ public class InProcessingQuery implements Queries {
                 "\t[dbo].[tbl_SpecialMarginType] AS [SMT] ON [SMT].[ID] = [tbl_Account].[SpecialMarginTypeID]\n" +
                 "LEFT OUTER JOIN\n" +
                 "\t[dbo].[tbl_RequestOfferingState] AS [tbl_RequestOfferingState] ON [tbl_RequestOfferingState].[ID] = [tbl_RequestOffering].[StateID]\n" +
-                "WHERE [tbl_RequestOffering].[StatusID] = '{7CB7F6B9-EB87-48FE-86F6-49ED931A0C0B}'\n" +
-                "ORDER BY\n" +
-                "\t10 DESC");
+                "WHERE [tbl_RequestOffering].[StatusID] = '{7CB7F6B9-EB87-48FE-86F6-49ED931A0C0B}'\n" //+
+             //   "ORDER BY\n" +
+              //  "\t10 DESC"
+        );
 
 
 
@@ -619,7 +618,8 @@ public class InProcessingQuery implements Queries {
             }
 
         } catch (SQLException e) {
-            log.log( Level.SEVERE, "Pages count exception: " + e);
+            log.log( Level.SEVERE, "Pages count exception: " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
         return count;

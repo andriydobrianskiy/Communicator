@@ -1,25 +1,43 @@
 package com.mainPage.ArchiveFiles;
 
 import com.Utils.CustomPaginationSkin;
+import com.Utils.DictionaryProperties;
+import com.Utils.MiniFilterWindow.MiniFilter;
+import com.Utils.MiniFilterWindow.MiniFilterController;
+import com.Utils.MiniFilterWindow.MiniFilterFunction;
 import com.Utils.UsefulUtils;
 import com.client.chatwindow.ChatController;
 import com.connectDatabase.DBConnection;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import com.login.User;
 import com.mainPage.ArchiveFiles.ArchiveFilesRequest.ArchiveFilesRequestController;
 import com.mainPage.NotFulled.ProductAdd.ObserverNF;
+import com.mainPage.WorkArea;
 import com.mainPage.page.MainPageController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import org.google.jhsheets.filtered.operators.IFilterOperator;
+import org.google.jhsheets.filtered.tablecolumn.ColumnFilterEvent;
+import org.google.jhsheets.filtered.tablecolumn.FilterableDateTableColumn;
+import org.google.jhsheets.filtered.tablecolumn.FilterableDoubleTableColumn;
+import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,18 +45,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ArchiveFilesController extends BorderPane implements Initializable, DictionaryPropertiesArchivesFiles, ObserverNF {
+public class ArchiveFilesController extends WorkArea implements MiniFilterFunction, Initializable, DictionaryProperties, ObserverNF {
     @FXML
     private ArchiveFilesRequestController archiveFilesRequestViewController;
     private MainPageController main;
     private static Logger log = Logger.getLogger(ArchiveFilesController.class.getName());
-    /*  @FXML
-      private TableView tableView;*/
     @FXML
     private BorderPane borderPane;
     private ArchiveFiles account = new ArchiveFiles();
@@ -52,15 +70,15 @@ public class ArchiveFilesController extends BorderPane implements Initializable,
     @FXML
     private Pagination pagination;
     @FXML
-    public TableView tableView;
-    @FXML
     private JFXButton btn_ReturnInProcessing;
     @FXML
     private ChatController chatViewController;
     @FXML
-    private SplitPane splitPane1;
+    private BorderPane splitPane1;
     @FXML
     private JFXTextField searchingField;
+    @FXML
+    private JFXToggleButton btn_ButtonAll;
     public ArchiveFiles chosenAccount;
 
     public ChatController conn;
@@ -68,29 +86,96 @@ public class ArchiveFilesController extends BorderPane implements Initializable,
     private double xOffset;
     private double yOffset;
     private Scene scene;
-   /* @FXML TableColumn<?,?> colunmNumber;
-    @FXML TableColumn<?,?> columnCreatedOn;
-    @FXML TableColumn<?,?> columnCreatedBy;
-    @FXML TableColumn<?,?> columnAccountCode;
-    @FXML TableColumn<?,?> columnAccountName;*/
+    private HashMap<TableColumn, Pane> hashMiniFilter = new HashMap<>();
+    private HashMap<TableColumn, String> hashColumns = new HashMap<>();
+
+
+
+    @FXML private FilterableStringTableColumn <ArchiveFiles, String> colNumber;
+    @FXML private FilterableDateTableColumn<ArchiveFiles, String> colCreatedOn;
+    @FXML private FilterableStringTableColumn<ArchiveFiles, String> colCreatedBy;
+    @FXML private FilterableStringTableColumn <ArchiveFiles, String> colAccountCode;
+    @FXML private FilterableStringTableColumn <ArchiveFiles, String> colAccountName;
+    @FXML private FilterableDoubleTableColumn<ArchiveFiles, Double> colAccountSaldo;
+    @FXML private FilterableStringTableColumn <ArchiveFiles, String> colAccountIsSolid;
+    @FXML private FilterableStringTableColumn <ArchiveFiles, String> colStoreCity;
+    @FXML private FilterableStringTableColumn <ArchiveFiles, String> colStatus;
+    @FXML private FilterableStringTableColumn <ArchiveFiles, String> colOfferingGroupName;
+    @FXML private FilterableStringTableColumn <ArchiveFiles, String> colOriginalGroupName;
+    @FXML private FilterableStringTableColumn <ArchiveFiles, String> colGroupChangedBy;
+    @FXML private FilterableStringTableColumn <ArchiveFiles, String> colSpecialMarginTypeName;
+    private Button id = new Button();
+    private Button Number = new Button();
+    private Button Solid = new Button();
+    private Button Store = new Button();
+    boolean order = true;
+    private ImageView upImg = new ImageView(new Image("/images/Sort_Top.png"));
+    private ImageView downImg = new ImageView(new Image("/images/Sort_Bottom.png"));
+    int pageCount = 5;
+    int itemsPerPage = 40;
+    int currentPageIndex = 0;
+    private Boolean queryAll = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         archiveFilesRequestViewController.init(this);
         chatViewController.init(this);
-        splitPane1.setDividerPositions(0.75);
         createTableColumns();
-        loadDataFromDatabase();
         tableViewHandles();
+        tableViewHandles();
+        tableView.setTableMenuButtonVisible(true);
+        UsefulUtils.installCopyPasteHandler(tableView);
+        tableView.addEventHandler(ColumnFilterEvent.FILTER_CHANGED_EVENT, event -> {
+            new MiniFilter(ArchiveFilesController.this, account, hashColumns,event).setFilter();
+        });
 
-        CustomPaginationSkin pageSkin = new CustomPaginationSkin(pagination); // custom pagination
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        UsefulUtils.copySelectedCell(tableView);
+
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        borderPane.setCenter(tableView);
+        tableView.setTableMenuButtonVisible(true);
+        UsefulUtils.installCopyPasteHandler(tableView);
+        // customizeScene();
+        //    tableView.getSelectionModel().setCellSelectionEnabled(true);
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
         try {
             con = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        pagination.setSkin(pageSkin);
-        pagination.setPageFactory(this::createPage);
+        try {
+            CustomPaginationSkin pageSkin = new CustomPaginationSkin(pagination); // custom pagination
+            pagination.setSkin(pageSkin);
+
+            pagination.setPageFactory(this::createPage);
+            pageCount = getPageCount(data.size(), itemsPerPage);
+
+
+            pagination.setPageCount(pageCount);
+            //   sort();
+            initializeTable();
+
+            pagination.currentPageIndexProperty().addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                    System.out.println("Pagination Changed from " + oldValue + " , to " + newValue);
+                    currentPageIndex = newValue.intValue();
+                   // updatePersonView();
+                }
+            });
+
+
+            SortButton(Number);
+            SortButton(id);
+            SortButton(Solid);
+            SortButton(Store);
+        } catch (Exception e) {
+            UsefulUtils.showErrorDialogDown("Не вдається відкрити сторінки");
+
+        }
 
         tableView.getSelectionModel().setCellSelectionEnabled(false);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -107,21 +192,32 @@ public class ArchiveFilesController extends BorderPane implements Initializable,
                 return;
             }
             if (UsefulUtils.showConfirmDialog("Ви бажаєте перевести в обробку?") == ButtonType.OK) {
-                String query = ("");
-                try {
-                    pst = con.prepareStatement(query);
-                    // pst.setString(1, User.getContactID());
-                    pst.setString(1, chosenAccount.getID());
-                    pst.setString(2, User.getContactID());
-                    pst.setString(3, chosenAccount.getID());
-                    pst.executeUpdate();
-                    main.changeExists();
-                    UsefulUtils.showSuccessful("Запит " + chosenAccount.getNumber() + " завершено");
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
 
+                    if(chosenAccount.getStatusID() == "3E7F90E2-335C-41B2-828A-576A06375B8C" ){
+                        UsefulUtils.showErrorDialogDown("Запит не є архівним");
+                    }else {
+
+
+                        String query = (
+                                "\tUPDATE TOP(1) tbl_RequestOffering\n" +
+                                "\tSET \n" +
+                                "\t\tModifiedByID = ?,\n" +
+                                "\t\tModifiedOn = CURRENT_TIMESTAMP,\n" +
+                                "\t\tStatusID = '{7CB7F6B9-EB87-48FE-86F6-49ED931A0C0B}'\n" +
+                                "\tWHERE ID = ?\n" );
+                        try {
+                            pst = con.prepareStatement(query);
+                            pst.setString(1, User.getContactID());
+                            pst.setString(2, chosenAccount.getID());
+                            pst.executeUpdate();
+                            main.changeExists();
+                            UsefulUtils.showSuccessful("Запит " + chosenAccount.getNumber() + " поверне в обробку");
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
             } else return;
+
         });
 
 
@@ -157,6 +253,7 @@ public class ArchiveFilesController extends BorderPane implements Initializable,
                 }
             }
         });
+        tableView.getSelectionModel().select(0);
     }
 
     String Skrut = null;
@@ -193,53 +290,126 @@ public class ArchiveFilesController extends BorderPane implements Initializable,
 
     }
 
+
+
+    private void SortButton(Button button) {
+        button.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
+            @Override
+            public void handle(javafx.event.ActionEvent t) {
+                sort(button);
+                if (order) {
+                    Collections.reverse(data);
+                }
+                order = !order;
+                button.setGraphic((order) ? upImg : downImg);
+                updatePersonView();
+
+            }
+        });
+    }
+
+    private void sort(Button notFulfilled) {
+        if (notFulfilled == id) {
+            data.sort((ArchiveFiles p1, ArchiveFiles p2) -> p1.getCreatedOn().compareTo(p2.getCreatedOn()));
+        } else if (notFulfilled == Number) {
+            data.sort((ArchiveFiles p1, ArchiveFiles p2) -> p1.getNumber().compareTo(p2.getNumber()));
+        }else if (notFulfilled == Solid) {
+            data.sort((ArchiveFiles p1, ArchiveFiles p2) -> p1.getAccountIsSolid().compareTo(p2.getAccountIsSolid()));
+        } else if (notFulfilled == Store) {
+            data.sort((ArchiveFiles p1, ArchiveFiles p2) -> p1.getNumber().compareTo(p2.getStoreCity()));
+            pagination.currentPageIndexProperty().addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                    System.out.println("Pagination Changed from " + oldValue + " , to " + newValue);
+                    currentPageIndex = newValue.intValue();
+                    //updatePersonView();
+
+                }
+            });
+        } else {
+            UsefulUtils.showErrorDialogDown("Помилка сортування");
+        }
+    }
+
+    private void initializeTable() {
+
+
+        colCreatedOn.setGraphic(id);
+        colCreatedOn.setSortable(false);
+        colNumber.setGraphic(Number);
+        colNumber.setSortable(false);
+        colAccountIsSolid.setGraphic(Solid);
+        colAccountIsSolid.setSortable(false);
+        colStoreCity.setGraphic(Store);
+        colStoreCity.setSortable(false);
+
+
+
+
+        btn_ButtonAll.setVisible(true);
+        searchingField.setOnAction(event1 -> {
+            String value = searchingField.getText();
+
+            if (value.equals("")) {
+                refreshData();
+            } else
+                try {
+                    findByProperty(value);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+        });
+        ToggleGroup group = new ToggleGroup();
+        btn_ButtonAll.setToggleGroup(group);
+        group.selectedToggleProperty().addListener(event -> {
+            if (group.getSelectedToggle() != null) {
+                queryAll = true;
+                refreshData();
+                searchingField.setOnAction(event1 -> {
+                    String value = searchingField.getText();
+
+                    if (value.equals("")) {
+                        refreshData();
+                    } else
+                        try {
+                            findByProperty(value);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                });
+
+            } else
+            {
+                queryAll = false;
+                refreshData();
+                searchingField.setOnAction(event1 -> {
+                    String value = searchingField.getText();
+
+                    if (value.equals("")) {
+                        refreshData();
+                    } else
+                        try {
+                            findByProperty(value);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                });
+            }
+        });
+
+
+    }
+
+    public void updatePersonView() {
+        fromIndex = currentPageIndex * itemsPerPage;
+        toIndex = Math.min(fromIndex + itemsPerPage, data.size());
+        tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
+    }
+
     public void loginButtonAction(ArchiveFiles chosenAccount) throws IOException {
-        // String hostname = "192.168.0.100";
-        //   int port = 9001;
-        //     String username = User.getContactName();
-        //     String picture = "Default";
-
-
-        //  FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/views/ChatView.fxml"));
-
-        //  Parent window = (Pane) fmxlLoader.load();
-        //       conn = fmxlLoader.<ChatController>getController();
-        //  instance = fmxlLoader.<InProcessingController>getController();
         chatViewController.setOfferingArchive(chosenAccount);
         chatViewController.setArchiveController(this);
-        chatViewController.splitPane.setDividerPositions(1);
-        //this.scene = new Scene(window);
-        //   Stage stage = new Stage();
-        //   stage.initModality(Modality.APPLICATION_MODAL);
-        // (Stage) hostnameTextfield.getScene().getWindow();
-        //   stage.getScene();
-//stage.showAndWait();
-        //    stage.setResizable(true);
-        //      stage.setWidth(1040);
-        //   stage.setHeight(620);
-
-        //        stage.setOnCloseRequest((WindowEvent e) -> {
-        //           Platform.exit();
-        //       System.exit(0);
-        //    });
-        //  stage.setScene(this.scene);
-
-        //  stage.setMinWidth(800);
-        //   stage.setMinHeight(300);
-
-        //  ResizeHelper.addResizeListener(stage);
-        //      stage.showAndWait();
-        //  System.out.println("chatFive");
-
         chatViewController.setUsernameLabel(User.getContactName());
-        //   conn.setImageLabel("Default");
-        //   conn.setIdTextFild(chosenAccount.getID());
-        //   stage.showAndWait();
-        //  Listener listener = new Listener(hostname, port, username, picture, conn, this, chosenAccount);
-        //   Thread x = new Thread(listener);
-        //   x.start();
-
-
     }
 
 
@@ -433,10 +603,13 @@ public class ArchiveFilesController extends BorderPane implements Initializable,
 
     public void tableViewHandles() {
         tableView.setOnMouseClicked(mouseEvent -> fixSelectedRecord());
-        tableView.setOnKeyReleased(eventKey -> fixSelectedRecord());
+        tableView.setOnKeyReleased(eventKey -> {
+            UsefulUtils.searchCombination(eventKey, tableView);
+            fixSelectedRecord();
+        });
     }
 
-    private void fixSelectedRecord() {
+    protected void fixSelectedRecord() {
         ArchiveFiles record = (ArchiveFiles) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
 
         System.out.println("lllllllll" + record);
@@ -454,85 +627,102 @@ public class ArchiveFilesController extends BorderPane implements Initializable,
     public void createTableColumns() {
 
         try {
-            TableColumn<ArchiveFiles, String> number = new TableColumn<ArchiveFiles, String>("Номер запиту");
-            TableColumn<ArchiveFiles, String> createdOn = new TableColumn<ArchiveFiles, String>("Дата");
-            TableColumn<ArchiveFiles, String> createdBy = new TableColumn<ArchiveFiles, String>("Створив");
-            TableColumn<ArchiveFiles, String> accountCode = new TableColumn<ArchiveFiles, String>("Код контрагента");
-            TableColumn<ArchiveFiles, String> accountName = new TableColumn<ArchiveFiles, String>("Контрагент");
-            TableColumn<ArchiveFiles, String> accountSaldo = new TableColumn<ArchiveFiles, String>("Сальдо");
-            TableColumn<ArchiveFiles, String> accountIsSolid = new TableColumn<ArchiveFiles, String>("Солідність");
-            TableColumn<ArchiveFiles, String> storeCity = new TableColumn<ArchiveFiles, String>("Місто поставки");
-            TableColumn<ArchiveFiles, String> status = new TableColumn<ArchiveFiles, String>("Статус");
-            TableColumn<ArchiveFiles, String> groupChangedBy = new TableColumn<ArchiveFiles, String>("Змінив групу");
-            TableColumn<ArchiveFiles, String> specialMarginTypeName = new TableColumn<ArchiveFiles, String>("Тип спец націнки");
-            TableColumn<ArchiveFiles, String> stateName = new TableColumn<ArchiveFiles, String>("Статус запиту");
-            TableColumn<ArchiveFiles, String> chengeByAutouser = new TableColumn<ArchiveFiles, String>("Змінив автомат");
-            TableColumn<ArchiveFiles, String> offeringGroupName = new TableColumn<ArchiveFiles, String>("Група товарів");
-            TableColumn<ArchiveFiles, String> originalGroupName = new TableColumn<ArchiveFiles, String>("Початкова група");
 
+            hashColumns.put(colNumber, "[tbl_RequestOffering].[Number]");
+            hashColumns.put(colCreatedOn, "[tbl_RequestOffering].[CreatedOn]");
+            hashColumns.put(colCreatedBy, "[tbl_Contact].[Name]");
+            hashColumns.put(colAccountName, "[tbl_Account].[Name]");
+            hashColumns.put(colAccountCode, "[tbl_Account].[Code]");
+            hashColumns.put(colAccountSaldo, "[tbl_Account].[SaldoSel]");
+            hashColumns.put(colAccountIsSolid, "(CASE\n" +
+                    "    WHEN CONVERT(DATETIME,ISNULL([tbl_Account].[UnblockDate], '2000-01-01')) > CONVERT(DATETIME, CURRENT_TIMESTAMP) \n" +
+                    "    THEN ''\n" +
+                    "    WHEN [tbl_Account].[IsSolid] = 1\n" +
+                    "    THEN 'Не солідний'\n" +
+                    "    ELSE ''\n" +
+                    "END)");
+            hashColumns.put(colStatus, "[tbl_RequestOfferingStatus].[Name]");
+            hashColumns.put(colStoreCity, "[tbl_StoreCity].[Name]");
+            hashColumns.put(colOfferingGroupName, "[OfferingGroup].[Name]");
+            hashColumns.put(colOriginalGroupName, "SELECT\n" +
+                    "\t\t[OriginalGroupName].[Name] AS [Name]\n" +
+                    "\tFROM\n" +
+                    "\t\t[dbo].[tbl_Contact] AS [OriginalGroupName]\n");
+            hashColumns.put(colGroupChangedBy, "SELECT\n" +
+                    "\t\t[GroupChangedBy].[Name] AS [Name]\n" +
+                    "\tFROM\n" +
+                    "\t\t[dbo].[tbl_Contact] AS [GroupChangedBy]\n");
+            hashColumns.put(colSpecialMarginTypeName, "[SMT].[Name]");
+            List<?> listColumns = tableView.getColumns();
 
-            number.setVisible(false);
-            //    tableView.set(true);
+            colNumber.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("Number"));
+            colCreatedOn.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("CreatedOn"));
+            colCreatedBy.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("CreatedBy"));
+            colAccountCode.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("AccountCode"));
+            colAccountName.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("AccountName"));
+            colAccountSaldo.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, Double>("AccountSaldo"));
+            colAccountIsSolid.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("AccountIsSolid"));
+            colStoreCity.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("StoreCity"));
+            colStatus.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("Status"));
 
-            number.setMinWidth(150);
-
-            //    id.setVisible(false);
-            tableView.setTableMenuButtonVisible(true);
-//number.setVisible(false);
-            tableView.getColumns().addAll(
-                    number,
-                    createdOn,
-                    createdBy,
-                    accountCode,
-                    accountName,
-                    accountSaldo,
-                    accountIsSolid,
-                    storeCity,
-                    status,
-                    groupChangedBy,
-                    specialMarginTypeName,
-                    stateName,
-                    chengeByAutouser,
-                    offeringGroupName,
-                    originalGroupName);
-            number.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("Number"));
-            createdOn.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("CreatedOn"));
-            createdBy.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("CreatedBy"));
-            accountCode.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("AccountCode"));
-            accountName.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("AccountName"));
-            accountSaldo.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("AccountSaldo"));
-            accountIsSolid.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("AccountIsSolid"));
-            storeCity.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("StoreCity"));
-            status.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("Status"));
-            groupChangedBy.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("GroupChangedBy"));
-            specialMarginTypeName.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("SpecialMarginTypeName"));
-            stateName.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("StateName"));
-            chengeByAutouser.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("ChangeByAutouser"));
-            offeringGroupName.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("OfferingGroupName"));
-            originalGroupName.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("OriginalGroupName"));
+            colOfferingGroupName.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("OfferingGroupName"));
+            colOriginalGroupName.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("OriginalGroupName"));
+            colGroupChangedBy.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("GroupChangedBy"));
+            colSpecialMarginTypeName.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("SpecialMarginTypeName"));
 
 
         } catch (Exception e) {
             log.log(Level.SEVERE, "Exception in creating columns: " + e);
         }
-
+        super.createTableColumns();
     }
 
+
+
     @Override
-    public List<ArchiveFiles> loadDataFromDatabase() {
-        //  System.out.println(chosenAccount.getOfferingGroupID()+ "7899999999999999999999999999989854645613256131651156" + User.getContactID());
+    public void loadDataFromDatabase() {
+        data.clear();
         try {
 
-            List<ArchiveFiles> listItems = account.findAllInArchive(true, (int) toIndex,  User.getContactID(), User.getContactID());
+            if(queryAll == true){
+                List<ArchiveFiles> listItems = account.findInArchive(true, (int) toIndex,  User.getContactID(), User.getContactID());
+                listItems.forEach(item -> data.add(item));
 
-            listItems.forEach(item -> data.add(item));
+                tableView.setItems(data);
+            }else if (queryAll == false){
+                List<ArchiveFiles> listItems = account.findAllInArchive(true, (int) toIndex);
+                listItems.forEach(item -> data.add(item));
 
-            tableView.setItems(data);
+                tableView.setItems(data);
+            }
 
         } catch (Exception e) {
             log.log(Level.SEVERE, "Load data from database exception: " + e);
         }
-        return null;
+
+    }
+
+    @Override
+    public void disableFilter(TableColumn column, Pane content) {
+        account.removeStringFilter(column);
+        refreshData();
+
+        //column.filteredProperty().setValue(true);
+
+        if(content == null) {
+            removeFilterFromHbox(column);
+            return;
+        }
+
+        hboxFilter.getChildren().remove(content);
+
+
+        System.out.println("DISABLED");
+    }
+
+    @Override
+    public void removeFilterFromHbox(TableColumn column) {
+        hboxFilter.getChildren().remove(hashMiniFilter.get(column));
     }
 
     public BorderPane createPage(int pageIndex) {
@@ -540,15 +730,15 @@ public class ArchiveFilesController extends BorderPane implements Initializable,
 
 
             data = FXCollections.observableArrayList();
-
-            fromIndex = pageIndex * 40;
-            toIndex = Math.min(fromIndex + 40, accountQueries.getMainArchiveFilesCount());
-
-
             loadDataFromDatabase();
+            fromIndex = pageIndex * itemsPerPage;
+            toIndex = Math.min(fromIndex + itemsPerPage, data.size());
 
 
-            // tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
+
+
+
+             tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
         } catch (Exception e) {
             log.log(Level.SEVERE, "Switch page exception: " + e);
         }
@@ -564,14 +754,53 @@ public class ArchiveFilesController extends BorderPane implements Initializable,
 
         } finally {
             loadDataFromDatabase();
+
+            pageCount = getPageCount(data.size(), itemsPerPage);
+            pagination.setPageCount(pageCount);
+
         }
 
         UsefulUtils.fadeTransition(tableView);
     }
+
+    @Override
+    public void fillHboxFilter(TableColumn column, IFilterOperator.Type type, Object value) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+                "/views/MiniFilter.fxml"));
+
+        Pane content;
+        try {
+            content = fxmlLoader.load();
+
+
+            MiniFilterController miniC = fxmlLoader.getController();
+
+            miniC.setWindow(this, content);
+            miniC.setFilter(column, type, value);
+
+            hboxFilter.getChildren().add(content);
+
+
+            hashMiniFilter.put(column, content);
+
+            hboxFilter.setMargin(content, new Insets(0, 0, 0, 10));
+
+            scrollPaneFilter.setFitToHeight(true);
+
+            System.out.println("SETTTED");
+            //content.getStylesheets().add("sample/ua/ucountry/MainTables/Account/MainDictionaryTable.css");
+        } catch (IOException exception) {
+
+            throw new RuntimeException(exception);
+        }
+    }
+
 
 
     @Override
     public void update() {
         refreshData();
     }
+
+
 }

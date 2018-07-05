@@ -2,8 +2,6 @@ package com.client.chatwindow;
 
 import com.ChatTwoo.controller.ColumnMessage;
 import com.Utils.UsefulUtils;
-import com.client.login.MainLauncher;
-import com.client.util.VoicePlayback;
 import com.client.util.VoiceRecorder;
 import com.client.util.VoiceUtil;
 import com.connectDatabase.DBConnection;
@@ -15,22 +13,22 @@ import com.mainPage.InProcessing.InProcessing;
 import com.mainPage.InProcessing.InProcessingController;
 import com.mainPage.InTract.InTract;
 import com.mainPage.InTract.InTractController;
+import com.mainPage.page.MainPageController;
 import com.messages.Message;
-import com.messages.MessageType;
 import com.messages.User;
-import com.messages.bubble.BubbleSpec;
-import com.messages.bubble.BubbledLabel;
 import com.traynotifications.animations.AnimationType;
 import com.traynotifications.notification.TrayNotification;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,15 +39,21 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -58,45 +62,24 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 
-
-public class ChatController implements Initializable {
+public class ChatController extends ClientModelInt implements Initializable {
 
     @FXML
     public TextArea messageBox;
     @FXML
     private Label usernameLabel;
-    //@FXML
-    // private Label onlineCountLabel;
-    //@FXML
-    //private ListView userList;
-    // @FXML
-    //private ImageView userImageView;
     @FXML
-    private Button recordBtn;
+    private VBox chatPane;
     @FXML
-    ListView<HBox> chatPane;
-    // @FXML
-    //  private ListView<Text> chatPaneString;
+    private Button btnEmoji;
     @FXML
-    private VBox chatPaneVBox;
-    //@FXML
-    //ListView statusList;
+    private TextFlow emojiList;
     @FXML
-    BorderPane borderPane;
-    //@FXML
-    ///ComboBox<String> statusComboBox;
-    @FXML
-    ImageView microphoneImageView;
-    //@FXML
-    //private TextArea txtTitle;
-    // @FXML
-    //private TextField txtNumber;
-    //@FXML
-    //private TextField idTextFild;
+    private AnchorPane titleBar;
     @FXML
     public Button buttonSendTract;
     @FXML
@@ -104,7 +87,10 @@ public class ChatController implements Initializable {
     @FXML
     ScrollPane scrollPane;
     @FXML
-    public SplitPane splitPane;
+    private BorderPane rootPane;
+    @FXML
+    private AnchorPane chatPaneGeneral;
+
 
     ImageView userImageView = new ImageView();
     Listener listener = null;
@@ -127,6 +113,8 @@ public class ChatController implements Initializable {
 
     final KeyCombination keyComb1 = new KeyCodeCombination(KeyCode.ENTER,
             KeyCombination.CONTROL_DOWN);
+    final KeyCombination keyComb2 = new KeyCodeCombination(KeyCode.ENTER,
+            KeyCombination.ALT_DOWN);
     public ArrayList<Message> usersID = new ArrayList<>();
     public ArrayList<User> users = new ArrayList<>();
 
@@ -136,7 +124,8 @@ public class ChatController implements Initializable {
 
     private double xOffset;
     private double yOffset;
-
+    //MainPageController mainPageController = new MainPageController();
+    public MainPageController mainPageController;
 
     // Logger logger = LoggerFactory.getLogger(ChatController.class);
 
@@ -174,11 +163,11 @@ public class ChatController implements Initializable {
 
     public void init(InProcessingController inProcessingController) {
         this.inProcessingController = inProcessingController;
-       // try {
-       //     loadDataFromDataBase();
-       // } catch (SQLException e) {
-      //      e.printStackTrace();
-      //  }
+        // try {
+        //     loadDataFromDataBase();
+        // } catch (SQLException e) {
+        //      e.printStackTrace();
+        //  }
     }
 
     public void init(InTractController inTractController) {
@@ -190,66 +179,71 @@ public class ChatController implements Initializable {
         this.archiveFilesController = archiveFilesController;
 
     }
-    public void init (AllController allController){
+
+    public void init(AllController allController) {
         this.allController = allController;
     }
 
 
- /*   public void setInProcessingController(InProcessingController inProcessingController) {
-        this.inProcessingController = inProcessingController;
-        // txtTitle.setText(offeringRequest.getAccountName());
-        //  txtNumber.setText(offeringRequest.getNumber());
+    /*   public void setInProcessingController(InProcessingController inProcessingController) {
+           this.inProcessingController = inProcessingController;
+           // txtTitle.setText(offeringRequest.getAccountName());
+           //  txtNumber.setText(offeringRequest.getNumber());
 
 
-        //   user.setOfferingID(String.valueOf(offeringRequest));
+           //   user.setOfferingID(String.valueOf(offeringRequest));
+       }
+   */
+    public void setMainPageController(MainPageController controller) {
+
+        mainPageController = controller;
     }
-*/
+
+    public MainPageController getMainPageController() {
+        return mainPageController;
+    }
+
+
+    public void messageSendEnter() {
+
+    }
+
     public void setInTract(InTractController inTractController) {
         this.inTractController = inTractController;
-        //   txtTitle.setText(offeringTract.getAccountName());
-        // txtNumber.setText(offeringTract.getNumber());
-
         try {
             loadDataFromDataBaseInTract();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //   user.setOfferingID(String.valueOf(offeringRequest));
     }
 
     public void setArchiveController(ArchiveFilesController archiveFilesController) {
         this.archiveFilesController = archiveFilesController;
-        //   txtTitle.setText(offeringArchive.getAccountName());
-        //  txtNumber.setText(offeringArchive.getNumber());
         buttonSend.setVisible(false);
         buttonSendTract.setVisible(false);
         messageBox.setVisible(false);
-        recordBtn.setVisible(false);
-
-
+        chatPaneGeneral.setVisible(false);
+        btnEmoji.setVisible(false);
         try {
             loadDataFromDataBaseArchive();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        //   user.setOfferingID(String.valueOf(offeringRequest));
+        };
     }
 
     public void setAllController(AllController all) {
         this.allController = all;
-        //txtTitle.setText(offeringAll.getAccountName());
-        // txtNumber.setText(offeringAll.getNumber());
         messageBox.setVisible(false);
         buttonSend.setVisible(false);
         buttonSendTract.setVisible(false);
-        recordBtn.setVisible(false);
+        chatPaneGeneral.setVisible(false);
+        btnEmoji.setVisible(false);
 
         try {
             loadDataFromDataBaseAll();
-        } catch (SQLException e) {
+       } catch (SQLException e) {
             e.printStackTrace();
         }
-        //   user.setOfferingID(String.valueOf(offeringRequest));
     }
 
     public InProcessingController getInprocessingController() {
@@ -261,9 +255,60 @@ public class ChatController implements Initializable {
     }
 
     @FXML
-    public void sendButtonActionTract() throws IOException {
+    public void sendButtonAction() throws IOException {
+        if(messageBox.getText().trim().equals(""))return;
         String msg = messageBox.getText();
-        if (!messageBox.getText().isEmpty()) {
+
+
+            try {
+
+                try {
+                    Listener.send(msg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String query = "\tINSERT INTO [dbo].[tbl_MessageInRequestOffering] ([CreatedOn], [CreatedByID], [ModifiedOn], [RecipientID], [RequestID],  [Message])\n" +
+                        "\tVALUES ( CURRENT_TIMESTAMP , ? , CURRENT_TIMESTAMP, ? , ? , ? )";
+                pst = null;
+
+
+                pst = DBConnection.getDataSource().getConnection().prepareStatement(query);
+                pst.setString(1, com.login.User.getContactID());
+                pst.setString(2, columnMessage.getRecipientID());
+                pst.setString(3, offeringRequest.getID());
+                pst.setString(4, msg);
+                pst.execute();
+                String queryUpdate = "UPDATE tbl_RequestOffering \n" +
+                        "\t\t\t\t\tSET \n" +
+                        "\t\t\t\t\tIsReadMeassage = '1'\n" +
+                        "\t\t\t\t\tWHERE ID = ?";
+                pst = DBConnection.getDataSource().getConnection().prepareStatement(queryUpdate);
+                pst.setString(1, offeringRequest.getID());
+                pst.executeUpdate();
+                loadDataFromDataBase();
+                //   inProcessingController.refreshData();
+            } catch (SQLException e) {
+                UsefulUtils.showErrorDialogDown("Сервер не підключено!!!");
+                DBConnection database = new DBConnection();
+                database.reconnect();
+
+
+            }
+
+
+Listener.sendNotification(msg);
+        messageBox.clear();
+            messageBox.requestFocus();
+
+
+    }
+
+
+    @FXML
+    public void sendButtonActionTract() throws IOException {
+        if(messageBox.getText().trim().equals(""))return;
+        String msg = messageBox.getText();
+
             ListinerTract.send(msg);
             String query = "\tINSERT INTO [dbo].[tbl_MessageInRequestOffering] ([CreatedOn], [CreatedByID], [ModifiedOn], [RecipientID], [RequestID],  [Message])\n" +
                     "\tVALUES ( CURRENT_TIMESTAMP , ? , CURRENT_TIMESTAMP, ? , ? , ? )";
@@ -285,28 +330,35 @@ public class ChatController implements Initializable {
                 pst.setString(1, offeringTract.getID());
                 pst.executeUpdate();
                 loadDataFromDataBaseInTract();
-                //   inTractController.refreshData();
+               //    inTractController.refreshData();
             } catch (SQLException e) {
                 UsefulUtils.showErrorDialogDown("Сервер не підключено!!!");
             }
 
-        }
+
         messageBox.clear();
+            messageBox.requestFocus();
 
     }
 
-    public void sendButtonAction() throws IOException {
+
+    public void sendButtonActionOne() throws IOException {
 
         String msg = messageBox.getText();
+
         if (!messageBox.getText().isEmpty()) {
-
-
-            Listener.send(msg);
-            String query = "\tINSERT INTO [dbo].[tbl_MessageInRequestOffering] ([CreatedOn], [CreatedByID], [ModifiedOn], [RecipientID], [RequestID],  [Message])\n" +
-                    "\tVALUES ( CURRENT_TIMESTAMP , ? , CURRENT_TIMESTAMP, ? , ? , ? )";
-            pst = null;
-
             try {
+
+                try {
+                    Listener.send(msg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String query = "\tINSERT INTO [dbo].[tbl_MessageInRequestOffering] ([CreatedOn], [CreatedByID], [ModifiedOn], [RecipientID], [RequestID],  [Message])\n" +
+                        "\tVALUES ( CURRENT_TIMESTAMP , ? , CURRENT_TIMESTAMP, ? , ? , ? )";
+                pst = null;
+
+
                 pst = DBConnection.getDataSource().getConnection().prepareStatement(query);
                 pst.setString(1, com.login.User.getContactID());
                 pst.setString(2, columnMessage.getRecipientID());
@@ -320,8 +372,8 @@ public class ChatController implements Initializable {
                 pst = DBConnection.getDataSource().getConnection().prepareStatement(queryUpdate);
                 pst.setString(1, offeringRequest.getID());
                 pst.executeUpdate();
-           loadDataFromDataBase();
-              //   inProcessingController.refreshData();
+                loadDataFromDataBase();
+                //   inProcessingController.refreshData();
             } catch (SQLException e) {
                 UsefulUtils.showErrorDialogDown("Сервер не підключено!!!");
             }
@@ -329,6 +381,8 @@ public class ChatController implements Initializable {
 
         }
         messageBox.clear();
+
+
 
          /*   Platform.runLater(() -> {
              //   Image profileImg = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture().toLowerCase() +".png").toString(),50,50,false,false);
@@ -352,16 +406,17 @@ public class ChatController implements Initializable {
 
     }
 
+
     public void recordVoiceMessage() throws IOException {
         if (VoiceUtil.isRecording()) {
             Platform.runLater(() -> {
-                        microphoneImageView.setImage(microphoneInactiveImage);
+                      //  microphoneImageView.setImage(microphoneInactiveImage);
                     }
             );
             VoiceUtil.setRecording(false);
         } else {
             Platform.runLater(() -> {
-                        microphoneImageView.setImage(microphoneActiveImage);
+                        //microphoneImageView.setImage(microphoneActiveImage);
 
                     }
             );
@@ -372,7 +427,9 @@ public class ChatController implements Initializable {
     private SimpleDateFormat sdf;
 
     public void loadDataFromDataBase() throws SQLException {
-        chatPane.getItems().clear();
+        chatPane.getChildren().size();
+        chatPane.getChildren().clear();
+
         try {
             pst = connection.prepareStatement("SELECT\n" +
                     "\t[tbl_MessageInRequestOffering].[ID] AS [ID],\n" +
@@ -391,218 +448,130 @@ public class ChatController implements Initializable {
                     "WHERE([tbl_MessageInRequestOffering].[RequestID] = ?)\n" +
                     "ORDER BY\n" +
                     "\t2 ASC");
-            try {
-                System.out.println(offeringRequest.getID());
-            } catch (NullPointerException e) {
-                //       log.log(Level.SEVERE, "NULLLLL + " + e);
-            }
             pst.setString(1, offeringRequest.getID());
-            //  System.out.println("odinff" + offeringRequest.getID());
 
             rs = pst.executeQuery();
             while (rs.next()) {
                 dataMessage.add(new ColumnMessage(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(6)));
-                //   chatPane = new ListView<ColumnMessage>();
-
                 String date = rs.getString(2);
                 String user = rs.getString(4);
                 String message = rs.getString(6);
-
+                date = date.substring(0,19);
 
                 if (user.equals(com.login.User.getContactName())) {
                     Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
                     ImageView profileImage = new ImageView(image);
                     profileImage.setFitHeight(32);
                     profileImage.setFitWidth(32);
-                    Text b16 = new Text();
-                    b16.setText(date + "  " + user + ":  \n" + message);
-                    b16.setTextAlignment(TextAlignment.LEFT);
-                    // b16.setX(10.0f);
-                    //b16.setY(140.0f);
-                    //  b16.setCache(true);
-                    b16.setFill(Color.BLACK);
-                    b16.setFont(Font.font(null, 14));
-                    //
-                    HBox listView = new HBox();
-                    listView.setAlignment(Pos.CENTER);
-                    listView.setStyle("-fx-background-color: rgba(188,143,143,0.46);" +
-                            "    -fx-background-radius: 15, 8;\n" +
-                            "    -fx-background-insets: 1, 0;\n" +
-                            //         "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                            "    -fx-text-fill: #000000;"
-                    );
-                    listView.getChildren().addAll(profileImage, b16);
-                    chatPane.getItems().add(listView);
+                    TextFlow textFlow = new TextFlow();
+                    Text b19 = new Text();
+                    TextField b18 = new TextField();
+                    b18.setEditable(false);
+                  //  b19.setEditable(false);
+                    b18.setText(date + " " + user + ":" );
+                    b19.setText(message);
+                    b18.setFont(Font.font(null, 12));
+                    b19.setFont(Font.font(null, 16));
+                    b18.setAlignment(Pos.CENTER_LEFT);
+                 //   b19.setStyle("-fx-background-color: transparent;");
+                    b18.setStyle("-fx-background-color: transparent;");
 
-     /*               Task<VBox> yourMessages = new Task<VBox>() {
+                //    b19.getStylesheets().add("styles/TextArea.css");
+                  //  b19.setWrapText(true);
+
+
+
+                    b19.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
                         @Override
-                        public VBox call() throws Exception {
-
-                      /*  Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
-                        ImageView profileImage = new ImageView(image);
-                        profileImage.setFitHeight(32);
-                        profileImage.setFitWidth(32);
-
-                        BubbledLabel bl6 = new BubbledLabel();
-
-                            bl6.setText(date + "  " + user + ":  \n" + message);
-
-                           bl6.setStyle("-fx-background-color: rgba(245,248,255,0.46);" +
-                                    "    -fx-background-radius: 6, 5;\n" +
-                                   "    -fx-background-insets: 0, 1;\n" +
-                                    "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );\n" +
-                                   "    -fx-text-fill: #395306;");
-
-
-                              bl6.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,
-                                              null, null)));
-                        Text x = new Text();
-                   //     x.setMaxWidth(chatPane.getWidth() - 20);
-                        x.setTextAlignment(TextAlignment.LEFT);
-                        bl6.setBubbleSpec(BubbleSpec.FACE_RIGHT_CENTER);
-                        x.setTextAlignment(TextAlignment.RIGHT);
-                        bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                        x.setX(10.0f);
-                        x.setY(140.0f);
-                        x.setCache(true);
-                        x.setFill(Color.CHOCOLATE);
-                        x.setFont(Font.font(null, FontWeight.BOLD, 36));
-                        x.setEffect(new GaussianBlur());
-                     //   x.getChildren().addAll(bl6, profileImage);
-
-                   //     setOnlineLabel(Integer.toString(msg.getOnlineCount()));*/
-                   /*         return listView;
+                        public void handle(KeyEvent event) {
+                            // your algorithm to change height
+                         //   b19.setPrefHeight(b19.getPrefHeight()+28);
                         }
-                    };
-                    yourMessages.setOnSucceeded(event -> chatPane.getItems().add(yourMessages.getValue()));
+                    });
 
-                    //    chatPane.setItems((ObservableList<HBox>) yourMessages.getItems());
+                    VBox hBox = new VBox();
+                    hBox.setAlignment(Pos.CENTER_LEFT);
+                    hBox.setStyle("-fx-background-color: rgba(188,143,143,0.46);" +
+                           "    -fx-background-radius: 15, 8;\n" +
+                           "    -fx-background-insets: 1, 0;\n" +
+                            "    -fx-text-fill: #000000;");
+                   textFlow.getChildren().addAll( b19);
+                  //  hBox.setAlignment(Pos.CENTER);
+                    hBox.setPadding(new Insets(10));
 
-                    Thread t2 = new Thread(yourMessages);
-                    t2.setDaemon(true);
-                    //       try {
-                    //           t2.sleep(300);
-                    //     } catch (InterruptedException e) {
-                    //         e.printStackTrace();
-                    //      }
-                    t2.start();*/
-//
-                    // chatPane.setItems((ObservableList<HBox>) yourMessages.getValue());
+                    // Set Hgrow for TextField
+                    HBox.setHgrow(b19, Priority.ALWAYS);
+                  //  hBox.autosize();
+                //    hBox.setHgrow(textFlow,  Priority.ALWAYS);
+                    hBox.getChildren().addAll(profileImage, b19);
+
+
+                    chatPane.getChildren().addAll(b18, hBox);
+                    chatPane.setAlignment(Pos.CENTER_LEFT);
                 } else {
-                    //           BubbledLabel bl6 = new BubbledLabel();
-
-                    Text b16 = new Text();
-
-                    b16.setFill(Color.BLACK);
-                    b16.setText(date + "  " + user + ":  \n" + message);
-                    b16.setTextAlignment(TextAlignment.LEFT);
-                    //  b16.setX(10.0f);
-                    // b16.setY(140.0f);
-
-                    b16.setFont(Font.font(null, 14));
-
-                    //String b16 = (date + "  " + user + ":  \n" + message);
-                    // bl6.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-
-                    //   HBox x = new HBox();
-                    //    x.setAlignment(Pos.TOP_RIGHT);
-                    // bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                    //   x.getChildren().addAll(bl6);
                     Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
                     ImageView profileImage = new ImageView(image);
                     profileImage.setFitHeight(32);
                     profileImage.setFitWidth(32);
-                    HBox listView = new HBox();
-                    listView.setAlignment(Pos.CENTER);
-                    listView.setStyle("-fx-background-color: rgba(0,191,255,0.46);" +
+                    TextFlow textFlow = new TextFlow();
+                    Text b19 = new Text();
+                    TextField b18 = new TextField();
+                    b18.setEditable(false);
+                   // b19.setEditable(false);
+                    b18.setText(date + " " + user + ":" );
+                    b19.setText(message);
+                    b18.setFont(Font.font(null, 12));
+                    b19.setStyle("-fx-background-color: transparent;");
+                    b18.setStyle("-fx-background-color: transparent;");
+                    b18.setAlignment(Pos.CENTER_RIGHT);
+                    b19.setFont(Font.font(null, 16));
+                    b18.getTypeSelector();
+                    b19.setStyle("-fx-background-color: transparent;");
+                    b18.setStyle("-fx-background-color: transparent;");
+                    b19.setStyle(
+                        "-fx-background-insets: 0;" +
+                        "-fx-background-color: transparent, white, transparent, white;" +
+                        "-fx-background-radius: 0, 0, 0, 0;"+
+                                "-fx-box-border: none;" +
+                        "-fx-focus-color: -fx-control-inner-background;" +
+                        "-fx-faint-focus-color: -fx-control-inner-background;" +
+                        "-fx-text-box-border: -fx-control-inner-background;" +
+                        "-fx-border-width: -1;");
+                    HBox hBox = new HBox();
+                    hBox.setStyle("-fx-background-color: rgba(0,191,255,0.46);" +
                             "    -fx-background-radius: 15, 8;\n" +
                             "    -fx-background-insets: 0, 1;\n" +
-                            ///       "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
                             "    -fx-text-fill: #000000;"
                     );
-                    listView.getChildren().addAll(profileImage, b16);
-                    chatPane.getItems().add(listView);
-
-          /*     Task<VBox> othersMessages = new Task<VBox>() {
-                    @Override
-                    public VBox call() throws Exception {
-                      // Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
-                     /*   ImageView profileImage = new ImageView(image);
-                        profileImage.setFitHeight(32);
-                        profileImage.setFitWidth(32);
-                        BubbledLabel bl6 = new BubbledLabel();
-                        bl6.setText(date + "  " + user + ":  \n" + message);
-                     //   bl6.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-                        bl6.setStyle("-fx-background-color: rgba(89,255,245,0.46);" +
-                                "    -fx-background-radius: 6, 5;\n" +
-                                "    -fx-background-insets: 0, 1;\n" +
-                                "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                                "    -fx-text-fill: #395306;");
-                        Text x = new Text();
-                        x.setTextAlignment(TextAlignment.RIGHT);
-                        bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                   //     x.getChildren().addAll(profileImage, bl6);
-                        x.setTextAlignment(TextAlignment.RIGHT);
-                        bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                        x.setX(10.0f);
-                        x.setY(140.0f);
-                        x.setCache(true);
-                        x.setFill(Color.RED);
-                        x.setFont(Font.font(null, FontWeight.BOLD, 36));
-                        x.setEffect(new GaussianBlur());*/
-                    //    logger.debug("ONLINE USERS: " + Integer.toString(msg.getUserlist().size()));
-                    //   setOnlineLabel(Integer.toString(msg.getOnlineCount()));
-                 /*       return x;
-                    }
-                };
-
-                othersMessages.setOnSucceeded(event -> {
-                    chatPane.getItems().add(othersMessages.getValue());
-                });
-
-
-
-                   Thread t = new Thread(othersMessages);
-                t.setDaemon(true);
-                //    try {
-                //        t.sleep(100);
-                //    } catch (InterruptedException e) {
-                //        e.printStackTrace();
-               //     }
-                          t.start();
-              //      chatPane.setItems((ObservableList<HBox>) othersMessages.getValue());
-                        }
-
-                //    yourMessages.setOnSucceeded(event -> chatPane.setItems(dataMessage));
-
-              //  chatPane.setItems(dataMessage);
-                //   } else {
-                //      othersMessages.setOnSucceeded(event -> chatPane.setItems(dataMessage));*/
+                    textFlow.getChildren().addAll( b19);
+                    hBox.setPrefWidth(Region.USE_PREF_SIZE);
+                    hBox.setAlignment(Pos.CENTER_RIGHT);
+                    hBox.autosize();
+                    hBox.getChildren().addAll(profileImage, textFlow);
+                    chatPane.getChildren().addAll(b18, hBox);
+                    chatPane.setAlignment(Pos.CENTER_RIGHT);
                 }
-
-        /*	StringBuilder builder = new StringBuilder();
-            builder.append("Дата\n"+ dataMessage.add(new ColumnMessage (rs.getString(5))) );
-			txtAreaServerMsgs.setText(builder.toString());*/
-
-
             }
-            //chatPane.getItems().add(x);
-            //  chatPane.getItems().add(x);
-            // chatPane.setItems(dataMessage);
-            //   chatPane.setItems((ObservableList<HBox>) dataMessage.get(6));
-            //chatPane.setItems(dataMessage);
-
-///chatPane.setItems(dataMessage);
         } catch (SQLException e) {
             e.printStackTrace();
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
-        //	tableview.setItems(dataMessage);
+    }
+    @FXML
+    void emojiAction(ActionEvent event) {
+        if(emojiList.isVisible()){
 
-
+            emojiList.setVisible(false);
+        }else {
+            emojiList.setVisible(true);
+        }
     }
 
     private void loadDataFromDataBaseInTract() throws SQLException {
-        chatPane.getItems().clear();
+        chatPane.getChildren().size();
+        chatPane.getChildren().clear();
+
         try {
             pst = connection.prepareStatement("SELECT\n" +
                     "\t[tbl_MessageInRequestOffering].[ID] AS [ID],\n" +
@@ -621,224 +590,97 @@ public class ChatController implements Initializable {
                     "WHERE([tbl_MessageInRequestOffering].[RequestID] = ?)\n" +
                     "ORDER BY\n" +
                     "\t2 ASC");
-            try {
-                System.out.println(offeringTract.getID());
-            } catch (NullPointerException e) {
-                //       log.log(Level.SEVERE, "NULLLLL + " + e);
-            }
             pst.setString(1, offeringTract.getID());
-            //  System.out.println("odinff" + offeringRequest.getID());
 
             rs = pst.executeQuery();
             while (rs.next()) {
                 dataMessage.add(new ColumnMessage(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(6)));
-                //   chatPane = new ListView<ColumnMessage>();
-
-
                 String date = rs.getString(2);
                 String user = rs.getString(4);
                 String message = rs.getString(6);
-
+                date = date.substring(0,19);
 
                 if (user.equals(com.login.User.getContactName())) {
                     Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
                     ImageView profileImage = new ImageView(image);
                     profileImage.setFitHeight(32);
                     profileImage.setFitWidth(32);
-                    Text b16 = new Text();
-
-                    b16.setText(date + "  " + user + ":  \n" + message);
-                    b16.setTextAlignment(TextAlignment.LEFT);
-                    // b16.setX(10.0f);
-                    //b16.setY(140.0f);
-                    //  b16.setCache(true);
-                    b16.setFill(Color.BLACK);
-                    b16.setFont(Font.font(null, 14));
-                    //
-                    HBox listView = new HBox();
-                    listView.setAlignment(Pos.CENTER);
-                    listView.setStyle("-fx-background-color: rgba(188,143,143,0.46);" +
+                    TextFlow textFlow = new TextFlow();
+                    TextField b19 = new TextField();
+                    TextField b18 = new TextField();
+                    b18.setEditable(false);
+                    b19.setEditable(false);
+                    b18.setText(date + " " + user + ":" );
+                    b19.setText(message);
+                    b18.setFont(Font.font(null, 12));
+                    b18.setAlignment(Pos.CENTER_LEFT);
+                    b19.setStyle("-fx-background-color: transparent;");
+                    b18.setStyle("-fx-background-color: transparent;");
+                    b19.setFont(Font.font(null, 14));
+                    HBox hBox = new HBox();
+                    hBox.setAlignment(Pos.CENTER_LEFT);
+                    hBox.setStyle("-fx-background-color: rgba(188,143,143,0.46);" +
                             "    -fx-background-radius: 15, 8;\n" +
                             "    -fx-background-insets: 1, 0;\n" +
-                            //         "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                            "    -fx-text-fill: #000000;"
-                    );
-                    listView.getChildren().addAll(profileImage, b16);
-                    chatPane.getItems().add(listView);
-
-                    //String b16 = (date + "  " + user + ":  \n" + message);
-                    //   bl6.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-             /*   bl6.setStyle("-fx-background-color: rgba(89,255,245,0.46);" +
-                        "    -fx-background-radius: 6, 5;\n" +
-                        "    -fx-background-insets: 0, 1;\n" +
-                        "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                        "    -fx-text-fill: #395306;");*/
-                    //   HBox x = new HBox();
-                    //    x.setAlignment(Pos.TOP_RIGHT);
-                    // bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                    //   x.getChildren().addAll(bl6);
-                    //   chatPane.getItems().add(b16);
-
-                   /* Task<HBox> yourMessages = new Task<HBox>() {
-                        @Override
-                        public HBox call() throws Exception {
-                            //      Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
-                            ImageView profileImage = new ImageView(image);
-                            profileImage.setFitHeight(32);
-                            profileImage.setFitWidth(32);
-
-                            BubbledLabel bl6 = new BubbledLabel();
-
-                            bl6.setText(date + "  " + user + ":  \n" + message);
-
-                            bl6.setStyle("-fx-background-color: rgba(245,248,255,0.46);" +
-                                    "    -fx-background-radius: 6, 5;\n" +
-                                    "    -fx-background-insets: 0, 1;\n" +
-                                    "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );\n" +
-                                    "    -fx-text-fill: #395306;");
-
-
-                              bl6.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,
-                                    null, null)));
-                            HBox x = new HBox();
-                               x.setMaxWidth(chatPane.getWidth() - 20);
-                            x.setAlignment(Pos.TOP_LEFT);
-                            bl6.setBubbleSpec(BubbleSpec.FACE_RIGHT_CENTER);
-                            x.getChildren().addAll(bl6, profileImage);
-
-                            //     setOnlineLabel(Integer.toString(msg.getOnlineCount()));
-                            return x;
-                        }
-                    };
-                    yourMessages.setOnSucceeded(event -> chatPane.getItems().add(yourMessages.getValue()));
-                    Thread t2 = new Thread(yourMessages);
-                    t2.setDaemon(true);
-                    try {
-                        t2.sleep(300);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    t2.start();*/
-
-                    // chatPane.setItems((ObservableList<HBox>) yourMessages.getValue());
+                            "    -fx-text-fill: #000000;");
+                    textFlow.getChildren().addAll( b19);
+                    hBox.autosize();
+                    hBox.getChildren().addAll(profileImage, textFlow);
+                    chatPane.getChildren().addAll(b18, hBox);
+                    chatPane.setAlignment(Pos.CENTER_LEFT);
                 } else {
-                    Text b16 = new Text();
-
-                    b16.setFill(Color.BLACK);
-                    b16.setText(date + "  " + user + ":  \n" + message);
-                    b16.setTextAlignment(TextAlignment.LEFT);
-                    //  b16.setX(10.0f);
-                    // b16.setY(140.0f);
-
-                    b16.setFont(Font.font(null, 14));
-
-                    //String b16 = (date + "  " + user + ":  \n" + message);
-                    // bl6.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-
-                    //   HBox x = new HBox();
-                    //    x.setAlignment(Pos.TOP_RIGHT);
-                    // bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                    //   x.getChildren().addAll(bl6);
                     Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
                     ImageView profileImage = new ImageView(image);
                     profileImage.setFitHeight(32);
                     profileImage.setFitWidth(32);
-                    HBox listView = new HBox();
-                    listView.setAlignment(Pos.CENTER);
-                    listView.setStyle("-fx-background-color: rgba(0,191,255,0.46);" +
+                    TextFlow textFlow = new TextFlow();
+                    TextField b19 = new TextField();
+                    TextField b18 = new TextField();
+                    b18.setEditable(false);
+                    b19.setEditable(false);
+                    b18.setText(date + " " + user + ":" );
+                    b19.setText(message);
+                    b18.setFont(Font.font(null, 12));
+                    b18.setAlignment(Pos.CENTER_RIGHT);
+                    b19.setFont(Font.font(null, 14));
+                    b18.getTypeSelector();
+                    b19.setStyle("-fx-background-color: transparent;");
+                    b18.setStyle("-fx-background-color: transparent;");
+                    b19.setStyle(
+                            "-fx-background-insets: 0;" +
+                                    "-fx-background-color: transparent, white, transparent, white;" +
+                                    "-fx-background-radius: 0, 0, 0, 0;"+
+                                    "-fx-box-border: none;" +
+                                    "-fx-focus-color: -fx-control-inner-background;" +
+                                    "-fx-faint-focus-color: -fx-control-inner-background;" +
+                                    "-fx-text-box-border: -fx-control-inner-background;" +
+                                    "-fx-border-width: -1;");
+                    HBox hBox = new HBox();
+                    hBox.setStyle("-fx-background-color: rgba(0,191,255,0.46);" +
                             "    -fx-background-radius: 15, 8;\n" +
                             "    -fx-background-insets: 0, 1;\n" +
-                            ///       "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
                             "    -fx-text-fill: #000000;"
                     );
-                    listView.getChildren().addAll(profileImage, b16);
-                    chatPane.getItems().add(listView);
-
-                    //String b16 = (date + "  " + user + ":  \n" + message);
-                    //   bl6.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-             /*   bl6.setStyle("-fx-background-color: rgba(89,255,245,0.46);" +
-                        "    -fx-background-radius: 6, 5;\n" +
-                        "    -fx-background-insets: 0, 1;\n" +
-                        "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                        "    -fx-text-fill: #395306;");*/
-                    //   HBox x = new HBox();
-                    //    x.setAlignment(Pos.TOP_RIGHT);
-                    // bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                    //   x.getChildren().addAll(bl6);
-                    //  chatPane.getItems().add(b16);
-                    /*Task<HBox> othersMessages = new Task<HBox>() {
-                        @Override
-                        public HBox call() throws Exception {
-                            // Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
-                            ImageView profileImage = new ImageView(image);
-                            profileImage.setFitHeight(32);
-                            profileImage.setFitWidth(32);
-                            BubbledLabel bl6 = new BubbledLabel();
-                            bl6.setText(date + "  " + user + ":  \n" + message);
-                            //   bl6.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-                            bl6.setStyle("-fx-background-color: rgba(89,255,245,0.46);" +
-                                    "    -fx-background-radius: 6, 5;\n" +
-                                    "    -fx-background-insets: 0, 1;\n" +
-                                    "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                                    "    -fx-text-fill: #395306;");
-                            HBox x = new HBox();
-                            x.setAlignment(Pos.TOP_RIGHT);
-                            bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                            x.getChildren().addAll(profileImage, bl6);
-                            //    logger.debug("ONLINE USERS: " + Integer.toString(msg.getUserlist().size()));
-                            //   setOnlineLabel(Integer.toString(msg.getOnlineCount()));
-                            return x;
-                        }
-                    };
-
-                    othersMessages.setOnSucceeded(event -> {
-                        chatPane.getItems().add(othersMessages.getValue());
-                    });
-
-
-
-                    Thread t = new Thread(othersMessages);
-                    t.setDaemon(true);
-                    try {
-                        t.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    t.start();*/
-                    //      chatPane.setItems((ObservableList<HBox>) othersMessages.getValue());
+                    textFlow.getChildren().addAll( b19);
+                    hBox.setPrefWidth(Region.USE_PREF_SIZE);
+                    hBox.setAlignment(Pos.CENTER_RIGHT);
+                    hBox.autosize();
+                    hBox.getChildren().addAll(profileImage, textFlow);
+                    chatPane.getChildren().addAll(b18, hBox);
+                    chatPane.setAlignment(Pos.CENTER_RIGHT);
                 }
-
-                //    yourMessages.setOnSucceeded(event -> chatPane.setItems(dataMessage));
-
-                //  chatPane.setItems(dataMessage);
-                //   } else {
-                //      othersMessages.setOnSucceeded(event -> chatPane.setItems(dataMessage));
-                //    }
-
-        /*	StringBuilder builder = new StringBuilder();
-            builder.append("Дата\n"+ dataMessage.add(new ColumnMessage (rs.getString(5))) );
-			txtAreaServerMsgs.setText(builder.toString());*/
-
-
-                //    chatPane.setItems(dataMessage);
-
-
             }
-
-            //chatPane.setItems(dataMessage);
-
-///chatPane.setItems(dataMessage);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //	tableview.setItems(dataMessage);
-
 
     }
 
 
     private void loadDataFromDataBaseArchive() throws SQLException {
-        chatPane.getItems().clear();
+        chatPane.getChildren().size();
+        chatPane.getChildren().clear();
+
         try {
             pst = connection.prepareStatement("SELECT\n" +
                     "\t[tbl_MessageInRequestOffering].[ID] AS [ID],\n" +
@@ -857,225 +699,98 @@ public class ChatController implements Initializable {
                     "WHERE([tbl_MessageInRequestOffering].[RequestID] = ?)\n" +
                     "ORDER BY\n" +
                     "\t2 ASC");
-            try {
-                System.out.println(offeringArchive.getID());
-            } catch (NullPointerException e) {
-                //       log.log(Level.SEVERE, "NULLLLL + " + e);
-            }
             pst.setString(1, offeringArchive.getID());
-            //  System.out.println("odinff" + offeringRequest.getID());
 
             rs = pst.executeQuery();
             while (rs.next()) {
                 dataMessage.add(new ColumnMessage(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(6)));
-                //   chatPane = new ListView<ColumnMessage>();
-
-
                 String date = rs.getString(2);
                 String user = rs.getString(4);
                 String message = rs.getString(6);
-
+                date = date.substring(0,19);
 
                 if (user.equals(com.login.User.getContactName())) {
                     Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
                     ImageView profileImage = new ImageView(image);
                     profileImage.setFitHeight(32);
                     profileImage.setFitWidth(32);
-                    Text b16 = new Text();
-
-                    b16.setText(date + "  " + user + ":  \n" + message);
-                    b16.setTextAlignment(TextAlignment.LEFT);
-                    // b16.setX(10.0f);
-                    //b16.setY(140.0f);
-                    //  b16.setCache(true);
-                    b16.setFill(Color.BLACK);
-                    b16.setFont(Font.font(null, 14));
-                    //
-                    HBox listView = new HBox();
-                    listView.setAlignment(Pos.CENTER);
-                    listView.setStyle("-fx-background-color: rgba(188,143,143,0.46);" +
+                    TextFlow textFlow = new TextFlow();
+                    TextField b19 = new TextField();
+                    TextField b18 = new TextField();
+                    b18.setEditable(false);
+                    b19.setEditable(false);
+                    b18.setText(date + " " + user + ":" );
+                    b19.setText(message);
+                    b18.setFont(Font.font(null, 12));
+                    b18.setAlignment(Pos.CENTER_LEFT);
+                    b19.setStyle("-fx-background-color: transparent;");
+                    b18.setStyle("-fx-background-color: transparent;");
+                    b19.setFont(Font.font(null, 14));
+                    HBox hBox = new HBox();
+                    hBox.setAlignment(Pos.CENTER_LEFT);
+                    hBox.setStyle("-fx-background-color: rgba(188,143,143,0.46);" +
                             "    -fx-background-radius: 15, 8;\n" +
                             "    -fx-background-insets: 1, 0;\n" +
-                            //         "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                            "    -fx-text-fill: #000000;"
-                    );
-                    listView.getChildren().addAll(profileImage, b16);
-                    chatPane.getItems().add(listView);
-
-
-                    //String b16 = (date + "  " + user + ":  \n" + message);
-                    //   bl6.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-             /*   bl6.setStyle("-fx-background-color: rgba(89,255,245,0.46);" +
-                        "    -fx-background-radius: 6, 5;\n" +
-                        "    -fx-background-insets: 0, 1;\n" +
-                        "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                        "    -fx-text-fill: #395306;");*/
-                    //   HBox x = new HBox();
-                    //    x.setAlignment(Pos.TOP_RIGHT);
-                    // bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                    //   x.getChildren().addAll(bl6);
-                    //   chatPane.getItems().add(b16);
-                  /*  Task<HBox> yourMessages = new Task<HBox>() {
-                        @Override
-                        public HBox call() throws Exception {
-                            //      Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
-                            ImageView profileImage = new ImageView(image);
-                            profileImage.setFitHeight(32);
-                            profileImage.setFitWidth(32);
-
-                            BubbledLabel bl6 = new BubbledLabel();
-
-                            bl6.setText(date + "  " + user + ":  \n" + message);
-
-                            bl6.setStyle("-fx-background-color: rgba(245,248,255,0.46);" +
-                                    "    -fx-background-radius: 6, 5;\n" +
-                                    "    -fx-background-insets: 0, 1;\n" +
-                                    "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );\n" +
-                                    "    -fx-text-fill: #395306;");
-
-
-                            //  bl6.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,
-                            //        null, null)));
-                            HBox x = new HBox();
-                            //   x.setMaxWidth(chatPane.getWidth() - 20);
-                            x.setAlignment(Pos.TOP_LEFT);
-                            bl6.setBubbleSpec(BubbleSpec.FACE_RIGHT_CENTER);
-                            x.getChildren().addAll(bl6, profileImage);
-
-                            //     setOnlineLabel(Integer.toString(msg.getOnlineCount()));
-                            return x;
-                        }
-                    };
-                    yourMessages.setOnSucceeded(event -> chatPane.getItems().add(yourMessages.getValue()));
-                    Thread t2 = new Thread(yourMessages);
-                    t2.setDaemon(true);
-                    try {
-                        t2.sleep(300);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    t2.start();*/
-
-                    // chatPane.setItems((ObservableList<HBox>) yourMessages.getValue());
+                            "    -fx-text-fill: #000000;");
+                    textFlow.getChildren().addAll( b19);
+                    hBox.autosize();
+                    hBox.getChildren().addAll(profileImage, textFlow);
+                    chatPane.getChildren().addAll(b18, hBox);
+                    chatPane.setAlignment(Pos.CENTER_LEFT);
                 } else {
-                    Text b16 = new Text();
-
-                    b16.setFill(Color.BLACK);
-                    b16.setText(date + "  " + user + ":  \n" + message);
-                    b16.setTextAlignment(TextAlignment.LEFT);
-                    //  b16.setX(10.0f);
-                    // b16.setY(140.0f);
-
-                    b16.setFont(Font.font(null, 14));
-
-                    //String b16 = (date + "  " + user + ":  \n" + message);
-                    // bl6.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-
-                    //   HBox x = new HBox();
-                    //    x.setAlignment(Pos.TOP_RIGHT);
-                    // bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                    //   x.getChildren().addAll(bl6);
                     Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
                     ImageView profileImage = new ImageView(image);
                     profileImage.setFitHeight(32);
                     profileImage.setFitWidth(32);
-                    HBox listView = new HBox();
-                    listView.setAlignment(Pos.CENTER);
-                    listView.setStyle("-fx-background-color: rgba(0,191,255,0.46);" +
+                    TextFlow textFlow = new TextFlow();
+                    TextField b19 = new TextField();
+                    TextField b18 = new TextField();
+                    b18.setEditable(false);
+                    b19.setEditable(false);
+                    b18.setText(date + " " + user + ":" );
+                    b19.setText(message);
+                    b18.setFont(Font.font(null, 12));
+                    b18.setAlignment(Pos.CENTER_RIGHT);
+                    b19.setFont(Font.font(null, 14));
+                    b18.getTypeSelector();
+                    b19.setStyle("-fx-background-color: transparent;");
+                    b18.setStyle("-fx-background-color: transparent;");
+                    b19.setStyle(
+                            "-fx-background-insets: 0;" +
+                                    "-fx-background-color: transparent, white, transparent, white;" +
+                                    "-fx-background-radius: 0, 0, 0, 0;"+
+                                    "-fx-box-border: none;" +
+                                    "-fx-focus-color: -fx-control-inner-background;" +
+                                    "-fx-faint-focus-color: -fx-control-inner-background;" +
+                                    "-fx-text-box-border: -fx-control-inner-background;" +
+                                    "-fx-border-width: -1;");
+                    HBox hBox = new HBox();
+                    hBox.setStyle("-fx-background-color: rgba(0,191,255,0.46);" +
                             "    -fx-background-radius: 15, 8;\n" +
                             "    -fx-background-insets: 0, 1;\n" +
-                            ///       "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
                             "    -fx-text-fill: #000000;"
                     );
-                    listView.getChildren().addAll(profileImage, b16);
-                    chatPane.getItems().add(listView);
-
-                    //String b16 = (date + "  " + user + ":  \n" + message);
-                    //   bl6.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-             /*   bl6.setStyle("-fx-background-color: rgba(89,255,245,0.46);" +
-                        "    -fx-background-radius: 6, 5;\n" +
-                        "    -fx-background-insets: 0, 1;\n" +
-                        "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                        "    -fx-text-fill: #395306;");*/
-                    //   HBox x = new HBox();
-                    //    x.setAlignment(Pos.TOP_RIGHT);
-                    // bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                    //   x.getChildren().addAll(bl6);
-                    //   chatPane.getItems().add(b16);
-                   /*Task<HBox> othersMessages = new Task<HBox>() {
-                        @Override
-                        public HBox call() throws Exception {
-                            // Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
-                            ImageView profileImage = new ImageView(image);
-                            profileImage.setFitHeight(32);
-                            profileImage.setFitWidth(32);
-                            BubbledLabel bl6 = new BubbledLabel();
-                            bl6.setText(date + "  " + user + ":  \n" + message);
-                            //   bl6.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-                            bl6.setStyle("-fx-background-color: rgba(89,255,245,0.46);" +
-                                    "    -fx-background-radius: 6, 5;\n" +
-                                    "    -fx-background-insets: 0, 1;\n" +
-                                    "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                                    "    -fx-text-fill: #395306;");
-                            HBox x = new HBox();
-                            x.setAlignment(Pos.TOP_RIGHT);
-                            bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                            x.getChildren().addAll(profileImage, bl6);
-                            //    logger.debug("ONLINE USERS: " + Integer.toString(msg.getUserlist().size()));
-                            //   setOnlineLabel(Integer.toString(msg.getOnlineCount()));
-                            return x;
-                        }
-                    };
-
-                    othersMessages.setOnSucceeded(event -> {
-                        chatPane.getItems().add(othersMessages.getValue());
-                    });
-
-
-
-                    Thread t = new Thread(othersMessages);
-                    t.setDaemon(true);
-                    try {
-                        t.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    t.start();*/
-                    //      chatPane.setItems((ObservableList<HBox>) othersMessages.getValue());
+                    textFlow.getChildren().addAll( b19);
+                    hBox.setPrefWidth(Region.USE_PREF_SIZE);
+                    hBox.setAlignment(Pos.CENTER_RIGHT);
+                    hBox.autosize();
+                    hBox.getChildren().addAll(profileImage, textFlow);
+                    chatPane.getChildren().addAll(b18, hBox);
+                    chatPane.setAlignment(Pos.CENTER_RIGHT);
                 }
-
-                //    yourMessages.setOnSucceeded(event -> chatPane.setItems(dataMessage));
-
-                //  chatPane.setItems(dataMessage);
-                //   } else {
-                //      othersMessages.setOnSucceeded(event -> chatPane.setItems(dataMessage));
-                //    }
-
-        /*	StringBuilder builder = new StringBuilder();
-            builder.append("Дата\n"+ dataMessage.add(new ColumnMessage (rs.getString(5))) );
-			txtAreaServerMsgs.setText(builder.toString());*/
-
-
-                //    chatPane.setItems(dataMessage);
-
-
             }
-
-            //chatPane.setItems(dataMessage);
-
-///chatPane.setItems(dataMessage);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //	tableview.setItems(dataMessage);
-
 
     }
+
 
 
     private void loadDataFromDataBaseAll() throws SQLException {
-        chatPane.getItems().clear();
+        chatPane.getChildren().size();
+        chatPane.getChildren().clear();
+
         try {
             pst = connection.prepareStatement("SELECT\n" +
                     "\t[tbl_MessageInRequestOffering].[ID] AS [ID],\n" +
@@ -1094,354 +809,160 @@ public class ChatController implements Initializable {
                     "WHERE([tbl_MessageInRequestOffering].[RequestID] = ?)\n" +
                     "ORDER BY\n" +
                     "\t2 ASC");
-            try {
-                System.out.println(offeringAll.getID());
-            } catch (NullPointerException e) {
-                //       log.log(Level.SEVERE, "NULLLLL + " + e);
-            }
             pst.setString(1, offeringAll.getID());
-            //  System.out.println("odinff" + offeringRequest.getID());
 
             rs = pst.executeQuery();
             while (rs.next()) {
                 dataMessage.add(new ColumnMessage(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(6)));
-                //   chatPane = new ListView<ColumnMessage>();
-
-
                 String date = rs.getString(2);
                 String user = rs.getString(4);
                 String message = rs.getString(6);
-
+                date = date.substring(0,19);
 
                 if (user.equals(com.login.User.getContactName())) {
                     Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
                     ImageView profileImage = new ImageView(image);
                     profileImage.setFitHeight(32);
                     profileImage.setFitWidth(32);
-                    Text b16 = new Text();
-
-                    b16.setText(date + "  " + user + ":  \n" + message);
-                    b16.setTextAlignment(TextAlignment.LEFT);
-                    // b16.setX(10.0f);
-                    //b16.setY(140.0f);
-                    //  b16.setCache(true);
-                    b16.setFill(Color.BLACK);
-                    b16.setFont(Font.font(null, 14));
-                    //
-                    HBox listView = new HBox();
-                    listView.setAlignment(Pos.CENTER);
-                    listView.setStyle("-fx-background-color: rgba(188,143,143,0.46);" +
+                    TextFlow textFlow = new TextFlow();
+                    TextField b19 = new TextField();
+                    TextField b18 = new TextField();
+                    b18.setEditable(false);
+                    b19.setEditable(false);
+                    b18.setText(date + " " + user + ":" );
+                    b19.setText(message);
+                    b18.setFont(Font.font(null, 12));
+                    b18.setAlignment(Pos.CENTER_LEFT);
+                    b19.setStyle("-fx-background-color: transparent;");
+                    b18.setStyle("-fx-background-color: transparent;");
+                    b19.setFont(Font.font(null, 14));
+                    HBox hBox = new HBox();
+                    hBox.setAlignment(Pos.CENTER_LEFT);
+                    hBox.setStyle("-fx-background-color: rgba(188,143,143,0.46);" +
                             "    -fx-background-radius: 15, 8;\n" +
                             "    -fx-background-insets: 1, 0;\n" +
-                            //         "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                            "    -fx-text-fill: #000000;"
-                    );
-                    listView.getChildren().addAll(profileImage, b16);
-                    chatPane.getItems().add(listView);
-
-                    //String b16 = (date + "  " + user + ":  \n" + message);
-                    //   bl6.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-             /*   bl6.setStyle("-fx-background-color: rgba(89,255,245,0.46);" +
-                        "    -fx-background-radius: 6, 5;\n" +
-                        "    -fx-background-insets: 0, 1;\n" +
-                        "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                        "    -fx-text-fill: #395306;");*/
-                    //   HBox x = new HBox();
-                    //    x.setAlignment(Pos.TOP_RIGHT);
-                    // bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                    //   x.getChildren().addAll(bl6);
-                    //  chatPane.getItems().add(b16);
-                  /*  Task<HBox> yourMessages = new Task<HBox>() {
-                        @Override
-                        public HBox call() throws Exception {
-                            //      Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
-                            ImageView profileImage = new ImageView(image);
-                            profileImage.setFitHeight(32);
-                            profileImage.setFitWidth(32);
-
-                            BubbledLabel bl6 = new BubbledLabel();
-
-                            bl6.setText(date + "  " + user + ":  \n" + message);
-
-                            bl6.setStyle("-fx-background-color: rgba(245,248,255,0.46);" +
-                                    "    -fx-background-radius: 6, 5;\n" +
-                                    "    -fx-background-insets: 0, 1;\n" +
-                                    "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );\n" +
-                                    "    -fx-text-fill: #395306;");
-
-
-                            //  bl6.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,
-                            //        null, null)));
-                            HBox x = new HBox();
-                            //   x.setMaxWidth(chatPane.getWidth() - 20);
-                            x.setAlignment(Pos.TOP_LEFT);
-                            bl6.setBubbleSpec(BubbleSpec.FACE_RIGHT_CENTER);
-                            x.getChildren().addAll(bl6, profileImage);
-
-                            //     setOnlineLabel(Integer.toString(msg.getOnlineCount()));
-                            return x;
-                        }
-                    };
-                    yourMessages.setOnSucceeded(event -> chatPane.getItems().add(yourMessages.getValue()));
-                    Thread t2 = new Thread(yourMessages);
-                    t2.setDaemon(true);
-                    try {
-                        t2.sleep(300);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    t2.start();*/
-
-                    // chatPane.setItems((ObservableList<HBox>) yourMessages.getValue());
+                            "    -fx-text-fill: #000000;");
+                    textFlow.getChildren().addAll( b19);
+                    hBox.autosize();
+                    hBox.getChildren().addAll(profileImage, textFlow);
+                    chatPane.getChildren().addAll(b18, hBox);
+                    chatPane.setAlignment(Pos.CENTER_LEFT);
                 } else {
-                    Text b16 = new Text();
-
-                    b16.setFill(Color.BLACK);
-                    b16.setText(date + "  " + user + ":  \n" + message);
-                    b16.setTextAlignment(TextAlignment.LEFT);
-                    //  b16.setX(10.0f);
-                    // b16.setY(140.0f);
-
-                    b16.setFont(Font.font(null, 14));
-
-                    //String b16 = (date + "  " + user + ":  \n" + message);
-                    // bl6.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-
-                    //   HBox x = new HBox();
-                    //    x.setAlignment(Pos.TOP_RIGHT);
-                    // bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                    //   x.getChildren().addAll(bl6);
                     Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
                     ImageView profileImage = new ImageView(image);
                     profileImage.setFitHeight(32);
                     profileImage.setFitWidth(32);
-                    HBox listView = new HBox();
-                    listView.setAlignment(Pos.CENTER);
-                    listView.setStyle("-fx-background-color: rgba(0,191,255,0.46);" +
+                    TextFlow textFlow = new TextFlow();
+                    TextField b19 = new TextField();
+                    TextField b18 = new TextField();
+                    b18.setEditable(false);
+                    b19.setEditable(false);
+                    b18.setText(date + " " + user + ":" );
+                    b19.setText(message);
+                    b18.setFont(Font.font(null, 12));
+                    b18.setAlignment(Pos.CENTER_RIGHT);
+                    b19.setFont(Font.font(null, 14));
+                    b18.getTypeSelector();
+                    b19.setStyle("-fx-background-color: transparent;");
+                    b18.setStyle("-fx-background-color: transparent;");
+                    b19.setStyle(
+                            "-fx-background-insets: 0;" +
+                                    "-fx-background-color: transparent, white, transparent, white;" +
+                                    "-fx-background-radius: 0, 0, 0, 0;"+
+                                    "-fx-box-border: none;" +
+                                    "-fx-focus-color: -fx-control-inner-background;" +
+                                    "-fx-faint-focus-color: -fx-control-inner-background;" +
+                                    "-fx-text-box-border: -fx-control-inner-background;" +
+                                    "-fx-border-width: -1;");
+                    HBox hBox = new HBox();
+                    hBox.setStyle("-fx-background-color: rgba(0,191,255,0.46);" +
                             "    -fx-background-radius: 15, 8;\n" +
                             "    -fx-background-insets: 0, 1;\n" +
-                            ///       "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
                             "    -fx-text-fill: #000000;"
                     );
-                    listView.getChildren().addAll(profileImage, b16);
-                    chatPane.getItems().add(listView);
-
-                    //String b16 = (date + "  " + user + ":  \n" + message);
-                    //   bl6.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-             /*   bl6.setStyle("-fx-background-color: rgba(89,255,245,0.46);" +
-                        "    -fx-background-radius: 6, 5;\n" +
-                        "    -fx-background-insets: 0, 1;\n" +
-                        "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                        "    -fx-text-fill: #395306;");*/
-                    //   HBox x = new HBox();
-                    //    x.setAlignment(Pos.TOP_RIGHT);
-                    // bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                    //   x.getChildren().addAll(bl6);
-                    // chatPane.getItems().add(b16);
-                   /* Task<HBox> othersMessages = new Task<HBox>() {
-                        @Override
-                        public HBox call() throws Exception {
-                            // Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
-                            ImageView profileImage = new ImageView(image);
-                            profileImage.setFitHeight(32);
-                            profileImage.setFitWidth(32);
-                            BubbledLabel bl6 = new BubbledLabel();
-                            bl6.setText(date + "  " + user + ":  \n" + message);
-                            //   bl6.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-                            bl6.setStyle("-fx-background-color: rgba(89,255,245,0.46);" +
-                                    "    -fx-background-radius: 6, 5;\n" +
-                                    "    -fx-background-insets: 0, 1;\n" +
-                                    "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                                    "    -fx-text-fill: #395306;");
-                            HBox x = new HBox();
-                            x.setAlignment(Pos.TOP_RIGHT);
-                            bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                            x.getChildren().addAll(profileImage, bl6);
-                            //    logger.debug("ONLINE USERS: " + Integer.toString(msg.getUserlist().size()));
-                            //   setOnlineLabel(Integer.toString(msg.getOnlineCount()));
-                            return x;
-                        }
-                    };
-
-                    othersMessages.setOnSucceeded(event -> {
-                        chatPane.getItems().add(othersMessages.getValue());
-                    });
-
-
-
-                    Thread t = new Thread(othersMessages);
-                    t.setDaemon(true);
-                    try {
-                        t.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    t.start();*/
-                    //      chatPane.setItems((ObservableList<HBox>) othersMessages.getValue());
+                    textFlow.getChildren().addAll( b19);
+                    hBox.setPrefWidth(Region.USE_PREF_SIZE);
+                    hBox.setAlignment(Pos.CENTER_RIGHT);
+                    hBox.autosize();
+                    hBox.getChildren().addAll(profileImage, textFlow);
+                    chatPane.getChildren().addAll(b18, hBox);
+                    chatPane.setAlignment(Pos.CENTER_RIGHT);
                 }
-
-                //    yourMessages.setOnSucceeded(event -> chatPane.setItems(dataMessage));
-
-                //  chatPane.setItems(dataMessage);
-                //   } else {
-                //      othersMessages.setOnSucceeded(event -> chatPane.setItems(dataMessage));
-                //    }
-
-        /*	StringBuilder builder = new StringBuilder();
-            builder.append("Дата\n"+ dataMessage.add(new ColumnMessage (rs.getString(5))) );
-			txtAreaServerMsgs.setText(builder.toString());*/
-
-
-                //    chatPane.setItems(dataMessage);
-
-
             }
-
-            //chatPane.setItems(dataMessage);
-
-///chatPane.setItems(dataMessage);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //	tableview.setItems(dataMessage);
-
-
     }
 
     public synchronized void addToChat(Message msg) {
-        /*Task<HBox> othersMessages = new Task<HBox>() {
-            @Override
-            public HBox call() throws Exception {
-                Image image = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture() + ".png").toString());
-                ImageView profileImage = new ImageView(image);
-                profileImage.setFitHeight(32);
-                profileImage.setFitWidth(32);
-                BubbledLabel bl6 = new BubbledLabel();
-                if (msg.getType() == MessageType.VOICE){
-                    ImageView imageview = new ImageView(new Image(getClass().getClassLoader().getResource("images/sound.png").toString()));
-                    bl6.setGraphic(imageview);
-                    bl6.setText("Sent a voice message!");
-                    VoicePlayback.playAudio(msg.getVoiceMsg());
-                }else {
-                    bl6.setText(msg.getName() + ": " + msg.getMsg());
-                }
-                bl6.setBackground(new Background(new BackgroundFill(Color.WHITE,null, null)));
-                HBox x = new HBox();
-                bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                x.getChildren().addAll(profileImage, bl6);
-               // logger.debug("ONLINE USERS: " + Integer.toString(msg.getUserlist().size()));
-               // setOnlineLabel(Integer.toString(msg.getOnlineCount()));
-                return x;
-            }
-        };
 
-        othersMessages.setOnSucceeded(event -> {
-            chatPane.getItems().add(othersMessages.getValue());
-        });
-
-        Task<HBox> yourMessages = new Task<HBox>() {
-            @Override
-            public HBox call() throws Exception {
-                Image image = userImageView.getImage();
-                ImageView profileImage = new ImageView(image);
-                profileImage.setFitHeight(32);
-                profileImage.setFitWidth(32);
-
-                BubbledLabel bl6 = new BubbledLabel();
-                if (msg.getType() == MessageType.VOICE){
-                    bl6.setGraphic(new ImageView(new Image(getClass().getClassLoader().getResource("images/sound.png").toString())));
-                    bl6.setText("Sent a voice message!");
-                    VoicePlayback.playAudio(msg.getVoiceMsg());
-                }else {
-                    bl6.setText(msg.getMsg());
-                }
-                bl6.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,
-                        null, null)));
-                HBox x = new HBox();
-                x.setMaxWidth(chatPane.getWidth() - 20);
-                x.setAlignment(Pos.TOP_RIGHT);
-                bl6.setBubbleSpec(BubbleSpec.FACE_RIGHT_CENTER);
-                x.getChildren().addAll(bl6, profileImage);
-
-              //  setOnlineLabel(Integer.toString(msg.getOnlineCount()));
-                return x;
-            }
-        };
-        yourMessages.setOnSucceeded(event -> chatPane.getItems().add(yourMessages.getValue()));
-
-        if (msg.getName().equals(usernameLabel.getText())) {
-            Thread t2 = new Thread(yourMessages);
-            t2.setDaemon(true);
-            t2.start();
-        } else {
-            Thread t = new Thread(othersMessages);
-            t.setDaemon(true);
-            t.start();
-        }*/
-        sdf = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
+       sdf = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
         Task<HBox> othersMessages = new Task<HBox>() {
             @Override
             public HBox call() throws Exception {
-                Image image = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture() + ".png").toString());
+                Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
                 ImageView profileImage = new ImageView(image);
                 profileImage.setFitHeight(32);
                 profileImage.setFitWidth(32);
-                BubbledLabel bl6 = new BubbledLabel();
-                if (msg.getType() == MessageType.VOICE){
-                    ImageView imageview = new ImageView(new Image(getClass().getClassLoader().getResource("images/sound.png").toString()));
-                    bl6.setGraphic(imageview);
-                    bl6.setText("Sent a voice message!");
-                    VoicePlayback.playAudio(msg.getVoiceMsg());
-                }else {
+                TextFlow textFlow = new TextFlow();
+                Text b19 = new Text();
+                b19.setText(msg.getMsg());
 
-
-                    bl6.setText(sdf.format(new Date()) +"  "+ msg.getName() + ":  \n" + msg.getMsg());
-                }
-                bl6.setBackground(new Background(new BackgroundFill(Color.ORANGE,null, null)));
-                HBox x = new HBox();
-                x.setAlignment(Pos.TOP_RIGHT);
-                bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                x.getChildren().addAll(profileImage, bl6);
-                //    logger.debug("ONLINE USERS: " + Integer.toString(msg.getUserlist().size()));
-              //  setOnlineLabel(Integer.toString(msg.getOnlineCount()));
-                return x;
+                b19.setFont(Font.font(null, 14));
+                HBox hBox = new HBox();
+                hBox.setAlignment(Pos.CENTER_LEFT);
+                hBox.setStyle("-fx-background-color: rgba(0,191,255,0.46);" +
+                        "    -fx-background-radius: 15, 8;\n" +
+                        "    -fx-background-insets: 0, 1;\n" +
+                        "    -fx-text-fill: #000000;"
+                );
+                textFlow.getChildren().addAll(b19);
+                hBox.autosize();
+                hBox.getChildren().addAll(profileImage, textFlow);
+                return hBox;
             }
         };
-
+        Text b18 = new Text();
+        b18.setText(sdf.format(new Date()) + " " + usernameLabel.getText() + ":");
+        b18.setFont(Font.font(null, 12));
+        b18.setTextAlignment(TextAlignment.CENTER);
         othersMessages.setOnSucceeded(event -> {
-            chatPane.getItems().add(othersMessages.getValue());
+            chatPane.getChildren().addAll(b18,othersMessages.getValue());
         });
 
         Task<HBox> yourMessages = new Task<HBox>() {
             @Override
             public HBox call() throws Exception {
-                Image image = userImageView.getImage();
+                Image image = new Image(getClass().getClassLoader().getResource("images/default.png").toString());
                 ImageView profileImage = new ImageView(image);
                 profileImage.setFitHeight(32);
                 profileImage.setFitWidth(32);
-
-                BubbledLabel bl6 = new BubbledLabel();
-                if (msg.getType() == MessageType.VOICE){
-                    bl6.setGraphic(new ImageView(new Image(getClass().getClassLoader().getResource("images/sound.png").toString())));
-                    bl6.setText("Sent a voice message!");
-                    VoicePlayback.playAudio(msg.getVoiceMsg());
-                }else {
-                    bl6.setText(sdf.format(new Date()) +"  "+ usernameLabel.getText()+ ":  \n"  +msg.getMsg());
-                }
-                bl6.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,
-                        null, null)));
-                HBox x = new HBox();
-                x.setMaxWidth(chatPane.getWidth() - 20);
-                x.setAlignment(Pos.TOP_LEFT);
-                bl6.setBubbleSpec(BubbleSpec.FACE_RIGHT_CENTER);
-                x.getChildren().addAll(bl6, profileImage);
-
-            //    setOnlineLabel(Integer.toString(msg.getOnlineCount()));
-                return x;
+                TextFlow textFlow = new TextFlow();
+                Text b19 = new Text();
+                Text b18 = new Text();
+                b18.setText(sdf.format(new Date()) + " " + usernameLabel.getText() + ": \n");
+                b19.setText(msg.getMsg());
+                b18.setFont(Font.font(null, 12));
+                b18.setTextAlignment(TextAlignment.CENTER);
+                b19.setFont(Font.font(null, 14));
+                HBox hBox = new HBox();
+                hBox.setAlignment(Pos.CENTER_LEFT);
+                hBox.setStyle("-fx-background-color: rgba(188,143,143,0.46);" +
+                        "    -fx-background-radius: 15, 8;\n" +
+                        "    -fx-background-insets: 1, 0;\n" +
+                        "    -fx-text-fill: #000000;");
+                textFlow.getChildren().addAll(b19);
+                hBox.autosize();
+                hBox.getChildren().addAll(profileImage, textFlow);
+                chatPane.getChildren().addAll(b18, hBox);
+                chatPane.setAlignment(Pos.CENTER_LEFT);
+              return hBox;
             }
+
+
+
         };
-        yourMessages.setOnSucceeded(event -> chatPane.getItems().add(yourMessages.getValue()));
+        yourMessages.setOnSucceeded(event -> chatPane.getChildren().addAll(b18,othersMessages.getValue()));
 
         if (msg.getName().equals(usernameLabel.getText())) {
             Thread t2 = new Thread(yourMessages);
@@ -1452,187 +973,77 @@ public class ChatController implements Initializable {
             t.setDaemon(true);
             t.start();
         }
-   // }
     }
-  /*  public synchronized void addToChat(Message user, Message msg) {
-        sdf = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
-       /* Image image = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture() + ".png").toString());
-        ImageView profileImage = new ImageView(image);
-        profileImage.setFitHeight(32);
-        profileImage.setFitWidth(32);
-        Text b16 = new Text();
-        b16.setText(sdf.format(new Date()) + "  " + msg.getName() + ":  \n" + msg.getMsg());
+    String receiver;
+    @Override
+    public ClientModelInt getConnection(String Client) {
+        return getConnection(Client);
+    }
+    @Override
+    public User getUserInformation() {
+        return getUserInformation();
+    }
+    @FXML
+    private void btnSendAttachAction(ActionEvent event) {
 
-        b16.setStyle("-fx-background-color: rgba(0,255,211,0.46);" +
-                "    -fx-background-radius: 6, 5;\n" +
-                "    -fx-background-insets: 0, 1;\n" +
-                "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                "    -fx-text-fill: #531014;");
+        Stage st = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
 
+        //Show save file dialog
+        File file = fileChooser.showOpenDialog(st);
 
-        chatPane.getItems().add(b16);
+        //no file choosen
+        if (file == null) {
+            return;
+        }
 
-        Image imageother = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture() + ".png").toString());
-        ImageView profileImageOther = new ImageView(image);
-        profileImage.setFitHeight(32);
-        profileImage.setFitWidth(32);
+        //  make connection with peer client
+        ClientModelInt peer = getConnection(receiver);
 
-        Text b16other = new Text();
-        b16other.setText(sdf.format(new Date()) + "  " + msg.getName() + ":  \n" + msg.getMsg());
+        //peer user is offline
+        if (peer == null) {
+            UsefulUtils.showErrorDialogDown("Offline Offline User User you try to connect is offline right now");
+            return;
+        }
 
-        b16other.setStyle("-fx-background-color: rgba(0,255,211,0.46);" +
-                "    -fx-background-radius: 6, 5;\n" +
-                "    -fx-background-insets: 0, 1;\n" +
-                "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                "    -fx-text-fill: #531014;");
+        Thread tr = new Thread(() -> {
+            try {
+                FileInputStream in = null;
 
-        //String b16 = (date + "  " + user + ":  \n" + message);
-        //   bl6.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-             /*   bl6.setStyle("-fx-background-color: rgba(89,255,245,0.46);" +
-                        "    -fx-background-radius: 6, 5;\n" +
-                        "    -fx-background-insets: 0, 1;\n" +
-                        "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                        "    -fx-text-fill: #395306;");*/
-        //   HBox x = new HBox();
-        //    x.setAlignment(Pos.TOP_RIGHT);
-        // bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-        //   x.getChildren().addAll(bl6);
-        //   chatPane.getItems().add(b16other);
+                //get path to save file on other user
 
+                    String path = peer.getSaveLocation(getUserInformation().getName(), file.getName());
 
-/*                Task<VBox> yourMessages = new Task<VBox>() {
-                    @Override
-                    public VBox call() throws Exception {
+                // other client refuse file transfare
+                if (path == null) {
 
-                        Image image = userImageView.getImage();
-                        ImageView profileImage = new ImageView(image);
-                        profileImage.setFitHeight(32);
-                        profileImage.setFitWidth(32);
+                    Platform.runLater(() -> {
+                        UsefulUtils.showErrorDialogDown("Відмова користувача на запит файлу");
+                    });
+                    return;
+                }
 
-                        Text bl6 = new Text();
-                        if (msg.getType() == MessageType.VOICE) {
-                            //  bl6.setGraphic(new ImageView(new Image(getClass().getClassLoader().getResource("images/sound.png").toString())));
-                            bl6.setText("Sent a voice message!");
-                            VoicePlayback.playAudio(msg.getVoiceMsg());
-                        } else {
-                            bl6.setText(sdf.format(new Date()) + "  " + msg.getName() + ":  \n" + msg.getMsg());
-                        }
-                        bl6.setStyle("-fx-background-color: rgba(245,248,255,0.46);" +
-                                "    -fx-background-radius: 15, 10;\n" +
-                                      "    -fx-background-insets: 8, 1;\n" +
-                                //      "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );\n" +
-                                "    -fx-text-fill: #395306;");
-                        VBox x = new VBox();
-                        //   x.setMa(chatPane.getWidth() - 20);
-                        //   x.setTextAlignment(TextAlignment.LEFT);
-                        //  bl6.setBubbleSpec(BubbleSpec.FACE_RIGHT_CENTER);
-                        //   x.getChildren().addAll(bl6, profileImage);
+                in = new FileInputStream(file);
+                byte[] data = new byte[1024 * 1024];
+                int dataLength = in.read(data);
+                    boolean append = false;
+                while (dataLength > 0) {
+                    peer.reciveFile(path, file.getName(), append, data, dataLength);
+                    dataLength = in.read(data);
+                    append = true;
+               }
 
-                        //setOnlineLabel(Integer.toString(msg.getOnlineCount()));
-                        return x;
-                    }
-                };
-                yourMessages.setOnSucceeded(event -> chatPane.getItems().add(yourMessages.getValue()));
-             //   chatPane.getItems().add(yourMessages.getValue());
+            } catch (RemoteException ex) {
+                Logger.getLogger(ChatController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+               Logger.getLogger(ChatController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ChatController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
 
-
-                Task<VBox> othersMessages = new Task<VBox>() {
-                    @Override
-                    public VBox call() throws Exception {
-                        Image image = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture() + ".png").toString());
-                        ImageView profileImage = new ImageView(image);
-                        profileImage.setFitHeight(32);
-                        profileImage.setFitWidth(32);
-                        Text bl6 = new Text();
-                        if (msg.getType() == MessageType.VOICE) {
-                            ImageView imageview = new ImageView(new Image(getClass().getClassLoader().getResource("images/sound.png").toString()));
-                            //  bl6.setGraphic(imageview);
-                            bl6.setText("Sent a voice message!");
-                            VoicePlayback.playAudio(msg.getVoiceMsg());
-                        } else {
-
-
-                            bl6.setText(sdf.format(new Date()) + "  " + msg.getName() + ":  \n" + msg.getMsg());
-                        }
-                        bl6.setStyle("-fx-background-color: rgba(89,255,245,0.46);" +
-                                "    -fx-background-radius: 6, 5;\n" +
-                                //      "    -fx-background-insets: 0, 1;\n" +
-                                //     "    -fx-effect: dropshadow( three-pass-box , rgb(0,0,0) , 5, 0.0 , 0 , 1 );\n" +
-                                "    -fx-text-fill: #395306;");
-                        VBox x = new VBox();
-                        //     x.setTextAlignment(TextAlignment.RIGHT);
-                        //   bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
-                        //     x.setX(10.0f);
-                        //      x.setY(140.0f);
-                        x.setCache(true);
-                        //     x.setText("Blurry Text");
-                        //     x.setFill(Color.RED);
-                        //      x.setFont(Font.font(null, FontWeight.BOLD, 36));
-                        x.setEffect(new GaussianBlur());
-                        //  x.(profileImage, bl6);
-                        //    logger.debug("ONLINE USERS: " + Integer.toString(msg.getUserlist().size()));
-                        // setOnlineLabel(Integer.toString(msg.getOnlineCount()));
-                        return x;
-                    }
-                };
-
-
-                othersMessages.setOnSucceeded(event -> {
-                    chatPane.getItems().add(othersMessages.getValue());
-                });
-           //     chatPane.getItems().add(othersMessages.getValue());
-
-            //   System.out.println(offeringRequest.getID() + idTextFild.getText());
-            //     this.user = new User();
-            //     this.user.setOfferingID(user.getName());
-            //   users.add(this.user);
-            //   usersID.add(msg);
-            //for (int j = 0; j < usersID.size(); j++) {
-            //      Message nameID = usersID.get(j);
-            //      String oneID = nameID.getOfferingID();
-            //  if (user.equals(offeringRequest.getID())) {
-            //     if (name.equalsIgnoreCase(usernameLabel.getText())) {
-            //  if (user.getOfferingID().equals(idTextFild.getText())) {
-
-            //      if (oneID.equalsIgnoreCase(user.getOfferingID())) {
-            //    if (msg.getName().equals(usernameLabel.getText())) {
-            //       this.user = new User();
-            //       this.user.setName(user.getName());
-            //        users.add(this.user);
-            //       for (int i = 0; i < users.size(); i++) {
-            //           User name = users.get(i);
-            //            String one = name.getOfferingID();
-
-
-            //if(offeringRequest.getID().equalsIgnoreCase(user.getOfferingID())){
-
-        if (offeringRequest.getID().equals(msg.getOfferingID()))
-
-    {
-        if (usernameLabel.getText().equals(msg.getName())) {
-            System.out.println( (msg.getName()));
-                Thread t2 = new Thread(yourMessages);
-                t2.setDaemon(true);
-                t2.start();
-                //     }
-                // }
-            } else {
-
-                Thread t = new Thread(othersMessages);
-                t.setDaemon(true);
-                t.start();
-                   }
-                //     System.out.println(user + usernameLabel.getText());*/
-
-
-       // }
-  //  }
-
-    //  } else {
-    //        System.out.println(user + usernameLabel.getText());
-    //     }
-
-    //   }
+        tr.start();
+    }
 
     public void setUsernameLabel(String username) {
         this.usernameLabel.setText(username);
@@ -1647,10 +1058,6 @@ public class ChatController implements Initializable {
         this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/default.png").toString()));
     }
 
-    // public void setOnlineLabel(String usercount) {
-    //  Platform.runLater(() -> onlineCountLabel.setText(usercount));
-    // }
-
     public void setUserList(Message msg) {
         //   logger.info("setUserList() method Enter");
         Platform.runLater(() -> {
@@ -1664,45 +1071,45 @@ public class ChatController implements Initializable {
     }
 
     /* Displays Notification when a user joins */
-    public void newUserNotification( Message msg) {
+    public void newUserNotification(Message msg) {
 
 
-     //   ObservableList<User> users = FXCollections.observableList(msg.getUsers());
-    //    this.user = new User();
+        //   ObservableList<User> users = FXCollections.observableList(msg.getUsers());
+        //    this.user = new User();
         this.user.setName(usernameLabel.getText());
-      //  users.add(this.user);
-       // for (int j = 0; j < users.size(); j++) {
-       //     User name = users.get(j);
-       //     String one = name.getName();
-       //     if (one.equalsIgnoreCase(user)) {
-                //     if (name.equalsIgnoreCase(usernameLabel.getText())) {
-                //     System.out.println(user + usernameLabel.getText());
-      //      } else {
-            //    offeringRequest = (InProcessing) inProcessingController.tableviewAll.getItems().get(inProcessingController.tableviewAll.getSelectionModel().getSelectedIndex());
+        //  users.add(this.user);
+        // for (int j = 0; j < users.size(); j++) {
+        //     User name = users.get(j);
+        //     String one = name.getName();
+        //     if (one.equalsIgnoreCase(user)) {
+        //     if (name.equalsIgnoreCase(usernameLabel.getText())) {
+        //     System.out.println(user + usernameLabel.getText());
+        //      } else {
+        //    offeringRequest = (InProcessing) inProcessingController.tableviewAll.getItems().get(inProcessingController.tableviewAll.getSelectionModel().getSelectedIndex());
         //        if ((offeringRequest.equals(msg.getOfferingID()) && user != usernameLabel.getText()) && (userone.equals(usernameLabel.getText()) || com.login.User.getContactID().equals(userzero))) {
         //        } else {
-                    //        if (oneID.equalsIgnoreCase(user.getOfferingID())) {
-                    //    if () {
-                    // inProcessingController.tableProduct.getStylesheets().add
-                    //    (InProcessingController.class.getResource("/styles/Notification.css").toExternalForm());
-                    Platform.runLater(() -> {
+        //        if (oneID.equalsIgnoreCase(user.getOfferingID())) {
+        //    if () {
+        // inProcessingController.tableProduct.getStylesheets().add
+        //    (InProcessingController.class.getResource("/styles/Notification.css").toExternalForm());
+        Platform.runLater(() -> {
 
-                        Image profileImg = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture().toLowerCase() + ".png").toString(), 50, 50, false, false);
-                        TrayNotification tray = new TrayNotification();
-                        tray.setTitle("Нове повідомлення!");
-                        tray.setMessage("Від " + msg.getName() + ": " + msg.getMsg());
-                        tray.setRectangleFill(Paint.valueOf("#2C3E50"));
-                        tray.setAnimationType(AnimationType.POPUP);
-                        tray.setImage(profileImg);
+            Image profileImg = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture().toLowerCase() + ".png").toString(), 50, 50, false, false);
+            TrayNotification tray = new TrayNotification();
+            tray.setTitle("Нове повідомлення!");
+            tray.setMessage("Від " + msg.getName() + ": " + msg.getMsg());
+            tray.setRectangleFill(Paint.valueOf("#2C3E50"));
+            tray.setAnimationType(AnimationType.POPUP);
+            tray.setImage(profileImg);
 
-                        tray.showAndDismiss(Duration.seconds(5));
-                        try {
-                            Media hit = new Media(getClass().getClassLoader().getResource("sounds/notification.wav").toString());
-                            MediaPlayer mediaPlayer = new MediaPlayer(hit);
-                            mediaPlayer.play();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+            tray.showAndDismiss(Duration.seconds(5));
+            try {
+                Media hit = new Media(getClass().getClassLoader().getResource("sounds/notification.wav").toString());
+                MediaPlayer mediaPlayer = new MediaPlayer(hit);
+                mediaPlayer.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
            /* try {
                 inProcessingController.showScene();
@@ -1710,17 +1117,22 @@ public class ChatController implements Initializable {
                 e.printStackTrace();
             }*/
 
-                    });
-            //    }
-          //  }
-          //  break;
-       // }
+        });
+        //    }
+        //  }
+        //  break;
+        // }
     }
 
-   public void sendMethod(KeyEvent event) throws IOException {
-       // if (event.getCode() == KeyCode.ENTER) {
-            //sendButtonAction();
-      //  }
+    public void sendMethod(KeyEvent event) throws IOException {
+        if (keyComb1.match(event)) {
+
+            try {
+                sendButtonAction();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
@@ -1736,43 +1148,41 @@ public class ChatController implements Initializable {
         Task<HBox> task = new Task<HBox>() {
             @Override
             public HBox call() throws Exception {
-                BubbledLabel bl6 = new BubbledLabel();
-                bl6.setText(msg.getMsg());
-                System.out.println(msg.getMsg());
-                bl6.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE,
-                        null, null)));
-                HBox x = new HBox();
-                bl6.setBubbleSpec(BubbleSpec.FACE_BOTTOM);
-                x.setAlignment(Pos.CENTER);
-                x.getChildren().addAll(bl6);
-                return x;
+                TextFlow textFlow = new TextFlow();
+                Text b19 = new Text();
+                Text b18 = new Text();
+                b18.setText(sdf.format(new Date()) + " " + usernameLabel.getText() + ": \n");
+                b19.setText(msg.getMsg());
+                b18.setFont(Font.font(null, 12));
+                b18.setTextAlignment(TextAlignment.CENTER);
+                b19.setFont(Font.font(null, 14));
+                HBox hBox = new HBox();
+                hBox.setAlignment(Pos.CENTER_LEFT);
+                textFlow.getChildren().addAll(b19);
+                hBox.autosize();
+                hBox.getChildren().addAll( textFlow);
+                return hBox;
             }
         };
         task.setOnSucceeded(event -> {
-            chatPane.getItems().add(task.getValue());
+            chatPane.getChildren().add(task.getValue());
         });
 
-        chatPane.getItems().add(task.getValue());
+        chatPane.getChildren().add(task.getValue());
 
         Thread t = new Thread(task);
         t.setDaemon(true);
         t.start();
     }
 
-    // }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //    if(inProcessingController.tableProduct!= null){
-        //       idTextFild.setVisible(true);
-
-        //       }else {
-        //idTextFild.setVisible(false);
-        //     }
-        splitPane.setDividerPositions(0.91);
         dataMessage = FXCollections.observableArrayList();
+        chatPane.setFocusTraversable( false );
 
-
+        buttonSend.setTooltip(new Tooltip("Відправити"));
         try {
             connection = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
@@ -1784,41 +1194,133 @@ public class ChatController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        scrollPane.vvalueProperty().bind(chatPane.heightProperty());
 
-        messageBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        for(Node text : emojiList.getChildren()){
+            text.setOnMouseClicked(event -> {
+                messageBox.setText(messageBox.getText()+" "+((Text)text).getText());
+                emojiList.setVisible(false);
+            });
+        }
+        titleBar.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        titleBar.setOnMouseDragged(event -> {
+            titleBar.getScene().getWindow().setX(event.getScreenX() - xOffset);
+            titleBar.getScene().getWindow().setY(event.getScreenY() - yOffset);
+        });
+    /*    buttonSend.setOnAction(event -> {
+            try {
+                sendButtonActionOne();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });*/
+      /*  messageBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                if (/*keyEvent.getCode() == KeyCode.ENTER */keyComb1.match(keyEvent))  {
+                if (/*keyEvent.getCode() == KeyCode.ENTER *//*keyComb1.match(keyEvent))  {
                     String text = messageBox.getText();
 
                     // do your thing...
 
                     // clear text
                     try {
-                        sendButtonAction();
+
+                        sendButtonActionOne();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     //messageBox.setText("\n");
                 }
             }
+        });*/
+
+
+        messageBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (/*keyEvent.getCode() == KeyCode.ENTER */keyComb1.match(keyEvent)) {
+
+
+                    try {
+                        sendButtonAction();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
         });
+        //closeWindow();
+
+
+
+
+
+
+      /*  messageBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (/*keyEvent.getCode() == KeyCode.ENTER *//*keyComb2.match(keyEvent))  {
+                    String text = messageBox.getText();
+
+                    // do your thing...
+
+                    // clear text
+                 /*   getChatController().TabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
+                        if(newTab == getChatController().TabPane.getTabs().get(1)){
+
+                            try {
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }else if(newTab == getChatController().TabPane.getTabs().get(2)){
+                            try {
+                                sendButtonActionTract();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        };
+
+
+
+                    });*/
+                   /* try {
+                        sendButtonActionTract();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    catch (NullPointerException ne){
+                        // Logger.log(ne);
+                    }
+                    //            sendButtonAction();
+//                 mainPageController.messageSend();
+
+                }
+            }
+        });*/
+
                 /* Drag and Drop */
-        borderPane.setOnMousePressed(event -> {
-            xOffset = MainLauncher.getPrimaryStage().getX() - event.getScreenX();
-            yOffset = MainLauncher.getPrimaryStage().getY() - event.getScreenY();
-            borderPane.setCursor(Cursor.CLOSED_HAND);
-        });
+       // borderPane.setOnMousePressed(event -> {
+         //   xOffset = MainLauncher.getPrimaryStage().getX() - event.getScreenX();
+         //   yOffset = MainLauncher.getPrimaryStage().getY() - event.getScreenY();
+            //borderPane.setCursor(Cursor.CLOSED_HAND);
+     //   });
 
-        borderPane.setOnMouseDragged(event -> {
-            MainLauncher.getPrimaryStage().setX(event.getScreenX() + xOffset);
-            MainLauncher.getPrimaryStage().setY(event.getScreenY() + yOffset);
+      //  borderPane.setOnMouseDragged(event -> {
+        //    MainLauncher.getPrimaryStage().setX(event.getScreenX() + xOffset);
+        //    MainLauncher.getPrimaryStage().setY(event.getScreenY() + yOffset);
 
-        });
+      //  });
 
-        borderPane.setOnMouseReleased(event -> {
-            borderPane.setCursor(Cursor.DEFAULT);
-        });
+      //  borderPane.setOnMouseReleased(event -> {
+      //      borderPane.setCursor(Cursor.DEFAULT);
+     //   });
 
         //   statusComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
         //       public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {

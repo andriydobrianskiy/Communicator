@@ -61,8 +61,8 @@ public class FilterQuery {
         resultQuery = new StringBuilder();
 
         if(andOr == null) {
-            resultQuery.append(" AND ");
-        } else {
+            resultQuery.append("  AND ");
+        } else  {
             resultQuery.append(andOr.getValue());
         }
         if(columnName != null) {

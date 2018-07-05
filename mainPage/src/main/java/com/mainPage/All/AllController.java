@@ -1,30 +1,42 @@
 package com.mainPage.All;
 
 import com.Utils.CustomPaginationSkin;
-import com.Utils.FilterQuery;
+import com.Utils.DictionaryProperties;
+import com.Utils.MiniFilterWindow.MiniFilter;
+import com.Utils.MiniFilterWindow.MiniFilterController;
+import com.Utils.MiniFilterWindow.MiniFilterFunction;
 import com.Utils.UsefulUtils;
 import com.client.chatwindow.ChatController;
 import com.connectDatabase.DBConnection;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import com.login.User;
 import com.mainPage.All.AllRequest.AllRequestController;
 import com.mainPage.NotFulled.ProductAdd.ObserverNF;
+import com.mainPage.WorkArea;
 import com.mainPage.page.MainPageController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import org.google.jhsheets.filtered.FilteredTableView;
 import org.google.jhsheets.filtered.operators.IFilterOperator;
 import org.google.jhsheets.filtered.tablecolumn.ColumnFilterEvent;
+import org.google.jhsheets.filtered.tablecolumn.FilterableDateTableColumn;
+import org.google.jhsheets.filtered.tablecolumn.FilterableDoubleTableColumn;
 import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn;
 
 import java.io.IOException;
@@ -33,21 +45,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AllController implements Initializable, DictionaryPropertiesAll, ObserverNF {
+public class AllController extends WorkArea    implements Initializable, ObserverNF, DictionaryProperties,MiniFilterFunction {
 
     private static Logger log = Logger.getLogger(AllController.class.getName());
 
     private PreparedStatement pst = null;
     private Connection con = null;
     private ResultSet rs = null;
-    @FXML
-    public TableView tableView;
+
     @FXML
     private Pagination pagination;
     @FXML
@@ -57,13 +69,18 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
     @FXML
     private HBox hboxFilter;
     @FXML
+    private ScrollPane scrollPaneFilter;
+    @FXML
     private ChatController chatViewController;
     @FXML
-    private SplitPane splitPane;
+    private BorderPane splitPane;
+    @FXML
+    private JFXToggleButton btn_ButtonAll;
 
     private MainPageController main;
     public ChatController conn;
     private Scene scene;
+    private Boolean queryAll = false;
 
     @FXML
     private AllRequestController allRequestViewController;
@@ -71,47 +88,176 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
     public static All chosenAccount = null;
     private DerbyAllDAO account = new DerbyAllDAO();
     private ObservableList<All> data;
+    private ObservableList<All> dataAll;
     private AllQuery accountQueries = new AllQuery();
     private long fromIndex;
     private long toIndex;
-
+// Main
     private HashMap<TableColumn, String> hashColumns = new HashMap<>();
-    private TableColumn<All, String> CreatedOn;
-    private TableColumn<All, String> CreatedBy;
-    private TableColumn<All, String> AccountName;
-    private TableColumn<All, String> AccountCode;
-    private TableColumn<All, String> AccountSaldo;
-    private TableColumn<All, String> AccountIsSolid;
-    private TableColumn<All, String> Number;
-    private TableColumn<All, String> Status;
-    private TableColumn<All, String> StoreCity;
-    private TableColumn<All, String> OriginalGroupName;
-    private TableColumn<All, String> GroupChangedBy;
-    private TableColumn<All, String> SpecialMarginTypeName;
-    private TableColumn<All, String> StateName;
+    private HashMap<TableColumn, Pane> hashMiniFilter = new HashMap<>();
+    @FXML private FilterableStringTableColumn <All, String> colNumber;
+    @FXML private FilterableDateTableColumn<All, String> colCreatedOn;
+    @FXML private FilterableStringTableColumn <All, String> colCreatedBy;
+    @FXML private FilterableStringTableColumn <All, String> colAccountCode;
+    @FXML private FilterableStringTableColumn <All, String> colAccountName;
+    @FXML private FilterableDoubleTableColumn<All, Double> colAccountSaldo;
+    @FXML private FilterableStringTableColumn <All, String> colAccountIsSolid;
+    @FXML private FilterableStringTableColumn <All, String> colStoreCity;
+    @FXML private FilterableStringTableColumn <All, String> colStatus;
+    @FXML private FilterableStringTableColumn <All, String> colOfferingGroupName;
+    @FXML private FilterableStringTableColumn <All, String> colOriginalGroupName;
+    @FXML private FilterableStringTableColumn <All, String> colGroupChangedBy;
+    @FXML private FilterableStringTableColumn <All, String> colSpecialMarginTypeName;
+
+    private Button id = new Button();
+    private Button Number = new Button();
+    private Button Solid = new Button();
+    private Button Store = new Button();
+    boolean order = true;
+    private ImageView upImg = new ImageView(new Image("/images/Sort_Top.png"));
+    private ImageView downImg = new ImageView(new Image("/images/Sort_Bottom.png"));
+    int pageCount = 5;
+    int itemsPerPage = 40;
+    int currentPageIndex = 0;
+
+// ALLTable
+
+/*
+  //  private HashMap<TableColumn, String> hashColumns = new HashMap<>();
+ //   private HashMap<TableColumn, Pane> hashMiniFilter = new HashMap<>();
+    @FXML private FilterableStringTableColumn <All, String> colNumberAll;
+    @FXML private FilterableDateTableColumn<All, String> colCreatedOnAll;
+    @FXML private FilterableStringTableColumn <All, String> colCreatedByAll;
+    @FXML private FilterableStringTableColumn <All, String> colAccountCodeAll;
+    @FXML private FilterableStringTableColumn <All, String> colAccountNameAll;
+    @FXML private FilterableDoubleTableColumn<All, Double> colAccountSaldoAll;
+    @FXML private FilterableStringTableColumn <All, String> colAccountIsSolidAll;
+    @FXML private FilterableStringTableColumn <All, String> colStoreCityAll;
+    @FXML private FilterableStringTableColumn <All, String> colStatusAll;
+    @FXML private FilterableStringTableColumn <All, String> colOfferingGroupNameAll;
+    @FXML private FilterableStringTableColumn <All, String> colOriginalGroupNameAll;
+    @FXML private FilterableStringTableColumn <All, String> colGroupChangedByAll;
+    @FXML private FilterableStringTableColumn <All, String> colSpecialMarginTypeNameAll;
+*/
+
+
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        splitPane.setDividerPositions(0.75);
+
         chatViewController.init(this);
         tableView.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-//fixSelectedRecord();
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                     chosenAccount = (All) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
-                    //closeWindow();
                 }
             }
         });
         createTableColumns();
+        tableViewHandles();
 
-        System.out.println("777777777777777777777777777777777777777777777777777777777777777777777");
-        CustomPaginationSkin pageSkin = new CustomPaginationSkin(pagination); // custom pagination
+        tableView.setTableMenuButtonVisible(true);
+        UsefulUtils.installCopyPasteHandler(tableView);
+        tableView.addEventHandler(ColumnFilterEvent.FILTER_CHANGED_EVENT, event -> {
+            new MiniFilter(AllController.this, account, hashColumns, event).setFilter();
+        });
 
-        pagination.setSkin(pageSkin);
-        pagination.setPageFactory(this::createPage);
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        UsefulUtils.copySelectedCell(tableView);
+
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        borderPane.setCenter(tableView);
+        tableView.setTableMenuButtonVisible(true);
+        UsefulUtils.installCopyPasteHandler(tableView);
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+
+        btn_ButtonAll.setVisible(true);
+        searchingField.setOnAction(event1 -> {
+            String value = searchingField.getText();
+
+            if (value.equals("")) {
+                refreshData();
+            } else
+                try {
+                    findByProperty(value);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+        });
+        ToggleGroup group = new ToggleGroup();
+        btn_ButtonAll.setToggleGroup(group);
+        group.selectedToggleProperty().addListener(event -> {
+            if (group.getSelectedToggle() != null) {
+                queryAll = true;
+                refreshData();
+                searchingField.setOnAction(event1 -> {
+                    String value = searchingField.getText();
+
+                    if (value.equals("")) {
+                        refreshData();
+                    } else
+                        try {
+                            findByProperty(value);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                });
+
+            } else
+            {
+                queryAll = false;
+                refreshData();
+                searchingField.setOnAction(event1 -> {
+                    String value = searchingField.getText();
+
+                    if (value.equals("")) {
+                        refreshData();
+                    } else
+                        try {
+                            findByProperty(value);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                });
+            }
+        });
+
+
+        try {
+            CustomPaginationSkin pageSkin = new CustomPaginationSkin(pagination); // custom pagination
+            pagination.setSkin(pageSkin);
+
+            pagination.setPageFactory(this::createPage);
+            pageCount = getPageCount(data.size(), itemsPerPage);
+
+            System.out.println("pageCount=" + pageCount);
+            pagination.setPageCount(pageCount);
+
+            initializeTable();
+
+            pagination.currentPageIndexProperty().addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                    System.out.println("Pagination Changed from " + oldValue + " , to " + newValue);
+                    currentPageIndex = newValue.intValue();
+                      updatePersonView();
+                }
+            });
+
+
+            SortButton(Number);
+            SortButton(id);
+            SortButton(Solid);
+            SortButton(Store);
+        } catch (Exception e) {
+            UsefulUtils.showErrorDialogDown("Не вдається відкрити сторінки");
+
+        }
+
 
         allRequestViewController.init(this);
         tableView.getSelectionModel().setCellSelectionEnabled(false);
@@ -151,6 +297,67 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
                     e.printStackTrace();
                 }
         });
+        tableView.getSelectionModel().select(0);
+    }
+
+    private void SortButton(Button button) {
+        button.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
+            @Override
+            public void handle(javafx.event.ActionEvent t) {
+                //   pagination.setCurrentPageIndex(0);
+                sort(button);
+                if (order) {
+                    Collections.reverse(data);
+                }
+                order = !order;
+                button.setGraphic((order) ? upImg : downImg);
+                updatePersonView();
+
+            }
+        });
+    }
+
+    private void sort(Button notFulfilled) {
+        if (notFulfilled == id) {
+            data.sort((All p1, All p2) -> p1.getCreatedOn().compareTo(p2.getCreatedOn()));
+        } else if (notFulfilled == Number) {
+            data.sort((All p1, All p2) -> p1.getNumber().compareTo(p2.getNumber()));
+        }else if (notFulfilled == Solid) {
+            data.sort((All p1, All p2) -> p1.getAccountIsSolid().compareTo(p2.getAccountIsSolid()));
+        } else if (notFulfilled == Store) {
+            data.sort((All p1, All p2) -> p1.getNumber().compareTo(p2.getStoreCity()));
+            pagination.currentPageIndexProperty().addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                    System.out.println("Pagination Changed from " + oldValue + " , to " + newValue);
+                    currentPageIndex = newValue.intValue();
+                    //updatePersonView();
+
+                }
+            });
+        } else {
+            UsefulUtils.showErrorDialogDown("Помилка сортування");
+        }
+    }
+
+    private void initializeTable() {
+
+
+        colCreatedOn.setGraphic(id);
+        colCreatedOn.setSortable(false);
+        colNumber.setGraphic(Number);
+        colNumber.setSortable(false);
+        colAccountIsSolid.setGraphic(Solid);
+        colAccountIsSolid.setSortable(false);
+        colStoreCity.setGraphic(Store);
+        colStoreCity.setSortable(false);
+
+    }
+
+    public void updatePersonView() {
+        fromIndex = currentPageIndex * itemsPerPage;
+        toIndex = Math.min(fromIndex + itemsPerPage, data.size());
+        tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
     }
 
     String Skrut = null;
@@ -179,68 +386,27 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
             e.printStackTrace();
         }
 
-        /// Skrut = (String) options.get(0);
-
 
         tableView.setItems(data);
 
 
     }
     public void loginButtonAction(All chosenAccount) throws IOException {
-        // String hostname = "192.168.0.100";
-        //   int port = 9001;
-        //     String username = User.getContactName();
-        //     String picture = "Default";
-
-
-        //   FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/views/ChatView.fxml"));
-
-        //   Parent window = (Pane) fmxlLoader.load();
-        //   conn = fmxlLoader.<ChatController>getController();
-        //  instance = fmxlLoader.<InProcessingController>getController();
         chatViewController.setOfferingAll(chosenAccount);
         chatViewController.setAllController(this);
-        //this.scene = new Scene(window);
-        //Stage stage = new Stage();
-        //stage.initModality(Modality.APPLICATION_MODAL);
-        // (Stage) hostnameTextfield.getScene().getWindow();
-        //   stage.getScene();
-//stage.showAndWait();
-        //stage.setResizable(true);
-        //stage.setWidth(1040);
-        //stage.setHeight(620);
-
-        //        stage.setOnCloseRequest((WindowEvent e) -> {
-        //           Platform.exit();
-        //       System.exit(0);
-        //    });
-        //stage.setScene(this.scene);
-
-        //  stage.setMinWidth(800);
-        //   stage.setMinHeight(300);
-
-        //  ResizeHelper.addResizeListener(stage);
-        //      stage.showAndWait();
-        //System.out.println("chatFive");
-
         chatViewController.setUsernameLabel(User.getContactName());
-        //      conn.setImageLabel("Default");
-        // conn.setIdTextFild(chosenAccount.getID());
-        //    stage.showAndWait();
-        //  Listener listener = new Listener(hostname, port, username, picture, conn, this, chosenAccount);
-        //   Thread x = new Thread(listener);
-        //   x.start();
-
-
     }
 
 
     public void tableViewHandles() {
         tableView.setOnMouseClicked(mouseEvent -> fixSelectedRecord());
-        tableView.setOnKeyReleased(eventKey -> fixSelectedRecord());
-    }
+        tableView.setOnKeyReleased(eventKey -> {
+            UsefulUtils.searchCombination(eventKey, tableView);
+        fixSelectedRecord();
+        });
+        }
 
-    private void fixSelectedRecord() {
+    protected void fixSelectedRecord() {
         All record = (All) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
 
         System.out.println("lllllllll" + record);
@@ -257,141 +423,105 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
     @Override
     public void createTableColumns() {
         try {
-            tableView = new FilteredTableView();
-            Number = new FilterableStringTableColumn<>("Номер запиту");
-            hashColumns.put(Number, "[tbl_RequestOffering].[Number]");
-
-            CreatedOn = new FilterableStringTableColumn<>("Дата");
-            hashColumns.put(CreatedOn, "[tbl_RequestOffering].[CreatedOn]");
-
-            CreatedBy = new FilterableStringTableColumn<>("Створив");
-            hashColumns.put(CreatedBy, "[tbl_Contact].[Name]");
-
-            AccountCode = new FilterableStringTableColumn<>("Код контрагента");
-            hashColumns.put(AccountCode, "[tbl_Account].[Code]");
-
-            AccountName = new FilterableStringTableColumn<>("Контрагент");
-            hashColumns.put(AccountName, "[tbl_Account].[Name]");
-
-            AccountSaldo = new FilterableStringTableColumn<>("Сальдо");
-            hashColumns.put(AccountSaldo, "[tbl_Account].[SaldoSel]");
-
-            AccountIsSolid = new FilterableStringTableColumn<>("Солідність");
-            hashColumns.put(AccountIsSolid, "(CASE\n" +
+            hashColumns.put(colNumber, "[tbl_RequestOffering].[Number]");
+            hashColumns.put(colCreatedOn, "[tbl_RequestOffering].[CreatedOn]");
+            hashColumns.put(colCreatedBy, "[tbl_Contact].[Name]");
+            hashColumns.put(colAccountCode, "[tbl_Account].[Code]");
+            hashColumns.put(colAccountName, "[tbl_Account].[Name]");
+            hashColumns.put(colAccountSaldo, "[tbl_Account].[SaldoSel]");
+            hashColumns.put(colAccountIsSolid, "(CASE\n" +
                     "    WHEN CONVERT(DATETIME,ISNULL([tbl_Account].[UnblockDate], '2000-01-01')) > CONVERT(DATETIME, CURRENT_TIMESTAMP) \n" +
                     "    THEN ''\n" +
                     "    WHEN [tbl_Account].[IsSolid] = 1\n" +
                     "    THEN 'Не солідний'\n" +
                     "    ELSE ''\n" +
                     "END)");
+            hashColumns.put(colStoreCity, "[tbl_StoreCity].[Name]");
+            hashColumns.put(colStatus, "[tbl_RequestOfferingStatus].[Name]");
+            hashColumns.put(colGroupChangedBy, "[dbo].[tbl_Contact].[Name]");
+            hashColumns.put(colSpecialMarginTypeName, "[SMT].[Name]");
+            hashColumns.put(colOriginalGroupName, "[dbo].[tbl_Contact].[Name]");
+            hashColumns.put(colOfferingGroupName, "[dbo].[tbl_Contact].[Name]");
 
-            StoreCity = new FilterableStringTableColumn<>("Місто поставки");
-            hashColumns.put(StoreCity, "[tbl_StoreCity].[Name]");
-
-            Status = new FilterableStringTableColumn<>("Статус");
-            hashColumns.put(Status, "[tbl_RequestOfferingStatus].[Name]");
-
-            GroupChangedBy = new FilterableStringTableColumn<>("Змінив групу");
-            hashColumns.put(GroupChangedBy, "[dbo].[tbl_Contact].[Name]");
-
-            SpecialMarginTypeName = new FilterableStringTableColumn<>("Тип спец націнки");
-            hashColumns.put(SpecialMarginTypeName, "[SMT].[Name]");
-
-            StateName = new FilterableStringTableColumn<>("Статус запиту");
-            hashColumns.put(StateName, "[tbl_RequestOfferingState].[Name]");
-
-          /*  OfferingGroupName = new FilterableStringTableColumn<>("Група товарів");
-            hashColumns.put(OfferingGroupName, "[OfferingGroup].[Name]");*/
-
-            OriginalGroupName = new FilterableStringTableColumn<>("Початкова група");
-            hashColumns.put(OriginalGroupName, "[dbo].[tbl_Contact].[Name]");
-
-            Number.setMinWidth(150);
+            colNumber.setMinWidth(150);
 
             tableView.setTableMenuButtonVisible(true);
 
-            tableView.getColumns().addAll(
-                    Number,
-                    CreatedOn,
-                    CreatedBy,
-                    AccountCode,
-                    AccountName,
-                    AccountSaldo,
-                    AccountIsSolid,
-                    StoreCity,
-                    Status,
-                    GroupChangedBy,
-                    SpecialMarginTypeName,
-                    StateName,
-                    OriginalGroupName);
-
-            Number.setCellValueFactory(new PropertyValueFactory<All, String>("Number"));
-            CreatedOn.setCellValueFactory(new PropertyValueFactory<All, String>("CreatedOn"));
-            CreatedBy.setCellValueFactory(new PropertyValueFactory<All, String>("CreatedBy"));
-            AccountCode.setCellValueFactory(new PropertyValueFactory<All, String>("AccountCode"));
-            AccountName.setCellValueFactory(new PropertyValueFactory<All, String>("AccountName"));
-            AccountSaldo.setCellValueFactory(new PropertyValueFactory<All, String>("AccountSaldo"));
-            AccountIsSolid.setCellValueFactory(new PropertyValueFactory<All, String>("AccountIsSolid"));
-            StoreCity.setCellValueFactory(new PropertyValueFactory<All, String>("StoreCity"));
-            Status.setCellValueFactory(new PropertyValueFactory<All, String>("Status"));
-            GroupChangedBy.setCellValueFactory(new PropertyValueFactory<All, String>("GroupChangedBy"));
-            SpecialMarginTypeName.setCellValueFactory(new PropertyValueFactory<All, String>("SpecialMarginTypeName"));
-            StateName.setCellValueFactory(new PropertyValueFactory<All, String>("StateName"));
-            OriginalGroupName.setCellValueFactory(new PropertyValueFactory<All, String>("OriginalGroupName"));
+            colNumber.setCellValueFactory(new PropertyValueFactory<All, String>("Number"));
+            colCreatedOn.setCellValueFactory(new PropertyValueFactory<All, String>("CreatedOn"));
+            colCreatedBy.setCellValueFactory(new PropertyValueFactory<All, String>("CreatedBy"));
+            colAccountCode.setCellValueFactory(new PropertyValueFactory<All, String>("AccountCode"));
+            colAccountName.setCellValueFactory(new PropertyValueFactory<All, String>("AccountName"));
+            colAccountSaldo.setCellValueFactory(new PropertyValueFactory<All, Double>("AccountSaldo"));
+            colAccountIsSolid.setCellValueFactory(new PropertyValueFactory<All, String>("AccountIsSolid"));
+            colStoreCity.setCellValueFactory(new PropertyValueFactory<All, String>("StoreCity"));
+            colStatus.setCellValueFactory(new PropertyValueFactory<All, String>("Status"));
+            colGroupChangedBy.setCellValueFactory(new PropertyValueFactory<All, String>("GroupChangedBy"));
+            colSpecialMarginTypeName.setCellValueFactory(new PropertyValueFactory<All, String>("SpecialMarginTypeName"));
+            colOriginalGroupName.setCellValueFactory(new PropertyValueFactory<All, String>("OriginalGroupName"));
+            colOfferingGroupName.setCellValueFactory(new PropertyValueFactory<All, String>("OfferingGroupName"));
 
 
-            tableView.addEventHandler(ColumnFilterEvent.FILTER_CHANGED_EVENT, new EventHandler<ColumnFilterEvent>() {
-                @Override
-                public void handle(ColumnFilterEvent t) {
-                    //System.out.println("Filtered column count: " + tableView.getFilteredColumns().size());
-                    System.out.println("Filtering changed on column: " + t.sourceColumn().getText());
-                    System.out.println("Current filters on column " + t.sourceColumn().getText() + " are:");
-                    final List<IFilterOperator> filters = t.sourceColumn().getFilters();
-                    //new MiniFilter(ServicesTable.this, servicesDAO, hashColumns, t).setFilter();
 
-
-                    System.out.println("COLUMN - " + t.sourceColumn());
-                    for (IFilterOperator filter : filters) {
-                        System.out.println("  Type=" + filter.getType() + ", Value=" + filter.getValue());
-                    }
-
-                    if (filters.get(0).getType() == IFilterOperator.Type.NONE) {
-                        account.removeStringFilter(t.sourceColumn());
-                        disableFilter(t.sourceColumn(), null);
-                        refreshData();
-                        return;
-                    }
-
-                    // fillHboxFilter(t.sourceColumn(), filters.get(0).getType(), filters.get(0).getValue());
-                    account.setStringFilter(t.sourceColumn(), new FilterQuery(hashColumns.get(t.sourceColumn()), filters.get(0).getType(), filters.get(0).getValue()).getWhereClause());
-
-
-                    // refreshData();
-                }
-            });
-
-            // UsefulUtils.copySelectedCell(tableView);
-
-          /* tableRequestOffering.setOnMousePressed(new EventHandler<MouseEvent>() {
-               @Override
-               public void handle(MouseEvent event) {
-                   if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                       handleButtonEdit(new ActionEvent());
-                   }
-               }
-           });*/
-            tableViewHandles();
-            tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-            borderPane.setCenter(tableView);
-
-            //    tableRequestOffering.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-            //  borderPane.setCenter(tableRequestOffering);
 
 
         } catch (Exception e) {
             log.log(Level.SEVERE, "Exception in creating columns: " + e);
+
         }
+
+            //tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+          ///  borderPane.setCenter(tableView);
+        super.createTableColumns();
+       }
+
+
+
+
+
+
+@Override
+public void removeFilterFromHbox(TableColumn column) {
+    hboxFilter.getChildren().remove(hashMiniFilter.get(column));
+        }
+
+
+
+@Override
+public void fillHboxFilter(TableColumn column, IFilterOperator.Type type, Object value) {
+
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+            "/views/MiniFilter.fxml"));
+
+    Pane content;
+    try {
+        content = fxmlLoader.load();
+
+
+        MiniFilterController miniC = fxmlLoader.getController();
+
+        miniC.setWindow(this, content);
+        miniC.setFilter(column, type, value);
+
+        hboxFilter.getChildren().add(content);
+
+
+        hashMiniFilter.put(column, content);
+
+        hboxFilter.setMargin(content, new Insets(0, 0, 0, 10));
+
+        scrollPaneFilter.setFitToHeight(true);
+
+        System.out.println("SETTTED");
+        //content.getStylesheets().add("sample/ua/ucountry/MainTables/Account/MainDictionaryTable.css");
+    } catch (IOException exception) {
+
+        throw new RuntimeException(exception);
     }
+        }
+
+
+
 
     @Override
     public void disableFilter(TableColumn column, Pane content) {
@@ -400,27 +530,49 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
         account.removeStringFilter(column);
         refreshData();
 
-        //  column.filteredProperty().setValue(true);
+        //column.filteredProperty().setValue(true);
+
+        if(content == null) {
+            removeFilterFromHbox(column);
+            return;
+        }
 
         hboxFilter.getChildren().remove(content);
+
+
         System.out.println("DISABLED");
     }
+    public void clearTable() {
+        try {
+            data.clear();
 
+        } catch (Exception e) {
+            data = FXCollections.observableArrayList();
+        } finally {
+            tableView.setItems(data);
+        }
+    }
 
-    public List<All> loadDataFromDatabase() {
+    public void loadDataFromDatabase() {
         try {
 
+            if(queryAll == true){
+                List<All> listItems = account.findAll(true, (int) toIndex, User.getContactID(), User.getContactID());
+                listItems.forEach(item -> data.add(item));
 
-            List<All> listItems = account.findAll(true, (int) toIndex);
+                tableView.setItems(data);
+            }else if (queryAll == false){
+                List<All> listItems = account.findAllAll(true, (int) toIndex);
+                listItems.forEach(item -> data.add(item));
 
-            listItems.forEach(item -> data.add(item));
+                tableView.setItems(data);
+            }
 
-            tableView.setItems(data);
 
         } catch (Exception e) {
             log.log(Level.SEVERE, "Load data from database exception: " + e);
         }
-        return null;
+
     }
 
 
@@ -429,12 +581,12 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
 
 
             data = FXCollections.observableArrayList();
-
-            fromIndex = pageIndex * 40;
-            toIndex = Math.min(fromIndex + 40, accountQueries.getMainAllCount());
-
-
             loadDataFromDatabase();
+            fromIndex = pageIndex * itemsPerPage;
+            toIndex = Math.min(fromIndex + itemsPerPage, data.size());
+
+
+
 
 
             tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
@@ -449,7 +601,13 @@ public class AllController implements Initializable, DictionaryPropertiesAll, Ob
 
     public void refreshData() {
         data.clear();
+
         loadDataFromDatabase();
+      //  pagination.setPageFactory(this::createPage);
+        pageCount = getPageCount(data.size(), itemsPerPage);
+        pagination.setPageCount(pageCount);
+        UsefulUtils.fadeTransition(tableView);
+
     }
 
     public void init(MainPageController mainPageController) {

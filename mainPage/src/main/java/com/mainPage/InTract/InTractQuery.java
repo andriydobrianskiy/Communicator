@@ -18,7 +18,7 @@ public class InTractQuery implements Queries {
         query = new StringBuilder();
         query.append("SELECT \n");
 
-        if (top) query.append(" TOP " + rowIndex + "\n");
+   //     if (top) query.append(" TOP " + rowIndex + "\n");
 
         query.append("[tbl_RequestOffering].[ID] AS [ID],\n" +
                 "\t[tbl_RequestOffering].[CreatedOn] AS [CreatedOn],\n" +
@@ -146,9 +146,7 @@ public class InTractQuery implements Queries {
                 "\t[dbo].[tbl_RequestOfferingState] AS [tbl_RequestOfferingState] ON [tbl_RequestOfferingState].[ID] = [tbl_RequestOffering].[StateID]\n" +
                 "WHERE([tbl_RequestOffering].[StatusID] = '{3B552198-B239-4801-819C-7033AA118B65}' AND\n" +
                 "\t([tbl_RequestOffering].[CreatedByID] = '"+createdByID+"' OR\n" +
-                "\t[tbl_RequestOffering].[OfferingGroupID] = '"+offeringGroupID+"' ))\n" +
-                "ORDER BY\n" +
-                "\t10 DESC");
+                "\t[tbl_RequestOffering].[OfferingGroupID] = '"+offeringGroupID+"' ))\n" );
 
 
         return query.toString();
@@ -159,7 +157,7 @@ public class InTractQuery implements Queries {
         query = new StringBuilder();
         query.append("SELECT \n");
 
-        if (top) query.append(" TOP " + rowIndex + "\n");
+    //    if (top) query.append(" TOP " + rowIndex + "\n");
 
         query.append("[tbl_RequestOffering].[ID] AS [ID],\n" +
                 "\t[tbl_RequestOffering].[CreatedOn] AS [CreatedOn],\n" +
@@ -285,9 +283,11 @@ public class InTractQuery implements Queries {
                 "\t[dbo].[tbl_SpecialMarginType] AS [SMT] ON [SMT].[ID] = [tbl_Account].[SpecialMarginTypeID]\n" +
                 "LEFT OUTER JOIN\n" +
                 "\t[dbo].[tbl_RequestOfferingState] AS [tbl_RequestOfferingState] ON [tbl_RequestOfferingState].[ID] = [tbl_RequestOffering].[StateID]\n" +
-                "WHERE [tbl_RequestOffering].[StatusID] = '{3B552198-B239-4801-819C-7033AA118B65}'\n" +
-                "ORDER BY\n" +
-                "\t10 DESC");
+                "WHERE [tbl_RequestOffering].[StatusID] = '{3B552198-B239-4801-819C-7033AA118B65}'\n" //+
+            //    "ORDER BY\n" +
+              //  "\t10 DESC"
+        );
+
 
 
         return query.toString();
@@ -467,7 +467,8 @@ public class InTractQuery implements Queries {
             }
 
         } catch (SQLException e) {
-            log.log(Level.SEVERE, "Pages count exception: " + e);
+            log.log(Level.SEVERE, "Pages count exception: " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
         return count;

@@ -52,7 +52,8 @@ public static NotFulfilled notFulfilled ;
             con = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
-
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
 
@@ -102,13 +103,13 @@ public static NotFulfilled notFulfilled ;
             txtName.clear();
 
             exampleController.refresh();
+                Stage stage = (Stage) btnCancel.getScene().getWindow();
+                stage.close();
 
         }else {
                 UsefulUtils.showErrorDialogDown("Не можливо записати більше одного продукту");
             }
-            pst.close();
-            rs.close();
-            con.close();
+
         } catch(SQLException e){
             e.printStackTrace();
         }

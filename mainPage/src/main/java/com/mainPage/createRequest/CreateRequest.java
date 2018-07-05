@@ -147,6 +147,8 @@ public class CreateRequest implements Initializable {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
         //comboBoxGroup.setItems(options);
     }
@@ -171,6 +173,8 @@ public class CreateRequest implements Initializable {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
     }
@@ -196,6 +200,8 @@ public class CreateRequest implements Initializable {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
     }
@@ -204,39 +210,15 @@ public class CreateRequest implements Initializable {
 
         try {
             String queryDelivery = "SELECT\n" +
-                    "                   [tbl_StoreCity].[ID] AS [ID],\n" +
-                    "                   [tbl_StoreCity].[Name] AS [Name]\n" +
-                    "                    FROM\n" +
-                    "                    [dbo].[tbl_StoreCity] AS [tbl_StoreCity]\n" +
-                    "\t\t\t\t\tWHERE tbl_StoreCity.Name = 'Мукачево' \n" +
-                    "        OR  tbl_StoreCity.Name = 'Іршава'\n" +
-                    "        OR  tbl_StoreCity.Name ='Ужгород'\n" +
-                    "        OR  tbl_StoreCity.Name ='Львів 1'\n" +
-                    "        OR  tbl_StoreCity.Name ='Львів 2'\n" +
-                    "        OR  tbl_StoreCity.Name ='Гурти'\n" +
-                    "        OR  tbl_StoreCity.Name ='Цс Львів'\n" +
-                    "        OR  tbl_StoreCity.Name ='Цс київ'\n" +
-                    "        OR  tbl_StoreCity.Name ='Сто черляни'\n" +
-                    "        OR  tbl_StoreCity.Name ='Кпп Черляни'\n" +
-                    "        OR  tbl_StoreCity.Name ='Городок'\n" +
-                    "        OR  tbl_StoreCity.Name ='Луцьк'\n" +
-                    "        OR  tbl_StoreCity.Name ='Рівне'\n" +
-                    "        OR  tbl_StoreCity.Name ='Житомир'\n" +
-                    "        OR  tbl_StoreCity.Name ='Київ'\n" +
-                    "        OR  tbl_StoreCity.Name ='Київ 2'\n" +
-                    "        OR  tbl_StoreCity.Name ='Харків'\n" +
-                    "        OR  tbl_StoreCity.Name ='Дніпро'\n" +
-                    "        OR  tbl_StoreCity.Name ='Вінниця'\n" +
-                    "        OR  tbl_StoreCity.Name ='Вінниця 2'\n" +
-                    "        OR  tbl_StoreCity.Name ='Одеса'\n" +
-                    "        OR  tbl_StoreCity.Name ='Хмельницький'\n" +
-                    "        OR  tbl_StoreCity.Name ='Тернопіль'\n" +
-                    "        OR  tbl_StoreCity.Name ='Чернівці'\n" +
-                    "        OR  tbl_StoreCity.Name ='КПП Київ'\n" +
-                    "\t\tOR  tbl_StoreCity.Name LIKE 'Розборка%'\n" +
-                    "\t\tOR  tbl_StoreCity.Name LIKE 'ГУРТОВІ%'\n" +
-                    "        ORDER BY\n" +
-                    "        2 ASC";
+                    "                     [tbl_StoreCity].[ID] AS [ID],\n" +
+                    "                     [tbl_StoreCity].[Name] AS [Name]\n" +
+                    "\n" +
+                    "                                       FROM\n" +
+                    "                                       [dbo].[tbl_StoreCity] AS [tbl_StoreCity]\n" +
+                    "                 WHERE\n" +
+                    "\t\t\t\t tbl_StoreCity.IsActive = 1\n" +
+                    "                           ORDER BY\n" +
+                    "                           2 ASC";
             pstDeliveryCity = conDeliveryCity.prepareStatement(queryDelivery);
 
             rsDeliveryCity = pstDeliveryCity.executeQuery();
@@ -250,6 +232,8 @@ public class CreateRequest implements Initializable {
             rsDeliveryCity.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
         DeliveryCity.setItems(optionsDeliveryCity);
 
@@ -277,6 +261,8 @@ public class CreateRequest implements Initializable {
             rsStatus.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
 //        System.out.println(Status.getPromptText().toString() + "6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666");
@@ -285,7 +271,7 @@ public class CreateRequest implements Initializable {
     public void GroupPeople() {
 
         try {
-            String queryGroupPeople = "SELECT [tbl_Contact].ID, [tbl_Contact].[Name] FROM [tbl_Contact] AS [tbl_Contact] WHERE [tbl_Contact].JobID = 'CCB28AD0-ECAC-43DF-9827-E2F9CEA56A3A' OR ID = '71820A9D-95B6-4D65-A480-4F2C57AE9A4B'\n";
+            String queryGroupPeople = "SELECT [tbl_Contact].ID, [tbl_Contact].[Name] FROM [tbl_Contact] AS [tbl_Contact] WHERE [tbl_Contact].JobID = 'CCB28AD0-ECAC-43DF-9827-E2F9CEA56A3A' OR ID IN ('71820A9D-95B6-4D65-A480-4F2C57AE9A4B', '0B1A17F5-AD03-440C-A513-1398FF2B5C67')\n";
 
             pstGroupPeople = conGroupPeople.prepareStatement(queryGroupPeople);
 
@@ -299,6 +285,8 @@ public class CreateRequest implements Initializable {
             rsGroupPeople.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
     }
@@ -312,6 +300,8 @@ public class CreateRequest implements Initializable {
         cmbMain3.setStyle("-fx-text-fill:black;" +
                 "-fx-opacity: 1;");
         cmbMain3.setDisable(true);
+
+
         Status.setDisable(true);
         try {
             conStatusRequest = DBConnection.getDataSource().getConnection();

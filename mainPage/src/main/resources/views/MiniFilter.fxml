@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.shape.Rectangle?>
 
 <StackPane fx:id="stackPaneMini" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Utils.MiniFilterWindow.MiniFilterController">
    <children>
       <HBox fx:id="pane" alignment="CENTER_LEFT">
          <children>
-            <Rectangle fx:id="btnRemoveFilter" arcHeight="5.0" arcWidth="5.0" height="30.0" strokeType="INSIDE" width="30.0" />
+            <JFXButton fx:id="btnRemoveFilter" prefHeight="32.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/close_normal.png" />
+                     </image>
+                  </ImageView>
+               </graphic></JFXButton>
             <Label fx:id="lblColumn" text="1">
                <HBox.margin>
                   <Insets left="10.0" />

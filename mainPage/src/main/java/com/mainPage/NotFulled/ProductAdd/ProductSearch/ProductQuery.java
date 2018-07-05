@@ -121,7 +121,8 @@ public class ProductQuery implements Queries {
             }
 
         } catch (SQLException e) {
-            log.log(Level.SEVERE, "Pages count exception: " + e);
+            log.log(Level.SEVERE, "Pages count exception: " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
         return count;

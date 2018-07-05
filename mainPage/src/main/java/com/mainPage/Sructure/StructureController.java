@@ -48,7 +48,8 @@ public class StructureController implements Initializable {
         try {
             con = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace();  DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
         fileChooser = new FileChooser();
@@ -129,4 +130,8 @@ public class StructureController implements Initializable {
 //addImage();
 
     }
+
+
+
+
 }

@@ -26,7 +26,7 @@ public class DBConnection implements InterfaceDataBase {
     public static String serverName = getServerName();
 
     public static String serverChatName = getServerChatName();
-
+    public static String databaseName ;
 
 
     private static ComboPooledDataSource dataSource;

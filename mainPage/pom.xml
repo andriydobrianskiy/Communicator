@@ -111,11 +111,7 @@
             <artifactId>richtextfx</artifactId>
             <version>0.4.1</version>
         </dependency>
-        <dependency>
-            <groupId>com.github.goxr3plus</groupId>
-            <artifactId>FX-BorderlessScene</artifactId>
-            <version>V2.0.0</version>
-        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.json/json -->
         <dependency>
             <groupId>org.json</groupId>

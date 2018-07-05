@@ -61,6 +61,8 @@ public class DerbyOfferingRequestDAO implements OfferingRequestDAO{
         } catch (SQLException e) {
 
             log.log(Level.SEVERE, "Delete offering row exception: " + e);
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
         return false;
     }
@@ -79,7 +81,8 @@ public class DerbyOfferingRequestDAO implements OfferingRequestDAO{
         } catch (Exception e) {
 
 
-            log.log(Level.SEVERE, "Column filter exception (findAll): " + e);
+            log.log(Level.SEVERE, "Column filter exception (findAll): " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
         return EMPTYLIST;

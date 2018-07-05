@@ -1,26 +1,43 @@
 package com.mainPage.Statistic;
 
+import com.Utils.MiniFilterWindow.FilterFunctions;
+import com.Utils.MiniFilterWindow.MiniFilter;
+import com.Utils.MiniFilterWindow.MiniFilterController;
+import com.Utils.MiniFilterWindow.MiniFilterFunction;
+import com.Utils.UsefulUtils;
 import com.connectDatabase.DBConnection;
 import com.jfoenix.controls.JFXDatePicker;
+import com.mainPage.WorkArea;
 import com.mainPage.page.MainPageController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import org.google.jhsheets.filtered.operators.IFilterOperator;
+import org.google.jhsheets.filtered.tablecolumn.ColumnFilterEvent;
+import org.google.jhsheets.filtered.tablecolumn.FilterableIntegerTableColumn;
+import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
-public class StatisticController implements Initializable{
+public class StatisticController extends WorkArea implements MiniFilterFunction, Initializable,FilterFunctions {
     private MainPageController mainPageController;
     private Connection con = null;
     private PreparedStatement pst = null;
@@ -30,20 +47,24 @@ public class StatisticController implements Initializable{
     private JFXDatePicker fromDate;
     @FXML
     private JFXDatePicker toDate;
-    @FXML
-    private TableView <Statistic> tableView;
-    @FXML
-    private TableColumn <?, ?> column_Manager;
-    @FXML
-    private TableColumn <?, ?> column_InProcessing;
-    @FXML
-    private TableColumn <?, ?> column_Tract;
-    @FXML
-    private TableColumn <?, ?> column_Completed;
-    @FXML
-    private TableColumn <?, ?> column_ReturnDelete;
-    @FXML
-    private TableColumn <?, ?> column_All;
+
+
+    @FXML private FilterableStringTableColumn column_Manager;
+
+    @FXML private FilterableIntegerTableColumn column_InProcessing;
+
+    @FXML private FilterableIntegerTableColumn column_Tract;
+
+    @FXML private FilterableIntegerTableColumn column_Completed;
+
+    @FXML private FilterableIntegerTableColumn column_ReturnDelete;
+
+    @FXML private FilterableIntegerTableColumn column_All;
+
+    private HashMap<String, String> resultFilterMap = new HashMap<>();
+    private UUID uniqueID;
+
+    private HashMap<TableColumn, String> mapFilters = new HashMap();
 
 
     @Override
@@ -52,7 +73,8 @@ public class StatisticController implements Initializable{
         try {
             con = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace();  DBConnection database = new DBConnection();
+            database.reconnect();
         }
         setCellTable();
 
@@ -65,8 +87,27 @@ public class StatisticController implements Initializable{
 
 
         loadDataFromDatabaseBottom(this.toDate.getValue(),this.fromDate.getValue());
+        tableView.setTableMenuButtonVisible(true);
+        UsefulUtils.installCopyPasteHandler(tableView);
+        tableView.addEventHandler(ColumnFilterEvent.FILTER_CHANGED_EVENT, event -> {
+            new MiniFilter(StatisticController.this, StatisticController.this, hashColumns,event).setFilter();
+        });
 
-     //   });
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        UsefulUtils.copySelectedCell(tableView);
+
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        borderPane.setCenter(tableView);
+        tableView.setTableMenuButtonVisible(true);
+        UsefulUtils.installCopyPasteHandler(tableView);
+        // customizeScene();
+        //    tableView.getSelectionModel().setCellSelectionEnabled(true);
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tableView.setOnKeyReleased(eventKey -> {
+            UsefulUtils.searchCombination(eventKey, tableView);
+        });
+        //   });
 
 
 
@@ -83,8 +124,8 @@ public class StatisticController implements Initializable{
 
     public void loadDataFromDatabaseBottom(LocalDate toDate, LocalDate fromDate){
 
-     //  Date fromDate = Date.valueOf(this.fromDate.getValue());
-      //  Date toDate = Date.valueOf(this.toDate.getValue());
+        //  Date fromDate = Date.valueOf(this.fromDate.getValue());
+        //  Date toDate = Date.valueOf(this.toDate.getValue());
 
         try {
 
@@ -125,26 +166,14 @@ public class StatisticController implements Initializable{
                         "\t[dbo].[tbl_RequestOffering] AS [RO]\n" +
                         "LEFT OUTER JOIN\n" +
                         "\t[dbo].[tbl_Contact] AS [C] ON [C].[ID] = [RO].[CreatedByID]\n" +
-                        "WHERE([RO].[CreatedOn] BETWEEN CONVERT(DATETIME, '"+fromDate+"', 121) AND CONVERT(DATETIME, '"+toDate+"', 121))\n" +
+                        "WHERE([RO].[CreatedOn] BETWEEN CONVERT(DATETIME, '"+fromDate+"', 121) AND CONVERT(DATETIME, '"+toDate+"', 121))\n" + getStringFilter()+
                         "GROUP BY\n" +
                         "\t[C].[Name],\n" +
-                        "\t[RO].[CreatedByID]\n" +
-                        "ORDER BY\n" +
-                        "\t1 DESC");
+                        "\t[RO].[CreatedByID]\n" );
+                System.out.println(pst);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
-            /*pst.setString(1, String.valueOf(Date.valueOf(this.fromDate.getValue())));
-            pst.setString(2, String.valueOf(Date.valueOf(this.toDate.getValue())));
-            pst.setString(3, String.valueOf((Date.valueOf(this.fromDate.getValue()))));
-            pst.setString(4, String.valueOf(Date.valueOf(this.toDate.getValue())));
-            pst.setString(5, String.valueOf((Date.valueOf(this.fromDate.getValue()))));
-            pst.setString(6, String.valueOf(Date.valueOf(this.toDate.getValue())));
-            pst.setString(7, String.valueOf((Date.valueOf(this.fromDate.getValue()))));
-            pst.setString(8, String.valueOf(Date.valueOf(this.toDate.getValue())));
-            pst.setString(9, String.valueOf(fromDate));
-            pst.setString(10, String.valueOf(Date.valueOf(this.toDate.getValue())));*/
             rs = pst.executeQuery();
             while (rs.next()){
                 data.add(new Statistic(rs.getString(2),rs.getString(3), rs.getString(4),
@@ -157,8 +186,6 @@ public class StatisticController implements Initializable{
             e.printStackTrace();
         }
         tableView.setItems(data);
-        // tableViewRequest.setItems(FXCollections.observableArrayList(data.subList((int)fromIndex, (int)toIndex)));
-
     }
 
     @FXML
@@ -175,5 +202,96 @@ public class StatisticController implements Initializable{
 
     public void init(MainPageController mainPageController) {
         this.mainPageController = mainPageController;
+    }
+
+
+    public void refreshData() {
+        try {
+            data.clear();
+        } catch (NullPointerException ex) {
+
+        } finally {
+            loadDataFromDatabaseBottom(this.toDate.getValue(),this.fromDate.getValue());
+        }
+
+        UsefulUtils.fadeTransition(tableView);
+    }
+
+    @Override
+    public void fillHboxFilter(TableColumn column, IFilterOperator.Type type, Object value) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+                "/views/MiniFilter.fxml"));
+
+        Pane content;
+        try {
+            content = fxmlLoader.load();
+
+
+            MiniFilterController miniC = fxmlLoader.getController();
+
+            miniC.setWindow(this, content);
+            miniC.setFilter(column, type, value);
+
+            hboxFilter.getChildren().add(content);
+
+
+            hashMiniFilter.put(column, content);
+
+            hboxFilter.setMargin(content, new Insets(0, 0, 0, 10));
+
+            scrollPaneFilter.setFitToHeight(true);
+
+            System.out.println("SETTTED");
+            //content.getStylesheets().add("sample/ua/ucountry/MainTables/Account/MainDictionaryTable.css");
+        } catch (IOException exception) {
+
+            throw new RuntimeException(exception);
+        }
+    }
+
+    @Override
+    public void setStringFilter(TableColumn column, String value) {
+        mapFilters.put(column, value);
+    }
+
+    @Override
+    public void setStringFilterMerge(TableColumn column, String value) {
+        mapFilters.merge(column, value, (a, b) -> a + "\n" + b);
+    }
+
+    @Override
+    public String getStringFilter() {
+        StringBuilder builder = new StringBuilder("");
+        try {
+            mapFilters.forEach((k, v) ->
+                    builder.append(v));
+        } catch (NullPointerException e) {
+
+        }
+
+
+        return builder.toString();
+    }
+
+    @Override
+    public void removeStringFilter(TableColumn key) {
+        mapFilters.remove(key);
+    }
+    @Override
+    public void disableFilter(TableColumn column, Pane content) {
+        this.removeStringFilter(column);
+        refreshData();
+
+        //column.filteredProperty().setValue(true);
+
+        if(content == null) {
+            removeFilterFromHbox(column);
+            return;
+        }
+
+        hboxFilter.getChildren().remove(content);
+
+
+        System.out.println("DISABLED");
     }
 }

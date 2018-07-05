@@ -204,7 +204,8 @@ this.ID = ID;
         try {
             return dbAccess.query(DBConnection.getDataSource().getConnection(), accountQueries.getMainAccount(false, 0) + whereClause, new BeanListHandler<Counterpart>(Counterpart.class));
         } catch (Exception e) {
-            log.log(Level.SEVERE, "Column filter exception (findAccountByProperty): " + e);
+            log.log(Level.SEVERE, "Column filter exception (findAccountByProperty): " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
         return EMPTYLIST;
@@ -216,7 +217,8 @@ this.ID = ID;
         try {
             return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query, new BeanListHandler<Counterpart>(Counterpart.class)));
         } catch (Exception e) {
-            log.log(Level.SEVERE, "getAccount exception: " + e);
+            log.log(Level.SEVERE, "getAccount exception: " + e);  DBConnection database = new DBConnection();
+            database.reconnect();
         }
 
         return FXCollections.observableArrayList(EMPTYLIST);

@@ -1,17 +1,18 @@
 package com.mainPage.InTract.InTractRequest;
 
+import com.Utils.UsefulUtils;
+import com.connectDatabase.DBConnection;
+import com.mainPage.InTract.InTract;
+import com.mainPage.InTract.InTractController;
+import com.mainPage.WorkArea;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import com.Utils.UsefulUtils;
-import com.connectDatabase.DBConnection;
-import com.mainPage.InTract.InTract;
-import com.mainPage.InTract.InTractController;
+import org.google.jhsheets.filtered.tablecolumn.FilterableIntegerTableColumn;
+import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -22,25 +23,22 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
-public class InTractRequestController implements Initializable {
+public class InTractRequestController extends WorkArea implements Initializable {
     private static Logger log = Logger.getLogger(InTractRequestController.class.getName());
     private InTractController main;
-    @FXML
-    private TableView<InTractRequest> tableViewRequest;
-    @FXML
-    private TableColumn<?, ?> columnIndex;
-    @FXML
-    private TableColumn<?, ?> columnSkrut;
-    @FXML
-    private TableColumn<?, ?> columnOfferingName;
-    @FXML
-    private TableColumn<?, ?> columnQuantity;
-    @FXML
-    private TableColumn<?, ?> columnDefaultOfferingCode;
-    @FXML
-    private TableColumn<?, ?> columnNewOfferingCode;
-    @FXML
-    private TableColumn<?, ?> columnNewDescription;
+    @FXML private FilterableStringTableColumn<InTractRequest, String> colIndex;
+
+    @FXML private FilterableStringTableColumn <InTractRequest, String>colSkrut;
+
+    @FXML private FilterableStringTableColumn <InTractRequest, String>colNewDescription;
+
+    @FXML private FilterableStringTableColumn <InTractRequest, String>colOfferingName;
+
+    @FXML private FilterableIntegerTableColumn<InTractRequest, Integer> colQuantity;
+
+    @FXML private FilterableStringTableColumn <InTractRequest, String>colDefaultOfferingCode;
+
+    @FXML private FilterableStringTableColumn <InTractRequest, String>colNewOfferingCode;
 
     private Connection con = null;
     private PreparedStatement pst = null;
@@ -49,23 +47,25 @@ public class InTractRequestController implements Initializable {
     private DerbyInTractRequestDAO derbyInTractRequestDAO = new DerbyInTractRequestDAO();
     private InTract selectedRecord;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // createTableColumnsProduct();
         try {
             con = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
-            e.printStackTrace();
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
         setCellTable();
         data = FXCollections.observableArrayList();
         // loadDataFromDatabaseBottom();
-        tableViewRequest.setTableMenuButtonVisible(true);
-        tableViewRequest.getSelectionModel().setCellSelectionEnabled(false);
-        tableViewRequest.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tableView.setTableMenuButtonVisible(true);
+        tableView.getSelectionModel().setCellSelectionEnabled(false);
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
 
-        UsefulUtils.installCopyPasteHandler(tableViewRequest);
+        UsefulUtils.installCopyPasteHandler(tableView);
     }
 
     public void init(InTractController inTractController) {
@@ -81,68 +81,41 @@ public class InTractRequestController implements Initializable {
 
 
 
-  /*  public void loadDataFromDatabaseBottom() {
+
+
+    private void setCellTable() {
 
         try {
-
-            data = FXCollections.observableArrayList();
-           // System.out.println(DBConnection.getDataSource().getConnection().toString());
-            List<InTractRequest> listItems = derbyInTractRequestDAO.findAll(true,1);
-
-            listItems.forEach(item -> data.add(item));
-
-            tableViewRequest.setItems(data);
-        } catch (Exception e) {
-            log.log(Level.SEVERE, "Exception: " + e);
-        }
-    }
-
-
-
-    public void createTableColumnsProduct() {
-
-        try {
-            TableColumn<InTractRequest, String> index = new TableColumn<InTractRequest, String>("Індекс");
-            TableColumn<InTractRequest, String> skrut = new TableColumn<InTractRequest,String>("Скорочення");
-            TableColumn<InTractRequest, String> offeringName = new TableColumn<InTractRequest, String>("Продукт");
-            TableColumn<InTractRequest, String> quantity = new TableColumn<InTractRequest, String>("Кількість");
-            TableColumn<InTractRequest, String> defaultOfferingCode = new TableColumn<InTractRequest, String>("Код товару");
+            hashColumns.put(colIndex, "[tbl_RequestOffering].[Number]");
+            hashColumns.put(colSkrut, "[tbl_RequestOffering].[CreatedOn]");
+            hashColumns.put(colNewDescription, "[tbl_Contact].[Name]");
+            hashColumns.put(colOfferingName, "[tbl_Account].[Name]");
+            hashColumns.put( colQuantity, "[tbl_Account].[Code]");
+            hashColumns.put(colDefaultOfferingCode, "[tbl_Account].[SaldoSel]");
+            hashColumns.put(colNewOfferingCode, "(CASE\n" +
+                    "    WHEN CONVERT(DATETIME,ISNULL([tbl_Account].[UnblockDate], '2000-01-01')) > CONVERT(DATETIME, CURRENT_TIMESTAMP) \n" +
+                    "    THEN ''\n" +
+                    "    WHEN [tbl_Account].[IsSolid] = 1\n" +
+                    "    THEN 'Не солідний'\n" +
+                    "    ELSE ''\n" +
+                    "END)");
 
 
 
-            index.setMinWidth(150);
-
-            //   tableProduct.setVisible(false);
-            tableViewRequest.setTableMenuButtonVisible(true);
-            tableViewRequest.getColumns().addAll(
-                    index,
-                    skrut,
-                    offeringName,
-                    quantity,
-                    defaultOfferingCode
-            );
-            index.setCellValueFactory(new PropertyValueFactory<InTractRequest,String>("Index"));
-            skrut.setCellValueFactory(new PropertyValueFactory<InTractRequest,String>("Skrut"));
-            offeringName.setCellValueFactory(new PropertyValueFactory<InTractRequest,String>("OfferingName"));
-            quantity.setCellValueFactory(new PropertyValueFactory<InTractRequest,String>("Quantity"));
-            defaultOfferingCode.setCellValueFactory(new PropertyValueFactory<InTractRequest,String>("DefaultOfferingCode"));
+            colIndex.setCellValueFactory(new PropertyValueFactory<InTractRequest,String>("index"));
+            colSkrut.setCellValueFactory(new PropertyValueFactory<InTractRequest,String>("skrut"));
+            colNewDescription.setCellValueFactory(new PropertyValueFactory<InTractRequest, String>("newDescription"));
+            colOfferingName.setCellValueFactory(new PropertyValueFactory<InTractRequest,String>("offeringName"));
+            colQuantity.setCellValueFactory(new PropertyValueFactory<InTractRequest,Integer>("quantity"));
+            colDefaultOfferingCode.setCellValueFactory(new PropertyValueFactory<InTractRequest, String>("defaultOfferingCode"));
+            colNewOfferingCode.setCellValueFactory(new PropertyValueFactory<InTractRequest,String>("newOfferingCode"));
 
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-    }*/
-
-    private void setCellTable() {
-        columnIndex.setCellValueFactory(new PropertyValueFactory<>("Index"));
-        columnSkrut.setCellValueFactory(new PropertyValueFactory<>("Skrut"));
-        columnNewDescription.setCellValueFactory(new PropertyValueFactory<>("newDescription"));
-        columnOfferingName.setCellValueFactory(new PropertyValueFactory<>("OfferingName"));
-        columnQuantity.setCellValueFactory(new PropertyValueFactory<>("Quantity"));
-        columnDefaultOfferingCode.setCellValueFactory(new PropertyValueFactory<>("DefaultOfferingCode"));
-        columnNewOfferingCode.setCellValueFactory(new PropertyValueFactory<>("newOfferingCode"));
+        super.createTableColumns();
     }
 
     private StringBuilder query;
@@ -192,9 +165,13 @@ public class InTractRequestController implements Initializable {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
-        tableViewRequest.setItems(data);
+        tableView.setItems(data);
         // tableViewRequest.setItems(FXCollections.observableArrayList(data.subList((int)fromIndex, (int)toIndex)));
         return null;
     }
+
+
 }

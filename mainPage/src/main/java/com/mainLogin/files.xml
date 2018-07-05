@@ -2,4 +2,6 @@
 <update>
 	<file>ftp://192.168.10.101/mainPage/update.xml</file>
 	<file>ftp://192.168.10.101/mainPage/mainPage.exe</file>
+	<file>ftp://192.168.10.101/mainPage/FilterableTableColumns.jar</file>
+	<file>ftp://192.168.10.101/mainPage/mainPage.jar</file>
 </update>
