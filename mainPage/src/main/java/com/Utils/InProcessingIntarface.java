@@ -12,9 +12,9 @@ public interface InProcessingIntarface {
     void setName(String name);*/
 
     //  List<? extends InProcessingIntarface> findByProperty1(Object value, Enum<? extends SearchType> searchType);
-    List<InProcessing> findAllOne(boolean pagination, int rowIndex, String createdByID, String offeringGroupID);
+    List<InProcessing> findAllOne(boolean pagination, int rowIndex, String createdByID, String offeringGroupID, String filterSorted);
 
-    List<InProcessing> findAllInProcessing(boolean pagination, int rowIndex);
+    List<InProcessing> findAllInProcessing(boolean pagination, int rowIndex, String filterSorted);
 
 
 }

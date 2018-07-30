@@ -1,5 +1,6 @@
 package com.mainPage.InTract;
 
+import com.Utils.GridComp;
 import com.Utils.MiniFilterWindow.FilterFunctions;
 import com.connectDatabase.DBConnection;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -16,7 +17,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class InTract implements InTractInterface, FilterFunctions {
+public class InTract extends GridComp implements InTractInterface, FilterFunctions {
     private static Logger log = Logger.getLogger(InTract.class.getName());
     private QueryRunner dbAccess = new QueryRunner();
     private InTractQuery accountQueries1 = new InTractQuery();
@@ -67,6 +68,7 @@ public class InTract implements InTractInterface, FilterFunctions {
     private SimpleStringProperty SpecialMarginTypeName;
     private SimpleStringProperty StateID;
     private SimpleStringProperty StateName;
+    private String CashType;
 
 
 
@@ -258,6 +260,13 @@ public class InTract implements InTractInterface, FilterFunctions {
     public void setStateName (String stateName) {
         this.StateName = new SimpleStringProperty(stateName);
     }
+    public String getCashType() {
+        return CashType;
+    }
+
+    public void setCashType(String CashType) {
+        this.CashType = CashType;
+    }
 
     @Override
     public String toString() { return AccountName.getValue(); }
@@ -265,12 +274,12 @@ public class InTract implements InTractInterface, FilterFunctions {
 
 
     @Override
-    public List<InTract> findInTract(boolean pagination, int rowIndex, String createdByID, String offeringGroupID) {
+    public List<InTract> findInTract(boolean pagination, int rowIndex, String createdByID, String offeringGroupID, String filterSorted) {
         String query = (pagination ? accountQueries1.getMainInTract(true, rowIndex, createdByID,offeringGroupID ) : accountQueries1.getMainInTract(false, 0, createdByID,offeringGroupID ));
 
         try {
 
-            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter(), new BeanListHandler<InTract>(InTract.class)));
+            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter()+ filterSorted, new BeanListHandler<InTract>(InTract.class)));
         } catch (Exception e) {
             log.log(Level.SEVERE, "getAccount exception: " + e);
         }
@@ -279,12 +288,12 @@ public class InTract implements InTractInterface, FilterFunctions {
     }
 
     @Override
-    public List<InTract> findInTractAll(boolean pagination, int rowIndex) {
+    public List<InTract> findInTractAll(boolean pagination, int rowIndex, String filterSorted) {
         String query = (pagination ? accountQueries1.getAllInTract(true, rowIndex ) : accountQueries1.getAllInTract(false, 0));
 
         try {
 
-            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query+getStringFilter(), new BeanListHandler<InTract>(InTract.class)));
+            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query+getStringFilter()+ filterSorted, new BeanListHandler<InTract>(InTract.class)));
         } catch (Exception e) {
             log.log(Level.SEVERE, "getAccount exception: " + e);
         }

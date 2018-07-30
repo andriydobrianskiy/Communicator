@@ -72,6 +72,7 @@ public class NotFulfilled extends GridComp implements  NotFulledInterface, Filte
     private String SpecialMarginTypeID;
     private String SpecialMarginTypeName;
     private String StateName;
+    private String CashType;
 
     public String getDate() {
         return Date;
@@ -137,7 +138,13 @@ public class NotFulfilled extends GridComp implements  NotFulledInterface, Filte
         SpecialMarginTypeID = specialMarginTypeID;
     }
 
+    public String getCashType() {
+        return CashType;
+    }
 
+    public void setCashType(String CashType) {
+        this.CashType = CashType;
+    }
    public String getGroupID() {
        return GroupID;
    }

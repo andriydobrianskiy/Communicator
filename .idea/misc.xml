@@ -5,6 +5,9 @@
       <writeAnnotation name="javafx.fxml.FXML" />
     </writeAnnotations>
   </component>
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/mainPage" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>

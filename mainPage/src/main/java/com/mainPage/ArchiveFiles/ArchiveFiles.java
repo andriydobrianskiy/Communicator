@@ -1,5 +1,6 @@
 package com.mainPage.ArchiveFiles;
 
+import com.Utils.GridComp;
 import com.Utils.MiniFilterWindow.FilterFunctions;
 import com.connectDatabase.DBConnection;
 import javafx.beans.property.SimpleStringProperty;
@@ -15,7 +16,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ArchiveFiles implements ArchiveFilesInterface, FilterFunctions {
+public class ArchiveFiles extends GridComp implements ArchiveFilesInterface, FilterFunctions {
     private static Logger log = Logger.getLogger(ArchiveFiles.class.getName());
     private QueryRunner dbAccess = new QueryRunner();
     private ArchiveFilesQuery accountQueries1 = new ArchiveFilesQuery();
@@ -70,6 +71,7 @@ public class ArchiveFiles implements ArchiveFilesInterface, FilterFunctions {
     private SimpleStringProperty StateID;
     private SimpleStringProperty StateName;
     private SimpleStringProperty ChangeByAutouser;
+    private SimpleStringProperty CashType;
 
     public ArchiveFiles () {}
 
@@ -204,6 +206,10 @@ public class ArchiveFiles implements ArchiveFilesInterface, FilterFunctions {
         return ChangeByAutouser.getValue();
     }
 
+    public String getCashType() {
+        return CashType.getValue();
+    }
+
 
     // setters
 
@@ -326,6 +332,9 @@ public class ArchiveFiles implements ArchiveFilesInterface, FilterFunctions {
     public void setChangeByAutouser(String changeByAutouser) {
         this.ChangeByAutouser = new SimpleStringProperty(changeByAutouser);
     }
+    public void setCashType(String cashType) {
+        this.CashType = new SimpleStringProperty(cashType);
+    }
 
 
 
@@ -350,13 +359,13 @@ public class ArchiveFiles implements ArchiveFilesInterface, FilterFunctions {
     }*/
 
     @Override
-    public List<ArchiveFiles> findInArchive(boolean pagination, int rowIndex, String createdByID, String offeringGroupID) {
+    public List<ArchiveFiles> findInArchive(boolean pagination, int rowIndex, String createdByID, String offeringGroupID, String filterSorted) {
         {
             String query = (pagination ? accountQueries1.getMainArchiveFiles(true, rowIndex, createdByID , offeringGroupID) : accountQueries1.getMainArchiveFiles(false, 0, createdByID , offeringGroupID));
 
             try {
 
-                return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter(), new BeanListHandler<ArchiveFiles>(ArchiveFiles.class)/*, statusID, createdByID, offeringGroupID*/));
+                return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter()+filterSorted, new BeanListHandler<ArchiveFiles>(ArchiveFiles.class)/*, statusID, createdByID, offeringGroupID*/));
             } catch (Exception e) {
                 log.log(Level.SEVERE, "getAccount exception: " + e);  DBConnection database = new DBConnection();
                 database.reconnect();
@@ -368,13 +377,13 @@ public class ArchiveFiles implements ArchiveFilesInterface, FilterFunctions {
     }
 
 
-    public List<ArchiveFiles> findAllInArchive(boolean pagination, int rowIndex) {
+    public List<ArchiveFiles> findAllInArchive(boolean pagination, int rowIndex, String filterSorted) {
         {
             String query = (pagination ? accountQueries1.getAllInTract(true, rowIndex) : accountQueries1.getAllInTract(false, 0));
 
             try {
 
-                return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter(), new BeanListHandler<ArchiveFiles>(ArchiveFiles.class)/*, statusID, createdByID, offeringGroupID*/));
+                return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter()+filterSorted, new BeanListHandler<ArchiveFiles>(ArchiveFiles.class)/*, statusID, createdByID, offeringGroupID*/));
             } catch (Exception e) {
                 log.log(Level.SEVERE, "getAccount exception: " + e);  DBConnection database = new DBConnection();
                 database.reconnect();

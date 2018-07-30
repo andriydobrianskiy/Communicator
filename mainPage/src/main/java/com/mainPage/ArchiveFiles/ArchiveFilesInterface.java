@@ -10,6 +10,6 @@ public interface ArchiveFilesInterface {
    // void setName(String name);
 
     // List<? extends InProcessingIntarface> findByProperty1(Object value, Enum<? extends SearchType> searchType);
-    List<ArchiveFiles> findInArchive(boolean pagination, int rowIndex, String createdByID , String offeringGroupID);
+    List<ArchiveFiles> findInArchive(boolean pagination, int rowIndex, String createdByID , String offeringGroupID, String filterSorted);
     // List<InTract> findAllInTractAll(boolean pagination, int rowIndex );
 }

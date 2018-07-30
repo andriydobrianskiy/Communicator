@@ -51,6 +51,11 @@ public class CreateRequest implements Initializable {
     private ResultSet rs = null;
     private Connection con = null;
     @FXML
+    private RadioButton box_cash;
+    @FXML
+    private RadioButton box_PDV;
+    ObservableList<String> checkBoxList = FXCollections.observableArrayList();
+    @FXML
     private ArrayList<? extends Control> listFields;
     @FXML
     private ArrayList<? extends Control> listComboBox;
@@ -291,6 +296,30 @@ public class CreateRequest implements Initializable {
 
     }
 
+    public void CheckBoxAction (){
+        try {
+            String queryGroupPeople = "SELECT [tbl_Contact].ID, [tbl_Contact].[Name] FROM [tbl_Contact] AS [tbl_Contact] WHERE [tbl_Contact].JobID = 'CCB28AD0-ECAC-43DF-9827-E2F9CEA56A3A' OR ID IN ('71820A9D-95B6-4D65-A480-4F2C57AE9A4B', '0B1A17F5-AD03-440C-A513-1398FF2B5C67')\n";
+
+            pstGroupPeople = conGroupPeople.prepareStatement(queryGroupPeople);
+
+            rsGroupPeople = pstGroupPeople.executeQuery();
+            while (rsGroupPeople.next()) {
+                optionsGroupPeople.add(new GroupPeople(rsGroupPeople.getString(1), rsGroupPeople.getString(2)));
+            }
+            GroupPeople.setItems(optionsGroupPeople);
+            conGroupPeople.close();
+            pstGroupPeople.close();
+            rsGroupPeople.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            DBConnection database = new DBConnection();
+            database.reconnect();
+        }
+
+
+
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -349,6 +378,12 @@ public class CreateRequest implements Initializable {
         } catch (Exception e) {
             log.log(Level.SEVERE, "Delete offering row exception: " + e);
         }
+        box_cash.setOnAction(e ->{
+            checkBoxList.add(box_cash.getText());
+        });
+        box_PDV.setOnAction(e ->{
+            checkBoxList.add(box_PDV.getText());
+        });
         // FxUtilTest.autoCompleteComboBoxPlus(DeliveryCity, (typedText, itemToCompare) -> itemToCompare.toString().toLowerCase().contains(typedText.toLowerCase()) || itemToCompare.toString().equals(typedText));
         //  FxUtilTest.getComboBoxValue(DeliveryCity);
         new ComboBoxAutoComplete<Integer>(DeliveryCity);
@@ -465,8 +500,8 @@ public class CreateRequest implements Initializable {
 
         builderQuery = new StringBuilder();
 
-        String query = ("INSERT INTO [dbo].[tbl_RequestOffering] (CreatedOn, CreatedByID, ModifiedOn, ModifiedByID, [AccountID], StoreCityID, [StatusID], [OfferingGroupID], OriginalGroupID, [StateID])\n" +
-                "                      VALUES (CURRENT_TIMESTAMP, ?, CURRENT_TIMESTAMP, ?,  ?, ?, ?, ?, ?, ? )");
+        String query = ("INSERT INTO [dbo].[tbl_RequestOffering] (CreatedOn, CreatedByID, ModifiedOn, ModifiedByID, [AccountID], StoreCityID, [StatusID], [OfferingGroupID], OriginalGroupID, [StateID], [CashType])\n" +
+                "                      VALUES (CURRENT_TIMESTAMP, ?, CURRENT_TIMESTAMP, ?,  ?, ?, ?, ?, ?, ?, ? )");
 
         pst = null;
 
@@ -480,6 +515,7 @@ public class CreateRequest implements Initializable {
             pst.setString(6, chosenElement.getOfferingGroupID());
             pst.setString(7, chosenElement.getOriginalGroupID());
             pst.setString(8, chosenElement.getStateID());
+            pst.setString(9, checkBoxList.toString());
             pst.execute();
 
             closeWindow();

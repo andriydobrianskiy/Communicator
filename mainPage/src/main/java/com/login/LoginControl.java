@@ -5,6 +5,7 @@ import com.client.chatwindow.Listener;
 import com.connectDatabase.DBConnection;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXToggleButton;
+import com.mainPage.InTract.InTractController;
 import com.mainPage.page.MainPageController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -53,10 +54,7 @@ public class LoginControl implements Initializable {
     private PreparedStatement pst;
     private ResultSet rs;
     private Credentials credentials = new Credentials();
-    String serverName1 ;
-    String ServerName2 ;
-    String serverChatName1;
-    String serverChatName2;
+
 
 
     /*@FXML
@@ -65,6 +63,7 @@ public class LoginControl implements Initializable {
     private AnchorPane anchorPane;*/
 
     private DBConnection database = new DBConnection();
+    private InTractController inTractController = new InTractController();
 
 
     @FXML
@@ -179,7 +178,7 @@ public class LoginControl implements Initializable {
         Listener listener = new Listener(hostname, port, username, picture, conn);
         Thread x = new Thread(listener);
         x.start();
-        stage.setTitle("Комунікатор 2.1 " + "(" + User.getContactName() + ")");
+        stage.setTitle("Комунікатор 2.3 " + "(" + User.getContactName() + ")");
 
        // tableView.setFixedCellSize(25);
        // tableView.prefHeightProperty().bind(tableView.fixedCellSizeProperty().multiply(Bindings.size(tableView.getItems()).add(1.01)));
@@ -213,11 +212,15 @@ public class LoginControl implements Initializable {
             if (group.getSelectedToggle() != null) {
 
                 database.setServerName(serverName1);
+                inTractController.setServerName(serverNew1);
+
                 database.setServerChatName(serverChatName1);
 
 
             } else {
                 database.setServerName(ServerName2);
+                inTractController.setServerName(serverNew2);
+
                 database.setServerChatName(serverChatName2);
             }
         });

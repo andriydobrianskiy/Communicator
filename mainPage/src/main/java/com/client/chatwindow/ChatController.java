@@ -90,6 +90,8 @@ public class ChatController extends ClientModelInt implements Initializable {
     private BorderPane rootPane;
     @FXML
     private AnchorPane chatPaneGeneral;
+    @FXML
+    private Button saveButton;
 
 
     ImageView userImageView = new ImageView();
@@ -523,7 +525,7 @@ Listener.sendNotification(msg);
                     b18.setFont(Font.font(null, 12));
                     b19.setStyle("-fx-background-color: transparent;");
                     b18.setStyle("-fx-background-color: transparent;");
-                    b18.setAlignment(Pos.CENTER_RIGHT);
+                    b18.setAlignment(Pos.CENTER_LEFT);
                     b19.setFont(Font.font(null, 16));
                     b18.getTypeSelector();
                     b19.setStyle("-fx-background-color: transparent;");
@@ -545,11 +547,11 @@ Listener.sendNotification(msg);
                     );
                     textFlow.getChildren().addAll( b19);
                     hBox.setPrefWidth(Region.USE_PREF_SIZE);
-                    hBox.setAlignment(Pos.CENTER_RIGHT);
+                    hBox.setAlignment(Pos.CENTER_LEFT);
                     hBox.autosize();
                     hBox.getChildren().addAll(profileImage, textFlow);
                     chatPane.getChildren().addAll(b18, hBox);
-                    chatPane.setAlignment(Pos.CENTER_RIGHT);
+                    chatPane.setAlignment(Pos.CENTER_LEFT);
                 }
             }
         } catch (SQLException e) {
@@ -606,10 +608,10 @@ Listener.sendNotification(msg);
                     profileImage.setFitHeight(32);
                     profileImage.setFitWidth(32);
                     TextFlow textFlow = new TextFlow();
-                    TextField b19 = new TextField();
+                    Text b19 = new Text();
                     TextField b18 = new TextField();
                     b18.setEditable(false);
-                    b19.setEditable(false);
+                   // b19.setEditable(false);
                     b18.setText(date + " " + user + ":" );
                     b19.setText(message);
                     b18.setFont(Font.font(null, 12));
@@ -634,14 +636,14 @@ Listener.sendNotification(msg);
                     profileImage.setFitHeight(32);
                     profileImage.setFitWidth(32);
                     TextFlow textFlow = new TextFlow();
-                    TextField b19 = new TextField();
+                    Text b19 = new Text();
                     TextField b18 = new TextField();
                     b18.setEditable(false);
-                    b19.setEditable(false);
+                 //   b19.setEditable(false);
                     b18.setText(date + " " + user + ":" );
                     b19.setText(message);
                     b18.setFont(Font.font(null, 12));
-                    b18.setAlignment(Pos.CENTER_RIGHT);
+                    b18.setAlignment(Pos.CENTER_LEFT);
                     b19.setFont(Font.font(null, 14));
                     b18.getTypeSelector();
                     b19.setStyle("-fx-background-color: transparent;");
@@ -663,11 +665,11 @@ Listener.sendNotification(msg);
                     );
                     textFlow.getChildren().addAll( b19);
                     hBox.setPrefWidth(Region.USE_PREF_SIZE);
-                    hBox.setAlignment(Pos.CENTER_RIGHT);
+                    hBox.setAlignment(Pos.CENTER_LEFT);
                     hBox.autosize();
                     hBox.getChildren().addAll(profileImage, textFlow);
                     chatPane.getChildren().addAll(b18, hBox);
-                    chatPane.setAlignment(Pos.CENTER_RIGHT);
+                    chatPane.setAlignment(Pos.CENTER_LEFT);
                 }
             }
         } catch (SQLException e) {
@@ -715,10 +717,10 @@ Listener.sendNotification(msg);
                     profileImage.setFitHeight(32);
                     profileImage.setFitWidth(32);
                     TextFlow textFlow = new TextFlow();
-                    TextField b19 = new TextField();
+                    Text b19 = new Text();
                     TextField b18 = new TextField();
                     b18.setEditable(false);
-                    b19.setEditable(false);
+                  //  b19.setEditable(false);
                     b18.setText(date + " " + user + ":" );
                     b19.setText(message);
                     b18.setFont(Font.font(null, 12));
@@ -743,14 +745,14 @@ Listener.sendNotification(msg);
                     profileImage.setFitHeight(32);
                     profileImage.setFitWidth(32);
                     TextFlow textFlow = new TextFlow();
-                    TextField b19 = new TextField();
+                    Text b19 = new Text();
                     TextField b18 = new TextField();
                     b18.setEditable(false);
-                    b19.setEditable(false);
+                  //  b19.setEditable(false);
                     b18.setText(date + " " + user + ":" );
                     b19.setText(message);
                     b18.setFont(Font.font(null, 12));
-                    b18.setAlignment(Pos.CENTER_RIGHT);
+                    b18.setAlignment(Pos.CENTER_LEFT);
                     b19.setFont(Font.font(null, 14));
                     b18.getTypeSelector();
                     b19.setStyle("-fx-background-color: transparent;");
@@ -772,11 +774,11 @@ Listener.sendNotification(msg);
                     );
                     textFlow.getChildren().addAll( b19);
                     hBox.setPrefWidth(Region.USE_PREF_SIZE);
-                    hBox.setAlignment(Pos.CENTER_RIGHT);
+                    hBox.setAlignment(Pos.CENTER_LEFT);
                     hBox.autosize();
                     hBox.getChildren().addAll(profileImage, textFlow);
                     chatPane.getChildren().addAll(b18, hBox);
-                    chatPane.setAlignment(Pos.CENTER_RIGHT);
+                    chatPane.setAlignment(Pos.CENTER_LEFT);
                 }
             }
         } catch (SQLException e) {
@@ -825,10 +827,10 @@ Listener.sendNotification(msg);
                     profileImage.setFitHeight(32);
                     profileImage.setFitWidth(32);
                     TextFlow textFlow = new TextFlow();
-                    TextField b19 = new TextField();
+                    Text b19 = new Text();
                     TextField b18 = new TextField();
                     b18.setEditable(false);
-                    b19.setEditable(false);
+                   // b19.setEditable(false);
                     b18.setText(date + " " + user + ":" );
                     b19.setText(message);
                     b18.setFont(Font.font(null, 12));
@@ -853,14 +855,14 @@ Listener.sendNotification(msg);
                     profileImage.setFitHeight(32);
                     profileImage.setFitWidth(32);
                     TextFlow textFlow = new TextFlow();
-                    TextField b19 = new TextField();
+                    Text b19 = new Text();
                     TextField b18 = new TextField();
                     b18.setEditable(false);
-                    b19.setEditable(false);
+                   // b19.setEditable(false);
                     b18.setText(date + " " + user + ":" );
                     b19.setText(message);
                     b18.setFont(Font.font(null, 12));
-                    b18.setAlignment(Pos.CENTER_RIGHT);
+                    b18.setAlignment(Pos.CENTER_LEFT);
                     b19.setFont(Font.font(null, 14));
                     b18.getTypeSelector();
                     b19.setStyle("-fx-background-color: transparent;");
@@ -882,11 +884,11 @@ Listener.sendNotification(msg);
                     );
                     textFlow.getChildren().addAll( b19);
                     hBox.setPrefWidth(Region.USE_PREF_SIZE);
-                    hBox.setAlignment(Pos.CENTER_RIGHT);
+                    hBox.setAlignment(Pos.CENTER_LEFT);
                     hBox.autosize();
                     hBox.getChildren().addAll(profileImage, textFlow);
                     chatPane.getChildren().addAll(b18, hBox);
-                    chatPane.setAlignment(Pos.CENTER_RIGHT);
+                    chatPane.setAlignment(Pos.CENTER_LEFT);
                 }
             }
         } catch (SQLException e) {
@@ -1181,7 +1183,7 @@ Listener.sendNotification(msg);
     public void initialize(URL location, ResourceBundle resources) {
         dataMessage = FXCollections.observableArrayList();
         chatPane.setFocusTraversable( false );
-
+        saveButton.setVisible(false);
         buttonSend.setTooltip(new Tooltip("Відправити"));
         try {
             connection = DBConnection.getDataSource().getConnection();

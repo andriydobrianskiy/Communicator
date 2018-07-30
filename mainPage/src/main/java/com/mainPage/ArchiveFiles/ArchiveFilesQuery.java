@@ -136,7 +136,8 @@ public class ArchiveFilesQuery implements Queries {
                 "       1\n" +
                 "    ELSE\n" +
                 "       0\n" +
-                "END) AS [ChangeByAutouser]\n" +
+                "END) AS [ChangeByAutouser],\n" +
+                "\t[tbl_RequestOffering].[CashType] AS [CashType]\n" +
                 "FROM\n" +
                 "\t[dbo].[tbl_RequestOffering] AS [tbl_RequestOffering]\n" +
                 "LEFT OUTER JOIN\n" +
@@ -276,7 +277,8 @@ public class ArchiveFilesQuery implements Queries {
                 "\t[tbl_Account].[SpecialMarginTypeID] AS [SpecialMarginTypeID],\n" +
                 "\t[SMT].[Name] AS [SpecialMarginTypeName],\n" +
                 "\t[tbl_RequestOffering].[StateID] AS [StateID],\n" +
-                "\t[tbl_RequestOfferingState].[Name] AS [StateName]\n" +
+                "\t[tbl_RequestOfferingState].[Name] AS [StateName],\n" +
+                        "\t[tbl_RequestOffering].[CashType] AS [CashType]\n" +
                 "FROM\n" +
                 "\t[dbo].[tbl_RequestOffering] AS [tbl_RequestOffering]\n" +
                 "LEFT OUTER JOIN\n" +
@@ -293,7 +295,7 @@ public class ArchiveFilesQuery implements Queries {
                 "\t[dbo].[tbl_SpecialMarginType] AS [SMT] ON [SMT].[ID] = [tbl_Account].[SpecialMarginTypeID]\n" +
                 "LEFT OUTER JOIN\n" +
                 "\t[dbo].[tbl_RequestOfferingState] AS [tbl_RequestOfferingState] ON [tbl_RequestOfferingState].[ID] = [tbl_RequestOffering].[StateID]\n" +
-                "WHERE [tbl_RequestOffering].[StatusID] = '{3B552198-B239-4801-819C-7033AA118B65}'\n"// +
+                "WHERE [tbl_RequestOffering].[StatusID] = '{6F784E48-1474-4CB9-B28D-A4B580FB346C}'\n"// +
               //  "ORDER BY\n" +
                 //"\t10 DESC"
         );
@@ -453,30 +455,13 @@ public class ArchiveFilesQuery implements Queries {
         return query.toString();
     }
 
-    public long getMainArchiveFilesCount() {
+    public long getMainArchiveFilesCount(Boolean top, String countfilter) {
 
         query = new StringBuilder();
         long count = 0;
         try {
-            query.append("SELECT COUNT([tbl_Account].ID) AS [rowsCount] FROM tbl_Account\n" +
-                    "LEFT OUTER JOIN\n" +
-                    "\t[dbo].[tbl_AccountType] AS [tbl_AccountType] ON [tbl_AccountType].[ID] = [tbl_Account].[AccountTypeID]\n" +
-                    "LEFT OUTER JOIN\n" +
-                    "\t[dbo].[tbl_VATPayer] AS [tbl_VATPayer] ON [tbl_VATPayer].[ID] = [tbl_Account].[VATPayerID]\n" +
-                    "LEFT OUTER JOIN\n" +
-                    "\t[dbo].[tbl_Taxation] AS [tbl_Taxation] ON [tbl_Taxation].[ID] = [tbl_Account].[TaxationID]\n" +
-                    "LEFT OUTER JOIN\n" +
-                    "\t[dbo].[tbl_ContractReceived] AS [tbl_ContractReceivedFOP] ON [tbl_ContractReceivedFOP].[ID] = [tbl_Account].[ContractFOPReceivedID]\n" +
-                    "LEFT OUTER JOIN\n" +
-                    "\t[dbo].[tbl_ContractReceived] AS [tbl_ContractReceivedFOPRepair] ON [tbl_ContractReceivedFOPRepair].[ID] = [tbl_Account].[ContractFOPRepairReceivedID]\n" +
-                    "LEFT OUTER JOIN\n" +
-                    "\t[dbo].[tbl_ContractReceived] AS [tbl_ContractReceivedLLC] ON [tbl_ContractReceivedLLC].[ID] = [tbl_Account].[ContractLLCReceivedID]\n" +
-                    "LEFT OUTER JOIN\n" +
-                    "\t[dbo].[tbl_PaymentType] AS [tbl_PaymentType] ON [tbl_PaymentType].[ID] = [tbl_Account].[PaymentTypeID]\n" +
-                    "LEFT OUTER JOIN\n" +
-                    "\t[dbo].[tbl_AccountProblem] AS [tbl_AccountProblem] ON [tbl_AccountProblem].[ID] = [tbl_Account].[AccountProblemID]\n" +
-                    "LEFT OUTER JOIN\n" +
-                    "\t[dbo].[tbl_AccountMedal] AS [tbl_AccountMedal] ON [tbl_AccountMedal].[ID] = [tbl_Account].[AccountMedalID]\n");
+            query.append("select Count(ID) AS [rowsCount] from tbl_RequestOffering WHERE [StatusID] = '{6F784E48-1474-4CB9-B28D-A4B580FB346C}' \n");
+            if (top) query.append(""+countfilter+"");
 
 
             ResultSet rs = DBConnection.getDataSource().getConnection().createStatement().executeQuery(query.toString());

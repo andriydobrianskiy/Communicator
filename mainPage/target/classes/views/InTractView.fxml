@@ -25,6 +25,7 @@
 <?import org.google.jhsheets.filtered.tablecolumn.FilterableDoubleTableColumn?>
 <?import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn?>
 
+<?import javafx.scene.layout.VBox?>
 <BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainPage.InTract.InTractController">
     <center>
         <BorderPane >
@@ -55,7 +56,7 @@
                                                                 <FilterableStringTableColumn fx:id="colOriginalGroupName" editable="false" text="Початкова група" />
                                                                 <FilterableStringTableColumn fx:id="colGroupChangedBy" editable="false" text="Змінив групу" />
                                                                 <FilterableStringTableColumn fx:id="colSpecialMarginTypeName" editable="false" text="Тип спец націнки" />
-
+                                                                <FilterableStringTableColumn fx:id="colCashType" editable="false" text="Тип оплати"/>
                                                             </columns>
                                                             <opaqueInsets>
                                                                 <Insets />
@@ -67,36 +68,33 @@
 
                                                     </center>
 
-                                                </BorderPane>
+
+                                               <bottom>
 
 
-                                        <AnchorPane>
-                                            <children>
-                                                <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="CENTER">
-                                                    <center>
-                                                        <JFXTabPane BorderPane.alignment="CENTER">
-                                                            <tabs>
-                                                                <Tab text="Продукти">
-                                                                    <content>
-                                                                        <AnchorPane>
-                                                                            <children>
-                                                                                <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                    <center>
-                                                                                        <fx:include fx:id="inTractRequestView" source="InTractRequestView.fxml" />
-                                                                                    </center>
-                                                                                </BorderPane>
-                                                                            </children>
-                                                                        </AnchorPane>
-                                                                    </content>
-                                                                </Tab>
-                                                            </tabs>
-                                                        </JFXTabPane>
-                                                    </center>
-                                                    <top>
                                                         <BorderPane BorderPane.alignment="CENTER">
                                                             <center>
-                                                                <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                                    <items>
+                                                                <VBox prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+
+                                                                    <HBox prefHeight="30.0" style="-fx-background-color: #d9f1ff; -fx-pref-width: 10;" alignment="CENTER" spacing="100">
+                                                                        <Pagination fx:id="pagination" pageCount="10000" prefHeight="45.0" prefWidth="500.0" />
+                                                                        <JFXButton prefWidth="30"  prefHeight="30"  onAction="#UpdateButton">
+                                                                            <graphic>
+
+                                                                                <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                                                                    <image>
+                                                                                        <Image url="@../images/Update.png" />
+                                                                                    </image>
+                                                                                </ImageView>
+                                                                            </graphic>
+                                                                            <font>
+                                                                                <Font size="14.0" />
+                                                                            </font>
+                                                                        </JFXButton>
+
+
+                                                                    </HBox>
+                                                                    <HBox prefHeight="30.0" style="-fx-background-color: #d9f1ff; -fx-pref-width: 10;" alignment="CENTER_LEFT" spacing="20" >
 
                                                                         <MenuButton mnemonicParsing="false" style="-fx-background-color: #39b5ff;">
                                                                             <items>
@@ -158,25 +156,46 @@
                                                                             </font>
                                                                         </Label>
                                                                         <JFXTextField fx:id="searchingField" promptText="Введіть скорочення" unFocusColor="#5e5353" />
-                                                                        <Pagination fx:id="pagination" pageCount="10000" prefHeight="45.0" prefWidth="500.0" />
+
+
+                                                                        <JFXToggleButton fx:id="btn_ButtonAll" nodeOrientation="RIGHT_TO_LEFT" prefHeight="22.0" prefWidth="141.0" text="Мої" />
+
                                                                         <ScrollPane fx:id="scrollPaneFilter" prefHeight="49.0" BorderPane.alignment="CENTER_LEFT">
                                                                             <content>
                                                                                 <HBox fx:id="hboxFilter" alignment="CENTER_LEFT" prefHeight="45.0" />
                                                                             </content>
                                                                         </ScrollPane>
-                                                                        <JFXToggleButton fx:id="btn_ButtonAll" nodeOrientation="RIGHT_TO_LEFT" prefHeight="22.0" prefWidth="141.0" text="Мої" />
-
-                                                                    </items>
                                                                     <BorderPane.margin>
                                                                         <Insets />
                                                                     </BorderPane.margin>
-                                                                </ToolBar>
+                                                                    </HBox>
+                                                                </VBox>
                                                             </center>
                                                         </BorderPane>
-                                                    </top>
-                                                </BorderPane>
-                                            </children>
-                                        </AnchorPane>
+                                        </bottom>
+                                        </BorderPane>
+                        <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="CENTER">
+                            <center>
+                                <JFXTabPane BorderPane.alignment="CENTER">
+                                    <tabs>
+                                        <Tab text="Продукти">
+                                            <content>
+                                                <AnchorPane>
+                                                    <children>
+                                                        <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <center>
+                                                                <fx:include fx:id="inTractRequestView" source="InTractRequestView.fxml" />
+                                                            </center>
+                                                        </BorderPane>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                    </tabs>
+                                </JFXTabPane>
+                            </center>
+                        </BorderPane>
+
                                     </items>
                                 </SplitPane>
                             </center>

@@ -1,8 +1,9 @@
 package com.mainPage.All;
 
+import com.Utils.GridComp;
 import javafx.beans.property.SimpleStringProperty;
 
-public class All {
+public class All extends GridComp {
 
     private SimpleStringProperty ID;
     private SimpleStringProperty CreatedOn;
@@ -33,6 +34,7 @@ public class All {
     private SimpleStringProperty SpecialMarginTypeName;
     private SimpleStringProperty StateID;
     private SimpleStringProperty StateName;
+    private SimpleStringProperty CashType;
 
 
 public All () {
@@ -70,6 +72,9 @@ public All () {
     public String getSpecialMarginTypeName () {return SpecialMarginTypeName.getValue();}
     public String getStateID () {return StateID.getValue();}
     public String getStateName () {return StateName.getValue();}
+    public String getCashType() {
+        return CashType.getValue();
+    }
 
 
     // Setters
@@ -103,6 +108,9 @@ public All () {
     public void setSpecialMarginTypeName (String specialMarginTypeName) {this.SpecialMarginTypeName = new SimpleStringProperty(specialMarginTypeName);}
     public void setStateID (String stateID) {this.StateID = new SimpleStringProperty(stateID);}
     public void setStateName (String stateName) {this.StateName = new SimpleStringProperty(stateName);}
+    public void setCashType(String cashType) {
+        this.CashType = new SimpleStringProperty(cashType);
+    }
 
 
 

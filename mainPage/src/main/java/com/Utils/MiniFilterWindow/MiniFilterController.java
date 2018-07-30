@@ -33,7 +33,6 @@ public class MiniFilterController extends StackPane implements Initializable {
 
 
     public MiniFilterController() {
-
     }
 
     private void changeFilterEvent() {
@@ -43,14 +42,12 @@ public class MiniFilterController extends StackPane implements Initializable {
                 MouseInfo.getPointerInfo().getLocation().getY()
         );
     }
-
-
     public void setFilter(TableColumn column, IFilterOperator.Type operator, Object value) {
         this.column = column;
         this.operator = operator;
         this.value = value;
 
-        setLabelsInfo();
+       setLabelsInfo();
     }
 
     private void setLabelsInfo() {

@@ -10,10 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.control.Pagination;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -21,6 +18,9 @@ import javafx.scene.layout.Pane;
 import org.google.jhsheets.filtered.operators.IFilterOperator;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,12 +35,18 @@ public abstract class WorkArea extends BorderPane implements MiniFilterFunction,
 
     protected DerbyComp derbyOrderDAO;
     protected ObservableList<GridComp> data;
+    public GridComp offeringRequest;
 
     protected Preferences windowPreference = Preferences.userNodeForPackage(this.getClass());
 
     @FXML
     protected Pagination pagination;
     @FXML public CustomTableView tableView;
+    @FXML
+    private TextArea textArea;
+    private Connection con = null;
+    private PreparedStatement pst = null;
+    private ResultSet rs = null;
 
     @FXML protected BorderPane borderPaneTV;
     @FXML protected BorderPane borderPane;
@@ -129,6 +135,11 @@ public abstract class WorkArea extends BorderPane implements MiniFilterFunction,
 
         return borderPane;
     }
+
+
+
+
+
 
 
 
@@ -360,3 +371,4 @@ public abstract class WorkArea extends BorderPane implements MiniFilterFunction,
 
 
 }
+

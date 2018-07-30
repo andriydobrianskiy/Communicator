@@ -1,6 +1,7 @@
 package com.mainPage.page;
 
 import com.client.chatwindow.ChatController;
+import com.jfoenix.controls.JFXTabPane;
 import com.login.User;
 import com.mainPage.All.AllController;
 import com.mainPage.ArchiveFiles.ArchiveFilesController;
@@ -19,7 +20,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -91,7 +91,7 @@ public class MainPageController  implements Initializable, ObservableNF {
 
 
     @FXML
-    private TabPane TabPane;
+    private JFXTabPane tabPane;
     @FXML
     private Tab tabInProcessing;
     @FXML
@@ -122,7 +122,7 @@ public class MainPageController  implements Initializable, ObservableNF {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-
+       // tabPane.setDisableAnimation(true);
         notFulledViewController.init(this);
         InProcessingViewController.init(this);
         inTractViewController.init(this);
@@ -139,6 +139,8 @@ public class MainPageController  implements Initializable, ObservableNF {
         add(inTractViewController);
         add(archiveFilesViewController);
         add(allViewController);
+
+
      /*   TabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
             if(newTab == TabPane.getTabs().get(1)){
                 System.out.println(TabPane.getTabs().get(1).toString() + "Tab pane");

@@ -11,7 +11,7 @@
          <center>
             <BorderPane BorderPane.alignment="CENTER">
                <center>
-                  <JFXTabPane fx:id="TabPane" tabClosingPolicy="UNAVAILABLE">
+                  <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE">
                      <tabs>
                         <Tab fx:id="tabDictionary" text="Не виконані">
                           <content>
@@ -89,7 +89,7 @@
                               </children></AnchorPane>
                           </content>
                         </Tab>
-                         <Tab fx:id="tabOrderRegistryPoland" text="Реєстр замовлень під клієнта (Польша)">
+                         <Tab fx:id="tabOrderRegistryPoland" text="Реєстр замовлень під клієнта (Польща)">
                              <content>
                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                      <children>

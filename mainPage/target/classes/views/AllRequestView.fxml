@@ -19,6 +19,8 @@
             <FilterableStringTableColumn fx:id="colDefaultOfferingCode" editable="false" text="Код товару" />
             <FilterableStringTableColumn fx:id="colNewOfferingCode" editable="false" text="Код товару (новий)" />
 
+
+
          </columns>
       </CustomTableView>
    </center>

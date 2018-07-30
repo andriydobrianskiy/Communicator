@@ -30,7 +30,6 @@
       <element id="file-copy" path="$PROJECT_DIR$/../../controlsfx-8.0.1.jar" />
       <element id="file-copy" path="$PROJECT_DIR$/../../Добрянський Андрій/jar_files/commons-dbutils-1.5.jar" />
       <element id="file-copy" path="$PROJECT_DIR$/../Library/commons-dbutils-1.4.jar" />
-      <element id="library" level="project" name="sqljdbc4-3.0.jar" />
       <element id="file-copy" path="$PROJECT_DIR$/../Library/sqljdbc4-3.0.jar" />
     </root>
   </artifact>

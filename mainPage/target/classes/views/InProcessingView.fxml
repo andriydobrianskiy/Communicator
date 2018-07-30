@@ -42,7 +42,7 @@
                                           <FilterableStringTableColumn fx:id="colOriginalGroupName" editable="false" text="Початкова група"/>
                                           <FilterableStringTableColumn fx:id="colGroupChangedBy" editable="false" text="Змінив групу"/>
                                           <FilterableStringTableColumn fx:id="colSpecialMarginTypeName" editable="false" text="Тип спец націнки"/>
-
+                                          <FilterableStringTableColumn fx:id="colCashType" editable="false" text="Тип оплати"/>
                                        </columns>
                                        <opaqueInsets>
                                           <Insets />
@@ -54,8 +54,36 @@
                                  </center>
 
                                  <bottom>
-                                    <ToolBar prefHeight="55.0" BorderPane.alignment="CENTER">
-                                       <items>
+                                    <VBox prefHeight="55.0" prefWidth="200.0" BorderPane.alignment="CENTER" alignment="CENTER">
+                                      <HBox prefHeight="30.0" style="-fx-background-color: #d9f1ff; -fx-pref-width: 10;" alignment="CENTER" spacing="100">
+                                       <Pagination fx:id="pagination" prefHeight="45.0" prefWidth="500.0">
+                                          <padding>
+                                             <Insets left="55.0" />
+                                          </padding>
+                                       </Pagination>
+
+
+
+                                         <JFXButton prefWidth="30"  prefHeight="30"  onAction="#UpdateButton">
+
+                                            <graphic>
+
+                                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                                  <image>
+                                                     <Image url="@../images/Update.png" />
+                                                  </image>
+                                               </ImageView>
+                                            </graphic>
+                                            <font>
+                                               <Font size="14.0" />
+                                            </font>
+                                         </JFXButton>
+
+
+                                      </HBox>
+
+                                       <HBox prefHeight="30.0" style="-fx-background-color: #d9f1ff; -fx-pref-width: 10;" alignment="CENTER_LEFT" spacing="20" >
+
                                           <MenuButton mnemonicParsing="false" style="-fx-background-color: #39b5ff;">
                                              <items>
                                                 <MenuItem mnemonicParsing="false">
@@ -158,16 +186,8 @@
                                           <JFXTextField fx:id="searchingField"  prefHeight="25.0" prefWidth="110.0" promptText="Введіть скорочення" unFocusColor="#5e5353" />
                                           <JFXButton fx:id="btn_UpdateStatus" prefHeight="37.0" prefWidth="99.0" style="-fx-background-color: #a49a9a;" text="Взяти в роботу" />
                                           <Button fx:id="btn_ReturnOwner" mnemonicParsing="false" onAction="#btnUpdateOfferingGroupName" prefHeight="38.0" prefWidth="152.0" text="Змінити відповідального" />
-                                          <Pagination fx:id="pagination" prefHeight="45.0" prefWidth="500.0">
-                                             <padding>
-                                                <Insets left="55.0" />
-                                             </padding>
-                                          </Pagination>
-                                          <ScrollPane fx:id="scrollPaneFilter" prefHeight="49.0" BorderPane.alignment="CENTER_LEFT">
-                                             <content>
-                                                <HBox fx:id="hboxFilter" alignment="CENTER_LEFT" prefHeight="45.0"/>
-                                             </content>
-                                          </ScrollPane>
+
+
                                           <JFXToggleButton fx:id="btn_ButtonAll" nodeOrientation="RIGHT_TO_LEFT" prefHeight="22.0" prefWidth="141.0" text="Мої" />
                                           <Label fx:id="dateLabel" prefHeight="20.0" prefWidth="116.0" text="Дата замовлення:">
                                              <font>
@@ -175,8 +195,13 @@
                                              </font>
                                           </Label>
                                           <JFXDatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="124.0" />
-                                       </items>
-                                    </ToolBar>
+                                          <ScrollPane fx:id="scrollPaneFilter" prefHeight="49.0" BorderPane.alignment="CENTER_LEFT">
+                                             <content>
+                                                <HBox fx:id="hboxFilter" alignment="CENTER_LEFT" prefHeight="45.0"/>
+                                             </content>
+                                          </ScrollPane>
+                                       </HBox>
+                                    </VBox>
 
                                  </bottom>
 

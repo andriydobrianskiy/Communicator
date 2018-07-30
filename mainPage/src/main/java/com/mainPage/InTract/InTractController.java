@@ -19,12 +19,11 @@ import com.mainPage.NotFulled.ProductAdd.ObserverNF;
 import com.mainPage.WorkArea;
 import com.mainPage.page.MainPageController;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -111,6 +110,7 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
     @FXML private FilterableStringTableColumn <InTract, String> colOriginalGroupName;
     @FXML private FilterableStringTableColumn <InTract, String> colGroupChangedBy;
     @FXML private FilterableStringTableColumn <InTract, String> colSpecialMarginTypeName;
+    @FXML private FilterableStringTableColumn<InTract, String> colCashType;
     public  ChatController conn;
     private Scene scene;
     /*@FXML
@@ -119,6 +119,7 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
 
     private InTract account = new InTract();
     public  InTract chosenAccount = null;
+    public static InTract chosenNotis = null;
     private long fromIndex;
     private long toIndex;
     private InTractQuery accountQueries = new InTractQuery();
@@ -133,13 +134,17 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
     int itemsPerPage = 40;
     int currentPageIndex = 0;
     private Boolean queryAll = false;
+    private Boolean dataPagination = true;
+    private String filterSorted = null;
+    private String countfilter = null;
+    private String sort = "DESC";
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         tableView.getStylesheets().add
                 (InTractController.class.getResource("/styles/TableStyle.css").toExternalForm());
-        btnConfirmation.setVisible(true);
+        btnConfirmation.setVisible(false);
         btn_Delete.setVisible(false);
         btn_СancelRequest.setVisible(true);
         btn_Create.setVisible(false);
@@ -200,8 +205,8 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
             public void handle(MouseEvent event) {
 
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                    chosenAccount = (InTract) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
-                    NotesInProcessingController notesInProcessingController = new NotesInProcessingController(chosenAccount, false);
+                    chosenNotis = (InTract) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
+                    NotesInProcessingController notesInProcessingController = new NotesInProcessingController(chosenNotis, false);
                 }
             }
         });
@@ -251,7 +256,7 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
         tableView.setTableMenuButtonVisible(true);
         UsefulUtils.installCopyPasteHandler(tableView);
 
-            tableView.getSelectionModel().setCellSelectionEnabled(true);
+        tableView.getSelectionModel().setCellSelectionEnabled(true);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tableView.getSelectionModel().setCellSelectionEnabled(false);
 
@@ -262,21 +267,25 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
         try {
             CustomPaginationSkin pageSkin = new CustomPaginationSkin(pagination); // custom pagination
             pagination.setSkin(pageSkin);
-
             pagination.setPageFactory(this::createPage);
-            pageCount = getPageCount(data.size(), itemsPerPage);
-            pagination.setPageCount(pageCount);
             initializeTable();
+            id.setOnMouseClicked(e->{
+                dataPagination = false;
+                pagination.setPageFactory(this::createPage);
 
-            pagination.currentPageIndexProperty().addListener(new ChangeListener<Number>() {
-                @Override
-                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                    System.out.println("Pagination Changed from " + oldValue + " , to " + newValue);
-                    currentPageIndex = newValue.intValue();
-                    updatePersonView();
-                }
             });
-
+            Number.setOnMouseClicked(e->{
+                dataPagination = false;
+                pagination.setPageFactory(this::createPage);
+            });
+            Solid.setOnMouseClicked(e-> {
+                dataPagination = false;
+                pagination.setPageFactory(this::createPage);
+            });
+            Store.setOnMouseClicked(e->{
+                dataPagination = false;
+                pagination.setPageFactory(this::createPage);
+            });
 
             SortButton(Number);
             SortButton(id);
@@ -425,6 +434,11 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
                 }
                 order = !order;
                 button.setGraphic((order) ? upImg : downImg);
+                if (button.getGraphic() == upImg){
+                    sort = "DESC";
+                }else if(button.getGraphic() == downImg){
+                    sort = "ASC";
+                }
                 updatePersonView();
             }
         });
@@ -463,12 +477,20 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
         toIndex = Math.min(fromIndex + itemsPerPage, data.size());
         tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
     }
+   public static String  serverName = getServerName();
+
+    public  void setServerName(String serverName) {
+        this.serverName = serverName;
+    }
+    public static String getServerName() {
+        return   serverName;
+    }
 
 
 
     public void loginButtonAction(InTract chosenAccount) throws IOException {
-        String hostname = "192.168.10.146";
-        int port = 9002;
+        String hostname = "192.168.10.144";
+        int port = 9001;
         String username = User.getContactName();
         String picture = "Default";
         chatViewController.setOfferingTract(chosenAccount);
@@ -560,6 +582,7 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
                     "\tFROM\n" +
                     "\t\t[dbo].[tbl_Contact] AS [GroupChangedBy]\n");
             hashColumns.put(colSpecialMarginTypeName, "[SMT].[Name]");
+            hashColumns.put(colCashType, "[tbl_RequestOffering].[CashType]");
             List<?> listColumns = tableView.getColumns();
 
             colNumber.setCellValueFactory(new PropertyValueFactory<InTract, String>("Number"));
@@ -576,6 +599,7 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
             colOriginalGroupName.setCellValueFactory(new PropertyValueFactory<InTract, String>("OriginalGroupName"));
             colGroupChangedBy.setCellValueFactory(new PropertyValueFactory<InTract, String>("GroupChangedBy"));
             colSpecialMarginTypeName.setCellValueFactory(new PropertyValueFactory<InTract, String>("SpecialMarginTypeName"));
+            colCashType.setCellValueFactory(new PropertyValueFactory<InTract,String>("CashType"));
         } catch (Exception e) {
             log.log(Level.SEVERE, "Exception in creating columns: " + e);
         }
@@ -588,12 +612,12 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
         data.clear();
         try {
             if(queryAll == true){
-                List<InTract> listItems = account.findInTract(true, (int) toIndex, User.getContactID(), User.getContactID());
+                List<InTract> listItems = account.findInTract(true, (int) toIndex, User.getContactID(), User.getContactID(), filterSorted);
                 listItems.forEach(item -> data.add(item));
 
                 tableView.setItems(data);
             }else if (queryAll == false){
-                List<InTract> listItems = account.findInTractAll(true, (int) toIndex);
+                List<InTract> listItems = account.findInTractAll(true, (int) toIndex, filterSorted);
                 listItems.forEach(item -> data.add(item));
 
                 tableView.setItems(data);
@@ -611,21 +635,46 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
 
     public BorderPane createPage(int pageIndex) {
         try {
-            data = FXCollections.observableArrayList();
-            loadDataFromDatabase();
-            fromIndex = pageIndex * itemsPerPage;
-            toIndex = Math.min(fromIndex + itemsPerPage, data.size());
+
+            if(queryAll == false) {
+                data = FXCollections.observableArrayList();
+
+                fromIndex = pageIndex * itemsPerPage;
+
+                toIndex = Math.min(fromIndex + itemsPerPage, accountQueries.getMainInTractCount(false, countfilter));
+
+                pageCount = getPageCount((int) accountQueries.getMainInTractCount(false, countfilter), itemsPerPage);
+                pagination.setPageCount(pageCount);
+                filterSorted = "ORDER BY [tbl_RequestOffering].[CreatedOn] "+sort+"\n" +
+                        "             OFFSET  + ("+pageIndex+") * 40  \n" +
+                        "             ROWS\n" +
+                        "             FETCH NEXT 40 ROWS ONLY;";
+                loadDataFromDatabase();
 
 
+                tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
+            }else if (queryAll == true){
 
+                data = FXCollections.observableArrayList();
 
+                fromIndex = pageIndex * itemsPerPage;
+                countfilter = " AND (([CreatedByID] = '"+User.getContactID()+"' OR\n" +
+                        "[OfferingGroupID] = '"+User.getContactID()+"'))\n";
+                toIndex = Math.min(fromIndex + itemsPerPage, accountQueries.getMainInTractCount(true, countfilter));
 
-            tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
+                pageCount = getPageCount((int) accountQueries.getMainInTractCount(true, countfilter), itemsPerPage);
+                pagination.setPageCount(pageCount);
+                filterSorted = "ORDER BY [tbl_RequestOffering].[CreatedOn] "+sort+"\n" +
+                        "             OFFSET  + ("+pageIndex+") * 40  \n" +
+                        "             ROWS\n" +
+                        "             FETCH NEXT 40 ROWS ONLY;";
+                loadDataFromDatabase();
+                tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
+            }
         } catch (Exception e) {
             log.log(Level.SEVERE, "Switch page exception: " + e);
         }
 
-        anchorPane.setCenter(tableView);
         return anchorPane;
     }
 
@@ -635,16 +684,18 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
         } catch (NullPointerException ex) {
 
         } finally {
-         //   loadDataFromDatabase();
+            dataPagination = true;
             pagination.setPageFactory(this::createPage);
-            pageCount = getPageCount(data.size(), itemsPerPage);
-            pagination.setPageCount(pageCount);
         }
 
         UsefulUtils.fadeTransition(tableView);
 
 
 
+    }
+    @FXML
+    private  void UpdateButton (ActionEvent event){
+        refreshData();
     }
     private void searchCode() {
         FilteredList<InTract> filteredData = new FilteredList<>(data, e -> true);

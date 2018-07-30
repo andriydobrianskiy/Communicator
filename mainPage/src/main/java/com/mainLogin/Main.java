@@ -37,8 +37,10 @@ public class Main extends Application {
   //  public static PropertiesDb applicationProperties = new PropertiesDb(InfoTool.getAbsoluteDatabasePathWithSeparator() + "ApplicationProperties.properties", true);
   public Main () {
       int answer = 0;
+       String people = //"Manager";
+       "VZ";
       Release release = new Release();
-      release.setpkgver("2.1");
+      release.setpkgver("2.3");
 
       release.setPkgrel("4");
       FTPClient ftpClient = new FTPClient();
@@ -56,8 +58,14 @@ public class Main extends Application {
 
           ReleaseXMLParser parser = new ReleaseXMLParser();
           try {
-              Release current =
-                      parser.parse("ftp://192.168.10.101/mainPage/latest.xml", Modes.URL);
+              Release current = null;
+              if(people == "Manager") {
+                   current =
+                          parser.parse("ftp://192.168.10.101/mainPage/latest.xml", Modes.URL);
+              }else if(people == "VZ"){
+                  current =
+                          parser.parse("ftp://192.168.10.101/mainPageVZ/latest.xml", Modes.URL);
+              }
               if (current.compareTo(release) > 0) {
                      // answer =
                       //    JOptionPane.showConfirmDialog(rootPane, "A new version of this"
@@ -68,8 +76,13 @@ public class Main extends Application {
                           /**
                            * Download needed files
                            */
-                          Downloader dl = new Downloader();
-                          dl.download("ftp://192.168.10.101/mainPage/files.xml", "tmp", Modes.URL);
+                          if(people == "Manager") {
+                              Downloader dl = new Downloader();
+                              dl.download("ftp://192.168.10.101/mainPage/files.xml", "tmp", Modes.URL);
+                          }else if(people == "VZ"){
+                              Downloader dl = new Downloader();
+                              dl.download("ftp://192.168.10.101/mainPageVZ/files.xml", "tmp", Modes.URL);
+                          }
                           break;
                       case 1:
                           break;
@@ -285,7 +298,7 @@ public class Main extends Application {
      * This JavaFX TabPane represents a TabPane for Navigation between application Modes
      */
     public static JFXTabPane specialJFXTabPane = new JFXTabPane();
-    private String Virsion = ("2.1");
+    private String Virsion = ("2.3");
 
     private static void handle(WindowEvent exit) {
         exit.consume();

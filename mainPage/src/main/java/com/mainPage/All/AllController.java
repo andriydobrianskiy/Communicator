@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import com.login.User;
 import com.mainPage.All.AllRequest.AllRequestController;
+import com.mainPage.InProcessing.NotesInProcessing.NotesInProcessingController;
 import com.mainPage.NotFulled.ProductAdd.ObserverNF;
 import com.mainPage.WorkArea;
 import com.mainPage.page.MainPageController;
@@ -19,6 +20,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -108,6 +110,7 @@ public class AllController extends WorkArea    implements Initializable, Observe
     @FXML private FilterableStringTableColumn <All, String> colOriginalGroupName;
     @FXML private FilterableStringTableColumn <All, String> colGroupChangedBy;
     @FXML private FilterableStringTableColumn <All, String> colSpecialMarginTypeName;
+    @FXML private FilterableStringTableColumn<All, String> colCashType;
 
     private Button id = new Button();
     private Button Number = new Button();
@@ -119,6 +122,10 @@ public class AllController extends WorkArea    implements Initializable, Observe
     int pageCount = 5;
     int itemsPerPage = 40;
     int currentPageIndex = 0;
+    private Boolean dataPagination = true;
+    private String filterSorted = null;
+    private String countfilter = null;
+    private String sort = "DESC";
 
 // ALLTable
 
@@ -152,6 +159,8 @@ public class AllController extends WorkArea    implements Initializable, Observe
             public void handle(MouseEvent event) {
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                     chosenAccount = (All) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
+
+                    NotesInProcessingController notesInProcessingController = new NotesInProcessingController(chosenAccount, false);
                 }
             }
         });
@@ -232,22 +241,25 @@ public class AllController extends WorkArea    implements Initializable, Observe
             pagination.setSkin(pageSkin);
 
             pagination.setPageFactory(this::createPage);
-            pageCount = getPageCount(data.size(), itemsPerPage);
 
-            System.out.println("pageCount=" + pageCount);
-            pagination.setPageCount(pageCount);
+initializeTable();
+            id.setOnMouseClicked(e->{
+                dataPagination = false;
+                pagination.setPageFactory(this::createPage);
 
-            initializeTable();
-
-            pagination.currentPageIndexProperty().addListener(new ChangeListener<Number>() {
-                @Override
-                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                    System.out.println("Pagination Changed from " + oldValue + " , to " + newValue);
-                    currentPageIndex = newValue.intValue();
-                      updatePersonView();
-                }
             });
-
+            Number.setOnMouseClicked(e->{
+                dataPagination = false;
+                pagination.setPageFactory(this::createPage);
+            });
+                    Solid.setOnMouseClicked(e-> {
+                        dataPagination = false;
+                        pagination.setPageFactory(this::createPage);
+                    });
+            Store.setOnMouseClicked(e->{
+                dataPagination = false;
+                pagination.setPageFactory(this::createPage);
+            });
 
             SortButton(Number);
             SortButton(id);
@@ -265,21 +277,7 @@ public class AllController extends WorkArea    implements Initializable, Observe
 
 
         UsefulUtils.installCopyPasteHandler(tableView);
-        tableView.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
 
-                if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
-                    try {
-                        chosenAccount = (All) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
-                        loginButtonAction(chosenAccount);
-
-                    } catch (Exception e) {
-                        log.log(Level.SEVERE, "Exception: " + e);
-                    }
-                }
-            }
-        });
         try {
             con = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
@@ -311,6 +309,11 @@ public class AllController extends WorkArea    implements Initializable, Observe
                 }
                 order = !order;
                 button.setGraphic((order) ? upImg : downImg);
+               if (button.getGraphic() == upImg){
+                   sort = "DESC";
+               }else if(button.getGraphic() == downImg){
+                   sort = "ASC";
+               }
                 updatePersonView();
 
             }
@@ -442,6 +445,7 @@ public class AllController extends WorkArea    implements Initializable, Observe
             hashColumns.put(colSpecialMarginTypeName, "[SMT].[Name]");
             hashColumns.put(colOriginalGroupName, "[dbo].[tbl_Contact].[Name]");
             hashColumns.put(colOfferingGroupName, "[dbo].[tbl_Contact].[Name]");
+            hashColumns.put(colCashType, "[tbl_RequestOffering].[CashType]");
 
             colNumber.setMinWidth(150);
 
@@ -460,6 +464,7 @@ public class AllController extends WorkArea    implements Initializable, Observe
             colSpecialMarginTypeName.setCellValueFactory(new PropertyValueFactory<All, String>("SpecialMarginTypeName"));
             colOriginalGroupName.setCellValueFactory(new PropertyValueFactory<All, String>("OriginalGroupName"));
             colOfferingGroupName.setCellValueFactory(new PropertyValueFactory<All, String>("OfferingGroupName"));
+            colCashType.setCellValueFactory(new PropertyValueFactory<All,String>("CashType"));
 
 
 
@@ -554,15 +559,16 @@ public void fillHboxFilter(TableColumn column, IFilterOperator.Type type, Object
     }
 
     public void loadDataFromDatabase() {
+        data.clear();
         try {
 
             if(queryAll == true){
-                List<All> listItems = account.findAll(true, (int) toIndex, User.getContactID(), User.getContactID());
+                List<All> listItems = account.findAll(false, (int) toIndex, User.getContactID(), User.getContactID(), filterSorted);
                 listItems.forEach(item -> data.add(item));
 
                 tableView.setItems(data);
             }else if (queryAll == false){
-                List<All> listItems = account.findAllAll(true, (int) toIndex);
+                List<All> listItems = account.findAllAll(false, (int) toIndex, filterSorted);
                 listItems.forEach(item -> data.add(item));
 
                 tableView.setItems(data);
@@ -579,17 +585,40 @@ public void fillHboxFilter(TableColumn column, IFilterOperator.Type type, Object
     public BorderPane createPage(int pageIndex) {
         try {
 
+if(queryAll == false) {
+    data = FXCollections.observableArrayList();
 
-            data = FXCollections.observableArrayList();
-            loadDataFromDatabase();
-            fromIndex = pageIndex * itemsPerPage;
-            toIndex = Math.min(fromIndex + itemsPerPage, data.size());
+    fromIndex = pageIndex * itemsPerPage;
+
+    toIndex = Math.min(fromIndex + itemsPerPage, accountQueries.getMainAllCount(false, countfilter));
+
+    pageCount = getPageCount((int) accountQueries.getMainAllCount(false, countfilter), itemsPerPage);
+    pagination.setPageCount(pageCount);
+    filterSorted = "ORDER BY [tbl_RequestOffering].[CreatedOn] "+sort+"\n" +
+            "             OFFSET  + ("+pageIndex+") * 40  \n" +
+            "             ROWS\n" +
+            "             FETCH NEXT 40 ROWS ONLY;";
+    loadDataFromDatabase();
 
 
+    tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
+}else if (queryAll == true){
 
+    data = FXCollections.observableArrayList();
 
+    fromIndex = pageIndex * itemsPerPage;
+    countfilter = "WHERE(([CreatedByID] = '"+User.getContactID()+"' OR\n" +
+            "[OfferingGroupID] = '"+User.getContactID()+"'))\n";
+    toIndex = Math.min(fromIndex + itemsPerPage, accountQueries.getMainAllCount(true, countfilter));
 
-            tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
+    pageCount = getPageCount((int) accountQueries.getMainAllCount(true, countfilter), itemsPerPage);
+    pagination.setPageCount(pageCount);
+    filterSorted = "ORDER BY [tbl_RequestOffering].[CreatedOn] "+sort+"\n" +
+            "             OFFSET  + ("+pageIndex+") * 40  \n" +
+            "             ROWS\n" +
+            "             FETCH NEXT 40 ROWS ONLY;";
+    loadDataFromDatabase();
+}
         } catch (Exception e) {
             log.log(Level.SEVERE, "Switch page exception: " + e);
         }
@@ -602,21 +631,26 @@ public void fillHboxFilter(TableColumn column, IFilterOperator.Type type, Object
     public void refreshData() {
         data.clear();
 
-        loadDataFromDatabase();
-      //  pagination.setPageFactory(this::createPage);
-        pageCount = getPageCount(data.size(), itemsPerPage);
-        pagination.setPageCount(pageCount);
+      //  loadDataFromDatabase();
+        dataPagination = true;
+        pagination.setPageFactory(this::createPage);
+       // pageCount = getPageCount(data.size(), itemsPerPage);
+        //pagination.setPageCount(pageCount);
         UsefulUtils.fadeTransition(tableView);
 
+    }
+    @FXML
+    private void UpdateButton (ActionEvent event) {
+        refreshData();
     }
 
     public void init(MainPageController mainPageController) {
         main = mainPageController;
     }
 
-
     @Override
     public void update() {
         refreshData();
+
     }
 }

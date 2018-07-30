@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import com.mainPage.tableutils.CustomTableView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import org.google.jhsheets.filtered.tablecolumn.*?>
@@ -17,7 +20,7 @@
                     <center>
                         <BorderPane>
                             <center>
-                                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="720.0" prefWidth="1400.0" BorderPane.alignment="CENTER">
+                                <SplitPane dividerPositions="0.8" orientation="VERTICAL" prefHeight="720.0" prefWidth="1400.0" BorderPane.alignment="CENTER">
                                     <items>
                                         <BorderPane fx:id="borderPane">
                                             <center>
@@ -39,6 +42,7 @@
                                                         <FilterableStringTableColumn fx:id="colOriginalGroupName" editable="false" text="Початкова група"/>
                                                         <FilterableStringTableColumn fx:id="colGroupChangedBy" editable="false" text="Змінив групу"/>
                                                         <FilterableStringTableColumn fx:id="colSpecialMarginTypeName" editable="false" text="Тип спец націнки"/>
+                                                        <FilterableStringTableColumn fx:id="colCashType" editable="false" text="Тип оплати"/>
 
                                                     </columns>
                                                 </CustomTableView>
@@ -46,31 +50,55 @@
                                             <bottom>
                                                 <BorderPane BorderPane.alignment="CENTER">
                                                     <center>
-                                                        <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                            <items>
-                                                                <ToolBar prefHeight="40.0" prefWidth="1063.0" style="-fx-background-color: #39b5ff; -fx-pref-width: 10; -fx-border-color: #000000;">
+                                                        <VBox prefHeight="55.0" prefWidth="200.0" BorderPane.alignment="CENTER" alignment="CENTER">
+
+                                                            <HBox prefHeight="30.0" style="-fx-background-color: #d9f1ff; -fx-pref-width: 10;" alignment="CENTER" spacing="100">
+                                                                <Pagination fx:id="pagination" prefHeight="55.0" prefWidth="500.0" />
+
+
+                                                                <JFXButton prefWidth="30" prefHeight="30" onAction="#UpdateButton">
+
+                                                                    <graphic>
+
+                                                                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                                                            <image>
+                                                                                <Image url="@../images/Update.png" />
+                                                                            </image>
+                                                                        </ImageView>
+                                                                    </graphic>
+                                                                    <font>
+                                                                        <Font size="14.0" />
+                                                                    </font>
+                                                                </JFXButton>
+
+
+                                                            </HBox>
+                                                              <HBox prefHeight="30.0" style="-fx-background-color: #d9f1ff; -fx-pref-width: 10;" alignment="CENTER_LEFT" spacing="20" >
+                                                                <ToolBar prefHeight="30.0" prefWidth="1063.0" style="-fx-background-color: #39b5ff; -fx-pref-width: 10; -fx-border-color: #000000;">
                                                                     <opaqueInsets>
                                                                         <Insets />
                                                                     </opaqueInsets>
                                                                 </ToolBar>
-                                                                <Label text="Пошук по скруту і коду  " textFill="#141414">
+                                                                <Label text="Пошук по скруту і коду:  " textFill="#141414">
                                                                     <font>
-                                                                        <Font size="14.0" />
+                                                                        <Font size="18.0" />
                                                                     </font>
                                                                 </Label>
                                                                 <JFXTextField fx:id="searchingField" promptText="Введіть скорочення" unFocusColor="#5e5353" />
-                                                                <Pagination fx:id="pagination" prefHeight="45.0" prefWidth="500.0" />
+                                                                  <JFXToggleButton fx:id="btn_ButtonAll" nodeOrientation="RIGHT_TO_LEFT" prefHeight="22.0" prefWidth="141.0" text="Мої" />
+
                                                                 <ScrollPane fx:id="scrollPaneFilter" prefHeight="49.0" BorderPane.alignment="CENTER_LEFT">
                                                                     <content>
                                                                         <HBox fx:id="hboxFilter" alignment="CENTER_LEFT" prefHeight="45.0"/>
                                                                     </content>
                                                                 </ScrollPane>
-                                                                <JFXToggleButton fx:id="btn_ButtonAll" nodeOrientation="RIGHT_TO_LEFT" prefHeight="22.0" prefWidth="141.0" text="Мої" />
-                                                            </items>
+
+
                                                             <BorderPane.margin>
                                                                 <Insets />
                                                             </BorderPane.margin>
-                                                        </ToolBar>
+                                                              </HBox>
+                                                        </VBox>
                                                     </center>
                                                 </BorderPane>
                                             </bottom>

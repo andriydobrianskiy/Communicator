@@ -151,6 +151,8 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
     @FXML
     private FilterableStringTableColumn<NotFulfilled, String> colSpecialMarginTypeName;
     @FXML
+    private FilterableStringTableColumn<NotFulfilled, String> colCashType;
+    @FXML
     private Pagination pagination;
     @FXML
     private ScrollPane scrollPaneFilter;
@@ -182,12 +184,12 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
         btn_IntoProcessing.setVisible(false);
         btnDelete.setVisible(false);
         btn_changeRequest.setVisible(false);
-        btn_СancelRequest.setVisible(true); // Менеджер
+        btn_СancelRequest.setVisible(false); // Менеджер
         btn_RefreshRequest.setVisible(false);
-        btn_DeleteRequest.setVisible(true); // Менеджер
-        tbn_CreateRequest.setVisible(true); // Менеджер
-        btn_ConfirmRequest.setVisible(true);// Менеджер
-        btn_AddRequest.setVisible(true);// Менеджер
+        btn_DeleteRequest.setVisible(false); // Менеджер
+        tbn_CreateRequest.setVisible(false); // Менеджер
+        btn_ConfirmRequest.setVisible(false);// Менеджер
+        btn_AddRequest.setVisible(false);// Менеджер
 
         Image imageDecline = new Image(getClass().getResourceAsStream("/images/CreateRequest.png"));
         tbn_CreateRequest.setGraphic(new ImageView(imageDecline));
@@ -440,7 +442,7 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
             data.sort((NotFulfilled p1, NotFulfilled p2) -> p1.getCreatedOn().compareTo(p2.getCreatedOn()));
         } else if (notFulfilled == Number) {
             data.sort((NotFulfilled p1, NotFulfilled p2) -> p1.getNumber().compareTo(p2.getNumber()));
-        }else if (notFulfilled == Solid) {
+        } else if (notFulfilled == Solid) {
             data.sort((NotFulfilled p1, NotFulfilled p2) -> p1.getAccountIsSolid().compareTo(p2.getAccountIsSolid()));
         } else if (notFulfilled == Store) {
             data.sort((NotFulfilled p1, NotFulfilled p2) -> p1.getNumber().compareTo(p2.getStoreCity()));
@@ -563,6 +565,7 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
                     "\tFROM\n" +
                     "\t\t[dbo].[tbl_Contact] AS [GroupChangedBy]\n");
             hashColumns.put(colSpecialMarginTypeName, "[SMT].[Name]");
+            hashColumns.put(colCashType, "[tbl_RequestOffering].[CashType]");
             List<?> listColumns = tableView.getColumns();
 
             colNumber.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("Number"));
@@ -579,6 +582,7 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
             colOriginalGroupName.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("OriginalGroupName"));
             colGroupChangedBy.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("GroupChangedBy"));
             colSpecialMarginTypeName.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("SpecialMarginTypeName"));
+            colCashType.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("CashType"));
 
 
         } catch (Exception e) {
@@ -724,7 +728,10 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
         });
     }
 
-
+    @FXML
+    private void UpdateButton (ActionEvent event){
+        refreshData();
+    }
     public void tableViewHandles() {
         tableView.setOnMouseClicked(mouseEvent -> fixSelectedRecord());
         tableView.setOnKeyReleased(eventKey -> {
@@ -902,16 +909,16 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
     }
 
     public void refreshData() {
-       try {
-           data.clear();
-           loadDataFromDatabase();
-           pagination.setPageFactory(this::createPage);
-           pageCount = getPageCount(data.size(), itemsPerPage);
-           pagination.setPageCount(pageCount);
-           UsefulUtils.fadeTransition(tableView);
-       }catch (Exception e){
-           e.printStackTrace();
-       }
+        try {
+            data.clear();
+            loadDataFromDatabase();
+            pagination.setPageFactory(this::createPage);
+            pageCount = getPageCount(data.size(), itemsPerPage);
+            pagination.setPageCount(pageCount);
+            UsefulUtils.fadeTransition(tableView);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

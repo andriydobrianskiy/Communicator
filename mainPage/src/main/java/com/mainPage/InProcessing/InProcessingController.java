@@ -27,8 +27,6 @@ import com.mainPage.page.MainPageController;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -164,6 +162,8 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
     @FXML
     private FilterableStringTableColumn<InProcessing, String> colSpecialMarginTypeName;
     @FXML
+    private FilterableStringTableColumn<InProcessing, String> colCashType;
+    @FXML
     private Pagination pagination;
     public static InProcessing chosenAccount = null;
     public InProcessing chosenElement = null;
@@ -183,6 +183,10 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
     int pageCount = 5;
     int itemsPerPage = 40;
     int currentPageIndex = 0;
+    private Boolean dataPagination = true;
+    private String filterSorted = null;
+    private String countfilter = null;
+    private String sort = "DESC";
 
 
     @FXML
@@ -369,6 +373,10 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                     try {
                         chosenAccount = (InProcessing) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
                         NotesInProcessingController notesInProcessingController = new NotesInProcessingController(chosenAccount, false);
+                     //   showWindow();
+                      //  notesPage(chosenAccount);
+
+
 
                     } catch (Exception e) {
                         log.log(Level.SEVERE, "Exception: " + e);
@@ -381,10 +389,10 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
 
 
         // ToggleButtons TableView
+        datePicker.setVisible(true);
+        dateLabel.setVisible(true);
         datePicker.setValue(LocalDate.now());
         btn_ButtonAll.setVisible(true);
-        datePicker.setVisible(false);
-        dateLabel.setVisible(false);
         searchingField.setOnAction(event1 -> {
             String value = searchingField.getText();
 
@@ -402,8 +410,6 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
         group.selectedToggleProperty().addListener(event -> {
             if (group.getSelectedToggle() != null) {
                 queryAll = true;
-                datePicker.setVisible(true);
-                dateLabel.setVisible(true);
                 btn_UpdateStatus.setVisible(false);
                 refreshData();
                 searchingField.setOnAction(event1 -> {
@@ -422,8 +428,6 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
             } else
             {
                 queryAll = false;
-                datePicker.setVisible(false);
-                dateLabel.setVisible(false);
                refreshData();
                 btn_UpdateStatus.setVisible(true);
                 searchingField.setOnAction(event1 -> {
@@ -462,22 +466,25 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
             pagination.setSkin(pageSkin);
 
             pagination.setPageFactory(this::createPage);
-            pageCount = getPageCount(data.size(), itemsPerPage);
-
-            System.out.println("pageCount=" + pageCount);
-            pagination.setPageCount(pageCount);
-            //   sort();
             initializeTable();
 
-            pagination.currentPageIndexProperty().addListener(new ChangeListener<Number>() {
-                @Override
-                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                    System.out.println("Pagination Changed from " + oldValue + " , to " + newValue);
-                    currentPageIndex = newValue.intValue();
-                    updatePersonView();
-                }
-            });
+            id.setOnMouseClicked(e->{
+                dataPagination = false;
+                pagination.setPageFactory(this::createPage);
 
+            });
+            Number.setOnMouseClicked(e->{
+                dataPagination = false;
+                pagination.setPageFactory(this::createPage);
+            });
+            Solid.setOnMouseClicked(e-> {
+                dataPagination = false;
+                pagination.setPageFactory(this::createPage);
+            });
+            Store.setOnMouseClicked(e->{
+                dataPagination = false;
+                pagination.setPageFactory(this::createPage);
+            });
 
             SortButton(Number);
             SortButton(id);
@@ -614,6 +621,12 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                 }
                 order = !order;
                 button.setGraphic((order) ? upImg : downImg);
+
+                if (button.getGraphic() == upImg){
+                    sort = "DESC";
+                }else if(button.getGraphic() == downImg){
+                    sort = "ASC";
+                }
                 updatePersonView();
             }
         });
@@ -710,7 +723,6 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
 
 
 
-
     public void loginButtonAction(InProcessing chosenAccount) throws IOException {
         String hostname = "192.168.10.144";
         System.out.println(hostname);
@@ -763,7 +775,7 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
             String s = message;
             tray.setMessage(s);
             tray.setAnimationType(AnimationType.SLIDE);
-            tray.showAndDismiss(Duration.millis(400));
+            tray.showAndDismiss(Duration.millis(4000));
         });
 
     }
@@ -805,6 +817,7 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                     "\tFROM\n" +
                     "\t\t[dbo].[tbl_Contact] AS [GroupChangedBy]\n");
             hashColumns.put(colSpecialMarginTypeName, "[SMT].[Name]");
+            hashColumns.put(colCashType, "[tbl_RequestOffering].[CashType]");
             List<?> listColumns = tableView.getColumns();
 
             colNumber.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("Number"));
@@ -821,6 +834,7 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
             colOriginalGroupName.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("OriginalGroupName"));
             colGroupChangedBy.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("GroupChangedBy"));
             colSpecialMarginTypeName.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("SpecialMarginTypeName"));
+            colCashType.setCellValueFactory(new PropertyValueFactory<InProcessing,String>("CashType"));
 
 
         } catch (Exception e) {
@@ -836,12 +850,12 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
             data.clear();
         try {
             if(queryAll == true){
-            List<InProcessing> listItems = account.findAllOne(true, (int) toIndex, User.getContactID(), User.getContactID());
+            List<InProcessing> listItems = account.findAllOne(true, (int) toIndex, User.getContactID(), User.getContactID(), filterSorted);
             listItems.forEach(item -> data.add(item));
 
             tableView.setItems(data);
             }else if (queryAll == false){
-                List<InProcessing> listItems = account.findAllInProcessing(true, (int) toIndex);
+                List<InProcessing> listItems = account.findAllInProcessing(true, (int) toIndex, filterSorted);
                 listItems.forEach(item -> data.add(item));
 
                 tableView.setItems(data);
@@ -859,16 +873,41 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
         try {
 
 
-            data = FXCollections.observableArrayList();
-            loadDataFromDatabase();
-            fromIndex = pageIndex * itemsPerPage;
-            toIndex = Math.min(fromIndex + itemsPerPage, data.size());
+            if(queryAll == false) {
+                data = FXCollections.observableArrayList();
+
+                fromIndex = pageIndex * itemsPerPage;
+
+                toIndex = Math.min(fromIndex + itemsPerPage, accountQueries.getMainInProcessingCount(false, countfilter));
+
+                pageCount = getPageCount((int) accountQueries.getMainInProcessingCount(false, countfilter), itemsPerPage);
+                pagination.setPageCount(pageCount);
+                filterSorted = "ORDER BY [tbl_RequestOffering].[CreatedOn] "+sort+"\n" +
+                        "             OFFSET  + ("+pageIndex+") * 40  \n" +
+                        "             ROWS\n" +
+                        "             FETCH NEXT 40 ROWS ONLY;";
+                loadDataFromDatabase();
 
 
+                tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
+            }else if (queryAll == true){
 
+                data = FXCollections.observableArrayList();
 
+                fromIndex = pageIndex * itemsPerPage;
+                countfilter = " AND (([CreatedByID] = '"+User.getContactID()+"' OR\n" +
+                        "[OfferingGroupID] = '"+User.getContactID()+"'))\n";
+                toIndex = Math.min(fromIndex + itemsPerPage, accountQueries.getMainInProcessingCount(true, countfilter));
 
-            tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
+                pageCount = getPageCount((int) accountQueries.getMainInProcessingCount(true, countfilter), itemsPerPage);
+                pagination.setPageCount(pageCount);
+                filterSorted = "ORDER BY [tbl_RequestOffering].[CreatedOn] "+sort+"\n" +
+                        "             OFFSET  + ("+pageIndex+") * 40  \n" +
+                        "             ROWS\n" +
+                        "             FETCH NEXT 40 ROWS ONLY;";
+                loadDataFromDatabase();
+                tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
+            }
         } catch (Exception e) {
             log.log(Level.SEVERE, "Switch page exception: " + e);
         }
@@ -895,9 +934,8 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
         } catch (NullPointerException ex) {
 
         } finally {
-            loadDataFromDatabase();
-            pageCount = getPageCount(data.size(), itemsPerPage);
-            pagination.setPageCount(pageCount);
+            dataPagination = true;
+            pagination.setPageFactory(this::createPage);
             NotificationBUProduct();
         }
 
@@ -1048,7 +1086,6 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
     @FXML
     private void actionCalculator(ActionEvent e) {
         Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
         FXMLLoader loader = new FXMLLoader();
 
 
@@ -1089,6 +1126,13 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
             throw new RuntimeException(exception);
         }
     }
+
+    @FXML
+    private void UpdateButton (ActionEvent e) {
+
+        refreshData();
+    }
+
     @Override
     public void disableFilter(TableColumn column, Pane content) {
         account.removeStringFilter(column);

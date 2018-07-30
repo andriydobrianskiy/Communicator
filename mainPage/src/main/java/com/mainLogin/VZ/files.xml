@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update>
+	<file>ftp://192.168.10.101/mainPageVZ/update.xml</file>
+	<file>ftp://192.168.10.101/mainPageVZ/mainPage.exe</file>
+</update>

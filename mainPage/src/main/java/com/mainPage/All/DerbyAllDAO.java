@@ -55,11 +55,11 @@ public class DerbyAllDAO implements AllDAO, FilterFunctions{
     }
 
     @Override
-    public List<All> findAll(boolean pagination, int rowIndex, String createdByID, String offeringGroupID) {
+    public List<All> findAll(boolean pagination, int rowIndex, String createdByID, String offeringGroupID, String filterSorted) {
         String query = (pagination ? accountQueries1.getMainAll(true, rowIndex, createdByID, offeringGroupID) : accountQueries1.getMainAll(false, 0, createdByID, offeringGroupID));
         try {
 
-                return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter(), new BeanListHandler<All>(All.class)));
+                return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter() + filterSorted , new BeanListHandler<All>(All.class)));
 
         } catch (Exception e) {
             log.log(Level.SEVERE, "getAccount exception: " + e);  DBConnection database = new DBConnection();
@@ -70,11 +70,11 @@ public class DerbyAllDAO implements AllDAO, FilterFunctions{
     }
 
     @Override
-    public List<All> findAllAll(boolean pagination, int rowIndex) {
+    public List<All> findAllAll(boolean pagination, int rowIndex, String filterSorted) {
         String query = (pagination ? accountQueries1.getMainAllAll(true, rowIndex) : accountQueries1.getMainAllAll(false, 0));
         try {
 
-            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter(), new BeanListHandler<All>(All.class)));
+            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter() + filterSorted, new BeanListHandler<All>(All.class)));
 
         } catch (Exception e) {
             log.log(Level.SEVERE, "getAccount exception: " + e);  DBConnection database = new DBConnection();
@@ -83,6 +83,7 @@ public class DerbyAllDAO implements AllDAO, FilterFunctions{
 
         return FXCollections.observableArrayList(EMPTYLIST);
     }
+
     public void setStringFilter(TableColumn column, String value) {
         mapFilters.put(column, value);
     }

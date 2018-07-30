@@ -1,5 +1,6 @@
 package com.mainPage.InProcessing;
 
+import com.Utils.GridComp;
 import com.Utils.InProcessingIntarface;
 import com.Utils.MiniFilterWindow.FilterFunctions;
 import com.connectDatabase.DBConnection;
@@ -16,7 +17,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class InProcessing implements InProcessingIntarface, FilterFunctions {
+public class InProcessing extends GridComp implements InProcessingIntarface, FilterFunctions {
     private static Logger log = Logger.getLogger(Counterpart.class.getName());
     private QueryRunner dbAccess = new QueryRunner();
     private InProcessingQuery accountQueries1 = new InProcessingQuery();
@@ -55,6 +56,7 @@ public class InProcessing implements InProcessingIntarface, FilterFunctions {
     private String GroupChangedBy;
     private String StateName;
     private String SpecialMarginTypeName;
+    private String CashType;
 
 
 
@@ -69,7 +71,7 @@ public class InProcessing implements InProcessingIntarface, FilterFunctions {
     }
 
 
-    public InProcessing(String number, String createdOn, String createdBy, String accountCode, String accountName, String accountSaldo, String accountIsSolid, String storeCity, String status, String offeringGroupName, String originalGroupName, String groupChangedBy, String stateName, String specialMarginTypeName, Integer isReadMeassage) {
+    public InProcessing(String number, String createdOn, String createdBy, String accountCode, String accountName, String accountSaldo, String accountIsSolid, String storeCity, String status, String offeringGroupName, String originalGroupName, String groupChangedBy, String stateName, String specialMarginTypeName, Integer isReadMeassage, String cashType) {
         this.Number = number;
         this.CreatedOn = createdOn;
         this.CreatedBy = createdBy;
@@ -85,6 +87,8 @@ public class InProcessing implements InProcessingIntarface, FilterFunctions {
         this.StateName = stateName;
         this.SpecialMarginTypeName = specialMarginTypeName;
         this.IsReadMeassage = isReadMeassage;
+        this.CashType = cashType;
+
     }
 
     public String getID() {
@@ -234,14 +238,21 @@ public class InProcessing implements InProcessingIntarface, FilterFunctions {
     public void setSpecialMarginTypeName(String specialMarginTypeName) {
         SpecialMarginTypeName = specialMarginTypeName;
     }
+    public String getCashType() {
+        return CashType;
+    }
+
+    public void setCashType(String CashType) {
+        this.CashType = CashType;
+    }
 
 
     @Override
-    public List<InProcessing> findAllOne(boolean pagination, int rowIndex, String createdByID, String offeringGroupID) {
+    public List<InProcessing> findAllOne(boolean pagination, int rowIndex, String createdByID, String offeringGroupID, String filterSorted ) {
 
         String query = (pagination ? accountQueries1.getMainInProcessing(true, rowIndex , createdByID , offeringGroupID) : accountQueries1.getMainInProcessing(false, 0, createdByID , offeringGroupID));
         try {
-            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter(), new BeanListHandler<InProcessing>(InProcessing.class)));
+            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter()+filterSorted, new BeanListHandler<InProcessing>(InProcessing.class)));
         } catch (Exception e) {
             log.log(Level.SEVERE, "getAccount exception: " + e);
         }
@@ -263,10 +274,10 @@ public class InProcessing implements InProcessingIntarface, FilterFunctions {
 
 
     @Override
-    public List<InProcessing> findAllInProcessing (boolean pagination, int rowIndex){
+    public List<InProcessing> findAllInProcessing (boolean pagination, int rowIndex, String filterSorted ){
         String queryAll = (pagination ? accountQueries1.getMainInProcessingAll(true, rowIndex) : accountQueries1.getMainInProcessingAll(false, 0));
         try{
-            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(),queryAll + getStringFilter(), new BeanListHandler<InProcessing>(InProcessing.class)));
+            return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(),queryAll + getStringFilter()+ filterSorted, new BeanListHandler<InProcessing>(InProcessing.class)));
         }catch (Exception e){
             log.log(Level.SEVERE, "getAccount exception: " + e);
         }

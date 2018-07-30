@@ -13,7 +13,6 @@
     </properties>
     <root id="root">
       <element id="module-output" name=".IntelliJIdea2017.2" />
-      <element id="library" level="project" name="sqljdbc4-3.0.jar" />
       <element id="file-copy" path="$USER_HOME$/Desktop/Добрянський Андрій/jar_files/jfoenix-1.2.0.jar" />
       <element id="file-copy" path="$USER_HOME$/Desktop/Добрянський Андрій/jar_files/commons-dbutils-1.5.jar" />
       <element id="file-copy" path="$USER_HOME$/Desktop/Добрянський Андрій/Desctop/sqljdbc4-3.0.jar" />

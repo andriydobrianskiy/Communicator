@@ -8,11 +8,18 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <packaging>jar</packaging>
+
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mainPage</artifactId>
-
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>mainPage</name>
+    <properties>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.version>4.0.1.RELEASE</spring.version>
+    </properties>
 
 
     <dependencies>
@@ -124,6 +131,7 @@
 
 
     </dependencies>
+
     <distributionManagement>
         <repository>
             <id>sonatype-nexus-staging</id>

@@ -43,6 +43,7 @@
                                        <FilterableStringTableColumn fx:id="colOriginalGroupName" editable="false" text="Початкова група"/>
                                        <FilterableStringTableColumn fx:id="colGroupChangedBy" editable="false" text="Змінив групу"/>
                                        <FilterableStringTableColumn fx:id="colSpecialMarginTypeName" editable="false" text="Тип спец націнки"/>
+                                       <FilterableStringTableColumn fx:id="colCashType" editable="false" text="Тип оплати"/>
 
                                    </columns>
                                    <opaqueInsets>
@@ -54,8 +55,29 @@
                                </CustomTableView>
                            </center>
                            <bottom>
-                              <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                 <items>
+                               <VBox prefHeight="55.0" prefWidth="200.0" BorderPane.alignment="CENTER" alignment="CENTER">
+
+                                   <HBox prefHeight="30.0" style="-fx-background-color: #d9f1ff; -fx-pref-width: 10;" alignment="CENTER" spacing="100">
+                                       <Pagination fx:id="pagination" pageCount="10000" prefHeight="45.0" prefWidth="500.0" />
+
+                                       <JFXButton prefWidth="30"  prefHeight="30"  onAction="#UpdateButton">
+
+                                           <graphic>
+
+                                               <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                       <Image url="@../images/Update.png" />
+                                                   </image>
+                                               </ImageView>
+                                           </graphic>
+                                           <font>
+                                               <Font size="14.0" />
+                                           </font>
+                                       </JFXButton>
+
+
+                                   </HBox>
+                                   <HBox prefHeight="30.0" style="-fx-background-color: #d9f1ff; -fx-pref-width: 10;" alignment="CENTER_LEFT" spacing="20" >
                                   <MenuButton mnemonicParsing="false" style="-fx-background-color: #39b5ff;">
                                   <items>
                                       <MenuItem mnemonicParsing="false">
@@ -84,18 +106,19 @@
                                        </font>
                                     </Label>
                                     <JFXTextField fx:id="searchingField" promptText="Введіть скорочення" unFocusColor="#5e5353" />
-                                    <Pagination fx:id="pagination" pageCount="10000" prefHeight="45.0" prefWidth="500.0" />
-                                     <ScrollPane fx:id="scrollPaneFilter" prefHeight="49.0" BorderPane.alignment="CENTER_LEFT">
-                                         <content>
-                                             <HBox fx:id="hboxFilter" alignment="CENTER_LEFT" prefHeight="45.0"/>
-                                         </content>
-                                     </ScrollPane>
+
+
                                      <JFXToggleButton fx:id="btn_ButtonAll" nodeOrientation="RIGHT_TO_LEFT" prefHeight="22.0" prefWidth="141.0" text="Мої" />
-                                 </items>
+                                       <ScrollPane fx:id="scrollPaneFilter" prefHeight="49.0" BorderPane.alignment="CENTER_LEFT">
+                                           <content>
+                                               <HBox fx:id="hboxFilter" alignment="CENTER_LEFT" prefHeight="45.0"/>
+                                           </content>
+                                       </ScrollPane>
                                  <BorderPane.margin>
                                     <Insets />
                                  </BorderPane.margin>
-                              </ToolBar>
+                                   </HBox>
+                              </VBox>
 
                            </bottom>
                         </BorderPane>
