@@ -19,6 +19,7 @@ import com.mainPage.InProcessing.Calculator.CalculatorController;
 import com.mainPage.InProcessing.InProcessingRequest.InProcessingRequestController;
 import com.mainPage.InProcessing.NotesInProcessing.NotesInProcessingController;
 import com.mainPage.InProcessing.UpdateOfferingGroupName.UpdateOfferingGroupNameController;
+import com.mainPage.InProcessing.UpdateOfferingGroupNameNotPrice.UpdateOfferingGroupNameNotPriceController;
 import com.mainPage.NotFulled.NotFulledController;
 import com.mainPage.NotFulled.ProductAdd.ObserverNF;
 import com.mainPage.WorkArea;
@@ -111,6 +112,8 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
     private Button btn_ReturnOwner;
     @FXML
     private Button btn_Calculator;
+    @FXML
+    private JFXButton btn_NotPrice;
     private PreparedStatement pst = null;
     private Connection con = null;
     private ResultSet rs = null;
@@ -214,7 +217,8 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
         tableView.setOnMouseClicked(mouseEvent -> fixSelectedRecord());
         tableView.setOnKeyReleased(eventKey -> {
             UsefulUtils.searchCombination(eventKey, tableView);
-            fixSelectedRecord();});
+            fixSelectedRecord();
+        });
     }
 
     protected void fixSelectedRecord() {
@@ -248,6 +252,7 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
         btn_СancelRequest.setVisible(true); // анулювати запит
         btn_ReturnOwner.setVisible(true); // Змынити выдповыдального
         btn_Calculator.setVisible(true); // калькулятор
+        btn_NotPrice.setVisible(true); // Не підходить ціна
 
         // Connection Database
         try {
@@ -271,6 +276,8 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                 String query = "UPDATE [dbo].[tbl_RequestOffering]\n" +
                         "\tSET  [StatusID] = '{7CB7F6B9-EB87-48FE-86F6-49ED931A0C0B}',\n" +
                         "[OfferingGroupID] = ?,\n" +
+                        "[OriginalGroupID] = ?,\n" +
+                        "[GroupChangedByID] = ?,\n" +
                         "\t[ModifiedOn] = CURRENT_TIMESTAMP,\n" +
                         "\t[ModifiedByID] = ?\n" +
                         "WHERE([tbl_RequestOffering].[ID] = ?)";
@@ -278,7 +285,9 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                     pst = con.prepareStatement(query);
                     pst.setString(1, User.getContactID());
                     pst.setString(2, User.getContactID());
-                    pst.setString(3, chosenAccount.getID());
+                    pst.setString(3, User.getContactID());
+                    pst.setString(4, User.getContactID());
+                    pst.setString(5, chosenAccount.getID());
 
                     pst.executeUpdate();
                     refreshData();
@@ -373,9 +382,8 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                     try {
                         chosenAccount = (InProcessing) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
                         NotesInProcessingController notesInProcessingController = new NotesInProcessingController(chosenAccount, false);
-                     //   showWindow();
-                      //  notesPage(chosenAccount);
-
+                        //   showWindow();
+                        //  notesPage(chosenAccount);
 
 
                     } catch (Exception e) {
@@ -384,8 +392,6 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                 }
             }
         });
-
-
 
 
         // ToggleButtons TableView
@@ -411,7 +417,9 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
             if (group.getSelectedToggle() != null) {
                 queryAll = true;
                 btn_UpdateStatus.setVisible(false);
+
                 refreshData();
+
                 searchingField.setOnAction(event1 -> {
                     String value = searchingField.getText();
 
@@ -425,10 +433,11 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                         }
                 });
 
-            } else
-            {
+            } else {
                 queryAll = false;
-               refreshData();
+
+                refreshData();
+
                 btn_UpdateStatus.setVisible(true);
                 searchingField.setOnAction(event1 -> {
                     String value = searchingField.getText();
@@ -442,6 +451,8 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                             e.printStackTrace();
                         }
                 });
+
+
             }
         });
 
@@ -451,7 +462,7 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
         createTableColumns();
         tableViewHandles();
         tableView.addEventHandler(ColumnFilterEvent.FILTER_CHANGED_EVENT, event -> {
-            new MiniFilter(InProcessingController.this, account, hashColumns,event).setFilter();
+            new MiniFilter(InProcessingController.this, account, hashColumns, event).setFilter();
         });
         UsefulUtils.copySelectedCell(tableView);
         anchorPane.setCenter(tableView);
@@ -468,20 +479,20 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
             pagination.setPageFactory(this::createPage);
             initializeTable();
 
-            id.setOnMouseClicked(e->{
+            id.setOnMouseClicked(e -> {
                 dataPagination = false;
                 pagination.setPageFactory(this::createPage);
 
             });
-            Number.setOnMouseClicked(e->{
+            Number.setOnMouseClicked(e -> {
                 dataPagination = false;
                 pagination.setPageFactory(this::createPage);
             });
-            Solid.setOnMouseClicked(e-> {
+            Solid.setOnMouseClicked(e -> {
                 dataPagination = false;
                 pagination.setPageFactory(this::createPage);
             });
-            Store.setOnMouseClicked(e->{
+            Store.setOnMouseClicked(e -> {
                 dataPagination = false;
                 pagination.setPageFactory(this::createPage);
             });
@@ -517,6 +528,8 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
 
         Image imageServerInProcessing = new Image(getClass().getResourceAsStream("/images/ServerInProcessing.png"));
         btn_Server.setGraphic(new ImageView(imageServerInProcessing));
+        Image imageNotPriceInProcessing = new Image(getClass().getResourceAsStream("/images/NotPrice.png"));
+        btn_NotPrice.setGraphic(new ImageView(imageNotPriceInProcessing));
         btnDelete.setOnAction(event -> {
             try {
                 selectedOffering = (InProcessing) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
@@ -545,6 +558,13 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
 
 
 
+
+        UpdateColorNotificationNotPrice();
+
+        tableView.getSelectionModel().select(0);
+    }
+
+    private void UpdateColorNotificationNotPrice() {
         tableView.setRowFactory(new Callback<TableView<InProcessing>, TableRow<InProcessing>>() {
             @Override
             public TableRow<InProcessing> call(TableView<InProcessing> param) {
@@ -555,21 +575,55 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                         try {
                             if (item == null || item.getIsReadMeassage() == null || item.getIsReadMeassage().equals(0)) {
                                 setStyle("");
+                                if (item.getOfferingGroupID().equals("C763A6EF-0115-41E4-A00C-219E246F7E0D") ||
+                                        item.getOfferingGroupID().equals("9FAB93B7-A92A-498B-AF29-732A88DB86CF") ||
+                                        item.getOfferingGroupID().equals("EDC2623A-7F70-4AA0-B4A7-72A900F69C5D")){
+                                    setStyle("-fx-background-color: #15ff73;");
+                                }
                                 if (item.getJointAnnulment().equals(1) || item.getJointAnnulment().equals(2)) {
                                     setStyle("-fx-background-color: #FF0000;");
 
                                 }
                             } else {
                                 setStyle("-fx-font-weight: bold");
+                                if (item.getOfferingGroupID().equals("C763A6EF-0115-41E4-A00C-219E246F7E0D") ||
+                                        item.getOfferingGroupID().equals("9FAB93B7-A92A-498B-AF29-732A88DB86CF") ||
+                                        item.getOfferingGroupID().equals("EDC2623A-7F70-4AA0-B4A7-72A900F69C5D")){
+                                    setStyle("-fx-background-color: #15ff73;"+
+                                            "-fx-font-weight: bold");
+                                }
+                                if (item.getOfferingGroupID().equals("1B5F2F6A-133B-4026-BED3-914C8AC491D9") && User.getContactID().equals("1B5F2F6A-133B-4026-BED3-914C8AC491D9")) {
+                                    UsefulUtils.showInformationDialog("Новий запит " + item.getNumber());
+                                    Media hit = new Media(getClass().getClassLoader().getResource("sounds/not-bad.mp3").toString());
+                                    MediaPlayer mediaPlayer = new MediaPlayer(hit);
+                                    mediaPlayer.play();
+                                    String query = "UPDATE [dbo].[tbl_RequestOffering]\n" +
+                                            "\tSET  [IsReadMeassage] = 0,\n" +
+                                            "\t[ModifiedOn] = CURRENT_TIMESTAMP,\n" +
+                                            "\t[ModifiedByID] = ?\n" +
+                                            "WHERE([tbl_RequestOffering].[ID] = ?)";
+                                    try {
+                                        pst = con.prepareStatement(query);
+                                        pst.setString(1, User.getContactID());
+                                        pst.setString(2, item.getID());
+
+
+                                            pst.executeUpdate();
+                                        } catch (SQLException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                }
                                 if (item.getJointAnnulment().equals(1) || item.getJointAnnulment().equals(2))
                                     setStyle("-fx-background-color: #FF0000;" +
                                             "-fx-font-weight: bold");
 
                             }
+
+
                         } catch (NullPointerException ex) {
 
                         }
-
 
 
                     }
@@ -577,37 +631,34 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
             }
         });
 
-
-
-        tableView.getSelectionModel().select(0);
     }
+
 
     private void NotificationBUProduct() {
 
-            tableView.setRowFactory(new Callback<TableView<InProcessing>, TableRow<InProcessing>>() {
-                @Override
-                public TableRow<InProcessing> call(TableView<InProcessing> param) {
-                    return new TableRow<InProcessing>() {
-                        @Override
-                        protected void updateItem(InProcessing item, boolean empty) {
-                            super.updateItem(item, empty);
-                            try {
-                                if ( item.getOfferingGroupID() == "1B5F2F6A-133B-4026-BED3-914C8AC491D9" && item.getIsReadMeassage().equals(1) && User.getContactID() == "1B5F2F6A-133B-4026-BED3-914C8AC491D9") {
-                                   UsefulUtils.showConfirmDialog("Новий запит "+ item.getNumber());
-                                    Media hit = new Media(getClass().getClassLoader().getResource("sounds/not-bad.mp3").toString());
-                                    MediaPlayer mediaPlayer = new MediaPlayer(hit);
-                                    mediaPlayer.play();
-                                }
-                            } catch (NullPointerException ex) {
-
+        tableView.setRowFactory(new Callback<TableView<InProcessing>, TableRow<InProcessing>>() {
+            @Override
+            public TableRow<InProcessing> call(TableView<InProcessing> param) {
+                return new TableRow<InProcessing>() {
+                    @Override
+                    protected void updateItem(InProcessing item, boolean empty) {
+                        super.updateItem(item, empty);
+                        try {
+                            if (item.getOfferingGroupID().equals("1B5F2F6A-133B-4026-BED3-914C8AC491D9") && item.getIsReadMeassage().equals(1) && User.getContactID().equals("1B5F2F6A-133B-4026-BED3-914C8AC491D9")) {
+                                UsefulUtils.showConfirmDialog("Новий запит " + item.getNumber());
+                                Media hit = new Media(getClass().getClassLoader().getResource("sounds/not-bad.mp3").toString());
+                                MediaPlayer mediaPlayer = new MediaPlayer(hit);
+                                mediaPlayer.play();
                             }
-
-
-
+                        } catch (NullPointerException ex) {
+                       ex.printStackTrace();
                         }
-                    };
-                }
-            });
+
+
+                    }
+                };
+            }
+        });
     }
 
     private void SortButton(Button button) {
@@ -622,9 +673,9 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                 order = !order;
                 button.setGraphic((order) ? upImg : downImg);
 
-                if (button.getGraphic() == upImg){
+                if (button.getGraphic() == upImg) {
                     sort = "DESC";
-                }else if(button.getGraphic() == downImg){
+                } else if (button.getGraphic() == downImg) {
                     sort = "ASC";
                 }
                 updatePersonView();
@@ -637,7 +688,7 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
             data.sort((InProcessing p1, InProcessing p2) -> p1.getCreatedOn().compareTo(p2.getCreatedOn()));
         } else if (notFulfilled == Number) {
             data.sort((InProcessing p1, InProcessing p2) -> p1.getNumber().compareTo(p2.getNumber()));
-        }else if (notFulfilled == Solid) {
+        } else if (notFulfilled == Solid) {
             data.sort((InProcessing p1, InProcessing p2) -> p1.getAccountIsSolid().compareTo(p2.getAccountIsSolid()));
         } else if (notFulfilled == Store) {
             data.sort((InProcessing p1, InProcessing p2) -> p1.getNumber().compareTo(p2.getStoreCity()));
@@ -693,7 +744,6 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
         }
 
 
-
     }
 
     public void AddDate() {
@@ -722,7 +772,6 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
     }
 
 
-
     public void loginButtonAction(InProcessing chosenAccount) throws IOException {
         String hostname = "192.168.10.144";
         System.out.println(hostname);
@@ -747,7 +796,6 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
         chatViewController.setUsernameLabel(User.getContactName());
 
         chatViewController.setImageLabel("Default");
-
 
 
     }
@@ -787,7 +835,6 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
 
     @Override
     public void createTableColumns() {
-
 
 
         try {
@@ -834,7 +881,7 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
             colOriginalGroupName.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("OriginalGroupName"));
             colGroupChangedBy.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("GroupChangedBy"));
             colSpecialMarginTypeName.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("SpecialMarginTypeName"));
-            colCashType.setCellValueFactory(new PropertyValueFactory<InProcessing,String>("CashType"));
+            colCashType.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("CashType"));
 
 
         } catch (Exception e) {
@@ -847,14 +894,14 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
 
     @Override
     public void loadDataFromDatabase() {
-            data.clear();
+        data.clear();
         try {
-            if(queryAll == true){
-            List<InProcessing> listItems = account.findAllOne(true, (int) toIndex, User.getContactID(), User.getContactID(), filterSorted);
-            listItems.forEach(item -> data.add(item));
+            if (queryAll == true) {
+                List<InProcessing> listItems = account.findAllOne(true, (int) toIndex, User.getContactID(), User.getContactID(), filterSorted);
+                listItems.forEach(item -> data.add(item));
 
-            tableView.setItems(data);
-            }else if (queryAll == false){
+                tableView.setItems(data);
+            } else if (queryAll == false) {
                 List<InProcessing> listItems = account.findAllInProcessing(true, (int) toIndex, filterSorted);
                 listItems.forEach(item -> data.add(item));
 
@@ -867,13 +914,11 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
     }
 
 
-
-
     public BorderPane createPage(int pageIndex) {
         try {
 
 
-            if(queryAll == false) {
+            if (queryAll == false) {
                 data = FXCollections.observableArrayList();
 
                 fromIndex = pageIndex * itemsPerPage;
@@ -882,27 +927,27 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
 
                 pageCount = getPageCount((int) accountQueries.getMainInProcessingCount(false, countfilter), itemsPerPage);
                 pagination.setPageCount(pageCount);
-                filterSorted = "ORDER BY [tbl_RequestOffering].[CreatedOn] "+sort+"\n" +
-                        "             OFFSET  + ("+pageIndex+") * 40  \n" +
+                filterSorted = "ORDER BY [tbl_RequestOffering].[CreatedOn] " + sort + "\n" +
+                        "             OFFSET  + (" + pageIndex + ") * 40  \n" +
                         "             ROWS\n" +
                         "             FETCH NEXT 40 ROWS ONLY;";
                 loadDataFromDatabase();
 
 
                 tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
-            }else if (queryAll == true){
+            } else if (queryAll == true) {
 
                 data = FXCollections.observableArrayList();
 
                 fromIndex = pageIndex * itemsPerPage;
-                countfilter = " AND (([CreatedByID] = '"+User.getContactID()+"' OR\n" +
-                        "[OfferingGroupID] = '"+User.getContactID()+"'))\n";
+                countfilter = " AND (([CreatedByID] = '" + User.getContactID() + "' OR\n" +
+                        "[OfferingGroupID] = '" + User.getContactID() + "'))\n";
                 toIndex = Math.min(fromIndex + itemsPerPage, accountQueries.getMainInProcessingCount(true, countfilter));
 
                 pageCount = getPageCount((int) accountQueries.getMainInProcessingCount(true, countfilter), itemsPerPage);
                 pagination.setPageCount(pageCount);
-                filterSorted = "ORDER BY [tbl_RequestOffering].[CreatedOn] "+sort+"\n" +
-                        "             OFFSET  + ("+pageIndex+") * 40  \n" +
+                filterSorted = "ORDER BY [tbl_RequestOffering].[CreatedOn] " + sort + "\n" +
+                        "             OFFSET  + (" + pageIndex + ") * 40  \n" +
                         "             ROWS\n" +
                         "             FETCH NEXT 40 ROWS ONLY;";
                 loadDataFromDatabase();
@@ -936,13 +981,13 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
         } finally {
             dataPagination = true;
             pagination.setPageFactory(this::createPage);
+          //  UpdateColorNotificationNotPrice();
             NotificationBUProduct();
+
         }
 
         UsefulUtils.fadeTransition(tableView);
     }
-
-
 
 
     private void searchCode() {
@@ -974,8 +1019,6 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
     }
 
 
-
-
     @FXML
     public void handleDelete(ActionEvent e) {
 
@@ -1001,12 +1044,12 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
 
     @FXML
     private void btnUpdateOfferingGroupName(ActionEvent e) {
-            try {
-                chosenAccount = (InProcessing) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
-            } catch (Exception ex) {
-                UsefulUtils.showErrorDialogDown("Не вибрано жодного елемента з таблиці!");
-                return;
-            }
+        try {
+            chosenAccount = (InProcessing) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
+        } catch (Exception ex) {
+            UsefulUtils.showErrorDialogDown("Не вибрано жодного елемента з таблиці!");
+            return;
+        }
 
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -1037,7 +1080,6 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
 
 
     }
-
 
 
     public void UpdateNotificationTable() {
@@ -1105,6 +1147,46 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
         stage.show();
         stage.requestFocus();
     }
+
+    @FXML
+    private void actionNotPrice(ActionEvent event) {
+        try {
+            chosenAccount = (InProcessing) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
+        } catch (Exception ex) {
+            UsefulUtils.showErrorDialogDown("Не вибрано жодного елемента з таблиці!");
+            return;
+        }
+
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        FXMLLoader loader = new FXMLLoader();
+
+
+        loader.setLocation(UpdateOfferingGroupNameController.class.getResource("/views/UpdateOfferingGroupNameNotPrice.fxml"));
+        UpdateOfferingGroupNameController createRequest = loader.getController();
+        Pane serverrLayout = null;
+        try {
+            serverrLayout = loader.load();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        // Show the scene containing the root layout.
+
+        Scene scene = new Scene(serverrLayout);
+        UpdateOfferingGroupNameNotPriceController con = loader.getController();
+        con.setOfferingRequest(this, chosenAccount);
+
+
+        stage.setScene(scene);
+        ResizeHelper.addResizeListener(stage);
+        stage.setMaxHeight(480);
+        stage.setMaxWidth(620);
+        stage.show();
+
+        stage.requestFocus();
+
+    }
+
     @Override
     public void fillHboxFilter(TableColumn column, IFilterOperator.Type type, Object value) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -1128,7 +1210,7 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
     }
 
     @FXML
-    private void UpdateButton (ActionEvent e) {
+    private void UpdateButton(ActionEvent e) {
 
         refreshData();
     }
@@ -1137,17 +1219,19 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
     public void disableFilter(TableColumn column, Pane content) {
         account.removeStringFilter(column);
         refreshData();
-        if(content == null) {
+        if (content == null) {
             removeFilterFromHbox(column);
             return;
         }
         hboxFilter.getChildren().remove(content);
         System.out.println("DISABLED");
     }
+
     @Override
     public void removeFilterFromHbox(TableColumn column) {
         hboxFilter.getChildren().remove(hashMiniFilter.get(column));
     }
+
     @Override
     public void update() {
         refreshData();

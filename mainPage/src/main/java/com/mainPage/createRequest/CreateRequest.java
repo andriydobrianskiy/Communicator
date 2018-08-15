@@ -9,7 +9,6 @@ import com.mainPage.InProcessing.Calculator.ComboBoxAutoComplete;
 import com.mainPage.NotFulled.NotFulfilled;
 import com.mainPage.NotFulled.NotFulledController;
 import com.mainPage.createRequest.StateCreate.DeliveryCity;
-import com.mainPage.createRequest.StateCreate.GroupPeople;
 import com.mainPage.createRequest.StateCreate.StateCreate;
 import com.mainPage.createRequest.StateCreate.Status;
 import com.mainPage.createRequest.searchCounterpart.Counterpart;
@@ -50,6 +49,12 @@ public class CreateRequest implements Initializable {
     private PreparedStatement pst = null;
     private ResultSet rs = null;
     private Connection con = null;
+    private ObservableList <String> data = FXCollections.observableArrayList();
+    public static String Popovich = "0B1A17F5-AD03-440C-A513-1398FF2B5C67";
+    public static String Kluchnik = "00DC128B-7AEE-48F8-B5B9-76B09CF92C33";
+    public static String Vyshchanskyi = "46C0D45F-D8E0-44FC-A2DD-64FE2ECBB95B";
+    public static String Yaskevich = "42C472CF-22C8-4B67-A63B-93659CA73E0D";
+    private String OfferingGroupID = null;
     @FXML
     private RadioButton box_cash;
     @FXML
@@ -95,8 +100,8 @@ public class CreateRequest implements Initializable {
     private ChoiceBox comboBoxGroup;
     private ObservableList optionsComboBoxGroup = FXCollections.observableArrayList();*/
 
-    @FXML
-    private JFXComboBox GroupPeople;
+   // @FXML
+ //   private JFXComboBox GroupPeople;
     private ObservableList optionsGroupPeople = FXCollections.observableArrayList();
     JFXComboBox choiceBoxGroupPeople = new JFXComboBox(optionsGroupPeople);
     @FXML
@@ -273,7 +278,45 @@ public class CreateRequest implements Initializable {
 //        System.out.println(Status.getPromptText().toString() + "6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666");
     }
 
-    public void GroupPeople() {
+    public void recentQueries(){
+        try {
+            String query = "select top 3 OfferingGroupID from tbl_RequestOffering\n" +
+                    "                    Order BY CreatedOn DESC ";
+            pst = con.prepareStatement(query);
+            rs = pst.executeQuery();
+            while (rs.next()){
+                data.add(rs.getString(1));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            DBConnection database = new DBConnection();
+            database.reconnect();
+        }
+    }
+
+    public void responsibleInquiry () {
+       String data1 = data.get(0);
+       String data2 = data.get(1);
+       String data3 = data.get(2);
+       if(Popovich.equals(data1) || Popovich.equals(data2) || Popovich.equals(data3)) {
+       }else {
+           OfferingGroupID = Popovich;
+       }
+        if(Kluchnik.equals(data1) || Kluchnik.equals(data2) || Kluchnik.equals(data3)) {
+        }else {
+            OfferingGroupID = Kluchnik;
+        }
+        if(Yaskevich.equals(data1) || Yaskevich.equals(data2) || Yaskevich.equals(data3)) {
+        }else {
+            OfferingGroupID = Yaskevich;
+        }
+        if(Vyshchanskyi.equals(data1) || Vyshchanskyi.equals(data2) || Vyshchanskyi.equals(data3)) {
+        }else {
+            OfferingGroupID = Vyshchanskyi;
+        }
+    }
+
+ /*   public void GroupPeople() {
 
         try {
             String queryGroupPeople = "SELECT [tbl_Contact].ID, [tbl_Contact].[Name] FROM [tbl_Contact] AS [tbl_Contact] WHERE [tbl_Contact].JobID = 'CCB28AD0-ECAC-43DF-9827-E2F9CEA56A3A' OR ID IN ('71820A9D-95B6-4D65-A480-4F2C57AE9A4B', '0B1A17F5-AD03-440C-A513-1398FF2B5C67')\n";
@@ -294,9 +337,9 @@ public class CreateRequest implements Initializable {
             database.reconnect();
         }
 
-    }
+    }*/
 
-    public void CheckBoxAction (){
+   /* public void CheckBoxAction (){
         try {
             String queryGroupPeople = "SELECT [tbl_Contact].ID, [tbl_Contact].[Name] FROM [tbl_Contact] AS [tbl_Contact] WHERE [tbl_Contact].JobID = 'CCB28AD0-ECAC-43DF-9827-E2F9CEA56A3A' OR ID IN ('71820A9D-95B6-4D65-A480-4F2C57AE9A4B', '0B1A17F5-AD03-440C-A513-1398FF2B5C67')\n";
 
@@ -318,7 +361,7 @@ public class CreateRequest implements Initializable {
 
 
 
-    }
+    }*/
 
 
     @Override
@@ -359,13 +402,21 @@ public class CreateRequest implements Initializable {
             log.log(Level.SEVERE, "Delete offering row exception: " + e);
         }
         options = FXCollections.observableArrayList();
-        try {
+        try{
+            con = DBConnection.getDataSource().getConnection();
+            data = FXCollections.observableArrayList();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
+      /*  try {
             conGroupPeople = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
             log.log(Level.SEVERE, "Delete offering row exception: " + e);
-        }
-        optionsGroupPeople = FXCollections.observableArrayList();
-        GroupPeople();
+        }*/
+    //    optionsGroupPeople = FXCollections.observableArrayList();
+      //  GroupPeople();
         Status.getSelectionModel().select(optionsStatus.get(0));
 
         try {
@@ -484,9 +535,9 @@ public class CreateRequest implements Initializable {
                         chosenElement.setOriginalGroupID(value);
                         break;
 
-                    case "GroupPeople":
-                        chosenElement.setOfferingGroupID(value);
-                        break;
+                  //  case "GroupPeople":
+                     //   chosenElement.setOfferingGroupID(value);
+                        //break;
                 }
 
             });
@@ -499,6 +550,8 @@ public class CreateRequest implements Initializable {
         }
 
         builderQuery = new StringBuilder();
+        recentQueries();
+        responsibleInquiry();
 
         String query = ("INSERT INTO [dbo].[tbl_RequestOffering] (CreatedOn, CreatedByID, ModifiedOn, ModifiedByID, [AccountID], StoreCityID, [StatusID], [OfferingGroupID], OriginalGroupID, [StateID], [CashType])\n" +
                 "                      VALUES (CURRENT_TIMESTAMP, ?, CURRENT_TIMESTAMP, ?,  ?, ?, ?, ?, ?, ?, ? )");
@@ -512,7 +565,7 @@ public class CreateRequest implements Initializable {
             pst.setString(3, chosenElement.getAccountID());
             pst.setString(4, chosenElement.getStoreCityID());
             pst.setString(5, chosenElement.getStatusID());
-            pst.setString(6, chosenElement.getOfferingGroupID());
+            pst.setString(6, OfferingGroupID);
             pst.setString(7, chosenElement.getOriginalGroupID());
             pst.setString(8, chosenElement.getStateID());
             pst.setString(9, checkBoxList.toString());

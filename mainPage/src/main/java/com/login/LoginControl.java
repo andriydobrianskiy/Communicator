@@ -56,42 +56,11 @@ public class LoginControl implements Initializable {
     private Credentials credentials = new Credentials();
 
 
-
-    /*@FXML
-    private Button loginButton;
-    @FXML
-    private AnchorPane anchorPane;*/
-
     private DBConnection database = new DBConnection();
     private InTractController inTractController = new InTractController();
-
-
     @FXML
     private void loginAction(ActionEvent evt) {
 
-        //  PauseTransition pt = new PauseTransition();
-        //   pt.setDuration(Duration.seconds(6));
-        //     pt.setOnFinished(ev -> {
-        //        System.out.println("dswgfegfe");
-        //     });
-
-        //     pt.play();
-      /*  Stage stage1 = new Stage();
-        StackPane root1 = new StackPane();
-
-        //   StackPane root1 = FXMLLoader.load(getClass().getResource( "/views/Login.fxml" ));
-        stage1.setScene(new Scene(root1));
-
-        CustomLauncherUI ui = new CustomLauncherUI();
-        ui.init(stage1);
-
-        Parent updater = ui.createLoader();
-        root1.getChildren().addAll(updater);
-
-        stage1.show();
-        PauseTransition delay = new PauseTransition(Duration.seconds(6));
-        delay.setOnFinished( event -> stage1.close() );
-        delay.play();*/
         authenticate();
 
 

@@ -184,12 +184,12 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
         btn_IntoProcessing.setVisible(false);
         btnDelete.setVisible(false);
         btn_changeRequest.setVisible(false);
-        btn_СancelRequest.setVisible(false); // Менеджер
+        btn_СancelRequest.setVisible(true); // Менеджер
         btn_RefreshRequest.setVisible(false);
-        btn_DeleteRequest.setVisible(false); // Менеджер
-        tbn_CreateRequest.setVisible(false); // Менеджер
-        btn_ConfirmRequest.setVisible(false);// Менеджер
-        btn_AddRequest.setVisible(false);// Менеджер
+        btn_DeleteRequest.setVisible(true); // Менеджер
+        tbn_CreateRequest.setVisible(true); // Менеджер
+        btn_ConfirmRequest.setVisible(true);// Менеджер
+        btn_AddRequest.setVisible(true);// Менеджер
 
         Image imageDecline = new Image(getClass().getResourceAsStream("/images/CreateRequest.png"));
         tbn_CreateRequest.setGraphic(new ImageView(imageDecline));

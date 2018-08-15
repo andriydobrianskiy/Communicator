@@ -1,48 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import com.mainPage.tableutils.CustomTableView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import org.google.jhsheets.filtered.tablecolumn.*?>
-<BorderPane  xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainPage.InProcessing.InProcessingController">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.google.jhsheets.filtered.tablecolumn.FilterableDateTableColumn?>
+<?import org.google.jhsheets.filtered.tablecolumn.FilterableDoubleTableColumn?>
+<?import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainPage.InProcessing.InProcessingController">
    <center>
       <BorderPane>
          <center>
             <BorderPane>
                <center>
-                  <BorderPane  >
+                  <BorderPane>
                      <center>
-                        <SplitPane  dividerPositions="0.6876790830945558" layoutX="2.0" layoutY="-1.0" orientation="VERTICAL" AnchorPane.bottomAnchor="77.0">
+                        <SplitPane dividerPositions="0.6876790830945558" layoutX="2.0" layoutY="-1.0" orientation="VERTICAL" AnchorPane.bottomAnchor="77.0">
                            <items>
 
 
                               <BorderPane fx:id="anchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <center>
-                                    <CustomTableView fx:id="tableView"   blendMode="MULTIPLY" cache="true" cacheHint="SPEED" editable="true" BorderPane.alignment="CENTER">
+                                    <CustomTableView fx:id="tableView" blendMode="MULTIPLY" cache="true" cacheHint="SPEED" editable="true" BorderPane.alignment="CENTER">
                                        <columnResizePolicy>
                                           <CustomTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                        </columnResizePolicy>
                                        <columns>
-                                          <FilterableStringTableColumn fx:id="colNumber" editable="false" text="№"/>
-                                          <FilterableDateTableColumn fx:id="colCreatedOn" editable="false" text="Дата"/>
-                                          <FilterableStringTableColumn fx:id="colCreatedBy" editable="false" text="Створив"/>
-                                          <FilterableStringTableColumn fx:id="colAccountCode" editable="false" text="Код"/>
-                                          <FilterableStringTableColumn fx:id="colAccountName" editable="false" text="Контрагент"/>
+                                          <FilterableStringTableColumn fx:id="colNumber" editable="false" text="№" />
+                                          <FilterableDateTableColumn fx:id="colCreatedOn" editable="false" text="Дата" />
+                                          <FilterableStringTableColumn fx:id="colCreatedBy" editable="false" text="Створив" />
+                                          <FilterableStringTableColumn fx:id="colAccountCode" editable="false" text="Код" />
+                                          <FilterableStringTableColumn fx:id="colAccountName" editable="false" text="Контрагент" />
                                           <FilterableDoubleTableColumn fx:id="colAccountSaldo" editable="false" text="Сальдо" />
                                           <FilterableStringTableColumn fx:id="colAccountIsSolid" editable="false" text="Солідність" />
                                           <FilterableStringTableColumn fx:id="colStoreCity" editable="false" text="Місто поставки" />
-                                          <FilterableStringTableColumn fx:id="colStatus" editable="false" text="Статус"/>
-                                          <FilterableStringTableColumn fx:id="colOfferingGroupName" editable="false" text="Група товарів"/>
-                                          <FilterableStringTableColumn fx:id="colOriginalGroupName" editable="false" text="Початкова група"/>
-                                          <FilterableStringTableColumn fx:id="colGroupChangedBy" editable="false" text="Змінив групу"/>
-                                          <FilterableStringTableColumn fx:id="colSpecialMarginTypeName" editable="false" text="Тип спец націнки"/>
-                                          <FilterableStringTableColumn fx:id="colCashType" editable="false" text="Тип оплати"/>
+                                          <FilterableStringTableColumn fx:id="colStatus" editable="false" text="Статус" />
+                                          <FilterableStringTableColumn fx:id="colOfferingGroupName" editable="false" text="Група товарів" />
+                                          <FilterableStringTableColumn fx:id="colOriginalGroupName" editable="false" text="Початкова група" />
+                                          <FilterableStringTableColumn fx:id="colGroupChangedBy" editable="false" text="Змінив групу" />
+                                          <FilterableStringTableColumn fx:id="colSpecialMarginTypeName" editable="false" text="Тип спец націнки" />
+                                          <FilterableStringTableColumn fx:id="colCashType" editable="false" text="Тип оплати" />
                                        </columns>
                                        <opaqueInsets>
                                           <Insets />
@@ -54,8 +71,8 @@
                                  </center>
 
                                  <bottom>
-                                    <VBox prefHeight="55.0" prefWidth="200.0" BorderPane.alignment="CENTER" alignment="CENTER">
-                                      <HBox prefHeight="30.0" style="-fx-background-color: #d9f1ff; -fx-pref-width: 10;" alignment="CENTER" spacing="100">
+                                    <VBox alignment="CENTER" prefHeight="55.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                      <HBox alignment="CENTER" prefHeight="30.0" spacing="100" style="-fx-background-color: #d9f1ff; -fx-pref-width: 10;">
                                        <Pagination fx:id="pagination" prefHeight="45.0" prefWidth="500.0">
                                           <padding>
                                              <Insets left="55.0" />
@@ -64,7 +81,7 @@
 
 
 
-                                         <JFXButton prefWidth="30"  prefHeight="30"  onAction="#UpdateButton">
+                                         <JFXButton onAction="#UpdateButton" prefHeight="30" prefWidth="30">
 
                                             <graphic>
 
@@ -82,13 +99,13 @@
 
                                       </HBox>
 
-                                       <HBox prefHeight="30.0" style="-fx-background-color: #d9f1ff; -fx-pref-width: 10;" alignment="CENTER_LEFT" spacing="20" >
+                                       <HBox alignment="CENTER_LEFT" prefHeight="30.0" spacing="20" style="-fx-background-color: #d9f1ff; -fx-pref-width: 10;">
 
                                           <MenuButton mnemonicParsing="false" style="-fx-background-color: #39b5ff;">
                                              <items>
                                                 <MenuItem mnemonicParsing="false">
                                                    <graphic>
-                                                      <JFXButton fx:id="btn_СancelRequest" prefWidth="170.0" style="-fx-background-color: #858585; -fx-background-radius: 10;" text="Анулювати запит" textFill="#f5f3f3">
+                                                      <JFXButton fx:id="btn_СancelRequest" prefWidth="220.0" style="-fx-background-color: #858585; -fx-background-radius: 10;" text="Анулювати запит" textFill="#f5f3f3">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
@@ -96,7 +113,7 @@
                                                    </graphic></MenuItem>
                                                 <MenuItem mnemonicParsing="false">
                                                    <graphic>
-                                                      <JFXButton fx:id="btnConfirmation" prefWidth="170.0" style="-fx-background-color: #858585; -fx-background-radius: 10;" text="Замовити" textFill="WHITE">
+                                                      <JFXButton fx:id="btnConfirmation" prefWidth="220.0" style="-fx-background-color: #858585; -fx-background-radius: 10;" text="Замовити" textFill="WHITE">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
@@ -105,7 +122,7 @@
                                                    </graphic></MenuItem>
                                                 <MenuItem mnemonicParsing="false">
                                                    <graphic>
-                                                      <JFXButton fx:id="btn_Calculator" mnemonicParsing="false" onAction="#actionCalculator" prefWidth="170.0" style="-fx-background-color: #858585; -fx-background-radius: 10;" text="Калькулятор" textFill="#f5f3f3">
+                                                      <JFXButton fx:id="btn_Calculator" mnemonicParsing="false" onAction="#actionCalculator" prefWidth="220.0" style="-fx-background-color: #858585; -fx-background-radius: 10;" text="Калькулятор" textFill="#f5f3f3">
 
                                                          <graphic>
 
@@ -122,16 +139,20 @@
                                                    </graphic></MenuItem>
                                                 <MenuItem mnemonicParsing="false">
                                                    <graphic>
+                                                      <JFXButton fx:id="btn_NotPrice" style="-fx-background-color: #858585; -fx-background-radius: 10;" mnemonicParsing="false" onAction="#actionNotPrice" prefWidth="220.0" text="Не підходить ціна" textFill="#f5f3f3">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font></JFXButton>
+                                                   </graphic>
+                                                </MenuItem>
+                                                <MenuItem mnemonicParsing="false">
+                                                   <graphic>
 
-                                                      <JFXButton fx:id="btnDelete" onAction="#handleDelete" prefWidth="170.0" style="-fx-background-color: #858585; -fx-background-radius: 10;" text="Видалити запит" textFill="#f5f3f3">
+                                                      <JFXButton fx:id="btnDelete" onAction="#handleDelete" prefWidth="220.0" style="-fx-background-color: #858585; -fx-background-radius: 10;" text="Видалити запит" textFill="#f5f3f3">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
                                                       </JFXButton>
-                                                   </graphic></MenuItem>
-                                                <MenuItem mnemonicParsing="false">
-                                                   <graphic>
-                                                      <JFXButton fx:id="btn_Server" onAction="#hadleServerButton" prefWidth="170.0" ripplerFill="#b23131" style="-fx-background-color: #b23131; -fx-background-radius: 10;" text="Server" textFill="WHITE" />
                                                    </graphic></MenuItem>
                                                 <MenuItem mnemonicParsing="false">
                                                    <graphic>
@@ -140,6 +161,10 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </JFXButton>
+                                                   </graphic></MenuItem>
+                                                <MenuItem mnemonicParsing="false">
+                                                   <graphic>
+                                                      <JFXButton fx:id="btn_Server" onAction="#hadleServerButton" prefWidth="170.0" ripplerFill="#b23131" style="-fx-background-color: #b23131; -fx-background-radius: 10;" text="Server" textFill="WHITE" />
                                                    </graphic></MenuItem>
                                                 <MenuItem mnemonicParsing="false">
                                                    <graphic>
@@ -183,7 +208,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <JFXTextField fx:id="searchingField"  prefHeight="25.0" prefWidth="110.0" promptText="Введіть скорочення" unFocusColor="#5e5353" />
+                                          <JFXTextField fx:id="searchingField" prefHeight="25.0" prefWidth="110.0" promptText="Введіть скорочення" unFocusColor="#5e5353" />
                                           <JFXButton fx:id="btn_UpdateStatus" prefHeight="37.0" prefWidth="99.0" style="-fx-background-color: #a49a9a;" text="Взяти в роботу" />
                                           <Button fx:id="btn_ReturnOwner" mnemonicParsing="false" onAction="#btnUpdateOfferingGroupName" prefHeight="38.0" prefWidth="152.0" text="Змінити відповідального" />
 
@@ -197,7 +222,7 @@
                                           <JFXDatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="124.0" />
                                           <ScrollPane fx:id="scrollPaneFilter" prefHeight="49.0" BorderPane.alignment="CENTER_LEFT">
                                              <content>
-                                                <HBox fx:id="hboxFilter" alignment="CENTER_LEFT" prefHeight="45.0"/>
+                                                <HBox fx:id="hboxFilter" alignment="CENTER_LEFT" prefHeight="45.0" />
                                              </content>
                                           </ScrollPane>
                                        </HBox>
@@ -254,22 +279,3 @@
          </center></BorderPane>
    </center>
 </BorderPane>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

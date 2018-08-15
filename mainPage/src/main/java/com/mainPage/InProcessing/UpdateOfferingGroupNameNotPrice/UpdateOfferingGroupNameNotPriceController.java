@@ -1,4 +1,4 @@
-package com.mainPage.InProcessing.UpdateOfferingGroupName;
+package com.mainPage.InProcessing.UpdateOfferingGroupNameNotPrice;
 
 import com.Utils.UsefulUtils;
 import com.connectDatabase.DBConnection;
@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -26,8 +27,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UpdateOfferingGroupNameController implements Initializable {
-    private static Logger log = Logger.getLogger(UpdateOfferingGroupNameController.class.getName());
+public class UpdateOfferingGroupNameNotPriceController implements Initializable {
+    private static Logger log = Logger.getLogger(UpdateOfferingGroupNameNotPriceController.class.getName());
     @FXML
     private JFXComboBox updateComboBox;
     @FXML
@@ -86,19 +87,16 @@ public class UpdateOfferingGroupNameController implements Initializable {
     public void StatusRequest() {
 
         try {
-            String queryStatusRequest = "select ID AS ID,\n" +
-                    "       Name AS Name \n" +
-                    "from \n" +
-                    "    tbl_Contact \n" +
-                    "\twhere \n" +
-                    "\tJobID = 'CCB28AD0-ECAC-43DF-9827-E2F9CEA56A3A' OR ID IN ('1B5F2F6A-133B-4026-BED3-914C8AC491D9','0B1A17F5-AD03-440C-A513-1398FF2B5C67')\n" +
-                    "\t \n" +
-                    "         ORDER BY\n" +
-                    "                    2 ASC";
-            pst = con.prepareStatement(queryStatusRequest);
+            String query = "select C.ID, C.Name from tbl_Contact AS C\n" +
+                    "Left Join\n" +
+                    "tbl_Job AS J ON J.ID= C.JobID\n" +
+                    "WHERE\n" +
+                    "C.JobID = 'FE067F6D-62A3-4F2D-A39F-7202FEC30C57'\n" +
+                    "Order By 2 DESC";
+            pst = con.prepareStatement(query);
             rs = pst.executeQuery();
             while (rs.next()) {
-                data.add(new UpdateOfferingGroupName(rs.getString(1), rs.getString(2)));
+                data.add(new UpdateOfferingGroupNameNotPrice(rs.getString(1), rs.getString(2)));
 
             }
 
@@ -164,6 +162,19 @@ public class UpdateOfferingGroupNameController implements Initializable {
             pst.setString(5, inProcessing.getID());
 
             pst.executeUpdate();
+            inProcessingController.tableView.setRowFactory(new Callback<TableView<InProcessing>, TableRow<InProcessing>>() {
+                @Override
+                public TableRow<InProcessing> call(TableView<InProcessing> param) {
+                    return new TableRow<InProcessing>() {
+                        @Override
+                        protected void updateItem(InProcessing item, boolean empty) {
+                            super.updateItem(item, empty);
+                            setStyle("-fx-background-color: #e3ff28");
+
+                        }
+                    };
+                }
+            });
 
             closeWindow();
         inProcessingController.refreshData();
