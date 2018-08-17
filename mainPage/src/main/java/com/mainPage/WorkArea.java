@@ -348,26 +348,7 @@ public abstract class WorkArea extends BorderPane implements MiniFilterFunction,
         System.out.println("floatCount=" + floatCount + ", intCount=" + intCount);
         return ((floatCount > intCount) ? ++intCount : intCount);
     }
-    /*public BorderPane createPage(int pageIndex) {
-        try {
-            data = FXCollections.observableArrayList();
-            loadDataFromDatabase();
-            fromIndex = pageIndex * 10;
-            toIndex = Math.min(fromIndex + 10, data.size());
 
-
-            tableView.setItems(FXCollections.observableArrayList(data.subList((int) fromIndex, (int) toIndex)));
-            // Collections.sort(data);
-
-
-
-        } catch (Exception e) {
-            log.log(Level.SEVERE, "Switch page exception: " + e);
-        }
-
-
-        return  borderPane;
-    }*/
 
 
 }

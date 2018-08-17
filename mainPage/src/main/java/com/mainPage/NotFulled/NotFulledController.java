@@ -6,6 +6,7 @@ import com.Utils.MiniFilterWindow.InitComponents;
 import com.Utils.MiniFilterWindow.MiniFilter;
 import com.Utils.MiniFilterWindow.MiniFilterController;
 import com.Utils.MiniFilterWindow.MiniFilterFunction;
+import com.Utils.TooltipTableRow;
 import com.Utils.UsefulUtils;
 import com.client.util.ResizeHelper;
 import com.connectDatabase.DBConnection;
@@ -59,8 +60,10 @@ import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.sql.Date;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -190,6 +193,14 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
         tbn_CreateRequest.setVisible(true); // Менеджер
         btn_ConfirmRequest.setVisible(true);// Менеджер
         btn_AddRequest.setVisible(true);// Менеджер
+        tableView.getSelectionModel().setCellSelectionEnabled(true);
+        tableView.setRowFactory((tableView) -> {
+
+            return new TooltipTableRow<NotFulfilled>((NotFulfilled person) -> {
+                return person.getNumber();
+            });
+        });
+
 
         Image imageDecline = new Image(getClass().getResourceAsStream("/images/CreateRequest.png"));
         tbn_CreateRequest.setGraphic(new ImageView(imageDecline));

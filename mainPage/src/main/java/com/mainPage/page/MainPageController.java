@@ -16,8 +16,12 @@ import com.mainPage.OrderRegistryPoland.OrderRegistryPolandController;
 import com.mainPage.OrderRegistryUkraine.OrderRegistryUkraineController;
 import com.mainPage.Statistic.StatisticController;
 import com.mainPage.createRequest.searchCounterpart.Counterpart;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
@@ -27,7 +31,9 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -234,6 +240,20 @@ public class MainPageController  implements Initializable, ObservableNF {
     @Override
     public void remove(ObserverNF value) {
         listElements.remove(value);
+    }
+
+    @FXML
+    private void actionUpdateProgram(ActionEvent event){
+        Stage stage = new Stage();
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/views/UpdateWindow.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @Override

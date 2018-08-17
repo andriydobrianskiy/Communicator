@@ -11,41 +11,49 @@
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/ServerController.java" line="41" />
     <bookmark url="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulfilled.java" line="42" mnemonic="0" />
-    <bookmark url="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/page/MainPageController.java" line="158" />
+    <bookmark url="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/page/MainPageController.java" line="164" />
     <bookmark url="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/NotesInProcessing/NotesInProcessingController.java" description="public void showWindow() {" line="124" />
     <bookmark url="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java" line="300" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="лорлоролрл">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupNameNotPrice/UpdateOfferingGroupNameNotPrice.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupNameNotPrice/UpdateOfferingGroupNameNotPriceController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateOfferingGroupNameNotPrice.fxml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$1$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$3$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$4$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController.class" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/parsers/UpdateHelper.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/images/Installing Updates-32.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/Main$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController$3$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/images/Installing Updates-32.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage.exe" afterPath="$PROJECT_DIR$/mainPage.exe" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/connectDatabase/DBConnection.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/connectDatabase/DBConnection.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/Main$1.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/Main$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/login/LoginControl.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/login/LoginControl.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/Main.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/UpdateOfferingGroupName/UpdateOfferingGroupNameController.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/UpdateOfferingGroupName/UpdateOfferingGroupNameController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/UpdateWindow.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/UpdateWindow.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController$1.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController$2.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController$3.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController$3.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/createRequest/CreateRequest.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/createRequest/CreateRequest.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/page/MainPageController.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/page/MainPageController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/mainPage/mainPage.exe" afterPath="$PROJECT_DIR$/out/artifacts/mainPage/mainPage.exe" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/mainPage/mainPage.jar" afterPath="$PROJECT_DIR$/out/artifacts/mainPage/mainPage.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/connectDatabase/DBConnection.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/connectDatabase/DBConnection.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/login/LoginControl.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/login/LoginControl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Main.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupName/UpdateOfferingGroupNameController.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupName/UpdateOfferingGroupNameController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/CreateView.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/CreateView.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/InProcessingView.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/InProcessingView.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/CreateView.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/CreateView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/WorkArea.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/WorkArea.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/page/MainPageController.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/page/MainPageController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/styles/application.css" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/styles/application.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/AllRequestView.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/AllRequestView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/MainPage.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/MainPage.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/StructureView.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/StructureView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateScreen.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateScreen.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateWindow.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateWindow.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/styles/application.css" afterPath="$PROJECT_DIR$/mainPage/target/classes/styles/application.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/AllRequestView.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/AllRequestView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/MainPage.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/MainPage.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/StructureView.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/StructureView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/UpdateScreen.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/UpdateScreen.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/UpdateWindow.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/UpdateWindow.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/mainPage/mainPage.jnlp" afterPath="$PROJECT_DIR$/out/artifacts/mainPage/mainPage.jnlp" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -129,43 +137,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="InTractController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/InTractController.java">
+      <file leaf-file-name="WorkArea.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/WorkArea.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="218" column="90" lean-forward="true" selection-start-line="218" selection-start-column="90" selection-end-line="218" selection-end-column="90" />
-              <folding>
-                <marker date="1532954726177" expanded="true" signature="15384:15757" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
-                <marker date="1532954726177" expanded="true" signature="29093:29303" ph="UPDATE tbl_R... " />
-                <marker date="1532954726177" expanded="true" signature="29809:30019" ph="UPDATE tbl_R... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InProcessingController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="684" column="0" lean-forward="true" selection-start-line="684" selection-start-column="0" selection-end-line="684" selection-end-column="0" />
-              <folding>
-                <marker date="1534256555840" expanded="true" signature="29372:29753" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
-                <marker date="1534256555840" expanded="true" signature="30484:30703" ph="INSERT INTO " />
-                <marker date="1534256555840" expanded="true" signature="43891:44101" ph="UPDATE tbl_R... " />
-                <marker date="1534256555840" expanded="true" signature="44566:44776" ph="UPDATE tbl_R... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UpdateOfferingGroupNameNotPriceController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupNameNotPrice/UpdateOfferingGroupNameNotPriceController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="171" column="28" lean-forward="true" selection-start-line="171" selection-start-column="28" selection-end-line="171" selection-end-column="70" />
-              <folding>
-                <marker date="1534250107135" expanded="true" signature="3035:3317" ph="select C.ID,... tbl_Contact" />
-              </folding>
+            <state relative-caret-position="364">
+              <caret line="350" column="0" lean-forward="false" selection-start-line="350" selection-start-column="0" selection-end-line="350" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -173,8 +150,30 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="51" column="40" lean-forward="true" selection-start-line="51" selection-start-column="40" selection-end-line="51" selection-end-column="60" />
+            <state relative-caret-position="105">
+              <caret line="5" column="38" lean-forward="true" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NotFulledController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="151">
+              <caret line="199" column="42" lean-forward="false" selection-start-line="199" selection-start-column="42" selection-end-line="199" selection-end-column="42" />
+              <folding>
+                <marker date="1534496911164" expanded="true" signature="19425:19806" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TooltipTableRow.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/Utils/TooltipTableRow.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="294">
+              <caret line="14" column="37" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -182,11 +181,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Updater.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Updater.java">
+      <file leaf-file-name="MainNotFulledQuery.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/MainNotFulledQuery.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
-              <caret line="80" column="36" lean-forward="true" selection-start-line="80" selection-start-column="36" selection-end-line="80" selection-end-column="36" />
+            <state relative-caret-position="42">
+              <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NotFulledQuery.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledQuery.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2919">
+              <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -195,45 +204,49 @@
       <file leaf-file-name="LoginControl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/login/LoginControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="75" column="0" lean-forward="true" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+            <state relative-caret-position="277">
+              <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBConnection.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/connectDatabase/DBConnection.java">
+      <file leaf-file-name="RequestQuery.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/RequestQuery.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="114" column="0" lean-forward="false" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
+            <state relative-caret-position="84">
+              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UpdateOfferingGroupNameController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupName/UpdateOfferingGroupNameController.java">
+      <file leaf-file-name="CreateRequest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="95" column="43" lean-forward="true" selection-start-line="95" selection-start-column="43" selection-end-line="95" selection-end-column="43" />
+            <state relative-caret-position="-10766">
+              <caret line="33" column="13" lean-forward="false" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
               <folding>
-                <marker date="1534237251337" expanded="true" signature="2995:3458" ph="select ID AS... tbl_Contact" />
+                <marker date="1534237619285" expanded="true" signature="6802:7072" ph="SELECT \n\t[... " />
+                <marker date="1534237619285" expanded="true" signature="7825:8094" ph="SELECT\n\t[t... " />
+                <marker date="1534237619285" expanded="true" signature="8640:9238" ph="SELECT\n [tb... " />
+                <marker date="1534237619285" expanded="true" signature="9986:10259" ph="SELECT\n\t[t... " />
+                <marker date="1534237619285" expanded="true" signature="11128:11251" ph="select top 3... tbl_RequestOffering" />
+                <marker date="1534237619285" expanded="true" signature="12476:12714" ph="SELECT [tbl_... " />
+                <marker date="1534237619285" expanded="true" signature="13459:13697" ph="SELECT [tbl_... " />
+                <marker date="1534237619285" expanded="true" signature="21983:22289" ph="INSERT INTO " />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InProcessingView.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/InProcessingView.fxml">
+      <file leaf-file-name="Query.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/Querys/Query.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1014">
-              <caret line="138" column="71" lean-forward="true" selection-start-line="138" selection-start-column="71" selection-end-line="138" selection-end-column="71" />
+            <state relative-caret-position="378">
+              <caret line="23" column="66" lean-forward="false" selection-start-line="23" selection-start-column="66" selection-end-line="23" selection-end-column="66" />
               <folding />
             </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
           </provider>
         </entry>
       </file>
@@ -246,28 +259,14 @@
         <option value="Tag Library Descriptor" />
         <option value="FxmlFile" />
         <option value="CSS File" />
+        <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
-        <option value="Interface" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>onAction</find>
-      <find>pagination</find>
-      <find>tableView.setOnMousePressed(new EventHandler&lt;MouseEvent&gt;() {</find>
-      <find>NotesInP</find>
-      <find>NotesInProce</find>
-      <find>notesPage</find>
-      <find>loaddatafrom</find>
-      <find>init</find>
-      <find>ольша</find>
-      <find>initial</find>
-      <find>private TextArea textArea;</find>
-      <find>192.168</find>
-      <find>data</find>
-      <find>GroupPeople</find>
       <find>Назначити групу товарів</find>
       <find>btn_UpdateStatus</find>
       <find>btn_ConfirmRequest</find>
@@ -275,15 +274,29 @@
       <find>btnUpdateOfferingGroupName</find>
       <find>Initial</find>
       <find>style</find>
-      <find>initia</find>
       <find>btn_Ok</find>
       <find>refresh</find>
       <find>actionNotPrice</find>
       <find>Замовити</find>
       <find>Update</find>
-      <find>TS_</find>
       <find>refr</find>
       <find>ReleaseXMLParser</find>
+      <find>UpdateScreen</find>
+      <find>ts_</find>
+      <find>Updater</find>
+      <find>Waiting mainPage Jar to be created...</find>
+      <find>Waitin</find>
+      <find>Automatic Update Download</find>
+      <find>closeWindow</find>
+      <find>download</find>
+      <find>Initia</find>
+      <find>initia</find>
+      <find>TS_</find>
+      <find>Ви використовуєте</find>
+      <find>Workarea</find>
+      <find>button</find>
+      <find>initial</find>
+      <find>Downloader</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -362,19 +375,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/AllDAO.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/Utils/MiniFilterWindow/MiniFilterController.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/DerbyComp.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFilesInterface.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/DerbyAllDAO.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFilesQuery.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/AllQuery.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/InTractQuery.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/InTractInterface.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingQuery.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/Utils/InProcessingIntarface.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/ChatView.fxml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/page/MainPageController.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/files.xml" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/update.xml" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/latest.xml" />
@@ -383,13 +384,11 @@
         <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/NotFulledView.fxml" />
         <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/ArchiveFilesView.fxml" />
         <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/AllView.fxml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/AllRequestView.fxml" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/VZ/files.xml" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/NotesInProcessing/NotesInProcessingController.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/NotesInProcessing/NotesInProcessingController.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/NotesInProcessing/NotesInProcessingController.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/NotesInProcessing/NotesInProcessing.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/MainPage.fxml" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/NotesInProcessing/NotesInTractController.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/NotesInProcessing/NotesInProcessingController.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessing.java" />
@@ -397,11 +396,8 @@
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFilesController.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFiles.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/All.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/WorkArea.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/AllController.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/InTractController.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Main.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/CreateView.fxml" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupName/UpdateOfferingGroupNameController.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java" />
@@ -411,7 +407,24 @@
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupNameNotPrice/UpdateOfferingGroupNameNotPriceController.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/InProcessingView.fxml" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateScreen.fxml" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/MainPage.fxml" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/StructureView.fxml" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/resources/styles/application.css" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/page/MainPageController.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/VZ/UpdateHelper.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateHelper.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/objects/Release.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/parsers/Modes.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Main.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/parsers/UpdateHelper.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/connectDatabase/DBConnection.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateWindow.fxml" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/AllRequestView.fxml" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/WorkArea.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/Utils/TooltipTableRow.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/login/LoginControl.java" />
       </list>
     </option>
@@ -452,10 +465,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -560,7 +573,65 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="login" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="mainLogin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="createRequest" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="createRequest" type="462c0819:PsiDirectoryNode" />
+              <item name="Querys" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="NotFulled" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="Utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
@@ -664,6 +735,9 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.mainLogin.parsers" />
+    </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="com.login" />
       <recent name="sample.ChatTwoo.controller" />
@@ -1290,7 +1364,7 @@
       <workItem from="1531986913883" duration="12424000" />
       <workItem from="1532327420210" duration="22178000" />
       <workItem from="1532764038042" duration="14355000" />
-      <workItem from="1533971233792" duration="43731000" />
+      <workItem from="1533971233792" duration="88814000" />
     </task>
     <task id="LOCAL-00001" summary="лорлоролрл">
       <created>1503066175447</created>
@@ -1324,7 +1398,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3672156000" />
+    <option name="totallyTimeSpent" value="3717239000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1341,14 +1415,14 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35777777" sideWeight="0.48802084" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15375982" sideWeight="0.49375" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15333334" sideWeight="0.49375" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17444444" sideWeight="0.6256713" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25111112" sideWeight="0.6256713" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33444443" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23469388" sideWeight="0.6703755" order="3" side_tool="false" content_ui="combo" x="-26" y="133" width="433" height="576" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -1361,54 +1435,14 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
-      <window_info id="Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.153125" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-    </layout>
-    <layout-to-restore>
-      <window_info id="Hibernate Tools" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24333334" sideWeight="0.3716434" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2867884" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973147" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35777777" sideWeight="0.48802084" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15222222" sideWeight="0.49375" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17222223" sideWeight="0.62835664" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.153125" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33444443" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23147154" sideWeight="0.6703755" order="3" side_tool="false" content_ui="combo" x="-26" y="133" width="433" height="576" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3311111" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-    </layout-to-restore>
+    </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -2357,7 +2391,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>239</line>
+          <line>250</line>
           <properties />
           <option name="timeStamp" value="848" />
         </line-breakpoint>
@@ -2399,81 +2433,9 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Main.java</url>
-          <line>157</line>
+          <line>16</line>
           <properties />
           <option name="timeStamp" value="880" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java</url>
-          <line>376</line>
-          <properties />
-          <option name="timeStamp" value="888" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java</url>
-          <line>375</line>
-          <properties />
-          <option name="timeStamp" value="889" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java</url>
-          <line>513</line>
-          <properties />
-          <option name="timeStamp" value="891" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java</url>
-          <line>514</line>
-          <properties />
-          <option name="timeStamp" value="892" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java</url>
-          <line>527</line>
-          <properties />
-          <option name="timeStamp" value="895" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java</url>
-          <line>529</line>
-          <properties />
-          <option name="timeStamp" value="896" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java</url>
-          <line>530</line>
-          <properties />
-          <option name="timeStamp" value="897" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java</url>
-          <line>531</line>
-          <properties />
-          <option name="timeStamp" value="898" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java</url>
-          <line>533</line>
-          <properties />
-          <option name="timeStamp" value="899" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java</url>
-          <line>532</line>
-          <properties />
-          <option name="timeStamp" value="900" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java</url>
-          <line>534</line>
-          <properties />
-          <option name="timeStamp" value="901" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java</url>
-          <line>536</line>
-          <properties />
-          <option name="timeStamp" value="902" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/Listener.java</url>
@@ -2483,37 +2445,37 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>500</line>
+          <line>511</line>
           <properties />
           <option name="timeStamp" value="946" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>502</line>
+          <line>513</line>
           <properties />
           <option name="timeStamp" value="947" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>499</line>
+          <line>510</line>
           <properties />
           <option name="timeStamp" value="948" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>507</line>
+          <line>518</line>
           <properties />
           <option name="timeStamp" value="951" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>503</line>
+          <line>514</line>
           <properties />
           <option name="timeStamp" value="952" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>510</line>
+          <line>521</line>
           <properties />
           <option name="timeStamp" value="953" />
         </line-breakpoint>
@@ -2555,7 +2517,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>628</line>
+          <line>639</line>
           <properties />
           <option name="timeStamp" value="1005" />
         </line-breakpoint>
@@ -2645,7 +2607,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>328</line>
+          <line>339</line>
           <properties />
           <option name="timeStamp" value="1080" />
         </line-breakpoint>
@@ -3068,16 +3030,8 @@
           <option name="timeStamp" value="887" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java</url>
-          <line>507</line>
-          <properties class="com.mainLogin.UpdateWindow" method="startXR3PlayerUpdater">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="890" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>701</line>
+          <line>712</line>
           <properties class="com.mainPage.NotFulled.NotFulledController" method="searchCode">
             <option name="EMULATED" value="true" />
           </properties>
@@ -3085,7 +3039,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>489</line>
+          <line>500</line>
           <properties class="com.mainPage.NotFulled.NotFulledController" method="findByProperty">
             <option name="EMULATED" value="true" />
           </properties>
@@ -3117,7 +3071,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>626</line>
+          <line>637</line>
           <properties class="com.mainPage.NotFulled.NotFulledController" method="fillHboxFilter">
             <option name="EMULATED" value="true" />
           </properties>
@@ -3371,336 +3325,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/InTractView.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="80" column="139" lean-forward="false" selection-start-line="80" selection-start-column="127" selection-end-line="80" selection-end-column="139" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/NotFulledView.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="60" column="100" lean-forward="false" selection-start-line="60" selection-start-column="88" selection-end-line="60" selection-end-column="100" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/ArchiveFilesView.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="62" column="39" lean-forward="false" selection-start-line="62" selection-start-column="39" selection-end-line="62" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/AllView.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="824">
-          <caret line="58" column="129" lean-forward="false" selection-start-line="58" selection-start-column="117" selection-end-line="58" selection-end-column="129" />
-          <folding>
-            <marker date="1532521812944" expanded="true" signature="5910:5996" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/NotesInProcessing/NotesInProcessingController.java" />
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/NotesInProcessing/NotesInProcessing.java" />
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/src.zip!/java/sql/ResultSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="236" column="11" lean-forward="false" selection-start-line="236" selection-start-column="11" selection-end-line="236" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/NotesInProcessing/NotesInTract.java" />
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/NotesInProcessing/NotesInProcessingController.java" />
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/NotesInProcessing/NotesInProcessing.java" />
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/javafx-src.zip!/javafx/scene/input/MouseEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="800" column="0" lean-forward="false" selection-start-line="800" selection-start-column="0" selection-end-line="800" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/javafx-src.zip!/javafx/scene/Scene.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="3765" column="0" lean-forward="false" selection-start-line="3765" selection-start-column="0" selection-end-line="3765" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/NotesInProcessingView.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="15" column="30" lean-forward="false" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/MainPage.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="92" column="38" lean-forward="false" selection-start-line="92" selection-start-column="38" selection-end-line="92" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessing.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="19" column="42" lean-forward="false" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/InTract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="19" column="37" lean-forward="false" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/NotesInProcessing/NotesInTractController.java" />
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFiles.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="18" column="36" lean-forward="false" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/Utils/GridComp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/NotesInProcessing/NotesInProcessingController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1532953716479" expanded="true" signature="2209:2258" ph="SELECT Note tbl_RequestOffering" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/All.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="5" column="33" lean-forward="false" selection-start-line="5" selection-start-column="33" selection-end-line="5" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFilesController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="11" column="23" lean-forward="false" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
-          <folding>
-            <marker date="1532954148658" expanded="true" signature="8762:9121" ph="UPDATE TOP(1... " />
-            <marker date="1532954148658" expanded="true" signature="8762:9125" ph="UPDATE TOP(1... " />
-            <marker date="1532954148658" expanded="true" signature="11160:11541" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/WorkArea.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/AllController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4515">
-          <caret line="267" column="31" lean-forward="false" selection-start-line="267" selection-start-column="31" selection-end-line="267" selection-end-column="31" />
-          <folding>
-            <marker date="1532954375062" expanded="true" signature="14163:14544" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/VZ/update.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/VZ/latest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/VZ/files.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="56" lean-forward="false" selection-start-line="3" selection-start-column="56" selection-end-line="3" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/javafx-src.zip!/javafx/scene/control/TabPane.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="374" column="6" lean-forward="true" selection-start-line="374" selection-start-column="6" selection-end-line="374" selection-end-column="6" />
-          <folding>
-            <element signature="e#12527#12528#0" expanded="false" />
-            <element signature="e#12580#12581#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/CreateView.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="30" lean-forward="false" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/javafx-src.zip!/javafx/scene/control/Button.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="186" column="0" lean-forward="false" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/javafx-src.zip!/javafx/scene/Node.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="8413" column="0" lean-forward="false" selection-start-line="8413" selection-start-column="0" selection-end-line="8413" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="794" column="87" lean-forward="false" selection-start-line="794" selection-start-column="87" selection-end-line="794" selection-end-column="87" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="282" column="86" lean-forward="false" selection-start-line="282" selection-start-column="86" selection-end-line="282" selection-end-column="86" />
-          <folding>
-            <marker date="1534237619285" expanded="true" signature="6802:7072" ph="SELECT \n\t[... " />
-            <marker date="1534237619285" expanded="true" signature="7825:8094" ph="SELECT\n\t[t... " />
-            <marker date="1534237619285" expanded="true" signature="8640:9238" ph="SELECT\n [tb... " />
-            <marker date="1534237619285" expanded="true" signature="9986:10259" ph="SELECT\n\t[t... " />
-            <marker date="1534237619285" expanded="true" signature="11128:11251" ph="select top 3... tbl_RequestOffering" />
-            <marker date="1534237619285" expanded="true" signature="12476:12714" ph="SELECT [tbl_... " />
-            <marker date="1534237619285" expanded="true" signature="13459:13697" ph="SELECT [tbl_... " />
-            <marker date="1534237619285" expanded="true" signature="21983:22289" ph="INSERT INTO " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateOfferingGroupName.fxml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupNameNotPrice/UpdateOfferingGroupNameNotPrice.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="23" lean-forward="false" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/styles/TableStyle.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="22" lean-forward="true" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/AllRequestView.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateOfferingGroupNameNotPrice.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="11" column="309" lean-forward="false" selection-start-line="11" selection-start-column="309" selection-end-line="11" selection-end-column="309" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupNameNotPrice/UpdateOfferingGroupNameNotPriceController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="171" column="28" lean-forward="true" selection-start-line="171" selection-start-column="28" selection-end-line="171" selection-end-column="70" />
-          <folding>
-            <marker date="1534250107135" expanded="true" signature="3035:3317" ph="select C.ID,... tbl_Contact" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupName/UpdateOfferingGroupNameController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="310">
@@ -3723,11 +3347,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="218" column="90" lean-forward="true" selection-start-line="218" selection-start-column="90" selection-end-line="218" selection-end-column="90" />
-          <folding>
-            <marker date="1532954726177" expanded="true" signature="15384:15757" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
-            <marker date="1532954726177" expanded="true" signature="29093:29303" ph="UPDATE tbl_R... " />
-            <marker date="1532954726177" expanded="true" signature="29809:30019" ph="UPDATE tbl_R... " />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3760,18 +3380,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/connectDatabase/DBConnection.java">
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateScreen.fxml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="114" column="0" lean-forward="false" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
+        <state relative-caret-position="546">
+          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/MainPage.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="16" column="62" lean-forward="false" selection-start-line="16" selection-start-column="62" selection-end-line="16" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/images/flask.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/TestFile.fxml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="-252">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/images/LoginPage.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/javafx-src.zip!/javafx/stage/Stage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="169" column="13" lean-forward="false" selection-start-line="169" selection-start-column="13" selection-end-line="169" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="684" column="0" lean-forward="true" selection-start-line="684" selection-start-column="0" selection-end-line="684" selection-end-column="0" />
+        <state relative-caret-position="349">
+          <caret line="1159" column="34" lean-forward="false" selection-start-line="1159" selection-start-column="7" selection-end-line="1159" selection-end-column="34" />
           <folding>
             <marker date="1534256555840" expanded="true" signature="29372:29753" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
             <marker date="1534256555840" expanded="true" signature="30484:30703" ph="INSERT INTO " />
@@ -3781,28 +3452,330 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Updater.java">
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/Login.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="80" column="36" lean-forward="true" selection-start-line="80" selection-start-column="36" selection-end-line="80" selection-end-column="36" />
+        <state relative-caret-position="-189">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/StructureView.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="40" column="16" lean-forward="true" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/src.zip!/java/lang/ProcessBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-845">
+          <caret line="177" column="19" lean-forward="false" selection-start-line="177" selection-start-column="19" selection-end-line="177" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Main.java">
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/ActionTool.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="51" column="40" lean-forward="true" selection-start-line="51" selection-start-column="40" selection-end-line="51" selection-end-column="60" />
+        <state relative-caret-position="351">
+          <caret line="228" column="28" lean-forward="false" selection-start-line="228" selection-start-column="28" selection-end-line="228" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/images/Installing_Updates-32.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/styles/application.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-399">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/page/MainPageController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="250" column="0" lean-forward="false" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/Utils/UsefulUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="142" column="23" lean-forward="false" selection-start-line="142" selection-start-column="23" selection-end-line="142" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/objects/Instruction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="52" column="31" lean-forward="false" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="40" column="15" lean-forward="false" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/VZ/update.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/VZ/latest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/objects/Modes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/parsers/Modes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Downloader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/objects/Release.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="20" column="11" lean-forward="false" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/Utils/AsyncTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupNameNotPrice/UpdateOfferingGroupNameNotPriceController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="51" column="22" lean-forward="false" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1534250107135" expanded="true" signature="3035:3317" ph="select C.ID,... tbl_Contact" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Updater.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="22" column="3" lean-forward="true" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1102">
+          <caret line="129" column="57" lean-forward="true" selection-start-line="129" selection-start-column="57" selection-end-line="129" selection-end-column="57" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/connectDatabase/DBConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="32" column="52" lean-forward="true" selection-start-line="32" selection-start-column="52" selection-end-line="32" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/VZ/files.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" column="56" lean-forward="false" selection-start-line="3" selection-start-column="56" selection-end-line="3" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/AllView.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="39" lean-forward="false" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/parsers/UpdateHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="466">
+          <caret line="35" column="26" lean-forward="false" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/login/update.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateWindow.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="41" column="25" lean-forward="true" selection-start-line="41" selection-start-column="25" selection-end-line="43" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/AllRequestView.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="25" column="19" lean-forward="true" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/WorkArea.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="350" column="0" lean-forward="false" selection-start-line="350" selection-start-column="0" selection-end-line="350" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="199" column="42" lean-forward="false" selection-start-line="199" selection-start-column="42" selection-end-line="199" selection-end-column="42" />
+          <folding>
+            <marker date="1534496911164" expanded="true" signature="19425:19806" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/Utils/TooltipTableRow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="37" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/MainNotFulledQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2919">
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/RequestQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-10766">
+          <caret line="33" column="13" lean-forward="false" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+          <folding>
+            <marker date="1534237619285" expanded="true" signature="6802:7072" ph="SELECT \n\t[... " />
+            <marker date="1534237619285" expanded="true" signature="7825:8094" ph="SELECT\n\t[t... " />
+            <marker date="1534237619285" expanded="true" signature="8640:9238" ph="SELECT\n [tb... " />
+            <marker date="1534237619285" expanded="true" signature="9986:10259" ph="SELECT\n\t[t... " />
+            <marker date="1534237619285" expanded="true" signature="11128:11251" ph="select top 3... tbl_RequestOffering" />
+            <marker date="1534237619285" expanded="true" signature="12476:12714" ph="SELECT [tbl_... " />
+            <marker date="1534237619285" expanded="true" signature="13459:13697" ph="SELECT [tbl_... " />
+            <marker date="1534237619285" expanded="true" signature="21983:22289" ph="INSERT INTO " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/Querys/Query.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="23" column="66" lean-forward="false" selection-start-line="23" selection-start-column="66" selection-end-line="23" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="38" lean-forward="true" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/login/LoginControl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="75" column="0" lean-forward="true" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+        <state relative-caret-position="277">
+          <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
           <folding />
         </state>
       </provider>

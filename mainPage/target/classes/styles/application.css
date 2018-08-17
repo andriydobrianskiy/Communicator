@@ -156,7 +156,7 @@
     -fx-font-size: 15.0pt;
     -fx-font-weight:bold;
     -fx-background-color:
-        linear-gradient(to bottom, derive(-fx-base,-30.0%), derive(-fx-base,-60.0%)),
+
         linear-gradient(to bottom, -light-black 2.0%, -dark-black 98.0%);
     -fx-background-insets: 0.0, 0.0 0.0 1.0 0.0;
     /*-fx-padding: 0.9em 0.416667em 0.9em 0.416667em;*/
@@ -205,10 +205,7 @@
 }
 
 
-.media-table-view:row-selection:constrained-resize .placeholder .label .text{
-	-fx-fill:white;
-	-fx-font-weight:bold;
-}
+
 
 .media-table-view:focused{
     /*-fx-background-color: transparent;*/
@@ -291,24 +288,9 @@
 
 /* ------------- row-selection -------------------*/
 
-.media-table-view:row-selection:constrained-resize .column-header-background .show-hide-columns-button{
-	-fx-background-color:black;	
-	-fx-cursor:hand;
-	-fx-padding:50.0px;
-}
 
-.media-table-view:row-selection:constrained-resize .column-header-background .show-hide-columns-button:hover{
-	-fx-background-color:orange;
-}
 
-.media-table-view:row-selection:constrained-resize .column-header-background .show-hide-columns-button .show-hide-column-image{
-	-fx-background-color:firebrick;
-	-fx-padding:5.0px;
-}
 
-.media-table-view:row-selection:constrained-resize .column-header-background .show-hide-columns-button .show-hide-column-image:hover{
-	-fx-background-color:black;
-}
 
 
 
@@ -417,19 +399,9 @@
  }
  
  
- .dialog-pane:header .header-panel {
-  -fx-background-color: #202020;
-  -fx-border-color:transparent transparent firebrick transparent;
-  -fx-border-width:2.0;
-}
 
-.dialog-pane:header .header-panel .label{
-  -fx-background-color: #202020;
-  -fx-background-radius:10.0px;
-  -fx-text-fill:white;
-  -fx-font-size:15.0px;
-}
- 
+
+
 /*  .dialog-pane >.content{
  	-fx-background-color:red;
  }
@@ -514,7 +486,7 @@
 
 #specialJFXTabPane2 .tab-header-area .tab-header-background {
     /*-fx-opacity: 0.0;*/
-    -fx-background-color:rgb(0.0,0.0,0.0,0.8) !important;  	    
+    -fx-background-color:rgb(0.0,0.0,0.0) !important;
 }
 
 .specialJFXTabPane .tab-header-area .tab-header-background {
@@ -548,7 +520,7 @@
 }
 
 .specialJFXTabPane .tab:selected .tab-label{
-	-fx-background-color:rgb(255.0,110.0,0.0,0.55);
+	-fx-background-color:rgb(255.0,110.0,0.55);
 }
 
 
@@ -728,7 +700,7 @@
 
 /*  LibrariesTabPane */
 #MultipleLibrariesTabPane .tab-header-area .tab-header-background {
-     -fx-background-color:rgb(0.0,0.0,0.0,0.8);   	
+     -fx-background-color:rgb(0.0,0.0,0.8);
      -fx-background-radius:5.0 5.0  0.0 0.0;    
 }
 
@@ -801,20 +773,14 @@
  	-fx-text-fill:white;
  }
  
- .songButton:marked{
- 	-fx-background-color:cyan;
- 	-fx-background-radius:5.0;
- 	-fx-text-fill:black;
- 	-fx-font-size:13.0px;
- }
- 
+
  
  /**About ArrowButon(in Libraries)  ----------------------------------------*/
   
   /**About ArrowButon(in Libraries)  ----------------------------------------*/
   
   .arrowButton{
-  	-fx-background-color:rgb(255.0,255.0,255.0,0.2);
+  	-fx-background-color:rgb(255.0,255.0,0.2);
   	-fx-background-radius:45.0;
   	-fx-cursor:hand;
   }
@@ -883,9 +849,7 @@
         from 0.0px 0.75em to 0.75em 0.0px,
         repeat,
         -color 0.0%,
-       -color 49.0%,
-        derive(-color, 30.0%) 50.0%,
-        derive(-color, 30.0%) 99.0%
+       -color 49.0%
     );
  	-fx-background-radius:10.0;
  }
@@ -954,7 +918,7 @@
   /* The main scrollbar CSS class of ListView */
  .scroll-bar:horizontal ,
   .scroll-bar:vertical{
-    -fx-background-color:rgb(255.0,255.0,255.0,0.8);
+    -fx-background-color:rgb(255.0,255.0,0.8);
     -fx-cursor: hand ;
 	
 }
@@ -1122,9 +1086,7 @@
 .tree-cell {
     -fx-padding: 0.75em 0.0em 0.75em 0.0em ;
 }
-.tree-cell:sub-tree-item {
-    -fx-padding: 0.25em ;
-}
+
 
 .tree-cell > .tree-disclosure-node > .arrow  {
     -fx-background-color: white;
@@ -1157,9 +1119,8 @@
         from 0.0px 0.75em to 0.75em 0.0px,
         repeat,
         -color 0.0%,
-       -color 49.0%,
-        derive(-color, 30.0%) 50.0%,
-        derive(-color, 30.0%) 99.0%
+       -color 49.0%
+
     );
 }
 
@@ -1173,9 +1134,7 @@
         from 0.0px 0.75em to 0.75em 0.0px,
         repeat,
         -color 0.0%,
-       -color 49.0%,
-        derive(-color, 30.0%) 50.0%,
-        derive(-color, 30.0%) 99.0%
+       -color 49.0%
     );
 }
 
@@ -1192,9 +1151,7 @@
         from 0.0px 0.75em to 0.75em 0.0px,
         repeat,
         -fx-accent 0.0%,
-        -fx-accent 49.0%,
-        derive(-fx-accent, 30.0%) 50.0%,
-        derive(-fx-accent, 30.0%) 99.0%
+        -fx-accent 49.0%
     );
     
     -fx-background-insets: 3.0;
@@ -1262,23 +1219,19 @@
 ******************************************************************************/   
 
 .library{	
-	-fx-background-color:rgb(0.0,0.0,0.0,0.65);
+	-fx-background-color:rgb(0.0,0.0,0.65);
 	-fx-background-radius:5.0;
 }
 
 
 .library .libraryNameLabel{
-	-fx-background-color:rgb(0.0,0.0,0.0,0.8);
+	-fx-background-color:rgb(0.0,0.0,0.8);
 	-fx-text-fill:white;
 	-fx-font-size:14.0;
 	-fx-font-weight:bold;
      /*-fx-font-family:"Younger than me";*/
 }
 
-.library:opened .libraryNameLabel{
-	-fx-text-fill:lightgreen !important;
-	-fx-font-size:15.0;
-}
 
 
 /*******************************************************************************
@@ -1374,7 +1327,7 @@
 }
 
 .search-box-window-item{
-	-fx-background-color:rgb(0.0,0.0,0.0,0.9);
+	-fx-background-color:rgb(0.0,0.0,0.9);
 	/*-fx-background-radius:5.0;*/
 	-fx-text-fill:white;
 	-fx-font-size:15.0;	
@@ -1586,7 +1539,7 @@
 }
 
 .menu-button .label:hover{
-	-fx-background-color:rgb(0.0,0.0,0.0,0.7);
+	-fx-background-color:rgb(0.0,0.0,0.7);
 	-fx-background-radius:45.0;
 	-fx-text-fill:white;
 }
@@ -1600,7 +1553,7 @@
 }
 
 .visWindowMenuButton .label:hover{	
-	-fx-background-color:rgb(0.0,0.0,0.0,0.7);
+	-fx-background-color:rgb(0.0,0.0,0.7);
 	-fx-background-radius:45.0;
 	-fx-text-fill:white;
 }

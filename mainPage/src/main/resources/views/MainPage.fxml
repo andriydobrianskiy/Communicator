@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXTabPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <BorderPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainPage.page.MainPageController">
    <center>
+
+
       <BorderPane BorderPane.alignment="CENTER">
+        <top>
+            <MenuBar BorderPane.alignment="CENTER">
+                <menus>
+
+                    <Menu mnemonicParsing="false" text="Оновлення">
+                        <items>
+                            <MenuItem onAction="#actionUpdateProgram" mnemonicParsing="false" text="Оновити"  />
+                        </items>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Допомога">
+                        <items>
+                            <MenuItem mnemonicParsing="false" text="Про програму" />
+                        </items>
+                    </Menu>
+                </menus>
+            </MenuBar>
+        </top>
          <center>
             <BorderPane BorderPane.alignment="CENTER">
                <center>
+                   <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                           <tabs>
+                               <Tab text="Комунікатор">
                   <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE">
+
                      <tabs>
+
                         <Tab fx:id="tabDictionary" text="Не виконані">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0">
@@ -115,11 +137,22 @@
 
                              </content>
                          </Tab>
+
                      </tabs>
                   </JFXTabPane>
+                               </Tab>
+                               <Tab text="Звернення до відділу ціноутворення">
+
+
+                               </Tab>
+                           </tabs>
+                   </TabPane>
                </center>
+
             </BorderPane>
+
          </center>
       </BorderPane>
+
    </center>
 </BorderPane>

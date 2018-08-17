@@ -2,6 +2,7 @@
 
 <?import com.mainPage.tableutils.CustomTableView?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.BorderPane?>
 <?import org.google.jhsheets.filtered.tablecolumn.*?>
 <BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainPage.All.AllRequest.AllRequestController">
@@ -11,7 +12,8 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
          <columns>
-            <FilterableStringTableColumn fx:id="colIndex" editable="false" text="Індекс"/>
+            <FilterableStringTableColumn fx:id="colIndex" editable="false" text="Індекс">
+            </FilterableStringTableColumn>
             <FilterableStringTableColumn fx:id="colSkrut" editable="false" text="Скорочення"/>
             <FilterableStringTableColumn fx:id="colNewDescription" editable="false" text="Назва/Опис"/>
             <FilterableStringTableColumn fx:id="colOfferingName" editable="false" text="Продукт"/>
