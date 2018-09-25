@@ -54,7 +54,7 @@ public class UpdateOfferingGroupNameNotPriceController implements Initializable 
         try {
             con = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
-            e.printStackTrace();  DBConnection database = new DBConnection();
+            DBConnection database = new DBConnection();
             database.reconnect();
         }
         data = FXCollections.observableArrayList();
@@ -70,8 +70,7 @@ public class UpdateOfferingGroupNameNotPriceController implements Initializable 
         } catch (Exception e) {
             log.log(Level.SEVERE, "Delete offering row exception: " + e);
         }
-       // FxUtilTest.autoCompleteComboBoxPlus(updateComboBox, (typedText, itemToCompare) -> itemToCompare.toString().toLowerCase().contains(typedText.toLowerCase()) || itemToCompare.toString().equals(typedText));
-      //  FxUtilTest.getComboBoxValue(updateComboBox);
+
 
     }
     public void setOfferingRequest(InProcessingController oper, InProcessing inProcessing) {
@@ -101,7 +100,8 @@ public class UpdateOfferingGroupNameNotPriceController implements Initializable 
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
         updateComboBox.setItems(data);
     }
@@ -180,7 +180,8 @@ public class UpdateOfferingGroupNameNotPriceController implements Initializable 
         inProcessingController.refreshData();
         UsefulUtils.showSuccessful("Запит успішно добавлено");
         } catch (SQLException e) {
-        e.printStackTrace();
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
         }
 public void closeWindow () {

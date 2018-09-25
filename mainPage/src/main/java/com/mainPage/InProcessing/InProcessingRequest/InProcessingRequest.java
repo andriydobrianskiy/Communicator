@@ -15,12 +15,12 @@ public class InProcessingRequest {
     private String quantity;
     private String newOfferingCode;
     private String newDescription;
-  //  private SimpleStringProperty isRoot;
+    private Integer colorByOfferingSale;
 
     public InProcessingRequest() {
     }
 
-    public InProcessingRequest(String index, String skrut, String newDescription, String offeringName, String quantity, String defaultOfferingCode, String newOfferingCode) {
+    public InProcessingRequest(String index, String skrut, String newDescription, String offeringName, String quantity, String defaultOfferingCode, String newOfferingCode, int colorByOfferingSale, String id) {
         this.index = index;
         this.skrut = skrut;
         this.offeringName = offeringName;
@@ -28,6 +28,8 @@ public class InProcessingRequest {
         this.defaultOfferingCode = defaultOfferingCode;
         this.newDescription = newDescription;
         this.newOfferingCode = newOfferingCode;
+        this.colorByOfferingSale = colorByOfferingSale;
+        this.ID = id;
 
     }
 
@@ -45,7 +47,8 @@ public class InProcessingRequest {
     public String getQuantity() { return quantity; }
     public String getNewOfferingCode() { return newOfferingCode; }
     public String getNewDescription() { return newDescription; }
-    //public String getIsRoot () {return isRoot.getValue();}
+    public Integer getColorByOfferingSale () {return colorByOfferingSale;}
+
 
 
     public void setID(String ID) { this.ID = ID;}
@@ -62,6 +65,9 @@ public class InProcessingRequest {
     public void setQuantity(String quantity) { this.quantity = quantity; }
     public void setNewOfferingCode(String newOfferingCode) { this.newOfferingCode = newOfferingCode; }
     public void setNewDescription(String newDescription) { this.newDescription = newDescription; }
+    public void setColorByOfferingSale(Integer colorByOfferingSale) {
+        this.colorByOfferingSale = colorByOfferingSale;
+    }
 
 
 
@@ -79,7 +85,8 @@ public class InProcessingRequest {
                 "defaultOfferingCo - " + defaultOfferingCode + "\n" +
                 "quantity - " + quantity + "\n" +
                 "newOfferingCode - " + newOfferingCode + "\n" +
-                "newDescrip - " + newDescription + "\n";
+                "newDescrip - " + newDescription + "\n" +
+                "colorBy - " + colorByOfferingSale + "\n";
     }
 
 

@@ -92,7 +92,7 @@ public static NotFulfilled notFulfilled ;
             pst.setString(4, b);
             pst.setString(5, c);
             pst.setString(6, User.getContactID());
-            if (exampleController.data.size() == 0) {
+        //    if (exampleController.data.size() == 0) {
                 pst.execute();
 
 
@@ -106,17 +106,14 @@ public static NotFulfilled notFulfilled ;
                 Stage stage = (Stage) btnCancel.getScene().getWindow();
                 stage.close();
 
-        }else {
-                UsefulUtils.showErrorDialogDown("Не можливо записати більше одного продукту");
-            }
+     //   }else {
+   //             UsefulUtils.showErrorDialogDown("Не можливо записати більше одного продукту");
+      //      }
 
         } catch(SQLException e){
             e.printStackTrace();
         }
-   /* }else if (exampleController.data != null ) {
-        UsefulUtils.showErrorDialog("Неможливо добавити більше одного продукту");
-    }
-*/
+
     }
 
     @FXML

@@ -239,15 +239,15 @@ public class ProductAddController implements Initializable {
             pst.setString(4, chosenAccount.getQuantity());
             pst.setString(5, User.getContactID());
     ///UsefulUtils.showConfirmDialogDown("Не можливо записати більше 1 продукту");
-if(exampleController.data.size() == 0) {
+//if(exampleController.data.size() == 0) {
     pst.execute();
 
     closeWindow();
     exampleController.refresh();
     UsefulUtils.showSuccessful("Продукт успішно добавлено");
-}else{
-   UsefulUtils.showErrorDialogDown("Не можливо записати більше одного продукту");
-}
+//}else{
+ //  UsefulUtils.showErrorDialogDown("Не можливо записати більше одного продукту");
+//}
 
         } catch (SQLException e) {
             e.printStackTrace();  DBConnection database = new DBConnection();

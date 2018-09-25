@@ -13,7 +13,7 @@ public class AllQuery implements Queries {
 
     private StringBuilder query;
 
-    public String getMainAll(Boolean top, int rowIndex, String createdByID, String offeringGroupID) {
+    public String getMainAll(Boolean top, int rowIndex, String createdByID, String offeringGroupID, Integer pricingBoolean) {
 
         query = new StringBuilder();
         query.append("SELECT \n");
@@ -128,7 +128,9 @@ public class AllQuery implements Queries {
                 "\t[SMT].[Name] AS [SpecialMarginTypeName],\n" +
                 "\t[tbl_RequestOffering].[StateID] AS [StateID],\n" +
                 "\t[tbl_RequestOfferingState].[Name] AS [StateName],\n" +
-                        "\t[tbl_RequestOffering].[CashType] AS [CashType]\n" +
+                        "\t[tbl_RequestOffering].[CashType] AS [CashType],\n" +
+                "\t[tbl_RequestOffering].[PricingType] AS [PricingType], \n" +
+                "\t[tbl_RequestOffering].[PricingDescription] AS [PricingDescription] \n" +
                 "FROM\n" +
                 "\t[dbo].[tbl_RequestOffering] AS [tbl_RequestOffering]\n" +
                 "LEFT OUTER JOIN\n" +
@@ -145,7 +147,9 @@ public class AllQuery implements Queries {
                 "\t[dbo].[tbl_SpecialMarginType] AS [SMT] ON [SMT].[ID] = [tbl_Account].[SpecialMarginTypeID]\n" +
                 "LEFT OUTER JOIN\n" +
                 "\t[dbo].[tbl_RequestOfferingState] AS [tbl_RequestOfferingState] ON [tbl_RequestOfferingState].[ID] = [tbl_RequestOffering].[StateID]\n" +
-                "WHERE ([tbl_RequestOffering].[CreatedByID] = '"+createdByID+"' OR\n" +
+                "WHERE (" +
+                        "([tbl_RequestOffering].[PricingType] = "+pricingBoolean+") AND \n"+
+                        "[tbl_RequestOffering].[CreatedByID] = '"+createdByID+"' OR\n" +
         "\t[tbl_RequestOffering].[OfferingGroupID] = '"+offeringGroupID+"')\n"
 
         );
@@ -155,7 +159,7 @@ public class AllQuery implements Queries {
     }
 
 
-    public String getMainAllAll(Boolean top, int rowIndex) {
+    public String getMainAllAll(Boolean top, int rowIndex, Integer pricingBoolean) {
 
         query = new StringBuilder();
         query.append("SELECT \n");
@@ -270,7 +274,9 @@ public class AllQuery implements Queries {
                 "\t[SMT].[Name] AS [SpecialMarginTypeName],\n" +
                 "\t[tbl_RequestOffering].[StateID] AS [StateID],\n" +
                 "\t[tbl_RequestOfferingState].[Name] AS [StateName],\n" +
-                "\t[tbl_RequestOffering].[CashType] AS [CashType]\n" +
+                "\t[tbl_RequestOffering].[CashType] AS [CashType],\n" +
+                "\t[tbl_RequestOffering].[PricingType] AS [PricingType], \n" +
+                "\t[tbl_RequestOffering].[PricingDescription] AS [PricingDescription] \n" +
                 "FROM\n" +
                 "\t[dbo].[tbl_RequestOffering] AS [tbl_RequestOffering]\n" +
                 "LEFT OUTER JOIN\n" +
@@ -287,7 +293,8 @@ public class AllQuery implements Queries {
                 "\t[dbo].[tbl_SpecialMarginType] AS [SMT] ON [SMT].[ID] = [tbl_Account].[SpecialMarginTypeID]\n" +
                 "LEFT OUTER JOIN\n" +
                 "\t[dbo].[tbl_RequestOfferingState] AS [tbl_RequestOfferingState] ON [tbl_RequestOfferingState].[ID] = [tbl_RequestOffering].[StateID]\n" +
-                "WHERE ([tbl_RequestOffering].[ResetColumn] IS NULL)\n"
+                "WHERE ([tbl_RequestOffering].[ResetColumn] IS NULL) AND\n" +
+                "([tbl_RequestOffering].[PricingType] = "+pricingBoolean+")\n"
 
         );
 

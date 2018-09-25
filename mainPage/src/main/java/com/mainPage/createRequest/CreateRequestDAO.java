@@ -40,54 +40,32 @@ public class CreateRequestDAO implements MainNotFulledQuery {
         sdf.format(new Date());
 
 
-        try (Connection connection = DBConnection.getDataSource().getConnection()){
-           dbAccess.update(connection, queries.getInsertCreateRequestQuery(),
-                 //   dbAccess.update(connection, queries.getInsertCreateRequestQuery(), new BeanHandler<NotFulfilled>(NotFulfilled.class),
-                   // 'CUrrent_TIMESTEMP',
+        try (Connection connection = DBConnection.getDataSource().getConnection()) {
+            dbAccess.update(connection, queries.getInsertCreateRequestQuery(),
+                    sdf.format(new Date()),
 
-                 //  ID,
-                   sdf.format(new Date()),
-                         //  "CUrrent_TIMESTEMP", //  account.getDate(),
                     User.getContactID(),
-                  sdf.format(new Date()),
-                          //  "CUrrent_TIMESTEMP",
-                   // account.getDate(),
+                    sdf.format(new Date()),
                     User.getContactID(),
-                   account.getAccountID(),
-                   account.getStoreCityID(),
-                   account.getStatusID(),
-                   account.getOfferingGroupID(),
-                   account.getOriginalGroupID(),
-                   account.getStateID()
-                  /* account.getAccountID(),
-
-                   account.getAccountName(),
-                    account.getStatusID(),
-                   account.getStatus(),
+                    account.getAccountID(),
                     account.getStoreCityID(),
-                    account.getStoreCity(),
+                    account.getStatusID(),
                     account.getOfferingGroupID(),
-                   User.getContactName(),
-                    account.getStateID(),
-                    account.getStateName(),
-
                     account.getOriginalGroupID(),
-                        account.getOriginalGroupName()
-*/
+                    account.getStateID()
 
 
             );
             return true;
         } catch (Exception e) {
-        //    DBConnection database = new DBConnection();
-        //    database.reconnect();
-
-            log.log(Level.SEVERE, "Insert account row exception: " + e);  DBConnection database = new DBConnection();
+            log.log(Level.SEVERE, "Insert account row exception: " + e);
+            DBConnection database = new DBConnection();
             database.reconnect();
             return false;
         }
 
     }
+
     public boolean insertCreateRequest(NotFulfilled value) {
         return true;
     }
@@ -105,47 +83,14 @@ public class CreateRequestDAO implements MainNotFulledQuery {
             return true;
         } catch (Exception e) {
             UsefulUtils.showErrorDialog(e.getMessage());
-            log.log(Level.SEVERE, "Exception: " + e);  DBConnection database = new DBConnection();
+            log.log(Level.SEVERE, "Exception: " + e);
+            DBConnection database = new DBConnection();
             database.reconnect();
             return false;
         }
     }
 
     public boolean insertCreateRequestInGroup(NotFulfilled value) {
-        UUID uniqueID = UUID.randomUUID();
-
-        try (Connection connection = DBConnection.getDataSource().getConnection()) {
-
-
-            dbAccess.update(connection, queries.getInsertCreateRequestQuery(), new BeanHandler<NotFulfilled>(NotFulfilled.class),
-                    uniqueID,
-                   // User.getContactID(),
-                   // User.getContactID(),
-                    value.getAccountName(),
-                    value.getStateName(),
-                    value.getStatus(),
-                    value.getStoreCity(),
-                    value.getOfferingGroupName());
-
-
-            dbAccess.update(connection, queries.insertCreateRequestInGroup(), new BeanHandler<NotFulfilled>(NotFulfilled.class),
-                    User.getContactID(),
-                    User.getContactID(),
-                    uniqueID,
-                    value.getGroupID());
-
-            return true;
-        } catch (Exception e) {
-            UsefulUtils.showErrorDialog(e.getMessage());
-            log.log(Level.SEVERE, "Exception: " + e);  DBConnection database = new DBConnection();
-            database.reconnect();
-            return false;
-        }
-
-    }
-
-
-   /* public boolean insertOffering(NotFulfilled value) {
         UUID uniqueID = UUID.randomUUID();
 
         try (Connection connection = DBConnection.getDataSource().getConnection()) {
@@ -172,10 +117,13 @@ public class CreateRequestDAO implements MainNotFulledQuery {
         } catch (Exception e) {
             UsefulUtils.showErrorDialog(e.getMessage());
             log.log(Level.SEVERE, "Exception: " + e);
+            DBConnection database = new DBConnection();
+            database.reconnect();
             return false;
         }
 
-    }*/
+    }
+
 
     @Override
     public boolean updateOffering(NotFulfilled account) {

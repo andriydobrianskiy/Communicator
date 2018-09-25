@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class CustomTableView extends FilteredTableView {
     private static Logger log = Logger.getLogger(CustomTableView.class.getName());
-
+    private int selectedRow = 0;
     private Object selectedItem;
     private ObservableList<?> value;
 
@@ -44,11 +44,11 @@ public class CustomTableView extends FilteredTableView {
         }
     }
 
-    private void getSelectedItem() {
+    private Object getSelectedItem() {
         try {
-            selectedItem = getSelectionModel().getSelectedItem();
+          return getSelectionModel().getSelectedItem();
         } catch (Exception e) {
-            // do nothing
+         return  null;
         }
     }
 
@@ -66,9 +66,11 @@ public class CustomTableView extends FilteredTableView {
 
     private void setSelectedItem() {
         try {
-            getSelectionModel().select(selectedItem);
+            this.requestFocus();
+            this.getSelectionModel().select(selectedRow);
+            this.getFocusModel().focus(selectedRow);
 
-            System.out.println(1);
+
         } catch (Exception e) {
 
         }
@@ -80,5 +82,15 @@ public class CustomTableView extends FilteredTableView {
 
         value.clear();
     }
+    public void setSelectedRow() {
+        try {
+            if(getSelectedItem() == null) return;
+
+            selectedRow = this.getSelectionModel().getSelectedIndex();
+        } catch (Exception ex) {
+            System.out.println(1);
+        }
+    }
+
 
 }

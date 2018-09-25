@@ -72,6 +72,7 @@ public class ArchiveFiles extends GridComp implements ArchiveFilesInterface, Fil
     private SimpleStringProperty StateName;
     private SimpleStringProperty ChangeByAutouser;
     private SimpleStringProperty CashType;
+    private SimpleStringProperty PricingDescription;
 
     public ArchiveFiles () {}
 
@@ -210,6 +211,10 @@ public class ArchiveFiles extends GridComp implements ArchiveFilesInterface, Fil
         return CashType.getValue();
     }
 
+    public String getPricingDescription(){
+        return PricingDescription.getValue();
+    }
+
 
     // setters
 
@@ -336,6 +341,10 @@ public class ArchiveFiles extends GridComp implements ArchiveFilesInterface, Fil
         this.CashType = new SimpleStringProperty(cashType);
     }
 
+    public void setPricingDescription (String pricingDescription){
+        this.PricingDescription = new SimpleStringProperty(pricingDescription);
+    }
+
 
 
    /* @Override
@@ -359,9 +368,9 @@ public class ArchiveFiles extends GridComp implements ArchiveFilesInterface, Fil
     }*/
 
     @Override
-    public List<ArchiveFiles> findInArchive(boolean pagination, int rowIndex, String createdByID, String offeringGroupID, String filterSorted) {
+    public List<ArchiveFiles> findInArchive(boolean pagination, int rowIndex, String createdByID, String offeringGroupID, String filterSorted, Integer pricingBoolean) {
         {
-            String query = (pagination ? accountQueries1.getMainArchiveFiles(true, rowIndex, createdByID , offeringGroupID) : accountQueries1.getMainArchiveFiles(false, 0, createdByID , offeringGroupID));
+            String query = (pagination ? accountQueries1.getMainArchiveFiles(true, rowIndex, createdByID , offeringGroupID, pricingBoolean) : accountQueries1.getMainArchiveFiles(false, 0, createdByID , offeringGroupID, pricingBoolean));
 
             try {
 
@@ -377,9 +386,9 @@ public class ArchiveFiles extends GridComp implements ArchiveFilesInterface, Fil
     }
 
 
-    public List<ArchiveFiles> findAllInArchive(boolean pagination, int rowIndex, String filterSorted) {
+    public List<ArchiveFiles> findAllInArchive(boolean pagination, int rowIndex, String filterSorted, Integer pricingBoolean) {
         {
-            String query = (pagination ? accountQueries1.getAllInTract(true, rowIndex) : accountQueries1.getAllInTract(false, 0));
+            String query = (pagination ? accountQueries1.getAllInTract(true, rowIndex, pricingBoolean) : accountQueries1.getAllInTract(false, 0, pricingBoolean));
 
             try {
 

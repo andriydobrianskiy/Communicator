@@ -91,7 +91,7 @@ public class UpdateOfferingGroupNameController implements Initializable {
                     "from \n" +
                     "    tbl_Contact \n" +
                     "\twhere \n" +
-                    "\tJobID = 'CCB28AD0-ECAC-43DF-9827-E2F9CEA56A3A' OR ID IN ('1B5F2F6A-133B-4026-BED3-914C8AC491D9','0B1A17F5-AD03-440C-A513-1398FF2B5C67')\n" +
+                    "\tJobID = 'CCB28AD0-ECAC-43DF-9827-E2F9CEA56A3A' OR ID IN ('1B5F2F6A-133B-4026-BED3-914C8AC491D9','0B1A17F5-AD03-440C-A513-1398FF2B5C67','93392170-1D86-475F-9162-53DB5B140071')\n" +
                     "\t \n" +
                     "         ORDER BY\n" +
                     "                    2 ASC";
@@ -108,11 +108,13 @@ public class UpdateOfferingGroupNameController implements Initializable {
         updateComboBox.setItems(data);
     }
 
+
     private void initAccountObject() throws NullPointerException{
 
      listFields.forEach(field -> {
         String value = null;
         String objectValue = null;
+
 
         try {
 
@@ -155,6 +157,7 @@ public class UpdateOfferingGroupNameController implements Initializable {
                 "\t[ModifiedOn] = CURRENT_TIMESTAMP,\n" +
                 "\t[ModifiedByID] = ?\n" +
                 "WHERE([tbl_RequestOffering].[ID] = ?)";
+
         try {
             pst = con.prepareStatement(query);
             pst.setString(1, inProcessing.getOfferingGroupID());

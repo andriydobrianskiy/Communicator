@@ -5,10 +5,12 @@ import com.client.chatwindow.Listener;
 import com.connectDatabase.DBConnection;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXToggleButton;
+import com.mainLogin.updateProgram.UpdateHelper;
 import com.mainPage.InTract.InTractController;
 import com.mainPage.page.MainPageController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,6 +22,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,20 +53,18 @@ public class LoginControl implements Initializable {
     TableView<String> tableView = new TableView<>();
     @FXML
     private JFXCheckBox chSaveMe;
+    public Stage stage;
     private Connection con;
     private PreparedStatement pst;
     private ResultSet rs;
     private Credentials credentials = new Credentials();
-
+ 
 
     private DBConnection database = new DBConnection();
     private InTractController inTractController = new InTractController();
     @FXML
     private void loginAction(ActionEvent evt) {
-
         authenticate();
-
-
     }
 
     public void authenticate() {
@@ -107,73 +108,49 @@ public class LoginControl implements Initializable {
     public static ChatController conn;
 
     private void hideLoginScene() throws IOException {
-       /* Stage stage1 = new Stage();
-        StackPane root1 = new StackPane();
-
-        //   StackPane root1 = FXMLLoader.load(getClass().getResource( "/views/Login.fxml" ));
-        stage1.setScene(new Scene(root1));
-
-        CustomLauncherUI ui = new CustomLauncherUI();
-        ui.init(stage1);
-
-        Parent updater = ui.createLoader();
-        root1.getChildren().addAll(updater);
-
-        stage1.show();
-        PauseTransition delay = new PauseTransition(Duration.seconds(6));
-        delay.setOnFinished( event -> stage1.close() );
-        delay.play();*/
         String hostname = "localhost";
         int port = 9001;
         String username = User.getContactName();
         String picture = "Default";
         Stage stage = (Stage) anchorPane.getScene().getWindow();
-        //  stage.close();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainPageController.class.getResource("/views/MainPage.fxml"));
-        // Parent root = FXMLLoader.load(getClass().getResource("/sample/resources/view/MainPage.fxml"));
         Pane root = loader.load();
+        stage.setResizable(true);
         Scene scene = new Scene(root, 1360, 760);
         MainPageController con = loader.getController();
         con.setOfferingRequest(userID, true);
-
-
         FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("/views/ChatView.fxml"));
         Parent window = (Pane) fmxlLoader.load();
         conn = fmxlLoader.<ChatController>getController();
-        //  instance = fmxlLoader.<InProcessingController>getController();
-
-
         Listener listener = new Listener(hostname, port, username, picture, conn);
         Thread x = new Thread(listener);
         x.start();
-        stage.setTitle("Комунікатор 2.3 " + "(" + User.getContactName() + ")");
-
-       // tableView.setFixedCellSize(25);
-       // tableView.prefHeightProperty().bind(tableView.fixedCellSizeProperty().multiply(Bindings.size(tableView.getItems()).add(1.01)));
-      //  tableView.minHeightProperty().bind(tableView.prefHeightProperty());
-      //  tableView.maxHeightProperty().bind(tableView.prefHeightProperty());
+        stage.setTitle("Комунікатор "+ UpdateHelper.app_version + " (" + User.getContactName() + ")");
         stage.setScene(scene);
-        stage.show();
+        stage.showAndWait();
+
 
     }
+
 
     @FXML
     public void closeSystem() {
-        Platform.exit();
-        System.exit(0);
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent t) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
     }
-
-   /* @FXML
-    public void minimizeWindow() {
-        Main.getPrimaryStage().setIconified(true);
-    }*/
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         txtUser.setText(credentials.getUsername());
         txtPass.setText(credentials.getPassword());
         database.setServerName(ServerName2);
+
         database.setServerChatName(serverChatName2);
         ToggleGroup group = new ToggleGroup();
         btnIP.setToggleGroup(group);
@@ -189,12 +166,8 @@ public class LoginControl implements Initializable {
             } else {
                 database.setServerName(ServerName2);
                 inTractController.setServerName(serverNew2);
-
                 database.setServerChatName(serverChatName2);
             }
         });
-        //   btnIP.setOnAction(event -> {
-
-        //   });
     }
 }

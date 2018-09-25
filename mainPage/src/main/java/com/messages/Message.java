@@ -41,8 +41,8 @@ public class Message implements Serializable {
     public Message() {
     }
 
-  //  public MessageType getNotification () {return  Notification;}
- //   public void setNotification (MessageType notification) {Notification = notification;}
+   // public MessageType getNotification () {return  Notification;}
+  //  public void setNotification (MessageType notification) {Notification = notification;}
     public String getName() {
         return name;
     }

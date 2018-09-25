@@ -10,7 +10,6 @@ import com.client.chatwindow.ChatController;
 import com.connectDatabase.DBConnection;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXToggleButton;
 import com.login.User;
 import com.mainPage.ArchiveFiles.ArchiveFilesRequest.ArchiveFilesRequestController;
 import com.mainPage.NotFulled.ProductAdd.ObserverNF;
@@ -79,7 +78,13 @@ public class ArchiveFilesController extends WorkArea implements MiniFilterFuncti
     @FXML
     private JFXTextField searchingField;
     @FXML
-    private JFXToggleButton btn_ButtonAll;
+    private ToggleButton btn_ButtonAll;
+    @FXML
+    private ToggleButton btn_ButtonAllPricing;
+    @FXML
+    private ToggleButton btn_Button;
+    @FXML
+    private ToggleButton btn_ButtonPricing;
     public ArchiveFiles chosenAccount;
     public static ArchiveFiles chosenNotis;
 
@@ -106,7 +111,8 @@ public class ArchiveFilesController extends WorkArea implements MiniFilterFuncti
     @FXML private FilterableStringTableColumn <ArchiveFiles, String> colOriginalGroupName;
     @FXML private FilterableStringTableColumn <ArchiveFiles, String> colGroupChangedBy;
     @FXML private FilterableStringTableColumn <ArchiveFiles, String> colSpecialMarginTypeName;
-    @FXML private FilterableStringTableColumn<ArchiveFiles, String> colCashType;
+    @FXML private FilterableStringTableColumn <ArchiveFiles, String> colCashType;
+    @FXML private FilterableStringTableColumn <ArchiveFiles, String> colPricingDescription;
     private Button id = new Button();
     private Button Number = new Button();
     private Button Solid = new Button();
@@ -122,9 +128,16 @@ public class ArchiveFilesController extends WorkArea implements MiniFilterFuncti
     private String filterSorted = null;
     private String countfilter = null;
     private String sort = "DESC";
+    private Integer pricingBoolean = 0;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        btn_ButtonAll.setDisable(false); // Закуп Всі
+        btn_ButtonPricing.setDisable(false);  // Ціноутворення Мої
+        btn_Button.setDisable(false);  // Закуп Мої
+        btn_ButtonAllPricing.setDisable(false); // Ціноутворення Всі
+
         archiveFilesRequestViewController.init(this);
         chatViewController.init(this);
         createTableColumns();
@@ -153,6 +166,109 @@ public class ArchiveFilesController extends WorkArea implements MiniFilterFuncti
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
+        btn_ButtonAll.setVisible(true);
+        searchingField.setOnAction(event1 -> {
+            String value = searchingField.getText();
+
+            if (value.equals("")) {
+                refreshData();
+            } else
+                try {
+                    findByProperty(value);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+        });
+        ToggleGroup group = new ToggleGroup();
+        btn_ButtonAll.setToggleGroup(group);
+        btn_ButtonAllPricing.setToggleGroup(group);
+        btn_Button.setToggleGroup(group);
+        btn_ButtonPricing.setToggleGroup(group);
+        btn_ButtonAll.setSelected(true);
+        group.selectedToggleProperty().addListener(event -> {
+            if (group.getSelectedToggle().equals(btn_ButtonAllPricing)) {
+                queryAll = false;
+                pricingBoolean = 1;
+                btn_ReturnInProcessing.setDisable(true);
+                refreshData();
+                searchingField.setOnAction(event1 -> {
+                    String value = searchingField.getText();
+
+                    if (value.equals("")) {
+                        refreshData();
+                    } else
+                        try {
+                            findByProperty(value);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                });
+            } else if (group.getSelectedToggle().equals(btn_ButtonPricing)) {
+
+                queryAll = true;
+                pricingBoolean = 1;
+                refreshData();
+                btn_ReturnInProcessing.setDisable(true);
+                searchingField.setOnAction(event1 -> {
+                    String value = searchingField.getText();
+
+                    if (value.equals("")) {
+                        refreshData();
+                    } else
+                        try {
+                            findByProperty(value);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                });
+            } else if (group.getSelectedToggle().equals(btn_ButtonAll)) {
+
+                queryAll = false;
+                pricingBoolean = 0;
+                btn_ReturnInProcessing.setDisable(false);
+                refreshData();
+                searchingField.setOnAction(event1 -> {
+                    String value = searchingField.getText();
+
+                    if (value.equals("")) {
+                        refreshData();
+                    } else
+                        try {
+                            findByProperty(value);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                });
+
+            } else if (group.getSelectedToggle().equals(btn_Button)) {
+
+                queryAll = true;
+                pricingBoolean = 0;
+                refreshData();
+                btn_ReturnInProcessing.setDisable(false);
+                searchingField.setOnAction(event1 -> {
+                    String value = searchingField.getText();
+
+                    if (value.equals("")) {
+                        refreshData();
+                    } else
+                        try {
+                            findByProperty(value);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                });
+            }
+
+
+        });
+
+
+
+
+
         try {
             CustomPaginationSkin pageSkin = new CustomPaginationSkin(pagination); // custom pagination
             pagination.setSkin(pageSkin);
@@ -357,63 +473,7 @@ public class ArchiveFilesController extends WorkArea implements MiniFilterFuncti
         colStoreCity.setGraphic(Store);
         colStoreCity.setSortable(false);
 
-
-
-
-        btn_ButtonAll.setVisible(true);
-        searchingField.setOnAction(event1 -> {
-            String value = searchingField.getText();
-
-            if (value.equals("")) {
-                refreshData();
-            } else
-                try {
-                    findByProperty(value);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-        });
-        ToggleGroup group = new ToggleGroup();
-        btn_ButtonAll.setToggleGroup(group);
-        group.selectedToggleProperty().addListener(event -> {
-            if (group.getSelectedToggle() != null) {
-                queryAll = true;
-                refreshData();
-                searchingField.setOnAction(event1 -> {
-                    String value = searchingField.getText();
-
-                    if (value.equals("")) {
-                        refreshData();
-                    } else
-                        try {
-                            findByProperty(value);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                });
-
-            } else
-            {
-                queryAll = false;
-                refreshData();
-                searchingField.setOnAction(event1 -> {
-                    String value = searchingField.getText();
-
-                    if (value.equals("")) {
-                        refreshData();
-                    } else
-                        try {
-                            findByProperty(value);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                });
-            }
-        });
-
-
     }
-
     public void updatePersonView() {
         fromIndex = currentPageIndex * itemsPerPage;
         toIndex = Math.min(fromIndex + itemsPerPage, data.size());
@@ -487,6 +547,7 @@ public class ArchiveFilesController extends WorkArea implements MiniFilterFuncti
                     "\t\t[dbo].[tbl_Contact] AS [GroupChangedBy]\n");
             hashColumns.put(colSpecialMarginTypeName, "[SMT].[Name]");
             hashColumns.put(colCashType, "[tbl_RequestOffering].[CashType]");
+            hashColumns.put(colPricingDescription, "[tbl_RequestOffering].[PricingDescription]");
             List<?> listColumns = tableView.getColumns();
 
             colNumber.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("Number"));
@@ -504,6 +565,7 @@ public class ArchiveFilesController extends WorkArea implements MiniFilterFuncti
             colGroupChangedBy.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("GroupChangedBy"));
             colSpecialMarginTypeName.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("SpecialMarginTypeName"));
             colCashType.setCellValueFactory(new PropertyValueFactory<ArchiveFiles,String>("CashType"));
+            colPricingDescription.setCellValueFactory(new PropertyValueFactory<ArchiveFiles, String>("PricingDescription"));
 
 
         } catch (Exception e) {
@@ -520,12 +582,12 @@ public class ArchiveFilesController extends WorkArea implements MiniFilterFuncti
         try {
 
             if(queryAll == true){
-                List<ArchiveFiles> listItems = account.findInArchive(false, (int) toIndex, User.getContactID(), User.getContactID(), filterSorted);
+                List<ArchiveFiles> listItems = account.findInArchive(false, (int) toIndex, User.getContactID(), User.getContactID(), filterSorted, pricingBoolean);
                 listItems.forEach(item -> data.add(item));
 
                 tableView.setItems(data);
             }else if (queryAll == false){
-                List<ArchiveFiles> listItems = account.findAllInArchive(false, (int) toIndex, filterSorted);
+                List<ArchiveFiles> listItems = account.findAllInArchive(false, (int) toIndex, filterSorted, pricingBoolean);
                 listItems.forEach(item -> data.add(item));
 
                 tableView.setItems(data);

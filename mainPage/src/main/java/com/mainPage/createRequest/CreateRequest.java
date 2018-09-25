@@ -9,6 +9,7 @@ import com.mainPage.InProcessing.Calculator.ComboBoxAutoComplete;
 import com.mainPage.NotFulled.NotFulfilled;
 import com.mainPage.NotFulled.NotFulledController;
 import com.mainPage.createRequest.StateCreate.DeliveryCity;
+import com.mainPage.createRequest.StateCreate.GroupPeople;
 import com.mainPage.createRequest.StateCreate.StateCreate;
 import com.mainPage.createRequest.StateCreate.Status;
 import com.mainPage.createRequest.searchCounterpart.Counterpart;
@@ -63,12 +64,18 @@ public class CreateRequest implements Initializable {
     @FXML
     private ArrayList<? extends Control> listFields;
     @FXML
+    private ArrayList<? extends Control> listFieldsPricing;
+    @FXML
     private ArrayList<? extends Control> listComboBox;
+    @FXML
+    private ArrayList<? extends Control> listComboBoxPricing;
 
     @FXML
     private JFXButton closeButton;
     @FXML
     private JFXButton btnOK;
+    @FXML
+    public Label idSetTitle;
 
     /* @FXML
      private JFXTextField edtSkrut;*/
@@ -84,7 +91,7 @@ public class CreateRequest implements Initializable {
     private ObservableList optionsStatus = FXCollections.observableArrayList();
     ComboBox choiceBoxStatus = new ComboBox(optionsStatus);
     @FXML
-    private JFXComboBox DeliveryCity;
+    public JFXComboBox DeliveryCity;
     private ObservableList optionsDeliveryCity = FXCollections.observableArrayList();
     ComboBox choiceBoxDeliveryCity = new ComboBox(optionsDeliveryCity);
     @FXML
@@ -96,16 +103,34 @@ public class CreateRequest implements Initializable {
     // public static Counterpart chosenAccount = null;
     private static NotFulfilled input = null;
     private static NotFulfilled inputAccount = null;
-   /* @FXML
+    @FXML
     private ChoiceBox comboBoxGroup;
-    private ObservableList optionsComboBoxGroup = FXCollections.observableArrayList();*/
+    private ObservableList optionsComboBoxGroup = FXCollections.observableArrayList();
 
-   // @FXML
- //   private JFXComboBox GroupPeople;
+    @FXML
+    public JFXComboBox GroupPeople;
     private ObservableList optionsGroupPeople = FXCollections.observableArrayList();
     JFXComboBox choiceBoxGroupPeople = new JFXComboBox(optionsGroupPeople);
+    public int pricingBoolean ;
     @FXML
     NotFulledController notFulledController;
+   /* @FXML
+    private JFXToggleButton createPricingRequest;*/
+    @FXML
+    public TextArea  createPricingDescription;
+    @FXML
+    public Label labelDescription;
+    @FXML
+    private Label labelStatusRequest;
+    @FXML
+    private Label labelConterpart;
+    @FXML
+    private Label labelStatus;
+    @FXML
+    public Label labelDelivery;
+    @FXML
+    public Label labelGroupPeople;
+
 
     private static WindowOperation operation = null;
 
@@ -182,9 +207,10 @@ public class CreateRequest implements Initializable {
 
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
             DBConnection database = new DBConnection();
             database.reconnect();
+            e.printStackTrace();
         }
 
     }
@@ -316,10 +342,10 @@ public class CreateRequest implements Initializable {
         }
     }
 
- /*   public void GroupPeople() {
+    public void GroupPeople() {
 
         try {
-            String queryGroupPeople = "SELECT [tbl_Contact].ID, [tbl_Contact].[Name] FROM [tbl_Contact] AS [tbl_Contact] WHERE [tbl_Contact].JobID = 'CCB28AD0-ECAC-43DF-9827-E2F9CEA56A3A' OR ID IN ('71820A9D-95B6-4D65-A480-4F2C57AE9A4B', '0B1A17F5-AD03-440C-A513-1398FF2B5C67')\n";
+            String queryGroupPeople = "SELECT [tbl_Contact].ID, [tbl_Contact].[Name] FROM [tbl_Contact] AS [tbl_Contact] WHERE [tbl_Contact].JobID = 'FE067F6D-62A3-4F2D-A39F-7202FEC30C57'\n";
 
             pstGroupPeople = conGroupPeople.prepareStatement(queryGroupPeople);
 
@@ -337,7 +363,7 @@ public class CreateRequest implements Initializable {
             database.reconnect();
         }
 
-    }*/
+    }
 
    /* public void CheckBoxAction (){
         try {
@@ -377,89 +403,70 @@ public class CreateRequest implements Initializable {
         Status.setDisable(true);
         try {
             conStatusRequest = DBConnection.getDataSource().getConnection();
+
         } catch (SQLException e) {
-            log.log(Level.SEVERE, "Delete offering row exception: " + e);
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
         optionsStatusRequest = FXCollections.observableArrayList();
         StatusRequest();
         try {
             conDeliveryCity = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
-            log.log(Level.SEVERE, "Delete offering row exception: " + e);
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
         optionsDeliveryCity = FXCollections.observableArrayList();
         DeliveryCity();
         try {
             conStatus = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
-            log.log(Level.SEVERE, "Delete offering row exception: " + e);
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
         optionsStatus = FXCollections.observableArrayList();
         Status();
         try {
             conGroup = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
-            log.log(Level.SEVERE, "Delete offering row exception: " + e);
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
         options = FXCollections.observableArrayList();
-        try{
+        try {
             con = DBConnection.getDataSource().getConnection();
             data = FXCollections.observableArrayList();
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-
-      /*  try {
-            conGroupPeople = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
-            log.log(Level.SEVERE, "Delete offering row exception: " + e);
-        }*/
-    //    optionsGroupPeople = FXCollections.observableArrayList();
-      //  GroupPeople();
-        Status.getSelectionModel().select(optionsStatus.get(0));
+            DBConnection database = new DBConnection();
+            database.reconnect();
+        }
 
         try {
-
-            btnOK.setOnAction(action -> {
-                initAccountObject();
-
-            });
-
-        } catch (Exception e) {
-            log.log(Level.SEVERE, "Delete offering row exception: " + e);
+            conGroupPeople = DBConnection.getDataSource().getConnection();
+        } catch (SQLException e) {
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
+           optionsGroupPeople = FXCollections.observableArrayList();
+          GroupPeople();
+        createPricingDescription.setVisible(false);
+        Status.getSelectionModel().select(optionsStatus.get(0));
+
+
         box_cash.setOnAction(e ->{
             checkBoxList.add(box_cash.getText());
         });
         box_PDV.setOnAction(e ->{
             checkBoxList.add(box_PDV.getText());
         });
-        // FxUtilTest.autoCompleteComboBoxPlus(DeliveryCity, (typedText, itemToCompare) -> itemToCompare.toString().toLowerCase().contains(typedText.toLowerCase()) || itemToCompare.toString().equals(typedText));
-        //  FxUtilTest.getComboBoxValue(DeliveryCity);
         new ComboBoxAutoComplete<Integer>(DeliveryCity);
-
-        //  FxUtilTest.autoCompleteComboBoxPlus(StatusRequest, (typedText, itemToCompare) -> itemToCompare.toString().toLowerCase().contains(typedText.toLowerCase()) || itemToCompare.toString().equals(typedText));
-        // FxUtilTest.getComboBoxValue(StatusRequest);
-        //  FxUtilTest.autoCompleteComboBoxPlus(Status, (typedText, itemToCompare) -> itemToCompare.toString().toLowerCase().contains(typedText.toLowerCase()) || itemToCompare.toString().equals(typedText));
-        //  FxUtilTest.getComboBoxValue(Status);
-        //FxUtilTest.autoCompleteComboBoxPlus(GroupPeople, (typedText, itemToCompare) -> itemToCompare.toString().toLowerCase().contains(typedText.toLowerCase()) || itemToCompare.toString().equals(typedText));
-        // FxUtilTest.getComboBoxValue(GroupPeople);
-
-       /* edtSkrut.setOnKeyReleased((KeyEvent keyEvent) -> {
-                    GroupRequest(edtSkrut.getText());
-                    comboBoxGroup.getSelectionModel().clearSelection();
-
-
-                }
-        );*/
 
     }
 
 
     private StringBuilder builderQuery;
 
-    private void initAccountObject() throws NullPointerException {
+    private void initAccountObject(ArrayList<? extends  Control> listFields, ArrayList<? extends Control> listComboBox, Integer pricingBoolean) throws NullPointerException {
         try {
 
             if (WindowOperation.ADD.equals(WindowOperation.ADD)) {
@@ -518,26 +525,24 @@ public class CreateRequest implements Initializable {
                     case "StatusRequest":
                         chosenElement.setStateID(value);
                         break;
-
                     case "cmbMain3":
                         chosenElement.setAccountID(value);
                         break;
-
                     case "DeliveryCity":
                         chosenElement.setStoreCityID(value);
                         break;
-
                     case "Status":
                         chosenElement.setStatusID(value);
-
                         break;
                     case "comboBoxGroup":
                         chosenElement.setOriginalGroupID(value);
                         break;
-
-                  //  case "GroupPeople":
-                     //   chosenElement.setOfferingGroupID(value);
-                        //break;
+                    case "GroupPeople":
+                        chosenElement.setOfferingGroupID(value);
+                        break;
+                    case "createPricingDescription":
+                        chosenElement.setPricingDescription(value);
+                        break;
                 }
 
             });
@@ -549,37 +554,43 @@ public class CreateRequest implements Initializable {
             return;
         }
 
-        builderQuery = new StringBuilder();
-        recentQueries();
-        responsibleInquiry();
 
-        String query = ("INSERT INTO [dbo].[tbl_RequestOffering] (CreatedOn, CreatedByID, ModifiedOn, ModifiedByID, [AccountID], StoreCityID, [StatusID], [OfferingGroupID], OriginalGroupID, [StateID], [CashType])\n" +
-                "                      VALUES (CURRENT_TIMESTAMP, ?, CURRENT_TIMESTAMP, ?,  ?, ?, ?, ?, ?, ?, ? )");
-
-        pst = null;
-
-        try {
-            pst = DBConnection.getDataSource().getConnection().prepareStatement(query);
-            pst.setString(1, User.getContactID());
-            pst.setString(2, User.getContactID());
-            pst.setString(3, chosenElement.getAccountID());
-            pst.setString(4, chosenElement.getStoreCityID());
-            pst.setString(5, chosenElement.getStatusID());
-            pst.setString(6, OfferingGroupID);
-            pst.setString(7, chosenElement.getOriginalGroupID());
-            pst.setString(8, chosenElement.getStateID());
-            pst.setString(9, checkBoxList.toString());
-            pst.execute();
-
-            closeWindow();
-            notFulledController.handleTableView();
-            UsefulUtils.showSuccessful("Запит успішно добавлено");
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            UsefulUtils.showErrorDialogDown("Немає доступу до створення запиту");
+            builderQuery = new StringBuilder();
+        if(pricingBoolean == 0) {
+            recentQueries();
+            responsibleInquiry();
+        }else{
+            OfferingGroupID = chosenElement.getOfferingGroupID();
         }
+            String query = ("INSERT INTO [dbo].[tbl_RequestOffering] (CreatedOn, CreatedByID, ModifiedOn, ModifiedByID, [AccountID], StoreCityID, [StatusID], [OfferingGroupID], OriginalGroupID, [StateID], [CashType], [PricingType], [PricingDescription])\n" +
+                    "                      VALUES (CURRENT_TIMESTAMP, ?, CURRENT_TIMESTAMP, ?,  ?, ?, ?, ?, ?, ?, ?,?,? )");
+
+            pst = null;
+
+            try {
+                pst = DBConnection.getDataSource().getConnection().prepareStatement(query);
+                pst.setString(1, User.getContactID());
+                pst.setString(2, User.getContactID());
+                pst.setString(3, chosenElement.getAccountID());
+                pst.setString(4, chosenElement.getStoreCityID());
+                pst.setString(5, chosenElement.getStatusID());
+                pst.setString(6, OfferingGroupID);
+                pst.setString(7, chosenElement.getOriginalGroupID());
+                pst.setString(8, chosenElement.getStateID());
+                pst.setString(9, checkBoxList.toString());
+                pst.setInt(10, pricingBoolean);
+                pst.setString(11,chosenElement.getPricingDescription());
+                pst.execute();
+
+                closeWindow();
+                notFulledController.handleTableView();
+                UsefulUtils.showSuccessful("Запит успішно добавлено");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                UsefulUtils.showErrorDialogDown("Немає доступу до створення запиту");
+            }
+
+
     }
 
     private void closeWindow() {
@@ -614,6 +625,32 @@ public class CreateRequest implements Initializable {
     public void btnCreateOut(ActionEvent event) {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
+
+    }
+    @FXML
+   private void actionOK (ActionEvent event) {
+        if(pricingBoolean == 1){
+            try {
+
+                    initAccountObject(listFieldsPricing, listComboBoxPricing, pricingBoolean);
+
+
+            } catch (Exception e) {
+                log.log(Level.SEVERE, "Delete offering row exception: " + e);
+            }
+        }else if(pricingBoolean == 0) {
+            try {
+
+
+                    initAccountObject(listFields, listComboBox, pricingBoolean);
+
+
+
+            } catch (Exception e) {
+                log.log(Level.SEVERE, "Delete offering row exception: " + e);
+            }
+        }
+
 
     }
 }

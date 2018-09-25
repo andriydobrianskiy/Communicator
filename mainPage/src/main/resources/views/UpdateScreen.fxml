@@ -9,7 +9,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 
-<fx:root prefHeight="579.0" prefWidth="650.0" style="-fx-background-color: rgb(255,255,255,0.2);" stylesheets="@../styles/application.css" type="StackPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainLogin.UpdateScreen">
+<fx:root prefHeight="579.0" prefWidth="650.0" style="-fx-background-color: rgb(255,255,255,0.2);" stylesheets="@../styles/application.css" type="StackPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainLogin.updateProgram.UpdateScreen">
    <cursor>
       <Cursor fx:constant="WAIT" />
    </cursor>

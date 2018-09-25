@@ -73,6 +73,26 @@ public class NotFulfilled extends GridComp implements  NotFulledInterface, Filte
     private String SpecialMarginTypeName;
     private String StateName;
     private String CashType;
+    private String PricingDescription;
+    private Integer PricingType;
+
+    public String getPricingDescription() {
+        return PricingDescription;
+    }
+
+    public void setPricingDescription(String pricingDescription) {
+        PricingDescription = pricingDescription;
+    }
+
+    public Integer getPricingType() {
+        return PricingType;
+    }
+
+    public void setPricingType(Integer pricingType) {
+        this.PricingType = pricingType;
+    }
+
+
 
     public String getDate() {
         return Date;
@@ -193,8 +213,8 @@ public class NotFulfilled extends GridComp implements  NotFulledInterface, Filte
     }
 
     @Override
-    public List<NotFulfilled> findAllNotFulled(boolean pagination, int rowIndex, String createdByID, String offeringGroupID) {
-        String query = (pagination ? accountQueries1.getMainNotFulled(true, rowIndex, createdByID, offeringGroupID) : accountQueries1.getMainNotFulled(false, 0, createdByID, offeringGroupID));
+    public List<NotFulfilled> findAllNotFulled(boolean pagination, int rowIndex, String createdByID, String offeringGroupID, Integer pricingType) {
+        String query = (pagination ? accountQueries1.getMainNotFulled(true, rowIndex, createdByID, offeringGroupID, pricingType) : accountQueries1.getMainNotFulled(false, 0, createdByID, offeringGroupID, pricingType));
         try {
             return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter(), new BeanListHandler<NotFulfilled>(NotFulfilled.class)));
         } catch (Exception e) {

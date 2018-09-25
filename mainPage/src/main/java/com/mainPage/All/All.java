@@ -35,6 +35,8 @@ public class All extends GridComp {
     private SimpleStringProperty StateID;
     private SimpleStringProperty StateName;
     private SimpleStringProperty CashType;
+    private SimpleStringProperty PricingDescription;
+
 
 
 public All () {
@@ -75,6 +77,7 @@ public All () {
     public String getCashType() {
         return CashType.getValue();
     }
+    public String getPricingDescription (){return PricingDescription.getValue();}
 
 
     // Setters
@@ -111,6 +114,7 @@ public All () {
     public void setCashType(String cashType) {
         this.CashType = new SimpleStringProperty(cashType);
     }
+    public void setPricingDescription(String pricingDescription){this.PricingDescription = new SimpleStringProperty(pricingDescription);}
 
 
 

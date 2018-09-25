@@ -23,10 +23,12 @@ public class InProcessingRequestQuery  {
                 "\t[tbl_OfferingInRequestOffering].[NewOfferingCode] AS [NewOfferingCode],\n" +
                 "\t[tbl_OfferingInRequestOffering].[NewDescription] AS [NewDescription],\n" +
                 "\t(SELECT TOP 1\n" +
-                "\t\t'-' AS [Exist]\n" +
+                "\t\t'-' AS [Exist],\n" +
+                "\t [tbl_OfferingInRequestOffering].SetColorOffering\n" +
                 "\tFROM\n" +
                 "\t\t[dbo].[tbl_OfferingAnalogue] AS [tbl_OfferingAnalogue]\n" +
-                "\tWHERE([tbl_OfferingAnalogue].[OfferingID] = [tbl_OfferingInRequestOffering].[OfferingID])) AS [IsRoot]\n" +
+                "\tWHERE([tbl_OfferingAnalogue].[OfferingID] = [tbl_OfferingInRequestOffering].[OfferingID])) AS [IsRoot],\n" +
+                "\t [tbl_OfferingInRequestOffering].[ColorByOfferingSale] AS [ColorByOfferingSale] \n" +
                 "FROM\n" +
                 "\t[dbo].[tbl_OfferingInRequestOffering] AS [tbl_OfferingInRequestOffering]\n" +
                 "LEFT OUTER JOIN\n" +

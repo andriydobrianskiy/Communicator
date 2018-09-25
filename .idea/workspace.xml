@@ -9,48 +9,275 @@
     </artifacts-to-build>
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/ServerController.java" line="41" />
     <bookmark url="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulfilled.java" line="42" mnemonic="0" />
-    <bookmark url="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/page/MainPageController.java" line="164" />
+    <bookmark url="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/page/MainPageController.java" line="158" />
     <bookmark url="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/NotesInProcessing/NotesInProcessingController.java" description="public void showWindow() {" line="124" />
-    <bookmark url="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java" line="300" />
+    <bookmark url="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java" line="326" />
+    <bookmark url="file://$PROJECT_DIR$/mainPage/src/main/resources/views/AllView.fxml" line="98" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="лорлоролрл">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/parsers/UpdateHelper.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/images/Installing Updates-32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/Main$1.class" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/Model/MissionsService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/updaterText/textReadUpdater" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/updaterText/textReadWhatsNew" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatDOM/screenshots/Animation.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatDOM/screenshots/Animation3.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatDOM/screenshots/voicemessage.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatDOM/server/src/main/java/com/exception/DuplicateUsernameException.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatDOM/server/src/main/java/com/messages/Message.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatDOM/server/src/main/java/com/messages/MessageType.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatDOM/server/src/main/java/com/messages/Status.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatDOM/server/src/main/java/com/messages/User.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatDOM/server/src/main/java/com/server/Server.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/ChatClient.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/ChatServer.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/ClientController.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/ClientGUI.fxml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/ColumnMessageDAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/DerbyColumnMessageDAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/Message.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/MessageInRequest/DerbyMessageInRequestDAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/MessageInRequest/MessageInRequest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/MessageInRequest/MessageInRequestDAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/MessageInRequest/MessageInRequestQuery.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/MessageInRequest/MessageType.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/MessageInterface.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/MessageProperties.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/QueryClientChat.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/Server.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/ServerController.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/Users.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/model/ChatMessage.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/view/css/BasicApplication.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/login/FtpUpdate.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/login/Updater.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/ActionTool.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/InfoTool.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/PropertiesDb.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateInterface.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequestDAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/OfferingsGroup.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/Querys/AccountDAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/Querys/DAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/Querys/Queries.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/Querys/Query.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/RequestQuery.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/StateCreate/DeliveryCity.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/StateCreate/GroupPeople.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/StateCreate/StateCreate.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/StateCreate/Status.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/WindowOperation.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/searchCounterpart/Counterpart.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/searchCounterpart/QuerySearch.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/searchCounterpart/SearchCounterpart.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/updater/XR3PlayerUpdater.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatDOM/server/src/main/java/com/exception/DuplicateUsernameException.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatDOM/server/src/main/java/com/messages/Message.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatDOM/server/src/main/java/com/messages/MessageType.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatDOM/server/src/main/java/com/messages/Status.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatDOM/server/src/main/java/com/messages/User.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatDOM/server/src/main/java/com/server/Server$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatDOM/server/src/main/java/com/server/Server$Handler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatDOM/server/src/main/java/com/server/Server.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/ChatClient.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/ChatServer$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/ChatServer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/ClientController$ListenFromServer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/ClientController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/ColumnMessage.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/ColumnMessageDAO.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/DerbyColumnMessageDAO.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/Message.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/MessageInRequest/DerbyMessageInRequestDAO.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/MessageInRequest/MessageInRequest.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/MessageInRequest/MessageInRequestDAO.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/MessageInRequest/MessageInRequestQuery.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/MessageInRequest/MessageType.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/MessageInterface.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/MessageProperties.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/QueryClientChat.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/Server$ClientThread.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/Server.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/ServerController$ServerRunning.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/ServerController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/controller/Users.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/ChatTwoo/model/ChatMessage.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/login/FtpUpdate.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/login/Updater.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/ActionTool$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/ActionTool$FileType.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/ActionTool.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/Downloader.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/InfoTool.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/PropertiesDb.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/UpdateScreen.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/UpdateWindow.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/Updater$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/Updater.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/objects/Action.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/objects/Instruction.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/objects/Modes.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/objects/Release.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/parsers/DownloaderXMLParser.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/parsers/DownloaderXMLParserHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/parsers/ReleaseXMLParser.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/parsers/ReleaseXMLParserHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/parsers/UpdateHelper$UpdateTask.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/parsers/UpdateHelper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/parsers/UpdateXMLParser.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/parsers/UpdateXMLParserHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$4$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$5.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController$2.class" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController$3$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/images/Installing Updates-32.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage.exe" afterPath="$PROJECT_DIR$/mainPage.exe" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mainPage/target/classes/updater/XR3PlayerUpdater.jar" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/ChatTwoo/controller/ColumnMessage.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/client/ColumnMessage.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Downloader.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/Downloader.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateScreen.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/UpdateScreen.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/UpdateWindow.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Updater.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/Updater.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/objects/Action.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/Model/Action.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/objects/Instruction.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/Model/Instruction.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/objects/Modes.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/Model/Modes.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/objects/Release.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/Model/Release.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/parsers/DownloaderXMLParser.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/Model/DownloaderXMLParser.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/parsers/DownloaderXMLParserHandler.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/Model/DownloaderXMLParserHandler.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/parsers/ReleaseXMLParser.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/Model/ReleaseXMLParser.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/parsers/ReleaseXMLParserHandler.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/Model/ReleaseXMLParserHandler.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/parsers/UpdateHelper.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/UpdateHelper.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/parsers/UpdateXMLParser.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/Model/UpdateXMLParser.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/parsers/UpdateXMLParserHandler.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/Model/UpdateXMLParserHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/Utils/GridComp.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/Utils/GridComp.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/Utils/InProcessingIntarface.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/Utils/InProcessingIntarface.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/client/chatwindow/ChatController$1.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/client/chatwindow/ChatController$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/client/chatwindow/ChatController$2.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/client/chatwindow/ChatController$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/client/chatwindow/ChatController$3.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/client/chatwindow/ChatController$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/client/chatwindow/ChatController$4.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/client/chatwindow/ChatController$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/client/chatwindow/ChatController$5.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/client/chatwindow/ChatController$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/client/chatwindow/ChatController.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/client/chatwindow/ChatController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/client/chatwindow/Listener$1.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/client/chatwindow/Listener$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/client/chatwindow/Listener.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/client/chatwindow/Listener.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/connectDatabase/DBConnection.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/connectDatabase/DBConnection.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/login/Credentials.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/login/Credentials.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/login/CustomLauncherUI.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/login/CustomLauncherUI.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/login/LoginControl.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/login/LoginControl.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/Main.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/UpdateWindow.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainLogin/UpdateWindow.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController$1.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController$2.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController$3.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/All/All.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/All/All.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/All/AllController$1.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/All/AllController$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/All/AllController$2.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/All/AllController$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/All/AllController$3.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/All/AllController$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/All/AllController.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/All/AllController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/All/AllDAO.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/All/AllDAO.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/All/AllQuery.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/All/AllQuery.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/All/DerbyAllDAO.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/All/DerbyAllDAO.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/ArchiveFiles/ArchiveFiles.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/ArchiveFiles/ArchiveFiles.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/ArchiveFiles/ArchiveFilesController$1.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/ArchiveFiles/ArchiveFilesController$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/ArchiveFiles/ArchiveFilesController$2.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/ArchiveFiles/ArchiveFilesController$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/ArchiveFiles/ArchiveFilesController$3.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/ArchiveFiles/ArchiveFilesController$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/ArchiveFiles/ArchiveFilesController.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/ArchiveFiles/ArchiveFilesController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/ArchiveFiles/ArchiveFilesInterface.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/ArchiveFiles/ArchiveFilesInterface.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/ArchiveFiles/ArchiveFilesQuery.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/ArchiveFiles/ArchiveFilesQuery.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessing.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessing.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$1$1.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$1$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$1.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$2.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$3$1.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$3$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$3.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$4.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingQuery.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingQuery.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequest.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequest.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequestController.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequestController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequestQuery.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequestQuery.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/UpdateOfferingGroupName/UpdateOfferingGroupNameController.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/UpdateOfferingGroupName/UpdateOfferingGroupNameController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/UpdateOfferingGroupNameNotPrice/UpdateOfferingGroupNameNotPriceController.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InProcessing/UpdateOfferingGroupNameNotPrice/UpdateOfferingGroupNameNotPriceController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InTract/InTractController$1.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InTract/InTractController$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InTract/InTractController$2$1.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InTract/InTractController$2$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InTract/InTractController$2.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InTract/InTractController$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InTract/InTractController$3$1.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InTract/InTractController$3$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InTract/InTractController$3.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InTract/InTractController$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InTract/InTractController$4.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InTract/InTractController$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InTract/InTractController.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/InTract/InTractController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulfilled.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulfilled.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledInterface.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledInterface.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledQuery.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/NotFulledQuery.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/ProductAdd/ProductAddController.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/ProductAdd/ProductAddController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/ProductAdd/ProductAddNewController.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/NotFulled/ProductAdd/ProductAddNewController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/WorkArea$1.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/WorkArea$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/WorkArea$PreLoader.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/WorkArea$PreLoader.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/WorkArea$RefreshTask.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/WorkArea$RefreshTask.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/WorkArea.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/WorkArea.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/createRequest/CreateRequest.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/createRequest/CreateRequest.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/createRequest/CreateRequestDAO.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/createRequest/CreateRequestDAO.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/page/MainPageController.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/page/MainPageController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/tableutils/CustomTableView.class" afterPath="$PROJECT_DIR$/mainPage/target/classes/com/mainPage/tableutils/CustomTableView.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/mainPage/mainPage.exe" afterPath="$PROJECT_DIR$/out/artifacts/mainPage/mainPage.exe" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/mainPage/mainPage.jar" afterPath="$PROJECT_DIR$/out/artifacts/mainPage/mainPage.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/Utils/GridComp.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/Utils/GridComp.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/Utils/InProcessingIntarface.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/Utils/InProcessingIntarface.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/Listener.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/Listener.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/connectDatabase/DBConnection.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/connectDatabase/DBConnection.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/login/Credentials.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/login/Credentials.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/login/CustomLauncherUI.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/login/CustomLauncherUI.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/login/LoginControl.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/login/LoginControl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Main.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Manager/latest.xml" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Manager/latest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/VZ/latest.xml" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/VZ/latest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/All.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/All.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/AllController.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/AllController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/AllDAO.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/AllDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/AllQuery.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/AllQuery.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/DerbyAllDAO.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/DerbyAllDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFiles.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFiles.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFilesController.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFilesController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFilesInterface.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFilesInterface.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFilesQuery.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFilesQuery.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessing.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessing.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingQuery.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingQuery.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequest.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequestController.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequestController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequestQuery.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequestQuery.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupName/UpdateOfferingGroupNameController.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupName/UpdateOfferingGroupNameController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupNameNotPrice/UpdateOfferingGroupNameNotPriceController.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupNameNotPrice/UpdateOfferingGroupNameNotPriceController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/InTractController.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/InTractController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulfilled.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulfilled.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledInterface.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledInterface.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledQuery.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledQuery.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/ProductAdd/ProductAddController.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/ProductAdd/ProductAddController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/ProductAdd/ProductAddNewController.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/ProductAdd/ProductAddNewController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/ProductAdd/ProductSearch/ProductSearch.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/ProductAdd/ProductSearch/ProductSearch.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/WorkArea.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/WorkArea.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/page/MainPageController.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/page/MainPageController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/styles/application.css" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/styles/application.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/AllRequestView.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/AllRequestView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/tableutils/CustomTableView.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/tableutils/CustomTableView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/java/com/messages/Message.java" afterPath="$PROJECT_DIR$/mainPage/src/main/java/com/messages/Message.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/AllView.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/AllView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/ArchiveFilesView.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/ArchiveFilesView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/CreateView.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/CreateView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/InProcessingRequestView.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/InProcessingRequestView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/InProcessingView.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/InProcessingView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/InTractView.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/InTractView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/Login.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/Login.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/MainPage.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/MainPage.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/StructureView.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/StructureView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/NotFulledView.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/NotFulledView.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateScreen.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateScreen.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateWindow.fxml" afterPath="$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateWindow.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/styles/application.css" afterPath="$PROJECT_DIR$/mainPage/target/classes/styles/application.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/AllRequestView.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/AllRequestView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/AllView.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/AllView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/ArchiveFilesView.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/ArchiveFilesView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/CreateView.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/CreateView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/InProcessingRequestView.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/InProcessingRequestView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/InProcessingView.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/InProcessingView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/InTractView.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/InTractView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/Login.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/Login.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/MainPage.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/MainPage.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/StructureView.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/StructureView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/NotFulledView.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/NotFulledView.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/UpdateScreen.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/UpdateScreen.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/target/classes/views/UpdateWindow.fxml" afterPath="$PROJECT_DIR$/mainPage/target/classes/views/UpdateWindow.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/mainPage/mainPage.jnlp" afterPath="$PROJECT_DIR$/out/artifacts/mainPage/mainPage.jnlp" />
@@ -137,12 +364,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="WorkArea.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/WorkArea.java">
+      <file leaf-file-name="InProcessingRequestController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequestController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="350" column="0" lean-forward="false" selection-start-line="350" selection-start-column="0" selection-end-line="350" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="1037">
+              <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+              <folding>
+                <element signature="e#6601#7418#0" expanded="true" />
+                <element signature="e#7417#7418#0" expanded="true" />
+                <marker date="1537782767449" expanded="true" signature="3824:4163" ph="Update tbl_O... " />
+                <marker date="1537782767449" expanded="true" signature="5303:5642" ph="Update tbl_O... " />
+                <marker date="1537782767449" expanded="true" signature="9763:12067" ph="SELECT [tbl_... " />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -150,8 +383,18 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="5" column="38" lean-forward="true" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+            <state relative-caret-position="374">
+              <caret line="31" column="25" lean-forward="false" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WorkArea.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/WorkArea.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="149">
+              <caret line="154" column="39" lean-forward="false" selection-start-line="154" selection-start-column="36" selection-end-line="154" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -160,43 +403,14 @@
       <file leaf-file-name="NotFulledController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="199" column="42" lean-forward="false" selection-start-line="199" selection-start-column="42" selection-end-line="199" selection-end-column="42" />
-              <folding>
-                <marker date="1534496911164" expanded="true" signature="19425:19806" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TooltipTableRow.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/Utils/TooltipTableRow.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="14" column="37" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="37" />
+            <state relative-caret-position="1442">
+              <caret line="950" column="0" lean-forward="false" selection-start-line="950" selection-start-column="0" selection-end-line="950" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#29201#29202#0" expanded="true" />
+                <element signature="e#29230#29231#0" expanded="true" />
+                <marker date="1537866849189" expanded="true" signature="20244:20625" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainNotFulledQuery.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/MainNotFulledQuery.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NotFulledQuery.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledQuery.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2919">
-              <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -204,48 +418,47 @@
       <file leaf-file-name="LoginControl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/login/LoginControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RequestQuery.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/RequestQuery.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CreateRequest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-10766">
-              <caret line="33" column="13" lean-forward="false" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+            <state relative-caret-position="-136">
+              <caret line="60" column="1" lean-forward="false" selection-start-line="60" selection-start-column="1" selection-end-line="60" selection-end-column="1" />
               <folding>
-                <marker date="1534237619285" expanded="true" signature="6802:7072" ph="SELECT \n\t[... " />
-                <marker date="1534237619285" expanded="true" signature="7825:8094" ph="SELECT\n\t[t... " />
-                <marker date="1534237619285" expanded="true" signature="8640:9238" ph="SELECT\n [tb... " />
-                <marker date="1534237619285" expanded="true" signature="9986:10259" ph="SELECT\n\t[t... " />
-                <marker date="1534237619285" expanded="true" signature="11128:11251" ph="select top 3... tbl_RequestOffering" />
-                <marker date="1534237619285" expanded="true" signature="12476:12714" ph="SELECT [tbl_... " />
-                <marker date="1534237619285" expanded="true" signature="13459:13697" ph="SELECT [tbl_... " />
-                <marker date="1534237619285" expanded="true" signature="21983:22289" ph="INSERT INTO " />
+                <element signature="e#1977#1978#0" expanded="true" />
+                <element signature="e#2007#2008#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Query.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/Querys/Query.java">
+      <file leaf-file-name="CustomTableView.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/tableutils/CustomTableView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="23" column="66" lean-forward="false" selection-start-line="23" selection-start-column="66" selection-end-line="23" selection-end-column="66" />
+            <state relative-caret-position="177">
+              <caret line="30" column="12" lean-forward="false" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InProcessing.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessing.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="129">
+              <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InProcessingController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="339">
+              <caret line="1145" column="0" lean-forward="false" selection-start-line="1145" selection-start-column="0" selection-end-line="1145" selection-end-column="0" />
+              <folding>
+                <marker date="1537860575197" expanded="true" signature="36318:36699" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
+                <marker date="1537860575197" expanded="true" signature="37430:37649" ph="INSERT INTO " />
+                <marker date="1537860575197" expanded="true" signature="50990:51200" ph="UPDATE tbl_R... " />
+                <marker date="1537860575197" expanded="true" signature="51665:51875" ph="UPDATE tbl_R... " />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -257,46 +470,47 @@
       <list>
         <option value="Arquillian JUnit Test Class" />
         <option value="Tag Library Descriptor" />
-        <option value="FxmlFile" />
         <option value="CSS File" />
         <option value="Interface" />
         <option value="Enum" />
+        <option value="HTML File" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Назначити групу товарів</find>
-      <find>btn_UpdateStatus</find>
-      <find>btn_ConfirmRequest</find>
-      <find>initi</find>
-      <find>btnUpdateOfferingGroupName</find>
-      <find>Initial</find>
-      <find>style</find>
-      <find>btn_Ok</find>
-      <find>refresh</find>
-      <find>actionNotPrice</find>
-      <find>Замовити</find>
-      <find>Update</find>
-      <find>refr</find>
-      <find>ReleaseXMLParser</find>
-      <find>UpdateScreen</find>
-      <find>ts_</find>
-      <find>Updater</find>
-      <find>Waiting mainPage Jar to be created...</find>
-      <find>Waitin</find>
-      <find>Automatic Update Download</find>
-      <find>closeWindow</find>
-      <find>download</find>
-      <find>Initia</find>
+      <find>newNoti</find>
       <find>initia</find>
+      <find>textReadU</find>
+      <find>btn_UpdateStatus</find>
+      <find>textReadUpdater</find>
+      <find>actionPageAdministation</find>
+      <find>con</find>
+      <find>StatusRequest</find>
+      <find>init</find>
+      <find>Togg</find>
+      <find>que</find>
+      <find>Button</find>
+      <find>crea</find>
+      <find>tableView.setRowFactory</find>
+      <find>реєстр</find>
+      <find>ukraine</find>
+      <find>load</find>
+      <find>CustomTa</find>
+      <find>refr</find>
+      <find>loadDataFromDatabase</find>
+      <find>CustomT</find>
+      <find>refreshda</find>
+      <find>refreshdata</find>
+      <find>;</find>
+      <find>initiali</find>
+      <find>loaddata</find>
       <find>TS_</find>
-      <find>Ви використовуєте</find>
-      <find>Workarea</find>
-      <find>button</find>
-      <find>initial</find>
-      <find>Downloader</find>
+      <find>InprocessingR</find>
+      <find>loadda</find>
+      <find>data</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -309,6 +523,7 @@
       <dir>C:\Users\dobryansky.a\Desktop\новий комунікатор11 – копія\CommunicatorOrigin\mainPage\.idea</dir>
       <dir>C:\Users\dobryansky.a\Documents\Github\Communicator\mainPage\target</dir>
       <dir>C:\Program Files\Java\jdk1.8.0_152\jre\lib\ext\jfxrt.jar!\javafx\event</dir>
+      <dir>C:\Users\dobryansky.a\Documents\Github\Communicator\mainPage\src\main\java\com\mainPage\createRequest</dir>
     </dirStrings>
   </component>
   <component name="FindManager">
@@ -375,55 +590,55 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/ChatView.fxml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/files.xml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/update.xml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/latest.xml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/InTractView.fxml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/NotFulledView.fxml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/ArchiveFilesView.fxml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/AllView.fxml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/VZ/files.xml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/NotesInProcessing/NotesInProcessingController.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/NotesInProcessing/NotesInProcessingController.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/NotesInProcessing/NotesInProcessingController.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/NotesInProcessing/NotesInProcessing.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/NotesInProcessing/NotesInTractController.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/NotesInProcessing/NotesInProcessingController.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessing.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/InTract.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFilesController.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFiles.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/All.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/AllController.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/InTractController.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/CreateView.fxml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupName/UpdateOfferingGroupNameController.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupNameNotPrice/UpdateOfferingGroupName.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupNameNotPrice/UpdateOfferingGroupNameNotPrice.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateOfferingGroupNameNotPrice.fxml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupNameNotPrice/UpdateOfferingGroupNameNotPriceController.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/InProcessingView.fxml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateScreen.fxml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/MainPage.fxml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/StructureView.fxml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/resources/styles/application.css" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/page/MainPageController.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/VZ/UpdateHelper.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateHelper.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/objects/Release.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/parsers/Modes.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Main.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/parsers/UpdateHelper.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/connectDatabase/DBConnection.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateWindow.fxml" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/AllRequestView.fxml" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFilesInterface.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFiles.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFilesQuery.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/ArchiveFilesView.fxml" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/NotFulledView.fxml" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/AllDAO.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/DerbyAllDAO.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/All.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/AllView.fxml" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/AllQuery.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/ProductAdd/ProductAddNewController.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/ProductAdd/ProductAddController.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ListinerTract.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/CreateMainView.fxml" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequests.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/CreateView.fxml" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/CreateRequest/CreateMainController.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/login/Credentials.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/InTractView.fxml" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/messages/Message.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/Listener.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/VZ/latest.xml" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/resources/updaterText/textReadUpdater" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/resources/updaterText/textReadWhatsNew" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/UpdateWindow.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Manager/latest.xml" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/connectDatabase/DBConnection.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/InTractController.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFilesController.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/AllController.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/InProcessingView.fxml" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/UpdateColorOffering.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/MainPage.fxml" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/page/MainPageController.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequestDAO.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequestQuery.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequest.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/UpdateHelper.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/resources/views/InProcessingRequestView.fxml" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/Utils/GridComp.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequestController.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Main.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessing.java" />
+        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/tableutils/CustomTableView.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/WorkArea.java" />
-        <option value="$PROJECT_DIR$/mainPage/src/main/java/com/Utils/TooltipTableRow.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java" />
         <option value="$PROJECT_DIR$/mainPage/src/main/java/com/login/LoginControl.java" />
       </list>
@@ -465,8 +680,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
+    <option name="x" value="1911" />
+    <option name="y" value="-17" />
     <option name="width" value="1938" />
     <option name="height" value="1048" />
   </component>
@@ -520,19 +735,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="CommunicatorOrigin" type="58d84e3e:PackageViewProjectNode" />
-              <item name="mainPage" type="616d4139:PackageViewModuleNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="Scratches" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -573,6 +776,25 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="chatwindow" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="login" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -591,7 +813,47 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="mainLogin" type="462c0819:PsiDirectoryNode" />
+              <item name="Manager" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
               <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="mainLogin" type="462c0819:PsiDirectoryNode" />
+              <item name="updateProgram" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="All" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="ArchiveFiles" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
@@ -611,8 +873,7 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="mainPage" type="462c0819:PsiDirectoryNode" />
-              <item name="createRequest" type="462c0819:PsiDirectoryNode" />
-              <item name="Querys" type="462c0819:PsiDirectoryNode" />
+              <item name="InProcessing" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
@@ -631,7 +892,38 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="NotFulled" type="462c0819:PsiDirectoryNode" />
+              <item name="OfferingRequest" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="page" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="Utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="Utils" type="462c0819:PsiDirectoryNode" />
+              <item name="Services" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
@@ -647,6 +939,14 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="sounds" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mainPage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="updaterText" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Communicator" type="b2602c69:ProjectViewProjectNode" />
@@ -704,6 +1004,18 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="CommunicatorOrigin" type="58d84e3e:PackageViewProjectNode" />
+              <item name="mainPage" type="616d4139:PackageViewModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -718,8 +1030,8 @@
     <property name="dynamic.classpath" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/CMSclone/gitcsm" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/gitRomanenko/gitcsm/CSM" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.42463234" />
     <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
@@ -733,6 +1045,7 @@
     <property name="AnalyzeApkAction.lastApkPath" value="$PROJECT_DIR$" />
     <property name="ToolWindowRun.ShowToolbar" value="false" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -752,11 +1065,11 @@
       <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.mainLogin.updateProgram.Model" />
       <recent name="com" />
       <recent name="sample.ChatFive" />
       <recent name="sample.mainPage.NotFulled.ProductAdd.ProductSearch" />
       <recent name="sample.mainPage.Sructure" />
-      <recent name="sample.login" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\dobryansky.a\Documents\Github\Communicator\mainPage\src\main\java\com\mainPage\InProcessing\UpdateOfferingGroupNameNotPrice" />
@@ -766,11 +1079,11 @@
       <recent name="C:\Users\dobryansky.a\Documents\Github\Communicator\mainPage\src\main\java\com\mainPage\InTract" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\dobryansky.a\Documents\Github\Communicator\mainPage\src\main\resources\UpdaterText" />
       <recent name="C:\Users\dobryansky.a\Documents\Github\Communicator\mainPage\src\main\java\com\mainLogin\Manager" />
       <recent name="C:\Users\dobryansky.a\Documents\Github\Communicator\mainPage\target\classes\updater" />
       <recent name="C:\Users\dobryansky.a\Documents\Github\Communicator\mainPage\src\main\resources\app" />
       <recent name="C:\Users\dobryansky.a\Desktop\новий комунікатор11 – копія\CommunicatorOrigin\mainPage\src\main\resources\views" />
-      <recent name="C:\Users\dobryansky.a\Desktop\новий комунікатор11 – копія\CommunicatorOrigin\mainPage\src\main\java\com\mainLogin" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1364,7 +1677,16 @@
       <workItem from="1531986913883" duration="12424000" />
       <workItem from="1532327420210" duration="22178000" />
       <workItem from="1532764038042" duration="14355000" />
-      <workItem from="1533971233792" duration="88814000" />
+      <workItem from="1533971233792" duration="93253000" />
+      <workItem from="1534746720916" duration="20842000" />
+      <workItem from="1534944499070" duration="17123000" />
+      <workItem from="1535616131085" duration="54026000" />
+      <workItem from="1536236160580" duration="107234000" />
+      <workItem from="1536674873310" duration="44022000" />
+      <workItem from="1536738126717" duration="51437000" />
+      <workItem from="1537164326500" duration="18391000" />
+      <workItem from="1537429455225" duration="8921000" />
+      <workItem from="1537595562455" duration="36833000" />
     </task>
     <task id="LOCAL-00001" summary="лорлоролрл">
       <created>1503066175447</created>
@@ -1398,35 +1720,35 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3717239000" />
+    <option name="totallyTimeSpent" value="4080507000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1911" y="-17" width="1938" height="1048" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17444444" sideWeight="0.37432867" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2867884" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2867804" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973147" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35777777" sideWeight="0.48802084" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35611907" sideWeight="0.48802084" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15333334" sideWeight="0.49375" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14994487" sideWeight="0.49375" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25248072" sideWeight="0.6256713" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25111112" sideWeight="0.6256713" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33444443" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23469388" sideWeight="0.6703755" order="3" side_tool="false" content_ui="combo" x="-26" y="133" width="433" height="576" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2553305" sideWeight="0.6703755" order="3" side_tool="false" content_ui="combo" x="-26" y="133" width="433" height="576" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3311111" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33044422" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hibernate Tools" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1539,7 +1861,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java</url>
-          <line>472</line>
+          <line>479</line>
           <properties />
           <option name="timeStamp" value="437" />
         </line-breakpoint>
@@ -2330,18 +2652,6 @@
           <option name="timeStamp" value="695" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java</url>
-          <line>1090</line>
-          <properties />
-          <option name="timeStamp" value="768" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java</url>
-          <line>1078</line>
-          <properties />
-          <option name="timeStamp" value="769" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupName/UpdateOfferingGroupNameController.java</url>
           <line>53</line>
           <properties />
@@ -2391,7 +2701,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>250</line>
+          <line>274</line>
           <properties />
           <option name="timeStamp" value="848" />
         </line-breakpoint>
@@ -2432,56 +2742,50 @@
           <option name="timeStamp" value="871" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Main.java</url>
-          <line>16</line>
-          <properties />
-          <option name="timeStamp" value="880" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/Listener.java</url>
-          <line>164</line>
+          <line>160</line>
           <properties />
           <option name="timeStamp" value="908" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>511</line>
+          <line>536</line>
           <properties />
           <option name="timeStamp" value="946" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>513</line>
+          <line>538</line>
           <properties />
           <option name="timeStamp" value="947" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>510</line>
+          <line>535</line>
           <properties />
           <option name="timeStamp" value="948" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>518</line>
+          <line>543</line>
           <properties />
           <option name="timeStamp" value="951" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>514</line>
+          <line>539</line>
           <properties />
           <option name="timeStamp" value="952" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>521</line>
+          <line>546</line>
           <properties />
           <option name="timeStamp" value="953" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java</url>
-          <line>742</line>
+          <line>898</line>
           <properties />
           <option name="timeStamp" value="969" />
         </line-breakpoint>
@@ -2511,13 +2815,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java</url>
-          <line>517</line>
+          <line>524</line>
           <properties />
           <option name="timeStamp" value="976" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>639</line>
+          <line>666</line>
           <properties />
           <option name="timeStamp" value="1005" />
         </line-breakpoint>
@@ -2529,67 +2833,67 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java</url>
-          <line>493</line>
+          <line>500</line>
           <properties />
           <option name="timeStamp" value="1013" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java</url>
-          <line>494</line>
+          <line>501</line>
           <properties />
           <option name="timeStamp" value="1014" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java</url>
-          <line>492</line>
+          <line>499</line>
           <properties />
           <option name="timeStamp" value="1015" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java</url>
-          <line>515</line>
+          <line>522</line>
           <properties />
           <option name="timeStamp" value="1016" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java</url>
-          <line>487</line>
+          <line>494</line>
           <properties />
           <option name="timeStamp" value="1017" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java</url>
-          <line>486</line>
+          <line>493</line>
           <properties />
           <option name="timeStamp" value="1018" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java</url>
-          <line>488</line>
+          <line>495</line>
           <properties />
           <option name="timeStamp" value="1019" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java</url>
-          <line>490</line>
+          <line>497</line>
           <properties />
           <option name="timeStamp" value="1020" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java</url>
-          <line>495</line>
+          <line>502</line>
           <properties />
           <option name="timeStamp" value="1021" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java</url>
-          <line>485</line>
+          <line>492</line>
           <properties />
           <option name="timeStamp" value="1022" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java</url>
-          <line>1241</line>
+          <line>1211</line>
           <properties />
           <option name="timeStamp" value="1039" />
         </line-breakpoint>
@@ -2607,7 +2911,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>339</line>
+          <line>364</line>
           <properties />
           <option name="timeStamp" value="1080" />
         </line-breakpoint>
@@ -2619,51 +2923,15 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java</url>
-          <line>477</line>
+          <line>479</line>
           <properties />
           <option name="timeStamp" value="1111" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java</url>
-          <line>1010</line>
+          <line>1012</line>
           <properties />
           <option name="timeStamp" value="1113" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java</url>
-          <line>991</line>
-          <properties />
-          <option name="timeStamp" value="1116" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java</url>
-          <line>990</line>
-          <properties />
-          <option name="timeStamp" value="1117" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java</url>
-          <line>994</line>
-          <properties />
-          <option name="timeStamp" value="1118" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java</url>
-          <line>997</line>
-          <properties />
-          <option name="timeStamp" value="1119" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java</url>
-          <line>984</line>
-          <properties />
-          <option name="timeStamp" value="1165" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java</url>
-          <line>383</line>
-          <properties />
-          <option name="timeStamp" value="1187" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/NotesInProcessing/NotesInProcessingController.java</url>
@@ -2763,33 +3031,9 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFilesController.java</url>
-          <line>257</line>
+          <line>373</line>
           <properties />
           <option name="timeStamp" value="1213" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java</url>
-          <line>388</line>
-          <properties />
-          <option name="timeStamp" value="1214" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java</url>
-          <line>385</line>
-          <properties />
-          <option name="timeStamp" value="1215" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java</url>
-          <line>380</line>
-          <properties />
-          <option name="timeStamp" value="1217" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java</url>
-          <line>382</line>
-          <properties />
-          <option name="timeStamp" value="1219" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/NotesInProcessing/NotesInTractController.java</url>
@@ -2811,19 +3055,133 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java</url>
-          <line>553</line>
+          <line>560</line>
           <properties />
           <option name="timeStamp" value="1232" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java</url>
-          <line>983</line>
+          <line>1141</line>
           <properties />
           <option name="timeStamp" value="1236" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java</url>
+          <line>300</line>
+          <properties />
+          <option name="timeStamp" value="1273" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java</url>
+          <line>268</line>
+          <properties />
+          <option name="timeStamp" value="1275" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
+          <line>844</line>
+          <properties />
+          <option name="timeStamp" value="1277" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/CreateRequest/CreateMainController.java</url>
+          <line>33</line>
+          <properties />
+          <option name="timeStamp" value="1279" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/CreateRequest/CreateMainController.java</url>
+          <line>37</line>
+          <properties />
+          <option name="timeStamp" value="1280" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/CreateRequest/CreateMainController.java</url>
+          <line>36</line>
+          <properties />
+          <option name="timeStamp" value="1281" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/CreateRequest/CreateMainController.java</url>
+          <line>38</line>
+          <properties />
+          <option name="timeStamp" value="1282" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/CreateRequest/CreateMainController.java</url>
+          <line>39</line>
+          <properties />
+          <option name="timeStamp" value="1283" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/CreateRequest/CreateMainController.java</url>
+          <line>41</line>
+          <properties />
+          <option name="timeStamp" value="1284" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/CreateRequest/CreateMainController.java</url>
+          <line>54</line>
+          <properties />
+          <option name="timeStamp" value="1295" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
+          <line>879</line>
+          <properties />
+          <option name="timeStamp" value="1296" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/CreateRequest/CreateMainController.java</url>
+          <line>79</line>
+          <properties />
+          <option name="timeStamp" value="1298" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/CreateRequest/CreateMainController.java</url>
+          <line>78</line>
+          <properties />
+          <option name="timeStamp" value="1299" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequestQuery.java</url>
+          <line>33</line>
+          <properties />
+          <option name="timeStamp" value="1321" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/login/LoginControl.java</url>
+          <line>129</line>
+          <properties />
+          <option name="timeStamp" value="1343" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/login/LoginControl.java</url>
+          <line>130</line>
+          <properties />
+          <option name="timeStamp" value="1353" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
+          <line>950</line>
+          <properties />
+          <option name="timeStamp" value="1360" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/tableutils/CustomTableView.java</url>
+          <line>86</line>
+          <properties />
+          <option name="timeStamp" value="1361" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
+          <line>709</line>
+          <properties />
+          <option name="timeStamp" value="1363" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequestDAO.java</url>
-          <line>98</line>
+          <line>76</line>
           <properties class="com.mainPage.createRequest.CreateRequestDAO">
             <option name="EMULATED" value="true" />
           </properties>
@@ -2855,7 +3213,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/ProductAdd/ProductSearch/ProductSearch.java</url>
-          <line>124</line>
+          <line>120</line>
           <properties class="com.mainPage.NotFulled.ProductAdd.ProductSearch.ProductSearch">
             <option name="EMULATED" value="true" />
           </properties>
@@ -2911,7 +3269,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java</url>
-          <line>461</line>
+          <line>468</line>
           <properties class="com.mainPage.createRequest.CreateRequest" method="initAccountObject">
             <option name="EMULATED" value="true" />
           </properties>
@@ -2966,16 +3324,8 @@
           <option name="timeStamp" value="688" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java</url>
-          <line>1075</line>
-          <properties class="com.client.chatwindow.ChatController" method="newUserNotification">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="723" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/Listener.java</url>
-          <line>129</line>
+          <line>125</line>
           <properties class="com.client.chatwindow.Listener" method="send">
             <option name="EMULATED" value="true" />
           </properties>
@@ -2999,7 +3349,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupName/UpdateOfferingGroupNameController.java</url>
-          <line>110</line>
+          <line>111</line>
           <properties class="com.mainPage.InProcessing.UpdateOfferingGroupName.UpdateOfferingGroupNameController" method="initAccountObject">
             <option name="EMULATED" value="true" />
           </properties>
@@ -3031,7 +3381,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>712</line>
+          <line>739</line>
           <properties class="com.mainPage.NotFulled.NotFulledController" method="searchCode">
             <option name="EMULATED" value="true" />
           </properties>
@@ -3039,7 +3389,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>500</line>
+          <line>525</line>
           <properties class="com.mainPage.NotFulled.NotFulledController" method="findByProperty">
             <option name="EMULATED" value="true" />
           </properties>
@@ -3071,7 +3421,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
-          <line>637</line>
+          <line>664</line>
           <properties class="com.mainPage.NotFulled.NotFulledController" method="fillHboxFilter">
             <option name="EMULATED" value="true" />
           </properties>
@@ -3103,7 +3453,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/AllController.java</url>
-          <line>531</line>
+          <line>560</line>
           <properties class="com.mainPage.All.AllController" method="disableFilter">
             <option name="EMULATED" value="true" />
           </properties>
@@ -3119,19 +3469,11 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java</url>
-          <line>975</line>
+          <line>1131</line>
           <properties class="com.mainPage.InProcessing.InProcessingController" method="refreshData">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="1110" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java</url>
-          <line>988</line>
-          <properties class="com.client.chatwindow.ChatController" method="btnSendAttachAction">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="1115" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/NotesInProcessing/NotesInProcessingController.java</url>
@@ -3166,14 +3508,6 @@
           <option name="timeStamp" value="1209" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java</url>
-          <line>379</line>
-          <properties method="handle">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="1216" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/NotesInProcessing/NotesInTractController.java</url>
           <line>135</line>
           <properties class="com.mainPage.InTract.NotesInProcessing.NotesInTractController" method="showWindow">
@@ -3182,12 +3516,28 @@
           <option name="timeStamp" value="1224" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java</url>
-          <line>566</line>
-          <properties class="com.mainPage.InProcessing.InProcessingController" method="UpdateColorNotificationNotPrice">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/ChatController.java</url>
+          <line>1077</line>
+          <properties class="com.client.chatwindow.ChatController" method="newUserNotification">
             <option name="EMULATED" value="true" />
           </properties>
-          <option name="timeStamp" value="1234" />
+          <option name="timeStamp" value="1276" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/CreateRequest/CreateMainController.java</url>
+          <line>34</line>
+          <properties class="com.mainPage.NotFulled.CreateRequest.CreateMainController" method="actionCreateRequest">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="1278" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java</url>
+          <line>856</line>
+          <properties class="com.mainPage.NotFulled.NotFulledController" method="actionAddButton">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="1309" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-field">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/ChatFive/chatwindow/ChatController.java</url>
@@ -3269,12 +3619,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-field">
           <url>file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/WorkArea.java</url>
-          <line>51</line>
+          <line>56</line>
           <properties field="borderPane" class="com.mainPage.WorkArea" />
           <option name="timeStamp" value="1139" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="1237" />
+      <option name="time" value="1366" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -3317,6 +3667,71 @@
         <watch expression="data.get(1)" language="JAVA" />
         <watch expression="data.get(2)" language="JAVA" />
         <watch expression="Popovich" />
+        <watch expression="TextArea" />
+        <watch expression="value" />
+        <watch expression="chosenElement.setPricingDescription(value)" />
+        <watch expression="value" />
+        <watch expression="cmbMain3" />
+        <watch expression="group.getSelectedToggle()" />
+        <watch expression="group.getSelectedToggle()" />
+        <watch expression="group.getSelectedToggle().equals(btn_ButtonAll)" />
+        <watch expression="group.getSelectedToggle().equals(btn_ButtonAll" />
+        <watch expression="group.getSelectedToggle().equals(btn_ButtonAllPricing)" />
+        <watch expression="group.getSelectedToggle().equals(btn_ButtonAllPricing)" />
+        <watch expression="group.getSelectedToggle().equals(btn_ButtonAllPricing)" />
+        <watch expression="con.labelDelivery.setVisible(false)" />
+        <watch expression="con.DeliveryCity.getVisibleRowCount()" language="JAVA" />
+        <watch expression="con.pricingBoolean" />
+        <watch expression="pricingBoolean" />
+        <watch expression="pricingBoolean" />
+        <watch expression="item.getOfferingGroupID()" />
+        <watch expression="item.getCreatedByID()" />
+        <watch expression="User.getContactID()" />
+        <watch expression="User.getContactID()" />
+        <watch expression="item.getCreatedByID().equals(User.getContactID()" />
+        <watch expression="item.getOfferingGroupID().equals(User.getContactID()) || item.getCreatedByID().equals(User.getContactID())" />
+        <watch expression="item.getOfferingGroupID().equals(User.getContactID())" />
+        <watch expression="item.getOfferingGroupID().equals(User.getContactID()) || item.getCreatedByID().equals(User.getContactID())" />
+        <watch expression="item.getCreatedByID()" />
+        <watch expression="item.getCreatedByID().equals(User.getContactID())" />
+        <watch expression="item.getOfferingGroupID().equals(User.getContactID())" />
+        <watch expression="item.getOfferingGroupID()" />
+        <watch expression="item.getOfferingGroupID().equals(User.getContactID()) || item.getCreatedByID().equals(User.getContactID()" />
+        <watch expression="item.getOfferingGroupID()==User.getContactID()" language="JAVA" />
+        <watch expression="item.getCreatedByID() == User.getContactID()" language="JAVA" />
+        <watch expression="notNotification.isSelected()" />
+        <watch expression="notNotification.isSelected()" />
+        <watch expression="item.getSetColorOffering()" />
+        <watch expression="item.getSetColorOffering()" />
+        <watch expression="item.getSetColorOffering().equals(0)" />
+        <watch expression="item.getSetColorOffering().equals(null)" />
+        <watch expression="item.getSetColorOffering().equals(0)" />
+        <watch expression="item.getColorByOfferingSale()" />
+        <watch expression="item.getColorByOfferingSale().equals(0)" />
+        <watch expression="item.getColorByOfferingSale().equals(null)" />
+        <watch expression="item.getColorByOfferingSale()" />
+        <watch expression="item.getColorByOfferingSale()" />
+        <watch expression="item.getColorByOfferingSale()== 0" />
+        <watch expression="item.getColorByOfferingSale()== 0" />
+        <watch expression="item.getColorByOfferingSale()" />
+        <watch expression="setStyle(&quot;-fx-background-color: #FF0000;&quot;);" />
+        <watch expression="item.getColorByOfferingSale().equals(0)" />
+        <watch expression="item.getColorByOfferingSale().equals(0)" />
+        <watch expression="item.getColorByOfferingSale().equals(null)" />
+        <watch expression="item.getColorByOfferingSale().equals(1)" />
+        <watch expression="inProcessingRequest" />
+        <watch expression="inProcessingRequest.getID()" language="JAVA" />
+        <watch expression="inProcessingRequest" />
+        <watch expression="inProcessingRequest" />
+        <watch expression="stage.setScene(scene);" />
+        <watch expression="stage.setScene(scene)" />
+        <watch expression=" stage.toFront()" />
+        <watch expression="popUpStage.isIconified()" />
+        <watch expression="bleView.setSelectedRow();" />
+        <watch expression="bleView.setSelectedRow();" />
+        <watch expression="tableView.setSelectedRow();" />
+        <watch expression="selectedRow" />
+        <watch expression="data" />
       </configuration>
     </watches-manager>
   </component>
@@ -3325,46 +3740,78 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupName/UpdateOfferingGroupNameController.java">
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/client/chatwindow/Listener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="95" column="43" lean-forward="true" selection-start-line="95" selection-start-column="43" selection-end-line="95" selection-end-column="43" />
-          <folding>
-            <marker date="1534237251337" expanded="true" signature="2995:3458" ph="select ID AS... tbl_Contact" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/javafx-src.zip!/javafx/fxml/FXMLLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="2580" column="0" lean-forward="false" selection-start-line="2580" selection-start-column="0" selection-end-line="2580" selection-end-column="0" />
+        <state relative-caret-position="1105">
+          <caret line="76" column="33" lean-forward="false" selection-start-line="76" selection-start-column="33" selection-end-line="76" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/InTractController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="218" column="90" lean-forward="true" selection-start-line="218" selection-start-column="90" selection-end-line="218" selection-end-column="90" />
-          <folding />
+        <state relative-caret-position="1581">
+          <caret line="157" column="41" lean-forward="false" selection-start-line="157" selection-start-column="37" selection-end-line="157" selection-end-column="41" />
+          <folding>
+            <marker date="1536822706006" expanded="true" signature="16264:16637" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
+            <marker date="1536822706006" expanded="true" signature="31151:31361" ph="UPDATE tbl_R... " />
+            <marker date="1536822706006" expanded="true" signature="31867:32077" ph="UPDATE tbl_R... " />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/javafx-src.zip!/javafx/scene/control/TableView.java">
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/AllController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="935" column="0" lean-forward="false" selection-start-line="935" selection-start-column="0" selection-end-line="935" selection-end-column="0" />
+        <state relative-caret-position="646">
+          <caret line="89" column="36" lean-forward="false" selection-start-line="89" selection-start-column="36" selection-end-line="89" selection-end-column="36" />
           <folding>
-            <element signature="e#44414#44415#0" expanded="false" />
+            <marker date="1536822706129" expanded="true" signature="14930:15311" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFilesController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2754">
+          <caret line="212" column="54" lean-forward="false" selection-start-line="212" selection-start-column="50" selection-end-line="212" selection-end-column="54" />
+          <folding>
+            <marker date="1536822706048" expanded="true" signature="12762:13121" ph="UPDATE TOP(1... " />
+            <marker date="1536822706048" expanded="true" signature="15160:15541" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/images/NotFulle.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateWindow.fxml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="1105">
+          <caret line="110" column="14" lean-forward="false" selection-start-line="110" selection-start-column="14" selection-end-line="110" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/InTractRequestView.fxml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/InProcessingView.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1014">
-          <caret line="138" column="71" lean-forward="true" selection-start-line="138" selection-start-column="71" selection-end-line="138" selection-end-column="71" />
+        <state relative-caret-position="379">
+          <caret line="236" column="0" lean-forward="false" selection-start-line="236" selection-start-column="0" selection-end-line="236" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -3372,411 +3819,385 @@
         <state />
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/javafx-src.zip!/javafx/event/Event.java">
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/InTractQuery.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="650">
-          <caret line="197" column="0" lean-forward="false" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
+        <state relative-caret-position="68">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateScreen.fxml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateScreen.java">
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/InTractInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+        <state relative-caret-position="68">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/MainPage.fxml">
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/MainInTractQuery.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="16" column="62" lean-forward="false" selection-start-line="16" selection-start-column="62" selection-end-line="16" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/images/flask.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/TestFile.fxml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="-252">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/images/LoginPage.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/javafx-src.zip!/javafx/stage/Stage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="169" column="13" lean-forward="false" selection-start-line="169" selection-start-column="13" selection-end-line="169" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="1159" column="34" lean-forward="false" selection-start-line="1159" selection-start-column="7" selection-end-line="1159" selection-end-column="34" />
-          <folding>
-            <marker date="1534256555840" expanded="true" signature="29372:29753" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
-            <marker date="1534256555840" expanded="true" signature="30484:30703" ph="INSERT INTO " />
-            <marker date="1534256555840" expanded="true" signature="43891:44101" ph="UPDATE tbl_R... " />
-            <marker date="1534256555840" expanded="true" signature="44566:44776" ph="UPDATE tbl_R... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/Login.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-189">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/StructureView.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="40" column="16" lean-forward="true" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/src.zip!/java/lang/ProcessBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-845">
-          <caret line="177" column="19" lean-forward="false" selection-start-line="177" selection-start-column="19" selection-end-line="177" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/ActionTool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="228" column="28" lean-forward="false" selection-start-line="228" selection-start-column="28" selection-end-line="228" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/images/Installing_Updates-32.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/styles/application.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-399">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/page/MainPageController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="250" column="0" lean-forward="false" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/Utils/UsefulUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="142" column="23" lean-forward="false" selection-start-line="142" selection-start-column="23" selection-end-line="142" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/objects/Instruction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="52" column="31" lean-forward="false" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="40" column="15" lean-forward="false" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/VZ/update.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/VZ/latest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/objects/Modes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/parsers/Modes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Downloader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/objects/Release.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="20" column="11" lean-forward="false" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/Utils/AsyncTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/UpdateOfferingGroupNameNotPrice/UpdateOfferingGroupNameNotPriceController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="51" column="22" lean-forward="false" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1534250107135" expanded="true" signature="3035:3317" ph="select C.ID,... tbl_Contact" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Updater.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="22" column="3" lean-forward="true" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/UpdateWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1102">
-          <caret line="129" column="57" lean-forward="true" selection-start-line="129" selection-start-column="57" selection-end-line="129" selection-end-column="57" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/connectDatabase/DBConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="32" column="52" lean-forward="true" selection-start-line="32" selection-start-column="52" selection-end-line="32" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/VZ/files.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="56" lean-forward="false" selection-start-line="3" selection-start-column="56" selection-end-line="3" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/AllView.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="39" lean-forward="false" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/parsers/UpdateHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="35" column="26" lean-forward="false" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/login/update.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/UpdateWindow.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="41" column="25" lean-forward="true" selection-start-line="41" selection-start-column="25" selection-end-line="43" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/AllRequestView.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="25" column="19" lean-forward="true" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/WorkArea.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="350" column="0" lean-forward="false" selection-start-line="350" selection-start-column="0" selection-end-line="350" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="199" column="42" lean-forward="false" selection-start-line="199" selection-start-column="42" selection-end-line="199" selection-end-column="42" />
-          <folding>
-            <marker date="1534496911164" expanded="true" signature="19425:19806" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/Utils/TooltipTableRow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="14" column="37" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/MainNotFulledQuery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
+        <state relative-caret-position="34">
           <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledQuery.java">
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InTract/DictionaryPropertiesInTract.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2919">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state relative-caret-position="68">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/RequestQuery.java">
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/MainInProcessingQuery.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        <state relative-caret-position="34">
+          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10766">
-          <caret line="33" column="13" lean-forward="false" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+        <state relative-caret-position="632">
+          <caret line="393" column="16" lean-forward="false" selection-start-line="393" selection-start-column="16" selection-end-line="393" selection-end-column="16" />
           <folding>
-            <marker date="1534237619285" expanded="true" signature="6802:7072" ph="SELECT \n\t[... " />
-            <marker date="1534237619285" expanded="true" signature="7825:8094" ph="SELECT\n\t[t... " />
-            <marker date="1534237619285" expanded="true" signature="8640:9238" ph="SELECT\n [tb... " />
-            <marker date="1534237619285" expanded="true" signature="9986:10259" ph="SELECT\n\t[t... " />
-            <marker date="1534237619285" expanded="true" signature="11128:11251" ph="select top 3... tbl_RequestOffering" />
-            <marker date="1534237619285" expanded="true" signature="12476:12714" ph="SELECT [tbl_... " />
-            <marker date="1534237619285" expanded="true" signature="13459:13697" ph="SELECT [tbl_... " />
-            <marker date="1534237619285" expanded="true" signature="21983:22289" ph="INSERT INTO " />
+            <element signature="imports" expanded="false" />
+            <marker date="1536761031649" expanded="true" signature="7452:7722" ph="SELECT \n\t[... " />
+            <marker date="1536761031649" expanded="true" signature="8476:8745" ph="SELECT\n\t[t... " />
+            <marker date="1536761031649" expanded="true" signature="9291:9889" ph="SELECT\n [tb... " />
+            <marker date="1536761031649" expanded="true" signature="10637:10910" ph="SELECT\n\t[t... " />
+            <marker date="1536761031649" expanded="true" signature="11779:11902" ph="select top 3... tbl_RequestOffering" />
+            <marker date="1536761031649" expanded="true" signature="13125:13273" ph="SELECT [tbl_... " />
+            <marker date="1536761031649" expanded="true" signature="14016:14254" ph="SELECT [tbl_... " />
+            <marker date="1536761031649" expanded="true" signature="21606:21957" ph="INSERT INTO " />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/Querys/Query.java">
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="23" column="66" lean-forward="false" selection-start-line="23" selection-start-column="66" selection-end-line="23" selection-end-column="66" />
+        <state relative-caret-position="68">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/ArchiveFilesInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/ArchiveFiles/DictionaryPropertiesArchivesFiles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/AllDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/All/DictionaryPropertiesAll.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/MainPage.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1853">
+          <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/replay_pid17424.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingRequest/DerbyInProcessingRequestDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="33" column="63" lean-forward="false" selection-start-line="33" selection-start-column="63" selection-end-line="33" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequestDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/createRequest/CreateRequestDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="44" column="43" lean-forward="false" selection-start-line="44" selection-start-column="43" selection-end-line="44" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/connectDatabase/DBConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/page/MainPageController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="153" column="0" lean-forward="false" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequestQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="30" column="104" lean-forward="true" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="104" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/javafx-src.zip!/javafx/scene/control/TableRow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="226" column="0" lean-forward="false" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="31" column="21" lean-forward="false" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/javafx-src.zip!/javafx/scene/control/Button.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="186" column="0" lean-forward="false" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/javafx-src.zip!/javafx/scene/Node.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="8413" column="0" lean-forward="false" selection-start-line="8413" selection-start-column="0" selection-end-line="8413" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/javafx-src.zip!/javafx/event/Event.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="507">
+          <caret line="198" column="0" lean-forward="false" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/resources/views/InProcessingRequestView.fxml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="-8">
+          <caret line="8" column="32" lean-forward="false" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+          <folding>
+            <marker date="1537777743489" expanded="true" signature="2215:2461" ph="..." />
+            <marker date="1537777743489" expanded="true" signature="2215:2474" ph="..." />
+            <marker date="1537777743489" expanded="true" signature="2215:2488" ph="..." />
+            <marker date="1537777743489" expanded="true" signature="2216:2447" ph="..." />
+          </folding>
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/OfferingRequest/ExampleController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="95" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/CreateRequest/CreateMainController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-85">
+          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/Utils/GridDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/UpdateColorOffering.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="14" column="5" lean-forward="false" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/Utils/GridComp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="36" lean-forward="false" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/DerbyComp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/updateProgram/UpdateHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessing.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="1145" column="0" lean-forward="false" selection-start-line="1145" selection-start-column="0" selection-end-line="1145" selection-end-column="0" />
+          <folding>
+            <marker date="1537860575197" expanded="true" signature="36318:36699" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
+            <marker date="1537860575197" expanded="true" signature="37430:37649" ph="INSERT INTO " />
+            <marker date="1537860575197" expanded="true" signature="50990:51200" ph="UPDATE tbl_R... " />
+            <marker date="1537860575197" expanded="true" signature="51665:51875" ph="UPDATE tbl_R... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/javafx-src.zip!/javafx/fxml/FXMLLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="1768" column="0" lean-forward="false" selection-start-line="1768" selection-start-column="0" selection-end-line="1768" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/src.zip!/java/util/logging/Logger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="217" column="13" lean-forward="false" selection-start-line="217" selection-start-column="13" selection-end-line="217" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/src.zip!/java/util/function/Consumer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="48" column="9" lean-forward="false" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/tableutils/CustomTableView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="30" column="12" lean-forward="false" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/InProcessing/InProcessingRequest/InProcessingRequestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1037">
+          <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+          <folding>
+            <element signature="e#6601#7418#0" expanded="true" />
+            <element signature="e#7417#7418#0" expanded="true" />
+            <marker date="1537782767449" expanded="true" signature="3824:4163" ph="Update tbl_O... " />
+            <marker date="1537782767449" expanded="true" signature="5303:5642" ph="Update tbl_O... " />
+            <marker date="1537782767449" expanded="true" signature="9763:12067" ph="SELECT [tbl_... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/WorkArea.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="154" column="39" lean-forward="false" selection-start-line="154" selection-start-column="36" selection-end-line="154" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainPage/NotFulled/NotFulledController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1442">
+          <caret line="950" column="0" lean-forward="false" selection-start-line="950" selection-start-column="0" selection-end-line="950" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#29201#29202#0" expanded="true" />
+            <element signature="e#29230#29231#0" expanded="true" />
+            <marker date="1537866849189" expanded="true" signature="20244:20625" ph="SELECT Reque... tbl_OfferingInRequestOffering" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/mainLogin/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="38" lean-forward="true" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+        <state relative-caret-position="374">
+          <caret line="31" column="25" lean-forward="false" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mainPage/src/main/java/com/login/LoginControl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="-136">
+          <caret line="60" column="1" lean-forward="false" selection-start-line="60" selection-start-column="1" selection-end-line="60" selection-end-column="1" />
+          <folding>
+            <element signature="e#1977#1978#0" expanded="true" />
+            <element signature="e#2007#2008#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3787,10 +4208,10 @@
         <settings>
           <artifact-editor>
             <show-content>
-              <type id="library" />
-              <type id="jpa-descriptors" />
               <type id="artifact" />
               <type id="javaee-facet-resources" />
+              <type id="jpa-descriptors" />
+              <type id="library" />
             </show-content>
           </artifact-editor>
           <last-edited>mainPage</last-edited>

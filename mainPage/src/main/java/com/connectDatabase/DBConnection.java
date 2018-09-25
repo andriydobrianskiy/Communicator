@@ -26,8 +26,8 @@ public class DBConnection implements InterfaceDataBase {
     public static String serverName = getServerName();
 
     public static String serverChatName = getServerChatName();
-    public static String databaseName =// "TerraSoft14102012";
-    "TS_01_08_18";
+    public static String databaseName = //"TerraSoft14102012";
+    "TS_18_06_18";
 
 
     private static ComboPooledDataSource dataSource;

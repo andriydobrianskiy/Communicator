@@ -14,14 +14,15 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="556.0" prefWidth="754.0" style="-fx-background-color: #00bfff;" stylesheets="@../styles/application.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainLogin.UpdateWindow">
+<AnchorPane prefHeight="556.0" prefWidth="754.0" style="-fx-background-color: #00bfff;" stylesheets="@../styles/application.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainLogin.updateProgram.UpdateWindow">
    <children>
       <BorderPane prefHeight="556.0" prefWidth="754.0">
          <bottom>
             <StackPane style="-fx-border-color: firebrick transparent transparent transparent;" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="closeWindow" mnemonicParsing="false" text="Вихід" StackPane.alignment="CENTER_RIGHT">
+                  <Button fx:id="closeWindow" cancelButton="true" mnemonicParsing="false" text="Вихід" StackPane.alignment="CENTER_RIGHT">
                      <tooltip>
                         <Tooltip text="Close the Window" />
                      </tooltip>
@@ -71,7 +72,10 @@
                      <content>
                         <BorderPane fx:id="whatsNewContainer">
                            <center>
-                              <TextArea prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                              <TextArea fx:id="whatsNewTextArea" editable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" wrapText="true" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></TextArea>
                            </center></BorderPane>
                      </content>
                      <graphic>
@@ -86,7 +90,11 @@
                      <content>
                         <BorderPane fx:id="upcomingFeaturesContainer">
                            <center>
-                              <TextArea prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                              <TextArea fx:id="upcomingFeaturesTextArea" editable="false" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </TextArea>
                            </center></BorderPane>
                      </content>
                      <graphic>

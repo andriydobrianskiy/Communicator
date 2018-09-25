@@ -54,16 +54,13 @@ public class CustomLauncherUI implements UIProvider {
 
     public Parent createUpdater(FXManifest manifest) {
         stage.setTitle("Updating...");
-
         progressBar = new ProgressBar();
-
         root.getChildren().remove(label);
         root.getChildren().add(progressBar);
 
         Timeline tl = new Timeline(
                 new KeyFrame(Duration.seconds(20), new KeyValue(header.scaleXProperty(), 1.5)),
-                new KeyFrame(Duration.seconds(20), new KeyValue(header.scaleYProperty(), 1.5))
-        );
+                new KeyFrame(Duration.seconds(20), new KeyValue(header.scaleYProperty(), 1.5)));
         tl.play();
 
         return root;

@@ -12,8 +12,6 @@ import com.mainPage.NotFulled.NotFulfilled;
 import com.mainPage.NotFulled.NotFulledController;
 import com.mainPage.NotFulled.ProductAdd.ObservableNF;
 import com.mainPage.NotFulled.ProductAdd.ObserverNF;
-import com.mainPage.OrderRegistryPoland.OrderRegistryPolandController;
-import com.mainPage.OrderRegistryUkraine.OrderRegistryUkraineController;
 import com.mainPage.Statistic.StatisticController;
 import com.mainPage.createRequest.searchCounterpart.Counterpart;
 import javafx.event.ActionEvent;
@@ -35,9 +33,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class MainPageController  implements Initializable, ObservableNF {
@@ -90,10 +86,7 @@ public class MainPageController  implements Initializable, ObservableNF {
     private AllController allViewController;
     @FXML
     private StatisticController statisticViewController;
-    @FXML
-    private OrderRegistryUkraineController orderRegistryUkraineViewController;
-    @FXML
-    private OrderRegistryPolandController orderRegistryPolandViewController;
+
 
 
     @FXML
@@ -101,7 +94,7 @@ public class MainPageController  implements Initializable, ObservableNF {
     @FXML
     private Tab tabInProcessing;
     @FXML
-    private Tab tabDictionary;
+    private Tab tabNotFulledView;
     @FXML
     private Tab tabInTract;
     @FXML
@@ -114,10 +107,8 @@ public class MainPageController  implements Initializable, ObservableNF {
    // private Tab tabStructure;
    // @FXML
    // private StructureController structureViewController;
-    @FXML
-    private Tab tabOrderRegistryPoland;
-    @FXML
-    private Tab tabOrderRegistryUkraine;
+
+
     public ChatController chatController;
     final KeyCombination keyComb1 = new KeyCodeCombination(KeyCode.ENTER,
             KeyCombination.CONTROL_DOWN);
@@ -136,8 +127,7 @@ public class MainPageController  implements Initializable, ObservableNF {
         allViewController.init(this);
         //structureViewController.init(this);
         statisticViewController.init(this);
-        orderRegistryUkraineViewController.init(this);
-        orderRegistryPolandViewController.init(this);
+
 
 
         add(InProcessingViewController);
@@ -146,6 +136,9 @@ public class MainPageController  implements Initializable, ObservableNF {
         add(archiveFilesViewController);
         add(allViewController);
 
+
+
+        tabPane.setDisableAnimation(true);
 
      /*   TabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
             if(newTab == TabPane.getTabs().get(1)){
@@ -159,7 +152,8 @@ public class MainPageController  implements Initializable, ObservableNF {
 
         });*/
 
-
+       // tabInTract.setDisable(true);
+      //  tabStatistic.setDisable(true);
 
 
         notFulledViewController.tableView.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -188,35 +182,52 @@ public class MainPageController  implements Initializable, ObservableNF {
             }
         });
 
-        System.out.println("WWWWWWWWWWWWWWWWWWWW");
-        listElements.forEach(System.out::println);
-        Image imageTabNotefulled = new Image(getClass().getResourceAsStream("/images/NotFulle.png"));
-        tabDictionary.setGraphic(new ImageView(imageTabNotefulled));
 
-        Image imageTabInProcessing = new Image(getClass().getResourceAsStream("/images/InProces.png"));
-        tabInProcessing.setGraphic(new ImageView(imageTabInProcessing));
-
-        Image imageTabInTract = new Image(getClass().getResourceAsStream("/images/InTract.png"));
-        tabInTract.setGraphic(new ImageView(imageTabInTract));
-
-        Image imageTabArchive = new Image(getClass().getResourceAsStream("/images/Archive.png"));
-        tabArchive.setGraphic(new ImageView(imageTabArchive));
-
-        Image imageTabAll = new Image(getClass().getResourceAsStream("/images/All.png"));
-        tabAll.setGraphic(new ImageView(imageTabAll));
-
-        Image imageTabStatistic = new Image(getClass().getResourceAsStream("/images/Statisti.png"));
-        tabStatistic.setGraphic(new ImageView(imageTabStatistic));
-
+setTabImages();
        // Image imageTabStructure = new Image(getClass().getResourceAsStream("/images/Structur.png"));
        //tabStructure.setGraphic(new ImageView(imageTabStructure));
 
 
     }
-    public void messageSend(){
+    public void setTabImages(){
+        ImageView imageTabNotefulled = new ImageView(new Image("/images/NotFulle.png"));
 
+
+        ImageView imageTabInProcessing = new  ImageView(new Image("/images/InProces.png"));
+
+
+        ImageView imageTabInTract = new  ImageView(new Image("/images/InTract.png"));
+
+
+        ImageView imageTabArchive = new  ImageView(new Image("/images/Archive.png"));
+
+
+        ImageView imageTabAll = new  ImageView(new Image("/images/All.png"));
+
+
+        ImageView imageTabStatistic = new ImageView(new Image("/images/Statisti.png"));
+
+        setImageSize((new ArrayList<>(Arrays.asList(imageTabNotefulled, imageTabInProcessing,imageTabInTract, imageTabArchive, imageTabAll,imageTabStatistic))), 45);
+
+
+
+        tabNotFulledView.setGraphic(imageTabNotefulled);
+        tabInProcessing.setGraphic(imageTabInProcessing);
+        tabInTract.setGraphic(imageTabInTract);
+        tabArchive.setGraphic(imageTabArchive);
+        tabAll.setGraphic(imageTabAll);
+        tabStatistic.setGraphic(imageTabStatistic);
     }
 
+    private void setImageSize(ArrayList<ImageView> image, int size) {
+
+        image.forEach(value -> {
+            value.setFitWidth(size);
+            value.setFitHeight(size);
+        });
+
+
+    }
     public void mainGridHandle(NotFulfilled value) {
         //  NotFulledController.setSelectedRecord(value);
     }
@@ -255,6 +266,19 @@ public class MainPageController  implements Initializable, ObservableNF {
         stage.setScene(new Scene(root));
         stage.show();
     }
+   /* @FXML
+    public void actionPageAdministation(ActionEvent event) {
+        Stage stage = new Stage();
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/views/PageAdministration.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setScene(new Scene(root));
+        stage.show();
+    }*/
 
     @Override
     public void changeExists() {
@@ -263,6 +287,7 @@ public class MainPageController  implements Initializable, ObservableNF {
             elem.update();
         });
     }
+
 
 
 }

@@ -2,7 +2,7 @@ package com.mainLogin;
 
 import com.login.CustomLauncherUI;
 import com.login.User;
-import com.mainLogin.parsers.UpdateHelper;
+import com.mainLogin.updateProgram.UpdateHelper;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -20,11 +20,18 @@ public class Main extends Application {
         stage.setTitle("Комунікатор "+ UpdateHelper.app_version + " " + User.getContactName());
         CustomLauncherUI customLauncherUI = new CustomLauncherUI();
         stageObj = stage;
+        stage.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
         stage.setScene(new Scene(root));
         Image icon = new Image("/images/LoginPage.png");
         stage.getIcons().add(icon);
+        stage.toFront();
         stage.show();
+        Platform.setImplicitExit(true);
+        stage.setOnCloseRequest((ae) -> {
+            Platform.exit();
+            System.exit(0);
+        });
     }
 
     private void setVisible(boolean b) {
@@ -34,7 +41,7 @@ public class Main extends Application {
     public static void main(String[] args) {
 
 
-       /* try {
+     /*   try {
             if(new UpdateHelper().checkForUpdate() == true) return;
         } catch (Exception e) {
             Platform.runLater(() -> UsefulUtils.showErrorDialogDown("Оновлення неможливе. Зверніться до адміністраторів!"));
@@ -42,6 +49,7 @@ public class Main extends Application {
         }*/
         launch(args);
     }
+
 
 
 }

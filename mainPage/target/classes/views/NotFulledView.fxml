@@ -42,6 +42,7 @@
                                 <FilterableStringTableColumn fx:id="colGroupChangedBy" editable="false" text="Змінив групу"/>
                                 <FilterableStringTableColumn fx:id="colSpecialMarginTypeName" editable="false" text="Тип спец націнки"/>
                                 <FilterableStringTableColumn fx:id="colCashType" editable="false" text="Тип оплати"/>
+                                <FilterableStringTableColumn fx:id="colPricingDescription" editable="false" text="Опис"/>
 
                             </columns>
                            <opaqueInsets>
@@ -71,6 +72,9 @@
                                      <font>
                                          <Font size="14.0" />
                                      </font>
+                                     <tooltip>
+                                         <Tooltip text="Оновити" />
+                                     </tooltip>
                                  </JFXButton>
 
 
@@ -147,9 +151,26 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <JFXTextField fx:id="searchingField" onAction="#actionSearchingField" promptText="Введіть скорочення" unFocusColor="#5e5353" />
-                              <JFXButton fx:id="btn_UpdateStatus" prefHeight="21.0" prefWidth="100.0" style="-fx-background-color: #a49a9a;" text="Взяти в роботу" />
-
+                              <JFXTextField fx:id="searchingField" onAction="#actionSearchingField" promptText="Введіть скорочення" unFocusColor="#5e5353" >
+                                  <tooltip>
+                                      <Tooltip text="Введіть скорочення" />
+                                  </tooltip>
+                              </JFXTextField>
+                              <JFXButton fx:id="btn_UpdateStatus" prefHeight="21.0" prefWidth="100.0" style="-fx-background-color: #a49a9a;" text="Взяти в роботу" >
+                                  <tooltip>
+                                      <Tooltip text="Взяти в роботу" />
+                                  </tooltip>
+                              </JFXButton>
+                <ToggleButton fx:id="btn_ButtonAll" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="100.0" text="Закупи" >
+                    <tooltip>
+                        <Tooltip text="Закупи" />
+                    </tooltip>
+                </ToggleButton>
+                <ToggleButton fx:id="btn_ButtonPricingAll" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="100.0" text="Ціноутворення" >
+                    <tooltip>
+                        <Tooltip text="Ціноутворення" />
+                    </tooltip>
+                </ToggleButton>
                                <ScrollPane fx:id="scrollPaneFilter" prefHeight="49.0" BorderPane.alignment="CENTER_LEFT">
                                    <content>
                                        <HBox fx:id="hboxFilter" alignment="CENTER_LEFT" prefHeight="45.0"/>

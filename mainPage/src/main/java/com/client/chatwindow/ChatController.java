@@ -1,6 +1,6 @@
 package com.client.chatwindow;
 
-import com.ChatTwoo.controller.ColumnMessage;
+import com.client.ColumnMessage;
 import com.Utils.UsefulUtils;
 import com.client.util.VoiceRecorder;
 import com.client.util.VoiceUtil;
@@ -244,7 +244,8 @@ public class ChatController extends ClientModelInt implements Initializable {
         try {
             loadDataFromDataBaseAll();
        } catch (SQLException e) {
-            e.printStackTrace();
+            DBConnection database = new DBConnection();
+            database.reconnect();
         }
     }
 
@@ -267,7 +268,7 @@ public class ChatController extends ClientModelInt implements Initializable {
                 try {
                     Listener.send(msg);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    UsefulUtils.showErrorDialogDown("Сервер не підключено!!!");
                 }
                 String query = "\tINSERT INTO [dbo].[tbl_MessageInRequestOffering] ([CreatedOn], [CreatedByID], [ModifiedOn], [RecipientID], [RequestID],  [Message])\n" +
                         "\tVALUES ( CURRENT_TIMESTAMP , ? , CURRENT_TIMESTAMP, ? , ? , ? )";
@@ -288,17 +289,16 @@ public class ChatController extends ClientModelInt implements Initializable {
                 pst.setString(1, offeringRequest.getID());
                 pst.executeUpdate();
                 loadDataFromDataBase();
-                //   inProcessingController.refreshData();
             } catch (SQLException e) {
-                UsefulUtils.showErrorDialogDown("Сервер не підключено!!!");
                 DBConnection database = new DBConnection();
                 database.reconnect();
+
 
 
             }
 
 
-Listener.sendNotification(msg);
+
         messageBox.clear();
             messageBox.requestFocus();
 
@@ -334,6 +334,8 @@ Listener.sendNotification(msg);
                 loadDataFromDataBaseInTract();
                //    inTractController.refreshData();
             } catch (SQLException e) {
+                DBConnection database = new DBConnection();
+                database.reconnect();
                 UsefulUtils.showErrorDialogDown("Сервер не підключено!!!");
             }
 
@@ -1074,36 +1076,14 @@ Listener.sendNotification(msg);
 
     /* Displays Notification when a user joins */
     public void newUserNotification(Message msg) {
-
-
-        //   ObservableList<User> users = FXCollections.observableList(msg.getUsers());
-        //    this.user = new User();
-        this.user.setName(usernameLabel.getText());
-        //  users.add(this.user);
-        // for (int j = 0; j < users.size(); j++) {
-        //     User name = users.get(j);
-        //     String one = name.getName();
-        //     if (one.equalsIgnoreCase(user)) {
-        //     if (name.equalsIgnoreCase(usernameLabel.getText())) {
-        //     System.out.println(user + usernameLabel.getText());
-        //      } else {
-        //    offeringRequest = (InProcessing) inProcessingController.tableviewAll.getItems().get(inProcessingController.tableviewAll.getSelectionModel().getSelectedIndex());
-        //        if ((offeringRequest.equals(msg.getOfferingID()) && user != usernameLabel.getText()) && (userone.equals(usernameLabel.getText()) || com.login.User.getContactID().equals(userzero))) {
-        //        } else {
-        //        if (oneID.equalsIgnoreCase(user.getOfferingID())) {
-        //    if () {
-        // inProcessingController.tableProduct.getStylesheets().add
-        //    (InProcessingController.class.getResource("/styles/Notification.css").toExternalForm());
         Platform.runLater(() -> {
-
-            Image profileImg = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture().toLowerCase() + ".png").toString(), 50, 50, false, false);
+            Image profileImg = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture().toLowerCase() +".png").toString(),50,50,false,false);
             TrayNotification tray = new TrayNotification();
-            tray.setTitle("Нове повідомлення!");
-            tray.setMessage("Від " + msg.getName() + ": " + msg.getMsg());
+            tray.setTitle("A new user has joined!");
+            tray.setMessage(msg.getName() + " has joined the JavaFX Chatroom!");
             tray.setRectangleFill(Paint.valueOf("#2C3E50"));
             tray.setAnimationType(AnimationType.POPUP);
             tray.setImage(profileImg);
-
             tray.showAndDismiss(Duration.seconds(5));
             try {
                 Media hit = new Media(getClass().getClassLoader().getResource("sounds/notification.wav").toString());
@@ -1113,17 +1093,7 @@ Listener.sendNotification(msg);
                 e.printStackTrace();
             }
 
-           /* try {
-                inProcessingController.showScene();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
-
         });
-        //    }
-        //  }
-        //  break;
-        // }
     }
 
     public void sendMethod(KeyEvent event) throws IOException {

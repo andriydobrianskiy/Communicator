@@ -10,10 +10,7 @@ import javafx.scene.control.TableColumn;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,7 +35,7 @@ public class InProcessing extends GridComp implements InProcessingIntarface, Fil
 
     private String ID;
     private String Number;
-    private String CreatedOn;
+    private Date CreatedOn;
     private String CreatedBy;
     private String CreatedByID;
     private String AccountCode;
@@ -57,6 +54,7 @@ public class InProcessing extends GridComp implements InProcessingIntarface, Fil
     private String StateName;
     private String SpecialMarginTypeName;
     private String CashType;
+    private String PricingDescription;
 
 
 
@@ -71,7 +69,7 @@ public class InProcessing extends GridComp implements InProcessingIntarface, Fil
     }
 
 
-    public InProcessing(String number, String createdOn, String createdBy, String accountCode, String accountName, String accountSaldo, String accountIsSolid, String storeCity, String status, String offeringGroupName, String originalGroupName, String groupChangedBy, String stateName, String specialMarginTypeName, Integer isReadMeassage, String cashType) {
+    public InProcessing(String number, Date createdOn, String createdBy, String accountCode, String accountName, String accountSaldo, String accountIsSolid, String storeCity, String status, String offeringGroupName, String originalGroupName, String groupChangedBy, String stateName, String specialMarginTypeName, Integer isReadMeassage, String cashType) {
         this.Number = number;
         this.CreatedOn = createdOn;
         this.CreatedBy = createdBy;
@@ -107,11 +105,11 @@ public class InProcessing extends GridComp implements InProcessingIntarface, Fil
         Number = number;
     }
 
-    public String getCreatedOn() {
+    public Date getCreatedOn() {
         return CreatedOn;
     }
 
-    public void setCreatedOn(String createdOn) {
+    public void setCreatedOn(Date createdOn) {
         CreatedOn = createdOn;
     }
 
@@ -246,11 +244,16 @@ public class InProcessing extends GridComp implements InProcessingIntarface, Fil
         this.CashType = CashType;
     }
 
+    public String getPricingDescription () {return PricingDescription;}
+
+    public void setPricingDescription(String pricingDescription) { this.PricingDescription = pricingDescription;}
+
+
 
     @Override
-    public List<InProcessing> findAllOne(boolean pagination, int rowIndex, String createdByID, String offeringGroupID, String filterSorted ) {
+    public List<InProcessing> findAllOne(boolean pagination, int rowIndex, String createdByID, String offeringGroupID, String filterSorted, Integer pricingBoolean ) {
 
-        String query = (pagination ? accountQueries1.getMainInProcessing(true, rowIndex , createdByID , offeringGroupID) : accountQueries1.getMainInProcessing(false, 0, createdByID , offeringGroupID));
+        String query = (pagination ? accountQueries1.getMainInProcessing(true, rowIndex , createdByID , offeringGroupID, pricingBoolean) : accountQueries1.getMainInProcessing(false, 0, createdByID , offeringGroupID, pricingBoolean));
         try {
             return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter()+filterSorted, new BeanListHandler<InProcessing>(InProcessing.class)));
         } catch (Exception e) {
@@ -274,8 +277,8 @@ public class InProcessing extends GridComp implements InProcessingIntarface, Fil
 
 
     @Override
-    public List<InProcessing> findAllInProcessing (boolean pagination, int rowIndex, String filterSorted ){
-        String queryAll = (pagination ? accountQueries1.getMainInProcessingAll(true, rowIndex) : accountQueries1.getMainInProcessingAll(false, 0));
+    public List<InProcessing> findAllInProcessing (boolean pagination, int rowIndex, String filterSorted, Integer pricingBoolean ){
+        String queryAll = (pagination ? accountQueries1.getMainInProcessingAll(true, rowIndex, pricingBoolean) : accountQueries1.getMainInProcessingAll(false, 0, pricingBoolean));
         try{
             return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(),queryAll + getStringFilter()+ filterSorted, new BeanListHandler<InProcessing>(InProcessing.class)));
         }catch (Exception e){

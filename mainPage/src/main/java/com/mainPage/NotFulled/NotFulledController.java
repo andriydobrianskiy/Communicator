@@ -13,6 +13,7 @@ import com.connectDatabase.DBConnection;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.login.User;
+import com.mainPage.NotFulled.CreateRequest.CreateMainController;
 import com.mainPage.NotFulled.Edit.EditController;
 import com.mainPage.NotFulled.OfferingRequest.DerbyOfferingRequestDAO;
 import com.mainPage.NotFulled.OfferingRequest.ExampleController;
@@ -21,7 +22,6 @@ import com.mainPage.NotFulled.ProductAdd.ObserverNF;
 import com.mainPage.NotFulled.ProductAdd.ProductAddController;
 import com.mainPage.NotFulled.ProductAdd.ProductAddNewController;
 import com.mainPage.WorkArea;
-import com.mainPage.createRequest.CreateRequest;
 import com.mainPage.page.MainPageController;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -107,6 +107,11 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
     private JFXButton btn_RefreshRequest;
     @FXML
     private JFXButton btn_DeleteRequest;
+    @FXML
+    private ToggleButton btn_ButtonAll;
+    @FXML
+    private ToggleButton btn_ButtonPricingAll;
+    private Integer pricingBoolean = 0;
 
     private InitComponents components;
 
@@ -155,6 +160,8 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
     private FilterableStringTableColumn<NotFulfilled, String> colSpecialMarginTypeName;
     @FXML
     private FilterableStringTableColumn<NotFulfilled, String> colCashType;
+    @FXML
+    private FilterableStringTableColumn<NotFulfilled, String> colPricingDescription;
     @FXML
     private Pagination pagination;
     @FXML
@@ -229,6 +236,23 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
             DBConnection database = new DBConnection();
             database.reconnect();
         }
+
+
+        ToggleGroup group = new ToggleGroup();
+        btn_ButtonAll.setToggleGroup(group);
+        btn_ButtonAll.setSelected(true);
+        btn_ButtonPricingAll.setToggleGroup(group);
+
+        group.selectedToggleProperty().addListener(event -> {
+            if (group.getSelectedToggle().equals(btn_ButtonAll)) {
+                pricingBoolean = 0;
+                refreshData();
+            } else if (group.getSelectedToggle().equals(btn_ButtonPricingAll)) {
+                pricingBoolean = 1;
+                refreshData();
+            }
+        });
+
         btn_ConfirmRequest.setOnAction(event -> {
             try {
                 chosenAccount = (NotFulfilled) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
@@ -258,6 +282,7 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
                     DBConnection database = new DBConnection();
                     database.reconnect();
                 }
+
             } else return;
 
 
@@ -566,7 +591,7 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
                     "END)");
             hashColumns.put(colStatus, "[tbl_RequestOfferingStatus].[Name]");
             hashColumns.put(colStoreCity, "[tbl_StoreCity].[Name]");
-            hashColumns.put(colOfferingGroupName, "[OfferingGroup].[Name]");
+            hashColumns.put(colOfferingGroupName, "[tbl_Contact].[Name]");
             hashColumns.put(colOriginalGroupName, "SELECT\n" +
                     "\t\t[OriginalGroupName].[Name] AS [Name]\n" +
                     "\tFROM\n" +
@@ -577,6 +602,7 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
                     "\t\t[dbo].[tbl_Contact] AS [GroupChangedBy]\n");
             hashColumns.put(colSpecialMarginTypeName, "[SMT].[Name]");
             hashColumns.put(colCashType, "[tbl_RequestOffering].[CashType]");
+            hashColumns.put(colPricingDescription, "[tbl_RequestOffering].PricingDescription");
             List<?> listColumns = tableView.getColumns();
 
             colNumber.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("Number"));
@@ -594,6 +620,7 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
             colGroupChangedBy.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("GroupChangedBy"));
             colSpecialMarginTypeName.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("SpecialMarginTypeName"));
             colCashType.setCellValueFactory(new PropertyValueFactory<NotFulfilled, String>("CashType"));
+            colPricingDescription.setCellValueFactory(new PropertyValueFactory<NotFulfilled,String>("PricingDescription"));
 
 
         } catch (Exception e) {
@@ -676,7 +703,7 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
         try {
 
 
-            List<NotFulfilled> listItems = account.findAllNotFulled(true, (int) toIndex, User.getContactID(), User.getContactID());
+            List<NotFulfilled> listItems = account.findAllNotFulled(true, (int) toIndex, User.getContactID(), User.getContactID(), pricingBoolean);
 
             listItems.forEach(item -> data.add(item));
 
@@ -803,17 +830,17 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
         FXMLLoader loader = new FXMLLoader();
 
 
-        loader.setLocation(ProductAddNewController.class.getResource("/views/CreateView.fxml"));
-        CreateRequest createRequest = loader.getController();
+        loader.setLocation(ProductAddNewController.class.getResource("/views/CreateMainView.fxml"));
+        CreateMainController createRequest = loader.getController();
         Pane serverrLayout = loader.load();
         // Show the scene containing the root layout.
-
+        stage.setResizable(false);
         Scene scene = new Scene(serverrLayout);
-        CreateRequest con = loader.getController();
+        CreateMainController con = loader.getController();
         con.setOfferingRequest(this);
 
         stage.setScene(scene);
-        ResizeHelper.addResizeListener(stage);
+       // ResizeHelper.addResizeListener(stage);
         stage.setMaxHeight(480);
         stage.setMaxWidth(620);
         //     main.changeExists();
@@ -921,6 +948,7 @@ public class NotFulledController extends WorkArea implements MiniFilterFunction,
 
     public void refreshData() {
         try {
+
             data.clear();
             loadDataFromDatabase();
             pagination.setPageFactory(this::createPage);

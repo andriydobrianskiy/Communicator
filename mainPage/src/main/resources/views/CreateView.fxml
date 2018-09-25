@@ -5,21 +5,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 <?import java.util.ArrayList?>
-<AnchorPane fx:id="anchorPane" prefHeight="476.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainPage.createRequest.CreateRequest">
+<AnchorPane fx:id="anchorPane" prefHeight="431.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainPage.createRequest.CreateRequest">
     <children>
-        <Label layoutX="46.0" layoutY="94.0" text="Статус запиту" textFill="#9e440c">
+        <Label fx:id="labelStatusRequest" layoutX="47.0" layoutY="66.0" text="Статус запиту" textFill="#9e440c">
             <font>
                 <Font name="System Bold Italic" size="12.0" />
             </font></Label>
-        <Label layoutX="46.0" layoutY="147.0" text="Контрагент" textFill="#273075">
+        <Label fx:id="labelConterpart" layoutX="44.0" layoutY="104.0" text="Контрагент" textFill="#273075">
             <font>
                 <Font name="System Bold Italic" size="12.0" />
             </font></Label>
-        <Label layoutX="382.0" layoutY="207.0" text="Статус" textFill="#273075">
+        <Label fx:id="labelStatus" layoutX="47.0" layoutY="135.0" text="Статус" textFill="#273075">
             <font>
                 <Font name="System Bold Italic" size="12.0" />
             </font></Label>
-        <Label layoutX="45.0" layoutY="207.0" text="Місто поставки" textFill="#273075">
+        <Label fx:id="labelDelivery" layoutX="46.0" layoutY="225.0" text="Місто поставки" textFill="#273075">
             <font>
                 <Font name="System Bold Italic" size="12.0" />
             </font></Label>
@@ -33,40 +33,52 @@
             <font>
                 <Font name="System Bold Italic" size="12.0" />
             </font></Label>-->
-        <Label layoutX="196.0" prefHeight="44.0" prefWidth="390.0" text="Створення запиту" textFill="#5e5252">
+        <Label fx:id="idSetTitle" layoutX="143.0" prefHeight="44.0" prefWidth="396.0" textFill="#5e5252">
             <font>
                 <Font name="System Bold" size="24.0" />
             </font></Label>
         <JFXDialog />
-        <JFXButton fx:id="SearchCounterpart" layoutX="473.0" layoutY="140.0" onAction="#btnSearchCounterpart" prefHeight="29.0" prefWidth="92.0" style="-fx-background-color: #0000FF;" text="Пошук" textFill="#fffefe">
+        <JFXButton fx:id="SearchCounterpart" layoutX="474.0" layoutY="97.0" onAction="#btnSearchCounterpart" prefHeight="29.0" prefWidth="92.0" style="-fx-background-color: #0000FF;" text="Пошук" textFill="#fffefe">
             <font>
                 <Font name="System Bold" size="15.0" />
             </font>
         </JFXButton>
-        <JFXButton fx:id="btnOK" layoutX="145.0" layoutY="387.0" prefHeight="44.0" prefWidth="102.0" style="-fx-background-color: #6B8E23;" text="Записати" textFill="#f8f7f7">
+        <JFXButton fx:id="btnOK" onAction="#actionOK" layoutX="131.0" layoutY="351.0" prefHeight="44.0" prefWidth="102.0" style="-fx-background-color: #6B8E23;" text="Записати" textFill="#f8f7f7">
             <font>
                 <Font name="System Bold" size="15.0" />
             </font>
         </JFXButton>
-        <JFXButton fx:id="closeButton" layoutX="355.0" layoutY="387.0" onAction="#btnCreateOut" prefHeight="44.0" prefWidth="102.0" style="-fx-background-color: #FF0000;" text="Вихід" textFill="#f8f7f7">
+        <JFXButton fx:id="closeButton" layoutX="356.0" layoutY="351.0" onAction="#btnCreateOut" prefHeight="44.0" prefWidth="102.0" style="-fx-background-color: #FF0000;" text="Вихід" textFill="#f8f7f7">
             <font>
                 <Font name="System Bold" size="15.0" />
             </font>
         </JFXButton>
-        <JFXComboBox fx:id="StatusRequest" layoutX="159.0" layoutY="87.0" prefHeight="31.0" prefWidth="417.0" />
-        <JFXComboBox fx:id="DeliveryCity" layoutX="159.0" layoutY="200.0" prefHeight="25.0" prefWidth="194.0" />
-        <JFXComboBox fx:id="Status" layoutX="454.0" layoutY="200.0" prefHeight="25.0" prefWidth="122.0" stylesheets="@../styles/CreateComboStyle.css" />
-      <JFXComboBox fx:id="cmbMain3" layoutX="159.0" layoutY="140.0" prefHeight="25.0" prefWidth="314.0" stylesheets="@../styles/CreateComboStyle.css" />
+        <JFXComboBox fx:id="StatusRequest" layoutX="159.0" layoutY="59.0" prefHeight="31.0" prefWidth="417.0" />
+        <JFXComboBox fx:id="DeliveryCity" layoutX="159.0" layoutY="221.0" prefHeight="25.0" prefWidth="417.0" />
+        <JFXComboBox fx:id="Status" layoutX="159.0" layoutY="131.0" prefHeight="25.0" prefWidth="417.0" stylesheets="@../styles/CreateComboStyle.css" />
+      <JFXComboBox fx:id="cmbMain3" layoutX="159.0" layoutY="100.0" prefHeight="25.0" prefWidth="314.0" stylesheets="@../styles/CreateComboStyle.css" />
        <!--- <Label layoutX="44.0" layoutY="264.0" prefHeight="17.0" prefWidth="160.0" text="Назначити групу товарів" textFill="#273075">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Label>
         <JFXComboBox fx:id="GroupPeople" layoutX="211.0" layoutY="257.0" prefHeight="31.0" prefWidth="360.0" />-->
-      <RadioButton fx:id="box_PDV" layoutX="167.0" layoutY="319.0" mnemonicParsing="false" text="ПДВ">
+      <RadioButton fx:id="box_PDV" layoutX="137.0" layoutY="320.0" mnemonicParsing="false" text="ПДВ">
          <toggleGroup>
             <ToggleGroup fx:id="gender" />
          </toggleGroup></RadioButton>
-      <RadioButton fx:id="box_cash" layoutX="368.0" layoutY="319.0" mnemonicParsing="false" text="Готівка" toggleGroup="$gender" />
+      <RadioButton fx:id="box_cash" layoutX="377.0" layoutY="320.0" mnemonicParsing="false" text="Готівка" toggleGroup="$gender" />
+
+      <TextArea fx:id="createPricingDescription" layoutX="32.0" layoutY="225.0" prefHeight="88.0" prefWidth="544.0" wrapText="true" />
+      <Label fx:id="labelDescription" layoutX="44.0" layoutY="205.0" text="Опис:" textFill="#273075">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <JFXComboBox fx:id="GroupPeople" layoutX="209.0" layoutY="173.0" prefHeight="25.0" prefWidth="367.0" />
+      <Label fx:id="labelGroupPeople" layoutX="45.0" layoutY="177.0" text="Вибрати відповідального" textFill="#273075">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></Label>
 
     </children>
     <fx:define>
@@ -80,6 +92,17 @@
           <!--  <fx:reference source="GroupPeople" />-->
 
         </ArrayList>
+        <ArrayList fx:id="listFieldsPricing">
+
+            <fx:reference source="createPricingDescription" />
+            <fx:reference source="cmbMain3" />
+            <fx:reference source="StatusRequest" />
+            <fx:reference source="Status" />
+            <fx:reference source="GroupPeople" />
+            <!--  <fx:reference source="comboBoxGroup" />-->
+            <!--  <fx:reference source="GroupPeople" />-->
+
+        </ArrayList>
 
         <ArrayList fx:id="listComboBox">
 
@@ -89,6 +112,16 @@
             <fx:reference source="Status" />
        <!--     <fx:reference source="comboBoxGroup" /> -->
           <!--  <fx:reference source="GroupPeople" />-->
+
+
+        </ArrayList>
+        <ArrayList fx:id="listComboBoxPricing">
+            <fx:reference source="GroupPeople" />
+            <fx:reference source="Status" />
+            <fx:reference source="createPricingDescription" />
+            <fx:reference source="StatusRequest" />
+            <!--     <fx:reference source="comboBoxGroup" /> -->
+            <!--  <fx:reference source="GroupPeople" />-->
 
 
         </ArrayList>

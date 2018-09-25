@@ -70,21 +70,16 @@ public class Listener implements Runnable {
     public void run() {
         try {
             socket = new Socket(hostname, port);
-          //  inProcessingController.showScene();
-
             outputStream = socket.getOutputStream();
             oos = new ObjectOutputStream(outputStream);
             is = socket.getInputStream();
             input = new ObjectInputStream(is);
-
         } catch (IOException e) {
             inProcessingController.showErrorDialog("Сервер не підключено");
         }
-        //    logger.info("Connection accepted " + socket.getInetAddress() + ":" + socket.getPort());
 
         try {
             connect();
-            //     logger.info("Sockets in and out ready!");
 
             while (socket.isConnected()) {
                 Message message = null;
@@ -96,6 +91,7 @@ public class Listener implements Runnable {
                     switch (message.getType()) {
                         case USER:
                             controller.addToChat(message);
+                            controller.newUserNotification(message);
                             break;
                         case VOICE:
                            controller.addToChat(message);
@@ -194,7 +190,6 @@ public class Listener implements Runnable {
         createMessage.setType(CONNECTED);
         createMessage.setMsg(HASCONNECTED);
         createMessage.setPicture(picture);
-        //     createMessage.setNotification(MessageType.NOTIFICATION);
         oos.writeObject(createMessage);
     }
 

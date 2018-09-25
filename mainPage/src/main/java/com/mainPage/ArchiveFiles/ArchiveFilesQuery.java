@@ -14,7 +14,7 @@ public class ArchiveFilesQuery implements Queries {
 
     private StringBuilder query;
 
-    public String getMainArchiveFiles(Boolean top, int rowIndex, String createdByID, String offeringGroupID ) {
+    public String getMainArchiveFiles(Boolean top, int rowIndex, String createdByID, String offeringGroupID, Integer pricingBoolean ) {
 
         query = new StringBuilder();
         query.append("SELECT \n");
@@ -137,7 +137,9 @@ public class ArchiveFilesQuery implements Queries {
                 "    ELSE\n" +
                 "       0\n" +
                 "END) AS [ChangeByAutouser],\n" +
-                "\t[tbl_RequestOffering].[CashType] AS [CashType]\n" +
+                "\t[tbl_RequestOffering].[CashType] AS [CashType],\n" +
+                "\t[tbl_RequestOffering].[PricingType] AS [PricingType],\n" +
+                "\t[tbl_RequestOffering].[PricingDescription] AS [PricingDescription]\n" +
                 "FROM\n" +
                 "\t[dbo].[tbl_RequestOffering] AS [tbl_RequestOffering]\n" +
                 "LEFT OUTER JOIN\n" +
@@ -156,6 +158,7 @@ public class ArchiveFilesQuery implements Queries {
                 "\t[dbo].[tbl_RequestOfferingState] AS [tbl_RequestOfferingState] ON [tbl_RequestOfferingState].[ID] = [tbl_RequestOffering].[StateID]\n" +
                 "WHERE(([tbl_RequestOffering].[StatusID] = '{3E7F90E2-335C-41B2-828A-576A06375B8C}' OR\n" +
                 "\t[tbl_RequestOffering].[StatusID] = '{6F784E48-1474-4CB9-B28D-A4B580FB346C}') AND\n" +
+                "([tbl_RequestOffering].[PricingType] = "+pricingBoolean+") AND \n"+
                 "\t([tbl_RequestOffering].[CreatedByID] = '"+createdByID+"' OR\n" +
                 "\t[tbl_RequestOffering].[OfferingGroupID] = '"+offeringGroupID+"' ))\n" );
 
@@ -163,7 +166,7 @@ public class ArchiveFilesQuery implements Queries {
         return query.toString();
     }
 
-    public String getAllInTract(Boolean top, int rowIndex) {
+    public String getAllInTract(Boolean top, int rowIndex, Integer pricingBoolean) {
 
         query = new StringBuilder();
         query.append("SELECT \n");
@@ -278,7 +281,9 @@ public class ArchiveFilesQuery implements Queries {
                 "\t[SMT].[Name] AS [SpecialMarginTypeName],\n" +
                 "\t[tbl_RequestOffering].[StateID] AS [StateID],\n" +
                 "\t[tbl_RequestOfferingState].[Name] AS [StateName],\n" +
-                        "\t[tbl_RequestOffering].[CashType] AS [CashType]\n" +
+                        "\t[tbl_RequestOffering].[CashType] AS [CashType],\n" +
+                        "\t[tbl_RequestOffering].[PricingType] AS [PricingType],\n" +
+                        "\t[tbl_RequestOffering].[PricingDescription] AS [PricingDescription]\n" +
                 "FROM\n" +
                 "\t[dbo].[tbl_RequestOffering] AS [tbl_RequestOffering]\n" +
                 "LEFT OUTER JOIN\n" +
@@ -295,7 +300,8 @@ public class ArchiveFilesQuery implements Queries {
                 "\t[dbo].[tbl_SpecialMarginType] AS [SMT] ON [SMT].[ID] = [tbl_Account].[SpecialMarginTypeID]\n" +
                 "LEFT OUTER JOIN\n" +
                 "\t[dbo].[tbl_RequestOfferingState] AS [tbl_RequestOfferingState] ON [tbl_RequestOfferingState].[ID] = [tbl_RequestOffering].[StateID]\n" +
-                "WHERE [tbl_RequestOffering].[StatusID] = '{6F784E48-1474-4CB9-B28D-A4B580FB346C}'\n"// +
+                "WHERE [tbl_RequestOffering].[StatusID] = '{6F784E48-1474-4CB9-B28D-A4B580FB346C}' AND\n" +
+                "([tbl_RequestOffering].[PricingType] = "+pricingBoolean+") \n"// +
               //  "ORDER BY\n" +
                 //"\t10 DESC"
         );

@@ -2,6 +2,8 @@ package com.mainPage.InProcessing.InProcessingRequest;
 
 import com.Utils.UsefulUtils;
 import com.connectDatabase.DBConnection;
+import com.jfoenix.controls.JFXButton;
+import com.login.User;
 import com.mainPage.InProcessing.InProcessing;
 import com.mainPage.InProcessing.InProcessingController;
 import com.mainPage.WorkArea;
@@ -9,8 +11,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import org.google.jhsheets.filtered.tablecolumn.FilterableIntegerTableColumn;
 import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn;
 
@@ -39,18 +45,20 @@ public class InProcessingRequestController extends WorkArea implements Initializ
     @FXML private FilterableStringTableColumn <InProcessingRequest, String>colDefaultOfferingCode;
 
     @FXML private FilterableStringTableColumn <InProcessingRequest, String>colNewOfferingCode;
+
+    @FXML
+    private JFXButton colorByOfferingSaleButton;
+    @FXML
+    private JFXButton cancelColorByOfferingSaleButton;
     private Connection con = null;
     private PreparedStatement pst = null;
     private ResultSet rs = null;
     private ObservableList<InProcessingRequest> data;
-  /*  @FXML
-    private AnchorPane anchorPane;*/
     private InProcessing selectedRecord;
-
-
     private InProcessingController main;
     private InProcessingRequestQuery queries = new InProcessingRequestQuery();
     private DerbyInProcessingRequestDAO derbyInProcessingRequestDAO = new DerbyInProcessingRequestDAO();
+    private InProcessingRequest inProcessingRequest =null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -67,10 +75,107 @@ public class InProcessingRequestController extends WorkArea implements Initializ
         tableView.setTableMenuButtonVisible(true);
         tableView.getSelectionModel().setCellSelectionEnabled(false);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
-
         UsefulUtils.installCopyPasteHandler(tableView);
 
+        updateColor();
+
+        colorByOfferingSaleButton.setOnAction(event ->{
+            try {
+                inProcessingRequest = (InProcessingRequest) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
+            } catch (Exception ex) {
+                UsefulUtils.showErrorDialogDown("Не вибрано жодного елемента з таблиці!");
+                return;
+            }
+            if (UsefulUtils.showConfirmDialog("Ви підтверджуєте, що продукт потрібно замовляти?") == ButtonType.OK) {
+
+                String query = "Update tbl_OfferingInRequestOffering\n" +
+                        "SET\n" +
+                        "\n" +
+                        "ModifiedByID = ?,\n" +
+                        "ModifiedOn = CURRENT_TIMESTAMP,\n" +
+                        "ColorByOfferingSale = 1\n" +
+                        "WHERE \n" +
+                        "ID = ?";
+                try {
+                    pst = con.prepareStatement(query);
+                    pst.setString(1, User.getContactID());
+                    pst.setString(2, inProcessingRequest.getID());
+                    pst.executeUpdate();
+
+                    refreshData();
+                    UsefulUtils.showSuccessful("Продукт " + inProcessingRequest.getSkrut() + " добавлено в продаж");
+                } catch (SQLException e) {
+                    DBConnection database = new DBConnection();
+                    database.reconnect();
+                }
+            } else return;
+
+
+        });
+
+        cancelColorByOfferingSaleButton.setOnAction(event ->{
+            try {
+                inProcessingRequest = (InProcessingRequest) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
+            } catch (Exception ex) {
+                UsefulUtils.showErrorDialogDown("Не вибрано жодного елемента з таблиці!");
+                return;
+            }
+            if (UsefulUtils.showConfirmDialog("Ви підтверджуєте зняття продукту з замовлення?") == ButtonType.OK) {
+
+                String query = "Update tbl_OfferingInRequestOffering\n" +
+                        "SET\n" +
+                        "\n" +
+                        "ModifiedByID = ?,\n" +
+                        "ModifiedOn = CURRENT_TIMESTAMP,\n" +
+                        "ColorByOfferingSale = 0\n" +
+                        "WHERE \n" +
+                        "ID = ?";
+                try {
+                    pst = con.prepareStatement(query);
+                    pst.setString(1, User.getContactID());
+                    pst.setString(2, inProcessingRequest.getID());
+                    pst.executeUpdate();
+
+               refreshData();
+                    UsefulUtils.showSuccessful("Продукт " + inProcessingRequest.getSkrut() + " знято з продажу");
+                } catch (SQLException e) {
+                    DBConnection database = new DBConnection();
+                    database.reconnect();
+                }
+            } else return;
+        });
+        //tableView.getSelectionModel().getSelectedCells().get(0);
+
+
+    }
+
+
+
+    public void updateColor (){
+        tableView.setRowFactory(new Callback<TableView<InProcessingRequest>, TableRow<InProcessingRequest>>() {
+            @Override
+            public TableRow<InProcessingRequest> call(TableView<InProcessingRequest> param) {
+                return new TableRow<InProcessingRequest>() {
+                    @Override
+                    protected void updateItem(InProcessingRequest item, boolean empty) {
+                        super.updateItem(item, empty);
+                        try {
+                            setStyle(" ");
+                            if(item.getColorByOfferingSale().equals(0) || item.getColorByOfferingSale().equals(null)) {
+                                setStyle(" ");
+                            }else if (item.getColorByOfferingSale().equals(1)) {
+                                setStyle("-fx-background-color: #2eff3b;");
+                            }
+
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
+                        }
+
+
+                    }
+                };
+            }
+        });
     }
 
     public void init(InProcessingController inProcessingController) {
@@ -143,7 +248,8 @@ public class InProcessingRequestController extends WorkArea implements Initializ
                         "\t\t'-' AS [Exist]\n" +
                         "\tFROM\n" +
                         "\t\t[dbo].[tbl_OfferingAnalogue] AS [tbl_OfferingAnalogue]\n" +
-                        "\tWHERE([tbl_OfferingAnalogue].[OfferingID] = [tbl_OfferingInRequestOffering].[OfferingID])) AS [IsRoot]\n" +
+                        "\tWHERE([tbl_OfferingAnalogue].[OfferingID] = [tbl_OfferingInRequestOffering].[OfferingID])) AS [IsRoot],\n" +
+                        "\t [tbl_OfferingInRequestOffering].[ColorByOfferingSale] AS [ColorByOfferingSale] \n" +
                         "FROM\n" +
                         "\t[dbo].[tbl_OfferingInRequestOffering] AS [tbl_OfferingInRequestOffering]\n" +
                         "LEFT OUTER JOIN\n" +
@@ -158,7 +264,7 @@ public class InProcessingRequestController extends WorkArea implements Initializ
             rs = pst.executeQuery();
             while (rs.next()) {
                 data.add(new InProcessingRequest(rs.getString(8), rs.getString(9), rs.getString(14),
-                        rs.getString(10), rs.getString(12), rs.getString(11), rs.getString(13)));
+                        rs.getString(10), rs.getString(12), rs.getString(11), rs.getString(13), rs.getInt(16), rs.getString(1)));
 
 
             }
@@ -168,67 +274,22 @@ public class InProcessingRequestController extends WorkArea implements Initializ
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        // tableViewRequest.setItems(FXCollections.observableArrayList(data.subList((int)fromIndex, (int)toIndex)));
         return null;
     }
 
-
-  /*  public void loadDataFromDatabaseBottom() {
+    public void refreshData() {
         try {
 
-            data = FXCollections.observableArrayList();
-            List<InProcessingRequest> listItems = derbyInProcessingRequestDAO.findAll(5, selectedRecord.getID());
 
-            listItems.forEach(item -> data.add(item));
+            data.clear();
+        } catch (NullPointerException ex) {
 
-            tableInProcessingProduct.setItems(data);
-        } catch (Exception e) {
-            log.log(Level.SEVERE, "Exception: " + e);
+        } finally {
+            updateColor();
+            loadDataFromDatabaseBottom();
+
+            UsefulUtils.fadeTransition(tableView);
         }
+
     }
-
-
-
-    public void createTableColumnsProduct() {
-
-        try {
-            TableColumn<InProcessingRequest, String> index = new TableColumn<InProcessingRequest, String>("Індекс");
-            TableColumn<InProcessingRequest, String> skrut = new TableColumn<InProcessingRequest,String>("Скорочення");
-            TableColumn<InProcessingRequest, String> offeringName = new TableColumn<InProcessingRequest, String>("Продукт");
-            TableColumn<InProcessingRequest, String> quantity = new TableColumn<InProcessingRequest, String>("Кількість");
-            TableColumn<InProcessingRequest, String> defaultOfferingCode = new TableColumn<InProcessingRequest, String>("Код товару");
-
-
-
-            index.setMinWidth(150);
-
-            //   tableProduct.setVisible(false);
-            tableInProcessingProduct.setTableMenuButtonVisible(true);
-            tableInProcessingProduct.getColumns().addAll(
-                    index,
-                    skrut,
-                    offeringName,
-                    quantity,
-                    defaultOfferingCode
-            );
-            index.setCellValueFactory(new PropertyValueFactory<InProcessingRequest,String>("index"));
-            skrut.setCellValueFactory(new PropertyValueFactory<InProcessingRequest,String>("skrut"));
-            offeringName.setCellValueFactory(new PropertyValueFactory<InProcessingRequest,String>("offeringName"));
-            quantity.setCellValueFactory(new PropertyValueFactory<InProcessingRequest,String>("quantity"));
-            defaultOfferingCode.setCellValueFactory(new PropertyValueFactory<InProcessingRequest,String>("defaultOfferingCode"));
-
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }*/
-   /* public  void setSelectedRecord(OfferingRequest value) {
-        this.selectedRecord = value;
-        loadDataFromDatabaseBottom();
-    }*/
-
-
 }

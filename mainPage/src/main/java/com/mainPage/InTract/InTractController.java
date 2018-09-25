@@ -12,6 +12,7 @@ import com.client.util.ResizeHelper;
 import com.connectDatabase.DBConnection;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
+import com.login.Credentials;
 import com.login.User;
 import com.mainPage.InProcessing.NotesInProcessing.NotesInProcessingController;
 import com.mainPage.InTract.InTractRequest.InTractRequestController;
@@ -39,14 +40,20 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import org.google.jhsheets.filtered.operators.IFilterOperator;
 import org.google.jhsheets.filtered.tablecolumn.ColumnFilterEvent;
 import org.google.jhsheets.filtered.tablecolumn.FilterableDateTableColumn;
 import org.google.jhsheets.filtered.tablecolumn.FilterableDoubleTableColumn;
 import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn;
+import tray.animations.AnimationType;
+import tray.notification.TrayNotification;
 
 import java.io.IOException;
 import java.net.URL;
@@ -91,6 +98,8 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
 
     @FXML
     private JFXToggleButton btn_ButtonAll;
+    @FXML
+    public CheckBox notNotification;
 
     private HashMap<TableColumn, Pane> hashMiniFilter = new HashMap<>();
     private HashMap<TableColumn, String> hashColumns = new HashMap<>();
@@ -138,7 +147,7 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
     private String filterSorted = null;
     private String countfilter = null;
     private String sort = "DESC";
-
+    private Credentials credentials = new Credentials();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -152,6 +161,16 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
 
         inTractRequestViewController.init(this);
         chatViewController.init(this);
+
+
+        notNotification.setSelected(credentials.getIsSelected());
+
+
+        notNotification.setOnAction(event -> {
+            if(notNotification.isSelected()) {
+                credentials.setCredentials(notNotification.isSelected());
+            }
+        });
 
         try {
             con = DBConnection.getDataSource().getConnection();
@@ -367,9 +386,13 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
                                 }
                             } else {
                                 setStyle("-fx-font-weight: bold");
+                                if(item.getOfferingGroupID().equals(User.getContactID()) || item.getCreatedByID().equals(User.getContactID())){
+                                    newNotification(item.getNumber(), item.getStatus());
+                                }
                                 if (item.getJointAnnulment().equals(1) || item.getJointAnnulment().equals(2))
                                     setStyle("-fx-background-color: #FF0000;" +
                                             "-fx-font-weight: bold");
+
 
                             }
                         } catch (NullPointerException ex) {
@@ -548,6 +571,29 @@ public class InTractController extends WorkArea  implements MiniFilterFunction, 
             loginButtonAction(chosenAccount);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    private void newNotification (String number, String status) {
+        if(notNotification.isSelected()) {
+        }else {
+            Platform.runLater(() -> {
+                // Image profileImg = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture().toLowerCase() +".png").toString(),50,50,false,false);
+                TrayNotification tray = new TrayNotification();
+                tray.setTitle("Нове повідомлення");
+                tray.setMessage(number + ". В дановму запиті є непрочитані\n повідомлення в статусі " + status);
+                tray.setRectangleFill(Paint.valueOf("#2C3E50"));
+                tray.setAnimationType(AnimationType.POPUP);
+                //  tray.setImage(profileImg);
+                tray.showAndDismiss(Duration.seconds(11));
+                try {
+                    Media hit = new Media(getClass().getClassLoader().getResource("sounds/notification.wav").toString());
+                    MediaPlayer mediaPlayer = new MediaPlayer(hit);
+                    mediaPlayer.play();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            });
         }
     }
 

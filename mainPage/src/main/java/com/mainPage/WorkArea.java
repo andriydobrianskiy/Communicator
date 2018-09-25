@@ -15,6 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.util.Callback;
 import org.google.jhsheets.filtered.operators.IFilterOperator;
 
 import java.io.IOException;
@@ -42,11 +43,15 @@ public abstract class WorkArea extends BorderPane implements MiniFilterFunction,
     @FXML
     protected Pagination pagination;
     @FXML public CustomTableView tableView;
+
     @FXML
     private TextArea textArea;
     private Connection con = null;
     private PreparedStatement pst = null;
     private ResultSet rs = null;
+    public int pageCount = 5;
+    public int itemsPerPage = 40;
+    public int currentPageIndex = 0;
 
     @FXML protected BorderPane borderPaneTV;
     @FXML protected BorderPane borderPane;
@@ -164,12 +169,40 @@ public abstract class WorkArea extends BorderPane implements MiniFilterFunction,
 
             if(eventKey.getCode().equals(KeyCode.DOWN) || eventKey.getCode().equals(KeyCode.UP)) { // arrow up down
                 fixSelectedRecord();
+
             }
         });
 
         UsefulUtils.copySelectedCell(tableView);
 
     }
+    public void updateColor (){
+        tableView.setRowFactory(new Callback<TableView<GridComp>, TableRow<GridComp>>() {
+            @Override
+            public TableRow<GridComp> call(TableView<GridComp> param) {
+                return new TableRow<GridComp>() {
+                    @Override
+                    protected void updateItem(GridComp item, boolean empty) {
+                        super.updateItem(item, empty);
+                        try {
+                            setStyle(" ");
+                            if(item.getColorByOfferingSale().equals(0) || item.getColorByOfferingSale().equals(null)) {
+                                setStyle(" ");
+                            }else if (item.getColorByOfferingSale().equals(1)) {
+                                setStyle("-fx-background-color: #2eff3b;");
+                            }
+
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
+                        }
+
+
+                    }
+                };
+            }
+        });
+    }
+
 
     protected void fixSelectedRecord() {}
     protected void fixSelectedRecordAll() {}
@@ -179,10 +212,17 @@ public abstract class WorkArea extends BorderPane implements MiniFilterFunction,
     public synchronized void refreshData() {
         //new RefreshTask(this, borderPaneTV, tableView, data).execute(); //TODO
         try {
+            tableView.setSelectedRow();
             data.clear();
         } catch (NullPointerException ex) {
         } finally {
+
             loadDataFromDatabase();
+            pagination.setPageFactory(this::createPage);
+            pageCount = getPageCount(data.size(), itemsPerPage);
+            pagination.setPageCount(pageCount);
+            UsefulUtils.fadeTransition(tableView);
+
         }
         UsefulUtils.fadeTransition(tableView);
     }
@@ -212,6 +252,8 @@ public abstract class WorkArea extends BorderPane implements MiniFilterFunction,
                     ((TableColumn) item).setVisible(windowPreference.getBoolean(((TableColumn) item).getId()+ VISIBILITY_PREFERENCE, ((TableColumn) item).isVisible()));
                 });
     }
+
+
 
     protected void setWindowPreference(Preferences preference) {
         this.windowPreference = preference;

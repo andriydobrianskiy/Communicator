@@ -1,19 +1,19 @@
 package com.mainPage.InProcessing;
 
 
-import com.ChatTwoo.controller.ColumnMessage;
 import com.Utils.CustomPaginationSkin;
 import com.Utils.DictionaryProperties;
 import com.Utils.MiniFilterWindow.MiniFilter;
 import com.Utils.MiniFilterWindow.MiniFilterController;
 import com.Utils.MiniFilterWindow.MiniFilterFunction;
 import com.Utils.UsefulUtils;
+import com.client.ColumnMessage;
 import com.client.chatwindow.ChatController;
 import com.client.chatwindow.Listener;
 import com.client.util.ResizeHelper;
 import com.connectDatabase.DBConnection;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXToggleButton;
+import com.login.Credentials;
 import com.login.User;
 import com.mainPage.InProcessing.Calculator.CalculatorController;
 import com.mainPage.InProcessing.InProcessingRequest.InProcessingRequestController;
@@ -51,6 +51,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -78,10 +79,10 @@ import java.util.logging.Logger;
 
 public class InProcessingController extends WorkArea implements MiniFilterFunction, DictionaryProperties, Initializable, ObserverNF {
 
-    @FXML
-    private JFXButton btn_Server;
-    @FXML
-    private JFXButton tbn_CreateRequest;
+    //@FXML
+  //  private JFXButton btn_Server;
+    //@FXML
+   // private JFXButton tbn_CreateRequest;
     @FXML
     private JFXButton btn_changeRequest;
     @FXML
@@ -92,14 +93,20 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
     private BorderPane anchorPane;
     @FXML
     private JFXButton btnDelete;
-    @FXML
-    private JFXButton btn_IntoProcessing;
+   // @FXML
+   // private JFXButton btn_IntoProcessing;
     @FXML
     private JFXButton btn_UpdateStatus;
     @FXML
     private JFXButton btnConfirmation;
     @FXML
-    private JFXToggleButton btn_ButtonAll;
+    private ToggleButton btn_ButtonAll;
+    @FXML
+    private ToggleButton btn_Button;
+    @FXML
+    private ToggleButton btn_ButtonPricing;
+    @FXML
+    private ToggleButton btn_ButtonAllPricing;
     @FXML
     public TableView tableView;
     @FXML
@@ -114,6 +121,7 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
     private Button btn_Calculator;
     @FXML
     private JFXButton btn_NotPrice;
+    @FXML public CheckBox notNotification;
     private PreparedStatement pst = null;
     private Connection con = null;
     private ResultSet rs = null;
@@ -126,6 +134,7 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
     private long fromIndex;
     private long toIndex;
     public ChatController conn;
+    private Integer pricingBoolean = 0;
 
     private double xOffset;
     private double yOffset;
@@ -167,6 +176,8 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
     @FXML
     private FilterableStringTableColumn<InProcessing, String> colCashType;
     @FXML
+    private FilterableStringTableColumn<InProcessing, String> colPricingDescription;
+    @FXML
     private Pagination pagination;
     public static InProcessing chosenAccount = null;
     public InProcessing chosenElement = null;
@@ -174,7 +185,7 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
     private InProcessingRequestController inProcessingRequestViewController;
     @FXML
     private ChatController chatViewController;
-
+    private Credentials credentials = new Credentials();
     private IntegerProperty index = new SimpleIntegerProperty();
     private Button id = new Button();
     private Button Number = new Button();
@@ -223,8 +234,6 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
 
     protected void fixSelectedRecord() {
         InProcessing record = (InProcessing) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
-
-        System.out.println("lllllllll" + record);
         inProcessingRequestViewController.handleTableView(record);
         try {
             chosenAccount = (InProcessing) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
@@ -241,24 +250,35 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
         chatViewController.init(this);
         tableView.getStylesheets().add(InProcessingController.class.getResource("/styles/TableStyle.css").toExternalForm());
         inProcessingRequestViewController.init(this);
-        btnConfirmation.setVisible(true);  // Замовити
-        btn_UpdateStatus.setVisible(true);  // Взяти в роботу
-        tbn_CreateRequest.setVisible(false); // Створити запит
-        btn_changeRequest.setVisible(false); // Змынити запит
-        btn_ConfirmRequest.setVisible(false); // Пыдтвердити
-        btn_IntoProcessing.setVisible(false); // Повернути в обробку
-        btn_Server.setVisible(false);   // Сервер
-        btnDelete.setVisible(false);    // видалити запит
-        btn_СancelRequest.setVisible(true); // анулювати запит
-        btn_ReturnOwner.setVisible(true); // Змынити выдповыдального
-        btn_Calculator.setVisible(true); // калькулятор
-        btn_NotPrice.setVisible(true); // Не підходить ціна
+        btnConfirmation.setDisable(true);  // Замовити
+        btn_UpdateStatus.setDisable(true);  // Взяти в роботу
+     //   tbn_CreateRequest.setVisible(false); // Створити запит
+        btn_changeRequest.setDisable(true); // Змынити запит
+        btn_ConfirmRequest.setDisable(true); // Пыдтвердити
+     //   btn_IntoProcessing.setVisible(false); // Повернути в обробку
+      //  btn_Server.setVisible(false);   // Сервер
+        btnDelete.setDisable(true);    // видалити запит
+        btn_СancelRequest.setDisable(true); // анулювати запит
+        btn_ReturnOwner.setDisable(false); // Змынити выдповыдального
+        btn_Calculator.setDisable(false); // калькулятор
+        btn_NotPrice.setDisable(true); // Не підходить ціна
+        btn_ButtonAll.setDisable(false); // Закуп Всі
+        btn_ButtonPricing.setDisable(false);  // Ціноутворення Мої
+        btn_Button.setDisable(false);  // Закуп Мої
+        btn_ButtonAllPricing.setDisable(false); // Ціноутворення Всі
 
+        notNotification.setSelected(credentials.getIsSelected());
+
+
+notNotification.setOnAction(event -> {
+    if(notNotification.isSelected()) {
+        credentials.setCredentials(notNotification.isSelected());
+    }
+});
         // Connection Database
         try {
             con = DBConnection.getDataSource().getConnection();
         } catch (SQLException e) {
-            e.printStackTrace();
             DBConnection database = new DBConnection();
             database.reconnect();
         }
@@ -294,11 +314,39 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                     UsefulUtils.showSuccessful("Запит в обробці " + User.getContactName());
 
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    DBConnection database = new DBConnection();
+                    database.reconnect();
                 }
             } else return;
         });
+        //Buttons
+        btn_ConfirmRequest.setOnAction(event ->{
+        try{
+        chosenAccount = (InProcessing) tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
+        }catch (Exception ex){
+            UsefulUtils.showErrorDialogDown("Не вибрано жодного елемента з таблиці!");
+            return;
+        }
+        if (UsefulUtils.showConfirmDialog("Ви бажаєте завершити запит?") == ButtonType.OK){
+            String query = "UPDATE [dbo].[tbl_RequestOffering]\n" +
+                    "\tSET [StatusID] = '{6F784E48-1474-4CB9-B28D-A4B580FB346C}',\n" +
+                    "\t[ModifiedOn] = CURRENT_TIMESTAMP,\n" +
+                    "\t[ModifiedByID] = ?\n" +
+                    "WHERE([tbl_RequestOffering].[ID] = ?)";
+            try {
+                pst = con.prepareStatement(query);
+                pst.setString(1, User.getContactID());
+                pst.setString(2, String.valueOf(chosenAccount));
+                pst.executeUpdate();
+                main.changeExists();
+                UsefulUtils.showSuccessful("Запит " + chosenAccount.getNumber() + " завершено");
+            } catch (SQLException e) {
+                DBConnection database = new DBConnection();
+                database.reconnect();
+            }
+        }
 
+        });
 
         // Buttons Confirmation
         btnConfirmation.setOnAction(event -> {
@@ -324,7 +372,8 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                     main.changeExists();
                     UsefulUtils.showSuccessful("Запит " + chosenAccount.getNumber() + " переведено в тракт");
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    DBConnection database = new DBConnection();
+                    database.reconnect();
                 }
             } else return;
         });
@@ -365,7 +414,8 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                     UsefulUtils.showSuccessful("Запит " + chosenAccount.getNumber() + " анульовано");
 
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    DBConnection database = new DBConnection();
+                    database.reconnect();
                 }
 
             } else return;
@@ -412,12 +462,105 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                 }
         });
         ToggleGroup group = new ToggleGroup();
+        btn_Button.setToggleGroup(group);
         btn_ButtonAll.setToggleGroup(group);
+        btn_ButtonAllPricing.setToggleGroup(group);
+
+        btn_ButtonPricing.setToggleGroup(group);
+        btn_Button.setSelected(true);
         group.selectedToggleProperty().addListener(event -> {
-            if (group.getSelectedToggle() != null) {
+            if(group.getSelectedToggle().equals(btn_ButtonAllPricing)) {
+                queryAll = false;
+                pricingBoolean = 1;
+                refreshData();
+
+                btn_UpdateStatus.setVisible(false);
+                datePicker.setVisible(false);
+                dateLabel.setVisible(false);
+                btn_ReturnOwner.setVisible(false);
+                btnConfirmation.setDisable(true);
+                btn_Calculator.setDisable(false);
+                btn_NotPrice.setDisable(true);
+                btn_СancelRequest.setDisable(false);
+                btn_ConfirmRequest.setDisable(false);
+                searchingField.setOnAction(event1 -> {
+                    String value = searchingField.getText();
+
+                    if (value.equals("")) {
+                        refreshData();
+                    } else
+                        try {
+                            findByProperty(value);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                });
+            }else if(group.getSelectedToggle().equals(btn_ButtonPricing)) {
+
+
+                queryAll = true;
+                pricingBoolean = 1;
+                refreshData();
+                btn_UpdateStatus.setVisible(false);
+                datePicker.setVisible(false);
+                dateLabel.setVisible(false);
+                btn_ReturnOwner.setVisible(false);
+                btnConfirmation.setDisable(true);
+                btn_Calculator.setDisable(false);
+                btn_NotPrice.setDisable(true);
+                btn_СancelRequest.setDisable(false);
+                btn_ConfirmRequest.setDisable(false);
+                searchingField.setOnAction(event1 -> {
+                    String value = searchingField.getText();
+
+                    if (value.equals("")) {
+                        refreshData();
+                    } else
+                        try {
+                            findByProperty(value);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                });
+            }else if(group.getSelectedToggle().equals(btn_ButtonAll)){
+
+                queryAll = false;
+                pricingBoolean = 0;
+                refreshData();
+                btn_UpdateStatus.setVisible(false);
+                datePicker.setVisible(false);
+                dateLabel.setVisible(false);
+                btn_ReturnOwner.setDisable(false);
+                btnConfirmation.setDisable(true);
+                btn_Calculator.setDisable(false);
+                btn_NotPrice.setDisable(true);
+                btn_СancelRequest.setDisable(false);
+                btn_ConfirmRequest.setDisable(false);
+                searchingField.setOnAction(event1 -> {
+                    String value = searchingField.getText();
+
+                    if (value.equals("")) {
+                        refreshData();
+                    } else
+                        try {
+                            findByProperty(value);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                });
+
+            }else if(group.getSelectedToggle().equals(btn_Button)){
                 queryAll = true;
                 btn_UpdateStatus.setVisible(false);
-
+                datePicker.setVisible(false);
+                dateLabel.setVisible(false);
+                btn_ReturnOwner.setVisible(true);
+                btnConfirmation.setDisable(true);
+                btn_Calculator.setDisable(false);
+                btn_NotPrice.setDisable(false);
+                btn_СancelRequest.setDisable(false);
+                btn_ConfirmRequest.setDisable(false);
+                pricingBoolean = 0;
                 refreshData();
 
                 searchingField.setOnAction(event1 -> {
@@ -432,32 +575,15 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                             e.printStackTrace();
                         }
                 });
-
-            } else {
-                queryAll = false;
-
-                refreshData();
-
-                btn_UpdateStatus.setVisible(true);
-                searchingField.setOnAction(event1 -> {
-                    String value = searchingField.getText();
-
-                    if (value.equals("")) {
-                        refreshData();
-                    } else
-                        try {
-                            findByProperty(value);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                });
-
-
             }
+
+
+
+
         });
 
 
-        NotificationBUProduct();
+   //     NotificationBUProduct();
         //Create Columns
         createTableColumns();
         tableViewHandles();
@@ -470,6 +596,7 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
         tableView.setTableMenuButtonVisible(true);
         UsefulUtils.installCopyPasteHandler(tableView);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         //Create Paginations
         try {
@@ -507,8 +634,8 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
         }
 
         //Buttons Icons
-        Image imageDecline = new Image(getClass().getResourceAsStream("/images/CreateRequest.png"));
-        tbn_CreateRequest.setGraphic(new ImageView(imageDecline));
+     //   Image imageDecline = new Image(getClass().getResourceAsStream("/images/CreateRequest.png"));
+     //   tbn_CreateRequest.setGraphic(new ImageView(imageDecline));
 
 
         Image imageChange = new Image(getClass().getResourceAsStream("/images/ChangeRequest.png"));
@@ -524,10 +651,10 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
         btnDelete.setGraphic(new ImageView(imageDelete));
 
         Image imageIntoProcessing = new Image(getClass().getResourceAsStream("/images/IntoProcessing.png"));
-        btn_IntoProcessing.setGraphic(new ImageView(imageIntoProcessing));
+        btnConfirmation.setGraphic(new ImageView(imageIntoProcessing));
 
-        Image imageServerInProcessing = new Image(getClass().getResourceAsStream("/images/ServerInProcessing.png"));
-        btn_Server.setGraphic(new ImageView(imageServerInProcessing));
+     //   Image imageServerInProcessing = new Image(getClass().getResourceAsStream("/images/ServerInProcessing.png"));
+      //  btn_Server.setGraphic(new ImageView(imageServerInProcessing));
         Image imageNotPriceInProcessing = new Image(getClass().getResourceAsStream("/images/NotPrice.png"));
         btn_NotPrice.setGraphic(new ImageView(imageNotPriceInProcessing));
         btnDelete.setOnAction(event -> {
@@ -573,30 +700,34 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                     protected void updateItem(InProcessing item, boolean empty) {
                         super.updateItem(item, empty);
                         try {
-                            if (item == null || item.getIsReadMeassage() == null || item.getIsReadMeassage().equals(0)) {
-                                setStyle("");
-                                if (item.getOfferingGroupID().equals("C763A6EF-0115-41E4-A00C-219E246F7E0D") ||
-                                        item.getOfferingGroupID().equals("9FAB93B7-A92A-498B-AF29-732A88DB86CF") ||
-                                        item.getOfferingGroupID().equals("EDC2623A-7F70-4AA0-B4A7-72A900F69C5D")){
-                                    setStyle("-fx-background-color: #15ff73;");
-                                }
-                                if (item.getJointAnnulment().equals(1) || item.getJointAnnulment().equals(2)) {
-                                    setStyle("-fx-background-color: #FF0000;");
 
-                                }
-                            } else {
-                                setStyle("-fx-font-weight: bold");
-                                if (item.getOfferingGroupID().equals("C763A6EF-0115-41E4-A00C-219E246F7E0D") ||
-                                        item.getOfferingGroupID().equals("9FAB93B7-A92A-498B-AF29-732A88DB86CF") ||
-                                        item.getOfferingGroupID().equals("EDC2623A-7F70-4AA0-B4A7-72A900F69C5D")){
-                                    setStyle("-fx-background-color: #15ff73;"+
-                                            "-fx-font-weight: bold");
-                                }
-                                if (item.getOfferingGroupID().equals("1B5F2F6A-133B-4026-BED3-914C8AC491D9") && User.getContactID().equals("1B5F2F6A-133B-4026-BED3-914C8AC491D9")) {
-                                    UsefulUtils.showInformationDialog("Новий запит " + item.getNumber());
-                                    Media hit = new Media(getClass().getClassLoader().getResource("sounds/not-bad.mp3").toString());
-                                    MediaPlayer mediaPlayer = new MediaPlayer(hit);
-                                    mediaPlayer.play();
+                                if (item == null || item.getIsReadMeassage() == null || item.getIsReadMeassage().equals(0)) {
+                                    setStyle("");
+                                    if (item.getOfferingGroupID().equals("C763A6EF-0115-41E4-A00C-219E246F7E0D") ||
+                                            item.getOfferingGroupID().equals("9FAB93B7-A92A-498B-AF29-732A88DB86CF") ||
+                                            item.getOfferingGroupID().equals("EDC2623A-7F70-4AA0-B4A7-72A900F69C5D")) {
+                                        setStyle("-fx-background-color: #15ff73;");
+                                    }
+                                    if (item.getJointAnnulment().equals(1) || item.getJointAnnulment().equals(2)) {
+                                        setStyle("-fx-background-color: #FF0000;");
+
+                                    }
+                                } else {
+                                    setStyle("-fx-font-weight: bold");
+                                    if (item.getOfferingGroupID() == User.getContactID() || item.getCreatedByID().equals(User.getContactID())) {
+                                        newNotification(item.getNumber(), item.getStatus());
+                                    }
+                                    if (item.getOfferingGroupID().equals("C763A6EF-0115-41E4-A00C-219E246F7E0D") ||
+                                            item.getOfferingGroupID().equals("9FAB93B7-A92A-498B-AF29-732A88DB86CF") ||
+                                            item.getOfferingGroupID().equals("EDC2623A-7F70-4AA0-B4A7-72A900F69C5D")) {
+                                        setStyle("-fx-background-color: #15ff73;" +
+                                                "-fx-font-weight: bold");
+                                        if (item.getOfferingGroupID().equals(User.getContactID()) || item.getCreatedByID().equals(User.getContactID())) {
+                                            newNotification(item.getNumber(), item.getStatus());
+                                        }
+                                    }
+                             /*   if (item.getOfferingGroupID().equals("1B5F2F6A-133B-4026-BED3-914C8AC491D9") && User.getContactID().equals("1B5F2F6A-133B-4026-BED3-914C8AC491D9")) {
+
                                     String query = "UPDATE [dbo].[tbl_RequestOffering]\n" +
                                             "\tSET  [IsReadMeassage] = 0,\n" +
                                             "\t[ModifiedOn] = CURRENT_TIMESTAMP,\n" +
@@ -613,12 +744,12 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                                             e.printStackTrace();
                                         }
 
-                                }
-                                if (item.getJointAnnulment().equals(1) || item.getJointAnnulment().equals(2))
-                                    setStyle("-fx-background-color: #FF0000;" +
-                                            "-fx-font-weight: bold");
+                                }*/
+                                    if (item.getJointAnnulment().equals(1) || item.getJointAnnulment().equals(2))
+                                        setStyle("-fx-background-color: #FF0000;" +
+                                                "-fx-font-weight: bold");
 
-                            }
+                                }
 
 
                         } catch (NullPointerException ex) {
@@ -633,8 +764,33 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
 
     }
 
+private void newNotification (String number, String status) {
+    if(notNotification.isSelected()) {
+    }else{
+        Platform.runLater(() -> {
+        // Image profileImg = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture().toLowerCase() +".png").toString(),50,50,false,false);
+      TrayNotification tray = new TrayNotification();
+        tray.setTitle("Нове повідомлення");
+        tray.setMessage(number + ". В дановму запиті є непрочитані\n повідомлення в статусі " + status );
+        tray.setRectangleFill(Paint.valueOf("#2C3E50"));
+        tray.setAnimationType(AnimationType.POPUP);
+        //  tray.setImage(profileImg);
+        tray.showAndDismiss(Duration.seconds(11));
+        try {
+            Media hit = new Media(getClass().getClassLoader().getResource("sounds/notification.wav").toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(hit);
+            mediaPlayer.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-    private void NotificationBUProduct() {
+    });
+
+
+    }
+
+}
+  /*  private void NotificationBUProduct() {
 
         tableView.setRowFactory(new Callback<TableView<InProcessing>, TableRow<InProcessing>>() {
             @Override
@@ -659,7 +815,7 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                 };
             }
         });
-    }
+    }*/
 
     private void SortButton(Button button) {
         button.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
@@ -774,7 +930,6 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
 
     public void loginButtonAction(InProcessing chosenAccount) throws IOException {
         String hostname = "192.168.10.144";
-        System.out.println(hostname);
         int port = 9001;
         String username = User.getContactName();
         String picture = "Default";
@@ -786,7 +941,7 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
         }
         chatViewController.buttonSendTract.setVisible(false);
         main.setChatController(chatViewController);
-        main.messageSend();
+
 
 
         Listener listener = new Listener(hostname, port, username, picture, chatViewController, this, chosenAccount);
@@ -865,6 +1020,7 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
                     "\t\t[dbo].[tbl_Contact] AS [GroupChangedBy]\n");
             hashColumns.put(colSpecialMarginTypeName, "[SMT].[Name]");
             hashColumns.put(colCashType, "[tbl_RequestOffering].[CashType]");
+            hashColumns.put(colPricingDescription, "[tbl_RequestOffering].[PricingDescription]");
             List<?> listColumns = tableView.getColumns();
 
             colNumber.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("Number"));
@@ -882,7 +1038,7 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
             colGroupChangedBy.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("GroupChangedBy"));
             colSpecialMarginTypeName.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("SpecialMarginTypeName"));
             colCashType.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("CashType"));
-
+            colPricingDescription.setCellValueFactory(new PropertyValueFactory<InProcessing, String>("PricingDescription"));
 
         } catch (Exception e) {
             log.log(Level.SEVERE, "Exception in creating columns: " + e);
@@ -897,12 +1053,12 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
         data.clear();
         try {
             if (queryAll == true) {
-                List<InProcessing> listItems = account.findAllOne(true, (int) toIndex, User.getContactID(), User.getContactID(), filterSorted);
+                List<InProcessing> listItems = account.findAllOne(true, (int) toIndex, User.getContactID(), User.getContactID(), filterSorted, pricingBoolean);
                 listItems.forEach(item -> data.add(item));
 
                 tableView.setItems(data);
             } else if (queryAll == false) {
-                List<InProcessing> listItems = account.findAllInProcessing(true, (int) toIndex, filterSorted);
+                List<InProcessing> listItems = account.findAllInProcessing(true, (int) toIndex, filterSorted, pricingBoolean);
                 listItems.forEach(item -> data.add(item));
 
                 tableView.setItems(data);
@@ -975,21 +1131,19 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
 
     public void refreshData() {
         try {
+
+
             data.clear();
         } catch (NullPointerException ex) {
 
         } finally {
             dataPagination = true;
             pagination.setPageFactory(this::createPage);
-          //  UpdateColorNotificationNotPrice();
-            NotificationBUProduct();
-
+            UpdateColorNotificationNotPrice();
+            UsefulUtils.fadeTransition(tableView);
         }
 
-        UsefulUtils.fadeTransition(tableView);
     }
-
-
     private void searchCode() {
         FilteredList<InProcessing> filteredData = new FilteredList<>(data, e -> true);
         searchingField.setOnKeyReleased(e -> {
@@ -1236,5 +1390,35 @@ public class InProcessingController extends WorkArea implements MiniFilterFuncti
     public void update() {
         refreshData();
 
+    }
+    public void selectOrderByRepairNote(InProcessing inProcessing) {
+        
+        int selectRecordPosition = data.indexOf(contains(inProcessing));
+
+
+
+        tableView.getSelectionModel().select(selectRecordPosition);
+        tableView.scrollTo(selectRecordPosition);
+    }
+
+    private InProcessing contains(InProcessing order) {
+     /*   InProcessing orderToSelect = null;
+
+        for(InProcessing item :data) {
+            if (item.getID().equalsIgnoreCase(order.getID()))
+                return item;
+        }
+
+
+
+        try {
+            orderToSelect = derbyOrderDAO.findOfferingByProperty(OrderSearchType.ID, order.getID()).get(0);
+            data.add(orderToSelect);
+        } catch (Exception e) {
+
+        }
+        return orderToSelect;
+    }*/
+        return null;
     }
 }

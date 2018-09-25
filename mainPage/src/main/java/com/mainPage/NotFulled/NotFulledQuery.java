@@ -13,7 +13,7 @@ public class NotFulledQuery implements Queries {
 
     private StringBuilder query;
 
-    public String getMainNotFulled(Boolean top, int rowIndex, String createdByID, String offeringGroupID) {
+    public String getMainNotFulled(Boolean top, int rowIndex, String createdByID, String offeringGroupID, Integer pricingType) {
 
         query = new StringBuilder();
         query.append("SELECT \n");
@@ -132,7 +132,9 @@ public class NotFulledQuery implements Queries {
                 "\t[SMT].[Name] AS [SpecialMarginTypeName],\n" +
                 "\t[tbl_RequestOffering].[StateID] AS [StateID],\n" +
                 "\t[tbl_RequestOfferingState].[Name] AS [StateName],\n" +
-                "\t[tbl_RequestOffering].[CashType] AS [CashType]\n"+
+                "\t[tbl_RequestOffering].[CashType] AS [CashType],\n"+
+                       "\t[tbl_RequestOffering].[PricingType] AS [PricingType],\n" +
+                       "\t[tbl_RequestOffering].[PricingDescription] AS [PricingDescription]\n" +
                 "FROM\n" +
                 "\t[dbo].[tbl_RequestOffering] AS [tbl_RequestOffering]\n" +
                 "LEFT OUTER JOIN\n" +
@@ -151,6 +153,7 @@ public class NotFulledQuery implements Queries {
                 "\t[dbo].[tbl_RequestOfferingState] AS [tbl_RequestOfferingState] ON [tbl_RequestOfferingState].[ID] = [tbl_RequestOffering].[StateID]\n" +
                 "WHERE(([tbl_RequestOffering].[CreatedByID] = '"+createdByID+"' OR\n" +
                 "\t[tbl_RequestOffering].[OfferingGroupID] = '"+offeringGroupID+"' ) AND\n" +
+               "([tbl_RequestOffering].[PricingType] = "+pricingType+") AND \n"+
                 "\t[tbl_RequestOffering].[StatusID] = '{44C65A86-2DFA-4808-AADF-D7CFDEB11F3B}') \n"
                 );
 

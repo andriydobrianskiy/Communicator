@@ -9,7 +9,6 @@ import com.Utils.UsefulUtils;
 import com.client.chatwindow.ChatController;
 import com.connectDatabase.DBConnection;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXToggleButton;
 import com.login.User;
 import com.mainPage.All.AllRequest.AllRequestController;
 import com.mainPage.InProcessing.NotesInProcessing.NotesInProcessingController;
@@ -77,7 +76,13 @@ public class AllController extends WorkArea    implements Initializable, Observe
     @FXML
     private BorderPane splitPane;
     @FXML
-    private JFXToggleButton btn_ButtonAll;
+    private ToggleButton btn_ButtonAll;
+    @FXML
+    private ToggleButton btn_ButtonAllPricing;
+    @FXML
+    private ToggleButton btn_ButtonPricing;
+    @FXML
+    private ToggleButton btn_Button;
 
     private MainPageController main;
     public ChatController conn;
@@ -111,6 +116,7 @@ public class AllController extends WorkArea    implements Initializable, Observe
     @FXML private FilterableStringTableColumn <All, String> colGroupChangedBy;
     @FXML private FilterableStringTableColumn <All, String> colSpecialMarginTypeName;
     @FXML private FilterableStringTableColumn<All, String> colCashType;
+    @FXML private FilterableStringTableColumn<All, String> colPricingDescription;
 
     private Button id = new Button();
     private Button Number = new Button();
@@ -126,32 +132,15 @@ public class AllController extends WorkArea    implements Initializable, Observe
     private String filterSorted = null;
     private String countfilter = null;
     private String sort = "DESC";
-
-// ALLTable
-
-/*
-  //  private HashMap<TableColumn, String> hashColumns = new HashMap<>();
- //   private HashMap<TableColumn, Pane> hashMiniFilter = new HashMap<>();
-    @FXML private FilterableStringTableColumn <All, String> colNumberAll;
-    @FXML private FilterableDateTableColumn<All, String> colCreatedOnAll;
-    @FXML private FilterableStringTableColumn <All, String> colCreatedByAll;
-    @FXML private FilterableStringTableColumn <All, String> colAccountCodeAll;
-    @FXML private FilterableStringTableColumn <All, String> colAccountNameAll;
-    @FXML private FilterableDoubleTableColumn<All, Double> colAccountSaldoAll;
-    @FXML private FilterableStringTableColumn <All, String> colAccountIsSolidAll;
-    @FXML private FilterableStringTableColumn <All, String> colStoreCityAll;
-    @FXML private FilterableStringTableColumn <All, String> colStatusAll;
-    @FXML private FilterableStringTableColumn <All, String> colOfferingGroupNameAll;
-    @FXML private FilterableStringTableColumn <All, String> colOriginalGroupNameAll;
-    @FXML private FilterableStringTableColumn <All, String> colGroupChangedByAll;
-    @FXML private FilterableStringTableColumn <All, String> colSpecialMarginTypeNameAll;
-*/
-
-
-
+    private Integer pricingBoolean = 0;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        btn_ButtonAll.setDisable(false); // Закуп Всі
+        btn_ButtonPricing.setDisable(false);  // Ціноутворення Мої
+        btn_Button.setDisable(false);  // Закуп Мої
+        btn_ButtonAllPricing.setDisable(false); // Ціноутворення Всі
 
         chatViewController.init(this);
         tableView.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -184,7 +173,7 @@ public class AllController extends WorkArea    implements Initializable, Observe
         tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
 
-        btn_ButtonAll.setVisible(true);
+        btn_ButtonAll.setSelected(true);
         searchingField.setOnAction(event1 -> {
             String value = searchingField.getText();
 
@@ -199,26 +188,13 @@ public class AllController extends WorkArea    implements Initializable, Observe
         });
         ToggleGroup group = new ToggleGroup();
         btn_ButtonAll.setToggleGroup(group);
+        btn_Button.setToggleGroup(group);
+        btn_ButtonAllPricing.setToggleGroup(group);
+        btn_ButtonPricing.setToggleGroup(group);
         group.selectedToggleProperty().addListener(event -> {
-            if (group.getSelectedToggle() != null) {
-                queryAll = true;
-                refreshData();
-                searchingField.setOnAction(event1 -> {
-                    String value = searchingField.getText();
-
-                    if (value.equals("")) {
-                        refreshData();
-                    } else
-                        try {
-                            findByProperty(value);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                });
-
-            } else
-            {
+            if (group.getSelectedToggle().equals(btn_ButtonAllPricing)) {
                 queryAll = false;
+                pricingBoolean = 1;
                 refreshData();
                 searchingField.setOnAction(event1 -> {
                     String value = searchingField.getText();
@@ -232,7 +208,58 @@ public class AllController extends WorkArea    implements Initializable, Observe
                             e.printStackTrace();
                         }
                 });
+
+            } else if (group.getSelectedToggle().equals(btn_ButtonPricing))
+            {
+                queryAll = true;
+                pricingBoolean = 1;
+                refreshData();
+                searchingField.setOnAction(event1 -> {
+                    String value = searchingField.getText();
+
+                    if (value.equals("")) {
+                        refreshData();
+                    } else
+                        try {
+                            findByProperty(value);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                });
+            }else if (group.getSelectedToggle().equals(btn_ButtonAll)){
+                queryAll = false;
+                pricingBoolean = 0;
+                refreshData();
+                searchingField.setOnAction(event1 ->{
+                    String value = searchingField.getText();
+                    if(value.equals("")){
+                        refreshData();
+                    }else
+                     try{
+                        findByProperty(value);
+                     }catch (Exception e){
+                        e.printStackTrace();
+                     }
+
+                });
+            }else if (group.getSelectedToggle().equals(btn_Button)){
+                queryAll = true;
+                pricingBoolean = 0;
+                refreshData();
+                searchingField.setOnAction(event1 ->{
+                    String value  = searchingField.getText();
+                    if(value.equals("")){
+                        refreshData();
+                    }else
+                        try{
+                        findByProperty(value);
+                        }catch(Exception e){
+                        e.printStackTrace();
+                        }
+                });
+
             }
+
         });
 
 
@@ -446,6 +473,7 @@ initializeTable();
             hashColumns.put(colOriginalGroupName, "[dbo].[tbl_Contact].[Name]");
             hashColumns.put(colOfferingGroupName, "[dbo].[tbl_Contact].[Name]");
             hashColumns.put(colCashType, "[tbl_RequestOffering].[CashType]");
+            hashColumns.put(colPricingDescription, "[tbl_RequestOffering].[PricingDescription]");
 
             colNumber.setMinWidth(150);
 
@@ -465,6 +493,7 @@ initializeTable();
             colOriginalGroupName.setCellValueFactory(new PropertyValueFactory<All, String>("OriginalGroupName"));
             colOfferingGroupName.setCellValueFactory(new PropertyValueFactory<All, String>("OfferingGroupName"));
             colCashType.setCellValueFactory(new PropertyValueFactory<All,String>("CashType"));
+            colPricingDescription.setCellValueFactory(new PropertyValueFactory<All, String>("PricingDescription"));
 
 
 
@@ -563,12 +592,12 @@ public void fillHboxFilter(TableColumn column, IFilterOperator.Type type, Object
         try {
 
             if(queryAll == true){
-                List<All> listItems = account.findAll(false, (int) toIndex, User.getContactID(), User.getContactID(), filterSorted);
+                List<All> listItems = account.findAll(false, (int) toIndex, User.getContactID(), User.getContactID(), filterSorted, pricingBoolean);
                 listItems.forEach(item -> data.add(item));
 
                 tableView.setItems(data);
             }else if (queryAll == false){
-                List<All> listItems = account.findAllAll(false, (int) toIndex, filterSorted);
+                List<All> listItems = account.findAllAll(false, (int) toIndex, filterSorted, pricingBoolean);
                 listItems.forEach(item -> data.add(item));
 
                 tableView.setItems(data);

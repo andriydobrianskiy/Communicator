@@ -14,7 +14,7 @@ public class InProcessingQuery implements Queries {
 
     private static StringBuilder query;
 
-    public static String getMainInProcessing(Boolean top, int rowIndex, String createdByID, String offeringGroupID) {
+    public static String getMainInProcessing(Boolean top, int rowIndex, String createdByID, String offeringGroupID, Integer pricingBoolean) {
 
         query = new StringBuilder();
         query.append("SELECT \n");
@@ -129,7 +129,9 @@ public class InProcessingQuery implements Queries {
                 "\t[SMT].[Name] AS [SpecialMarginTypeName],\n" +
                 "\t[tbl_RequestOffering].[StateID] AS [StateID],\n" +
                 "\t[tbl_RequestOfferingState].[Name] AS [StateName],\n" +
-                "\t[tbl_RequestOffering].[CashType] AS [CashType]\n" +
+                "\t[tbl_RequestOffering].[CashType] AS [CashType],\n" +
+                "\t[tbl_RequestOffering].[PricingType] AS [PricingType],\n" +
+                "\t[tbl_RequestOffering].[PricingDescription] AS [PricingDescription]\n" +
                 "FROM\n" +
                 "\t[dbo].[tbl_RequestOffering] AS [tbl_RequestOffering]\n" +
                 "LEFT OUTER JOIN\n" +
@@ -148,6 +150,7 @@ public class InProcessingQuery implements Queries {
                 "\t[dbo].[tbl_RequestOfferingState] AS [tbl_RequestOfferingState] ON [tbl_RequestOfferingState].[ID] = [tbl_RequestOffering].[StateID]\n" +
                 "WHERE(([tbl_RequestOffering].[CreatedByID] = '"+createdByID+"' OR\n" +
                 "\t[tbl_RequestOffering].[OfferingGroupID] = '"+offeringGroupID+"' ) AND\n" +
+                "([tbl_RequestOffering].[PricingType] = "+pricingBoolean+") AND \n"+
                 "\t[tbl_RequestOffering].[StatusID] = '{7CB7F6B9-EB87-48FE-86F6-49ED931A0C0B}')\n");
 
 
@@ -301,7 +304,7 @@ public class InProcessingQuery implements Queries {
     }
 
 
-    public  String getMainInProcessingAll(Boolean top, int rowIndex) {
+    public  String getMainInProcessingAll(Boolean top, int rowIndex, Integer pricingBoolean) {
 
         query = new StringBuilder();
         query.append("SELECT \n");
@@ -416,7 +419,9 @@ public class InProcessingQuery implements Queries {
                 "\t[SMT].[Name] AS [SpecialMarginTypeName],\n" +
                 "\t[tbl_RequestOffering].[StateID] AS [StateID],\n" +
                 "\t[tbl_RequestOfferingState].[Name] AS [StateName],\n" +
-                        "\t[tbl_RequestOffering].[CashType] AS [CashType]\n"+
+                        "\t[tbl_RequestOffering].[CashType] AS [CashType],\n"+
+                        "\t[tbl_RequestOffering].[PricingType] AS [PricingType],\n" +
+                        "\t[tbl_RequestOffering].[PricingDescription] AS [PricingDescription]\n" +
                 "FROM\n" +
                 "\t[dbo].[tbl_RequestOffering] AS [tbl_RequestOffering]\n" +
                 "LEFT OUTER JOIN\n" +
@@ -433,7 +438,9 @@ public class InProcessingQuery implements Queries {
                 "\t[dbo].[tbl_SpecialMarginType] AS [SMT] ON [SMT].[ID] = [tbl_Account].[SpecialMarginTypeID]\n" +
                 "LEFT OUTER JOIN\n" +
                 "\t[dbo].[tbl_RequestOfferingState] AS [tbl_RequestOfferingState] ON [tbl_RequestOfferingState].[ID] = [tbl_RequestOffering].[StateID]\n" +
-                "WHERE [tbl_RequestOffering].[StatusID] = '{7CB7F6B9-EB87-48FE-86F6-49ED931A0C0B}'\n" //+
+                "WHERE [tbl_RequestOffering].[StatusID] = '{7CB7F6B9-EB87-48FE-86F6-49ED931A0C0B}' AND\n" +
+                        "([tbl_RequestOffering].[PricingType] = "+pricingBoolean+") \n"
+                //+
              //   "ORDER BY\n" +
               //  "\t10 DESC"
         );

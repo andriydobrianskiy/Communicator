@@ -55,8 +55,8 @@ public class DerbyAllDAO implements AllDAO, FilterFunctions{
     }
 
     @Override
-    public List<All> findAll(boolean pagination, int rowIndex, String createdByID, String offeringGroupID, String filterSorted) {
-        String query = (pagination ? accountQueries1.getMainAll(true, rowIndex, createdByID, offeringGroupID) : accountQueries1.getMainAll(false, 0, createdByID, offeringGroupID));
+    public List<All> findAll(boolean pagination, int rowIndex, String createdByID, String offeringGroupID, String filterSorted, Integer pricingBoolean) {
+        String query = (pagination ? accountQueries1.getMainAll(true, rowIndex, createdByID, offeringGroupID, pricingBoolean) : accountQueries1.getMainAll(false, 0, createdByID, offeringGroupID, pricingBoolean));
         try {
 
                 return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter() + filterSorted , new BeanListHandler<All>(All.class)));
@@ -70,8 +70,8 @@ public class DerbyAllDAO implements AllDAO, FilterFunctions{
     }
 
     @Override
-    public List<All> findAllAll(boolean pagination, int rowIndex, String filterSorted) {
-        String query = (pagination ? accountQueries1.getMainAllAll(true, rowIndex) : accountQueries1.getMainAllAll(false, 0));
+    public List<All> findAllAll(boolean pagination, int rowIndex, String filterSorted, Integer pricingBoolean) {
+        String query = (pagination ? accountQueries1.getMainAllAll(true, rowIndex, pricingBoolean) : accountQueries1.getMainAllAll(false, 0, pricingBoolean));
         try {
 
             return FXCollections.observableArrayList(dbAccess.query(DBConnection.getDataSource().getConnection(), query + getStringFilter() + filterSorted, new BeanListHandler<All>(All.class)));

@@ -44,6 +44,7 @@
                                        <FilterableStringTableColumn fx:id="colGroupChangedBy" editable="false" text="Змінив групу"/>
                                        <FilterableStringTableColumn fx:id="colSpecialMarginTypeName" editable="false" text="Тип спец націнки"/>
                                        <FilterableStringTableColumn fx:id="colCashType" editable="false" text="Тип оплати"/>
+                                       <FilterableStringTableColumn fx:id="colPricingDescription" editable="false" text="Опис"/>
 
                                    </columns>
                                    <opaqueInsets>
@@ -73,6 +74,9 @@
                                            <font>
                                                <Font size="14.0" />
                                            </font>
+                                           <tooltip>
+                                               <Tooltip text="Оновити" />
+                                           </tooltip>
                                        </JFXButton>
 
 
@@ -86,6 +90,9 @@
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
+                                                    <tooltip>
+                                                        <Tooltip text="Повернути в обробку" />
+                                                    </tooltip>
                                                 </JFXButton>
                                                    </graphic></MenuItem>
                                   </items>
@@ -108,7 +115,30 @@
                                     <JFXTextField fx:id="searchingField" promptText="Введіть скорочення" unFocusColor="#5e5353" />
 
 
-                                     <JFXToggleButton fx:id="btn_ButtonAll" nodeOrientation="RIGHT_TO_LEFT" prefHeight="22.0" prefWidth="141.0" text="Мої" />
+                                       <VBox>
+                                           <ToggleButton fx:id="btn_ButtonPricing" nodeOrientation="RIGHT_TO_LEFT" prefHeight="22.0" prefWidth="141.0" text="Ціноутворення Мої" >
+                                           <tooltip>
+                                               <Tooltip text="Ціноутворення Мої" />
+                                           </tooltip>
+                                       </ToggleButton>
+                                           <ToggleButton fx:id="btn_ButtonAllPricing" nodeOrientation="RIGHT_TO_LEFT" prefHeight="22.0" prefWidth="141.0" text="Ціноутворення Всі" >
+                                               <tooltip>
+                                                   <Tooltip text="Ціноутворення Всі" />
+                                               </tooltip>
+                                           </ToggleButton>
+                                       </VBox>
+                                       <VBox>
+                                           <ToggleButton fx:id="btn_Button" nodeOrientation="RIGHT_TO_LEFT" prefHeight="22.0" prefWidth="141.0" text="Закуп Мої" >
+                                               <tooltip>
+                                                   <Tooltip text="Закуп Мої" />
+                                               </tooltip>
+                                           </ToggleButton>
+                                           <ToggleButton fx:id="btn_ButtonAll" nodeOrientation="RIGHT_TO_LEFT" prefHeight="22.0" prefWidth="141.0" text="Закуп Всі" >
+                                           <tooltip>
+                                               <Tooltip text="Закуп Всі" />
+                                           </tooltip>
+                                           </ToggleButton>
+                                       </VBox>
                                        <ScrollPane fx:id="scrollPaneFilter" prefHeight="49.0" BorderPane.alignment="CENTER_LEFT">
                                            <content>
                                                <HBox fx:id="hboxFilter" alignment="CENTER_LEFT" prefHeight="45.0"/>
