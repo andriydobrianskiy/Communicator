@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.mainPage.tableutils.CustomTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import org.google.jhsheets.filtered.tablecolumn.FilterableIntegerTableColumn?>
+<?import org.google.jhsheets.filtered.tablecolumn.FilterableStringTableColumn?>
+
+<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainPage.InProcessing.InProcessingRequest.InProcessingRequestController">
+   <center>
+      <CustomTableView fx:id="tableView">
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <columns>
+            <FilterableStringTableColumn fx:id="colIndex" editable="false" text="Індекс" />
+            <FilterableStringTableColumn fx:id="colSkrut" editable="false" text="Скорочення" />
+            <FilterableStringTableColumn fx:id="colNewDescription" editable="false" text="Назва/Опис" />
+            <FilterableStringTableColumn fx:id="colOfferingName" editable="false" text="Продукт" />
+            <FilterableIntegerTableColumn fx:id="colQuantity" editable="false" text="Кількість" />
+            <FilterableStringTableColumn fx:id="colDefaultOfferingCode" editable="false" text="Код товару" />
+            <FilterableStringTableColumn fx:id="colNewOfferingCode" editable="false" text="Код товару (новий)" />
+
+         </columns>
+      </CustomTableView>
+   </center>
+   <bottom>
+      <HBox>
+         <JFXButton fx:id="editButton" onAction="#handleButtonEdit" style="-fx-background-color: #c5ba46" text="Змінити" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <HBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </HBox.margin></JFXButton>
+         <JFXButton fx:id="colorByOfferingSaleButton" style="-fx-background-color: seagreen" text="Підтвердити замовлення продукту" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <HBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </HBox.margin></JFXButton>
+         <JFXButton fx:id="cancelColorByOfferingSaleButton" style="-fx-background-color: #8b1612" text="Відмовити замовлення продукту" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <HBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </HBox.margin></JFXButton>
+
+      </HBox>
+   </bottom>
+</BorderPane>

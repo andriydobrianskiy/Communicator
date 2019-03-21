@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="417.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainPage.page.PageAdministrationController">
+   <center>
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="259.0" prefWidth="364.0" BorderPane.alignment="CENTER">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="687.0">
+               <children>
+                  <VBox layoutX="-1.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="197.0" prefWidth="689.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="227.0" text="Вікно" textAlignment="JUSTIFY">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <JFXComboBox fx:id="idWindow" onAction="#actionWindow" prefHeight="25.0" prefWidth="639.0" />
+                        <Label text="Кнопка">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <JFXComboBox fx:id="idButton" onAction="#actionButton" prefHeight="25.0" prefWidth="639.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane fx:id="anchorPane" minHeight="0.0" minWidth="0.0" prefHeight="226.0" prefWidth="443.0">
+               <children>
+                  <HBox layoutX="-1.0" layoutY="173.0" prefHeight="28.0" prefWidth="445.0">
+                     <children>
+                        <JFXButton fx:id="idContactName" onAction="#actionContactName" text="Додати користувача" />
+                        <JFXButton fx:id="idGroupName" onAction="#actionGroupName" text="Додати групу" />
+                        <JFXButton fx:id="idDelete" onAction="#actionDelete" text="Видалити доступ" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <TableView fx:id="tableView" layoutX="-1.0" layoutY="4.0" prefHeight="128.0" prefWidth="689.0">
+                    <columns>
+                      <TableColumn fx:id="colName" prefWidth="145.0" text="Назва користувача" />
+                        <TableColumn fx:id="colJob" prefWidth="150.0" text="Назва групи" />
+                        <TableColumn fx:id="colType" prefWidth="75.0" text="Тип" />
+                      <TableColumn fx:id="colAccess" prefWidth="75.0" text="Доступ" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <Pagination fx:id="pagination" layoutX="11.0" layoutY="132.0" prefHeight="45.0" prefWidth="675.0" />
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </center>
+</BorderPane>

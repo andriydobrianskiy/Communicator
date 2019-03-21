@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainPage.page.MainPageController">
+   <center>
+
+
+      <BorderPane BorderPane.alignment="CENTER">
+        <top>
+            <MenuBar BorderPane.alignment="CENTER">
+                <menus>
+
+                    <Menu mnemonicParsing="false" text="Оновлення">
+                        <items>
+                            <MenuItem onAction="#actionUpdateProgram" mnemonicParsing="false" text="Оновити"  />
+
+                        </items>
+                    </Menu>
+                    <Menu fx:id="administrationID" mnemonicParsing="false" text="Адміністрування">
+                        <items>
+                            <MenuItem onAction="#actionPageAdministation" mnemonicParsing="false" text="Доступи до програми"  />
+
+                        </items>
+                    </Menu>
+
+                </menus>
+            </MenuBar>
+        </top>
+         <center>
+            <BorderPane BorderPane.alignment="CENTER">
+               <center>
+
+                  <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE">
+
+                     <tabs>
+
+                        <Tab fx:id="tabNotFulledView" text="Не виконані">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0">
+                                 <children>
+                                    <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <center>
+                                          <fx:include fx:id="notFulledView" source="NotFulledView.fxml" />
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab fx:id="tabInProcessing" text="В обробці">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <center>
+                                          <fx:include fx:id="inProcessingView" source="InProcessingView.fxml" />
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab fx:id="tabInTract" text="В тракті">
+                          <content>
+                            <AnchorPane>
+                                 <children>
+                                    <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <center>
+                                          <fx:include fx:id="inTractView" source="InTractView.fxml" />
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab fx:id="tabArchive" text="Архівні">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <center>
+                                          <fx:include fx:id="archiveFilesView" source="ArchiveFilesView.fxml" />
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab fx:id="tabAll" text="Всі">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <center>
+                                          <fx:include fx:id="allView" source="AllView.fxml" />
+                                       </center>
+                                    </BorderPane>
+                                 </children></AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab fx:id="tabStatistic" text="Статистика">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <children>
+                                  <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <center>
+                                          <fx:include fx:id="statisticView" source="StatisticView.fxml" />
+                                      </center>
+                                  </BorderPane>
+                              </children></AnchorPane>
+                          </content>
+                        </Tab>
+
+
+                     </tabs>
+                  </JFXTabPane>
+
+               </center>
+
+            </BorderPane>
+
+         </center>
+      </BorderPane>
+
+   </center>
+</BorderPane>
