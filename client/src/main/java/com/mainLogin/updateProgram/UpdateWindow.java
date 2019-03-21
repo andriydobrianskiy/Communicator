@@ -84,7 +84,6 @@ public class UpdateWindow extends StackPane {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-    //    upcomingFeaturesTextArea.appendText(getInfo("textReadUpdater"));
 
 
 
